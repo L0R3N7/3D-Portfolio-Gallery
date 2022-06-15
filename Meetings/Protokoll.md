@@ -91,12 +91,15 @@ Content-Creation bei den Meileinsteienen aufklären: ist verwirrend wegen Ähnli
 >Vielleicht die Suchpage von der Landingpage komplett trennen? </br>
 > Als Team darüber nachdenken, was passiert, wenn jemand ausfällt – Worst-Case-Szenario im Griff haben
 
-
 >bis Dienstag 21.06.22:
+>
+> - DIP Formular ausfüllen und an die Professoren weiterleiten
+>   - falls nicht in Ordnung wird es abgelehnt und kommt zurück
+>   - small possibility, dass das Thema vom AV abgelehnt wird
 >
 >bis Dienstag 28.06.22:
 >
 > - User Stories fix und fertig
 >   - mindestens 20
 >   - an die Vorlagen in Teams halten
->   - 
+>   - im nachinein können weitere erstellt werden
