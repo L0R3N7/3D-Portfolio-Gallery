@@ -1,3 +1,3 @@
-# 3D Project
+# 3D Portfolio Gallery
 
 Diplomarbeit
