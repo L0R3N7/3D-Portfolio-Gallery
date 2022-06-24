@@ -103,3 +103,14 @@ Content-Creation bei den Meileinsteienen aufklären: ist verwirrend wegen Ähnli
 >   - mindestens 20
 >   - an die Vorlagen in Teams halten
 >   - im nachinein können weitere erstellt werden
+
+## Protokoll am 24.06.22
+
+Besprechen der einzelnen Punkte des Diplomarbeitsformular.
+
+Ausbessern der einzelnen Punkte in real time, nicht bis zum nächsten Mal..
+
+> ❕ Arbeitszeiten schon in Ferien erfassen
+
+Formular wird heute an AV gesendet. Ist von uns unterschrieben, eingescannt und an die Professoren gesendet worden.
+> ❕ do *NOT* forget User Stories bis 28.06.22
