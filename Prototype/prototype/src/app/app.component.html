@@ -1,6 +1,8 @@
 <ngt-canvas>
   <ngt-ambient-light [intensity]=".5"></ngt-ambient-light>
-
   <app-cube [position]="[1.2, 0, 0]"></app-cube>
   <app-cube [position]="[-1.2, 0, 0]"></app-cube>
+
+  <ngt-point-light [position]="[0, 3, 0]" [intensity]="1.2"></ngt-point-light>
+  <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
 </ngt-canvas>
