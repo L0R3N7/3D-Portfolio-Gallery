@@ -1,0 +1,72 @@
+@startuml
+entity User {
+    email / username: string
+    password : hashed
+    --
+    icon_url: string
+}
+
+entity Exhibition {
+    id: number <<generated>>
+    --
+    thumbnail_url: string
+    title: string
+    room_id : number
+}
+
+entity Room {
+    id : number <<generated>>
+    --
+    name: string
+    positions_amount : number
+    room_url: string
+}
+
+entity Position{
+    id : number <<generated>>
+    room_id : number
+    ---
+    x : number
+    y : number
+    is_Wall : boolean
+}
+
+entity Exhibition_Category {
+    Exhibition_id : number
+    Category_id : number
+}
+
+entity Category{
+   id : number <<generated>>
+   --
+   title: string
+}
+
+entity Exhibit {
+    id: number <<generated>> 
+    --
+    url: string
+    datatype: string
+    title: string
+    desc: string
+}
+
+entity available_Exhibits_in_Exibitions{
+    Exhibition_id : number
+    Exhibit_id : number
+    ---
+    Position_id : number
+}
+
+User ||--o{ Exhibition
+User ||--o{ Exhibit
+Exhibition }o--|| available_Exhibits_in_Exibitions
+Exhibit }o--|| available_Exhibits_in_Exibitions
+available_Exhibits_in_Exibitions |o--|| Position
+Exhibition }o--|| Exhibition_Category
+Exhibition_Category ||--o{ Category
+Room ||--o{ Position
+Exhibition }o--|| Room
+
+
+@enduml
