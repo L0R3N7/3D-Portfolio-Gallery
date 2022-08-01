@@ -1,1 +1,13 @@
 <router-outlet></router-outlet>
+<ngt-canvas>
+  <ngt-ambient-light intensity="0.5"></ngt-ambient-light>
+  <ngt-spot-light [position]="10" angle="0.15" penumbra="1"></ngt-spot-light>
+  <ngt-point-light [position]="-10"></ngt-point-light>
+
+  <ngt-mesh>
+    <ngt-box-geometry></ngt-box-geometry>
+    <ngt-mesh-basic-material></ngt-mesh-basic-material>
+  </ngt-mesh>
+
+  <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+</ngt-canvas>

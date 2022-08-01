@@ -7,6 +7,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component'
+import {NgtCanvasModule} from "@angular-three/core";
+import {NgtAmbientLightModule, NgtPointLightModule, NgtSpotLightModule} from "@angular-three/core/lights";
+import {NgtMeshModule} from "@angular-three/core/meshes";
+import {NgtBoxGeometryModule} from "@angular-three/core/geometries";
+import {NgtMeshBasicMaterialModule} from "@angular-three/core/materials";
+import {NgtSobaOrbitControlsModule} from "@angular-three/soba/controls";
 
 const routes: Routes = []
 
@@ -21,6 +27,14 @@ const routes: Routes = []
     BrowserAnimationsModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
+    NgtCanvasModule,
+    NgtAmbientLightModule,
+    NgtSpotLightModule,
+    NgtPointLightModule,
+    NgtMeshModule,
+    NgtBoxGeometryModule,
+    NgtMeshBasicMaterialModule,
+    NgtSobaOrbitControlsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
