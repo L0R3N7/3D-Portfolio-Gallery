@@ -13,7 +13,6 @@ import {NgtMeshModule} from "@angular-three/core/meshes";
 import {NgtBoxGeometryModule} from "@angular-three/core/geometries";
 import {NgtMeshBasicMaterialModule} from "@angular-three/core/materials";
 import {NgtSobaOrbitControlsModule} from "@angular-three/soba/controls";
-import { CTComponent } from './components/c-t/c-t.component';
 
 const routes: Routes = []
 
@@ -22,7 +21,6 @@ const routes: Routes = []
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    CTComponent
   ],
   imports: [
     BrowserModule,
