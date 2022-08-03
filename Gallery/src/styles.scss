@@ -20,14 +20,23 @@
 }
 
 //Colours
+///Background
 $bc-primary: #ded;
+$bc-secondary: #919;
+///Font
 $c-font: #222;
+$c-secondary-font: #ded;
+///Colour
 $c-primary: #9197C6;
 $c-error: #d96546;
 $c-action: -webkit-linear-gradient(45deg, #576391, #B470B7);
 
 //Size
 $s-side-margin: 7.5%;
+$s-round: 5px;
+$s-max-round: 12px;
+
+$shadow-values: 0 4px 4px 0 #00000020;
 
 
 /**     HTML - Elements     **/
@@ -102,16 +111,19 @@ a {
 }
 
 .shadow{
-  box-shadow: 0 4px 4px 0 #00000020;
+  box-shadow: $shadow-values;
+}
+.shadow-inner{
+  box-shadow: inset $shadow-values;
 }
 
 .rounded{
   border: 0px;
-  border-radius: 5px;
+  border-radius: $s-round;
 }
 .most-rounded{
   border: 0px;
-  border-radius: 12px;
+  border-radius: $s-max-round;
 }
 
 
