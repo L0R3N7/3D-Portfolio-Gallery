@@ -1,8 +1,10 @@
 @startuml
 entity User {
-    email / username: string
-    password : hashed
+    id: number <<generated>>
     --
+    email: string
+    username: string
+    password: hashed
     icon_url: string
 }
 
