@@ -157,6 +157,13 @@ mat-icon{
   text-decoration-line: underline;
 }
 
+.action-button{
+  background-image: $c-action;
+  color: $c-secondary-font;
+  border: none;
+  border-radius: $s-round;
+  box-shadow: $shadow-values;
+}
 
 
 
