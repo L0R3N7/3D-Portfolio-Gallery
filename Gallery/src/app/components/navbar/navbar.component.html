@@ -1,13 +1,23 @@
 <nav class="bg-primary-c w-100" *ngIf="navbar.visible">
     <div class="row nav-container mx-4">
-      <div class="col-4">
+      <div class="col-3">
         <img class="logo" routerLink="/home" rel="logo" src="assets/img/3d-logo.png">
         <a class="navbar-brand no-after title" routerLink="/home"><b class="font-gradient">Portfolio</b></a>
       </div>
-      <div class="col-4 text-center">
-        <a class="navbar-brand nostyle" ><mat-icon>search</mat-icon>Search</a>
+      <div class="col-6 text-center ">
+        <div class="d-flex justify-content-between">
+          <a class="navbar-brand nostyle"
+             routerLink="/home" routerLinkActive="link-activated"><mat-icon>home</mat-icon>Home</a>
+          <a class="navbar-brand nostyle"
+             routerLink="/search" routerLinkActive="link-activated"><mat-icon>search</mat-icon>Search</a>
+          <a class="navbar-brand nostyle"
+             routerLink="/profile" routerLinkActive="link-activated"><mat-icon>person
+          </mat-icon>Profile</a>
+          <a class="navbar-brand nostyle"
+             routerLink="/question" routerLinkActive="link-activated"><mat-icon>question_marks</mat-icon>Questions</a>
+        </div>
       </div>
-      <div class="col-4" >
+      <div class="col-3" >
         <a class="navbar-brand nostyle" style="float: right" routerLink="/log-signin"><button class="profile px-5 action-button" >Sign in / Log in</button></a>
       </div>
     </div>

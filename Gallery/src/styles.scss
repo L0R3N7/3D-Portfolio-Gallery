@@ -83,6 +83,7 @@ p, i {
 }
 
 a {
+  cursor: pointer;
   font-size: 16pt;
   transition: filter ease-in 250ms;
   color: $c-font;
@@ -163,6 +164,12 @@ mat-icon{
   border: none;
   border-radius: $s-round;
   box-shadow: $shadow-values;
+}
+
+.link-activated{
+  @extend .font-gradient;
+  @extend .underlined;
+  font-width: bold;
 }
 
 
