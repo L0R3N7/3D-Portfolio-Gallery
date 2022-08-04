@@ -1,0 +1,12 @@
+@import "src/styles";
+
+.color-side{
+  width: 33.33%;
+  height: 100%;
+  background-image: $c-action;
+}
+
+.white-side{
+  width: 66.66%;
+  height: 100%;
+}
