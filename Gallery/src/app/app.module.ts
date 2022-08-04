@@ -16,6 +16,7 @@ import { LogSigninPageComponent } from './site-components/log-signin-page/log-si
 import { ProfilePageComponent } from './site-components/profile-page/profile-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import {MatIconModule} from "@angular/material/icon";
 
 const routes: Routes = []
 
@@ -28,20 +29,21 @@ const routes: Routes = []
     NavbarComponent,
     FooterComponent,
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    RouterModule.forRoot(routes),
-    NgtCanvasModule,
-    NgtAmbientLightModule,
-    NgtSpotLightModule,
-    NgtPointLightModule,
-    NgtMeshModule,
-    NgtBoxGeometryModule,
-    NgtMeshBasicMaterialModule,
-    NgtSobaOrbitControlsModule,
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        RouterModule.forRoot(routes),
+        NgtCanvasModule,
+        NgtAmbientLightModule,
+        NgtSpotLightModule,
+        NgtPointLightModule,
+        NgtMeshModule,
+        NgtBoxGeometryModule,
+        NgtMeshBasicMaterialModule,
+        NgtSobaOrbitControlsModule,
+        MatIconModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
