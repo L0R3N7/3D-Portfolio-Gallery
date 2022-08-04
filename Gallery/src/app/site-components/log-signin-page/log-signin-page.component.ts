@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NavbarServiceService} from "../../components/navbar/navbar-service.service";
 
 @Component({
   selector: 'app-log-signin-page',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogSigninPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(public navbar: NavbarServiceService) { }
 
   ngOnInit(): void {
+    this.navbar.hide()
   }
 
 }
