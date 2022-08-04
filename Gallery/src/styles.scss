@@ -78,9 +78,8 @@ h6{
   font-weight: normal;
 }
 
-p {
+p, i {
   font-size: 16pt;
-  color: $c-action;
 }
 
 a {
@@ -94,6 +93,10 @@ a {
   &:hover{
     filter: saturate(1.5);
   }
+}
+
+mat-icon{
+  vertical-align: sub;
 }
 
 /** Custom - Class **/
@@ -128,10 +131,6 @@ a {
   background-color: $bc-secondary !important;
 }
 
-.no-after:after{
-  content: none;
-}
-
 .font-primary-c{
   color: $c-font !important;
 }
@@ -144,7 +143,7 @@ a {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
-  &, .underlined:after{
+  & .underlined:after{
       content: '';
       background: $c-action;
       bottom: 0;
