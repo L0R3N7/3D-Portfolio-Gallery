@@ -22,10 +22,10 @@
 //Colours
 ///Background
 $bc-primary: #eee;
-$bc-secondary: #919;
+$bc-secondary: #9096c5;
 ///Font
 $c-font: #222;
-$c-secondary-font: #ded;
+$c-secondary-font: #eee;
 ///Colour
 $c-primary: #9197C6;
 $c-error: #d96546;
@@ -73,6 +73,10 @@ h5{
   color: $c-primary;
   font-weight: normal;
 }
+h6{
+  font-size: 20pt;
+  font-weight: normal;
+}
 
 p {
   font-size: 16pt;
@@ -83,7 +87,7 @@ a {
   font-size: 16pt;
   transition: filter ease-in 250ms;
   color: $c-font;
-  
+
   &:visited {
     filter: invert(.2);
   }
@@ -103,6 +107,9 @@ a {
 .shadow-inner{
   box-shadow: inset $shadow-values;
 }
+.drop-shadow-inner{
+  filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+}
 
 .rounded{
   border: 0px;
@@ -117,8 +124,19 @@ a {
   background-color: $bc-primary !important;
 }
 
+.bg-secondary-c{
+  background-color: $bc-secondary !important;
+}
+
 .no-after:after{
   content: none;
+}
+
+.font-primary-c{
+  color: $c-font !important;
+}
+.font-secondary-c{
+  color: $c-secondary-font !important;
 }
 
 .font-gradient{
