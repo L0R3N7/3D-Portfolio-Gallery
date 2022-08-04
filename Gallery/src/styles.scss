@@ -81,32 +81,9 @@ p {
 
 a {
   font-size: 16pt;
-  background-image: $c-action;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  position: relative;
   transition: filter ease-in 250ms;
-
-  &:after {
-    content: '';
-    background: $c-action;
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    width: 100%;
-    height: 2%;
-  }
-
-  &.nostyle{
-    color: $c-font;
-    background-image: none;
-    -webkit-background-clip: unset;
-    -webkit-text-fill-color: unset;
-    &:after{
-      content: none;
-    }
-  }
-
+  color: $c-font;
+  
   &:visited {
     filter: invert(.2);
   }
@@ -144,7 +121,24 @@ a {
   content: none;
 }
 
-
+.font-gradient{
+  background-image: $c-action;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  &, .underlined:after{
+      content: '';
+      background: $c-action;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      width: 100%;
+      height: 2%;
+  }
+}
+.underlined{
+  text-decoration-line: underline;
+}
 
 
 
