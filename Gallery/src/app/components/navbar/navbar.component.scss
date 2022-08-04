@@ -1,13 +1,18 @@
+@import "src/styles";
+
 .logo{
   width: 10%;
   height: auto;
-  margin-right: 5%;
+  margin-right: 3%;
 }
 .title{
-  top: 10%
+  top: 10%;
+  font-size: 24px;
+
 }
 .nav-container{
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin: 0;
   padding: 0;
@@ -15,4 +20,11 @@
 nav{
   margin-top: 1%;
 }
-
+.profile {
+  color: $c-secondary-font;
+  background-image: $c-action;
+  border: none;
+  border-radius: $s-round;
+  padding: 5%;
+  box-shadow: $shadow-values;
+}
