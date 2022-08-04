@@ -11,12 +11,22 @@ import {NgtMeshModule} from "@angular-three/core/meshes";
 import {NgtBoxGeometryModule} from "@angular-three/core/geometries";
 import {NgtMeshBasicMaterialModule} from "@angular-three/core/materials";
 import {NgtSobaOrbitControlsModule} from "@angular-three/soba/controls";
+import { HomePageComponent } from './site-components/home-page/home-page.component';
+import { LogSigninPageComponent } from './site-components/log-signin-page/log-signin-page.component';
+import { ProfilePageComponent } from './site-components/profile-page/profile-page.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 const routes: Routes = []
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomePageComponent,
+    LogSigninPageComponent,
+    ProfilePageComponent,
+    NavbarComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

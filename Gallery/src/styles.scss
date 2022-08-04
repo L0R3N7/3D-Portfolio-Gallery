@@ -21,7 +21,7 @@
 
 //Colours
 ///Background
-$bc-primary: #ded;
+$bc-primary: #eee;
 $bc-secondary: #919;
 ///Font
 $c-font: #222;
@@ -97,6 +97,16 @@ a {
     height: 2%;
   }
 
+  &.nostyle{
+    color: $c-font;
+    background-image: none;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    &:after{
+      content: none;
+    }
+  }
+
   &:visited {
     filter: invert(.2);
   }
@@ -124,6 +134,14 @@ a {
 .most-rounded{
   border: 0px;
   border-radius: $s-max-round;
+}
+
+.bg-primary-c{
+  background-color: $bc-primary !important;
+}
+
+.no-after:after{
+  content: none;
 }
 
 
