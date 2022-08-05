@@ -19,6 +19,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import {MatIconModule} from "@angular/material/icon";
 import { SlideshowComponent } from './components/slideshow/slideshow.component';
 import { ExhibitionCardComponent } from './components/exhibition-card/exhibition-card.component';
+import {MatCardModule} from "@angular/material/card";
 
 const routes: Routes = []
 
@@ -47,6 +48,7 @@ const routes: Routes = []
         NgtMeshBasicMaterialModule,
         NgtSobaOrbitControlsModule,
         MatIconModule,
+        MatCardModule,
     ],
   providers: [],
   bootstrap: [AppComponent]
