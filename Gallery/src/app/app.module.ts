@@ -18,7 +18,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {MatIconModule} from "@angular/material/icon";
 import { SlideshowComponent } from './components/slideshow/slideshow.component';
-import { ExhibitionWidgetComponent } from './components/exhibition-widget/exhibition-widget.component';
+import { ExhibitionCardComponent } from './components/exhibition-card/exhibition-card.component';
 
 const routes: Routes = []
 
@@ -31,7 +31,7 @@ const routes: Routes = []
     NavbarComponent,
     FooterComponent,
     SlideshowComponent,
-    ExhibitionWidgetComponent,
+    ExhibitionCardComponent
   ],
     imports: [
         BrowserModule,
