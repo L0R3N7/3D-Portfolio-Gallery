@@ -1,0 +1,20 @@
+@import "src/styles";
+
+.cls-1{
+  fill: $bc-primary;
+}
+.cls-2{
+  stroke: $bc-secondary;
+  stroke-miterlimit: 10;
+  stroke-width: 15px;
+  fill: none;
+}
+
+#styleElement{
+  position: absolute;
+  top: -10%;
+  right: 0;
+  z-index: -1;
+  width: 60vw;
+  height:auto;
+}
