@@ -115,6 +115,10 @@ mat-icon{
   filter: drop-shadow(0px 4px 4px rgb(0 0 0 / 0.2));
 }
 
+.drop-shadow-inner{
+  filter: drop-shadow(inset 0px 4px 4px rgb(0 0 0 / 0.2));
+}
+
 .rounded{
   border: 0px;
   border-radius: $s-round;
