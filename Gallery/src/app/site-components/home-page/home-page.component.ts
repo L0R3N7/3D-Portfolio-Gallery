@@ -9,7 +9,8 @@ import {FooterService} from "../../components/footer/footer.service";
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(public navbar: NavbarServiceService, public footer: FooterService) { }
+  constructor(public navbar: NavbarServiceService, public footer: FooterService) {
+  }
 
   ngOnInit(): void {
     this.navbar.show()
