@@ -1,0 +1,23 @@
+@import "src/styles";
+
+.search-border{
+
+  background: $c-action;
+  position: relative;
+  margin-top: 5%;
+  width: 40%;
+  padding: 3px;
+  border-radius: $s-round;
+  box-shadow: $shadow-values;
+  margin-bottom: 5%;
+}
+.search-icon{
+  background: white;
+  transform: scale(1.4);
+  border-radius: $s-round;
+  box-shadow: $shadow-values;
+}
+.input-group-text{
+  background: none;
+  border: 0;
+}
