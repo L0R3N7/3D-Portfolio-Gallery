@@ -19,7 +19,11 @@ import { FooterComponent } from './components/footer/footer.component';
 import {MatIconModule} from "@angular/material/icon";
 import { SlideshowComponent } from './components/slideshow/slideshow.component';
 import { ExhibitionCardComponent } from './components/exhibition-card/exhibition-card.component';
+
 import {MatCardModule} from "@angular/material/card";
+
+import { SearchPageComponent } from './site-components/search-page/search-page.component';
+
 
 const routes: Routes = []
 
@@ -32,7 +36,8 @@ const routes: Routes = []
     NavbarComponent,
     FooterComponent,
     SlideshowComponent,
-    ExhibitionCardComponent
+    ExhibitionCardComponent,
+    SearchPageComponent
   ],
     imports: [
         BrowserModule,
