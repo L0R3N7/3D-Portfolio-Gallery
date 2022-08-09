@@ -1,4 +1,4 @@
-<nav class="w-100" *ngIf="navbar.visible">
+<nav class="w-100" *ngIf="this.navbar.visible; else showMinimal">
     <div class="row nav-container mx-4">
       <div class="col-3">
         <img class="logo" routerLink="/home" rel="logo" src="../../../assets/image/3d-logo.png">
@@ -22,3 +22,11 @@
       </div>
     </div>
 </nav>
+
+<ng-template #showMinimal>
+  <nav class="w-100">
+    <a routerLink="/home" class="font-gradient ps-2">
+      <-- Home
+    </a>
+  </nav>
+</ng-template>
