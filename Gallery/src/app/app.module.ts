@@ -24,6 +24,7 @@ import { SearchPageComponent } from './site-components/search-page/search-page.c
 import { CreateExhibitionPageComponent } from './site-components/create-exhibition-page/create-exhibition-page.component';
 import { TagComponent } from './components/tag/tag.component';
 import { InfoTagComponent } from './components/info-tag/info-tag.component';
+import {MatStepperModule} from "@angular/material/stepper";
 
 
 const routes: Routes = []
@@ -57,7 +58,8 @@ const routes: Routes = []
     NgtMeshBasicMaterialModule,
     NgtSobaOrbitControlsModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatStepperModule
   ],
   providers: [],
   bootstrap: [AppComponent]
