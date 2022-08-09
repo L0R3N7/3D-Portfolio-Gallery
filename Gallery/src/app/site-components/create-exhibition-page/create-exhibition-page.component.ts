@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {NavbarServiceService} from "../../components/navbar/navbar-service.service";
+import {FooterService} from "../../components/footer/footer.service";
 
 @Component({
   selector: 'app-create-exhibition-page',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateExhibitionPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(public navbar: NavbarServiceService, public footer: FooterService) { }
 
   ngOnInit(): void {
+    this.navbar.hide()
+    this.footer.hide()
   }
 
 }
