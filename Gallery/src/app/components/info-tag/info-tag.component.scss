@@ -5,3 +5,11 @@
   right: 1em;
   margin-top: 1%;
 }
+
+#info-overlay{
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(15px);
+}

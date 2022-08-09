@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InfoTagComponent implements OnInit {
 
-  constructor() { }
+  visible : boolean;
+
+  constructor() {
+    this.visible = true;
+  }
 
   ngOnInit(): void {
   }
 
+  toggleVisiblity(){
+    this.visible = !this.visible;
+  }
 }
