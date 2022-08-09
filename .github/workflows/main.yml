@@ -27,4 +27,4 @@ jobs:
           
       - name: run server
         run: ./mvnw compile quarkus:dev
-        working-directory: ./dev/3D_Gallery
+        working-directory: ./dev/3DProject
