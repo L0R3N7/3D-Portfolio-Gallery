@@ -92,7 +92,7 @@ a {
     filter: invert(.2);
   }
   &:hover{
-    filter: saturate(1.5);
+    @extend .hover-saturated;
   }
 }
 
@@ -165,6 +165,10 @@ mat-icon{
   text-decoration-line: underline;
 }
 
+.fs-2rem{
+  font-size: 2rem;
+}
+
 .action-button{
   background-image: $c-action;
   color: $c-secondary-font;
@@ -177,6 +181,14 @@ mat-icon{
   @extend .font-gradient;
   @extend .underlined;
   font-width: bold;
+}
+
+.hover-saturated{
+  transition: filter ease-in 250ms;
+
+  &:hover{
+    filter: saturate(1.5);
+  }
 }
 
 
