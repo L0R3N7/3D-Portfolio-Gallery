@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SlideshowComponent implements OnInit {
 
+
   constructor() { }
 
   ngOnInit(): void {

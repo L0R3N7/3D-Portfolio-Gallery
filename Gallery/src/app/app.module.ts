@@ -23,6 +23,7 @@ import { ExhibitionCardComponent } from './components/exhibition-card/exhibition
 import {MatCardModule} from "@angular/material/card";
 
 import { SearchPageComponent } from './site-components/search-page/search-page.component';
+import { CreateExhibitionPageComponent } from './site-components/create-exhibition-page/create-exhibition-page.component';
 
 
 const routes: Routes = []
@@ -37,8 +38,25 @@ const routes: Routes = []
     FooterComponent,
     SlideshowComponent,
     ExhibitionCardComponent,
-    SearchPageComponent
+    SearchPageComponent,
+    CreateExhibitionPageComponent
   ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    RouterModule.forRoot(routes),
+    NgtCanvasModule,
+    NgtAmbientLightModule,
+    NgtSpotLightModule,
+    NgtPointLightModule,
+    NgtMeshModule,
+    NgtBoxGeometryModule,
+    NgtMeshBasicMaterialModule,
+    NgtSobaOrbitControlsModule,
+    MatIconModule,
+  ],
+<<<<<<< Updated upstream
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -55,6 +73,8 @@ const routes: Routes = []
         MatIconModule,
         MatCardModule,
     ],
+=======
+>>>>>>> Stashed changes
   providers: [],
   bootstrap: [AppComponent]
 })
