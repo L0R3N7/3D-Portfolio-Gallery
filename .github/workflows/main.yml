@@ -24,8 +24,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-          
+      - name: jdk17
+        uses: actions/setup-java@v2
+        with:
+          java-version: "17"
+          distribution: "adopt"
+
       - name: run server
         run: ./mvnw compile quarkus:dev
         working-directory: ./dev/3DProject
