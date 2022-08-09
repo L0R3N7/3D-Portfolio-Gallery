@@ -7,7 +7,7 @@
   width: 33.33%;
   height:100%;
   background-image: $c-action;
-  z-index: 1;
+  z-index: -9;
 }
 
 .white-side{
@@ -16,9 +16,6 @@
   left: 33.33%;
   width: 66.66%;
   height: 100%;
-}
-.ps-2{
-  -webkit-text-fill-color: white;
 }
 .logo{
   width: 10%;

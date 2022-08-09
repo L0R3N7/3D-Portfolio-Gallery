@@ -17,15 +17,15 @@
           </mat-icon>Profile</a>
         </div>
       </div>
-      <div class="col-3" >
+      <div class="col-3">
         <a class="navbar-brand" style="float: right" routerLink="/log-signin"><button class="profile px-5 action-button" >Sign in / Log in</button></a>
       </div>
     </div>
 </nav>
 
 <ng-template #showMinimal>
-  <nav *ngif="!this.navbar.white" class="w-100" >
-    <a routerLink="/home" class="font-gradient ps-2 fw-bold" style="z-index: 2">
+  <nav class="w-100" >
+    <a routerLink="/home" [ngClass]="{'font-gradient': !this.navbar.white, 'font-secondary-c': this.navbar.white}" class="ps-2 fw-bold">
       <-- Home
     </a>
   </nav>

@@ -13,6 +13,7 @@ export class LogSigninPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.navbar.hide()
+    this.navbar.changeWhite()
     this.footer.hide()
   }
 
