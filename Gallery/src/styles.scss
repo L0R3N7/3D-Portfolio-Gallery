@@ -108,6 +108,9 @@ mat-icon{
 .shadow{
   box-shadow: $shadow-values;
 }
+.shadow_stronger{
+  box-shadow: 0 6px 12px 0 #00000030;
+}
 .shadow-inner{
   box-shadow: inset $shadow-values;
 }
