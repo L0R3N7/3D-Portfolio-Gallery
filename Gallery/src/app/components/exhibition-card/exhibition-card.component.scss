@@ -1,0 +1,30 @@
+@import "src/styles";
+
+.exhibition-card {
+  min-width: 250px;
+  width: 25%;
+  background-color: $bc-secondary;
+  color: $c-secondary-font;
+  border-radius: $s-round;
+  box-shadow: $shadow-values;
+  transition: box-shadow linear 150ms;
+
+  &:hover{
+    transition: box-shadow linear 300ms;
+    @extend .shadow_stronger;
+  }
+}
+.card-thumbnail{
+  height: 200px;
+  object-fit: cover;
+  object-position: 100% 20%;
+}
+mat-card-content{
+  font-size: .75em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

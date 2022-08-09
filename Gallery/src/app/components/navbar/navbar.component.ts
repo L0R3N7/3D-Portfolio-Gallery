@@ -11,6 +11,8 @@ export class NavbarComponent implements OnInit {
   constructor(public navbar: NavbarServiceService) { }
 
   ngOnInit(): void {
+    this.navbar.white = false;
+    this.navbar.visible = true;
     var inlineNav : any;
   }
 

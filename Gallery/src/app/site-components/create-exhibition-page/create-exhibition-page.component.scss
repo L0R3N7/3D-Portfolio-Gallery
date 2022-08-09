@@ -1,0 +1,11 @@
+@import "./src/styles.scss";
+
+mat-horizontal-stepper{
+  background-color: unset !important;
+}
+
+button{
+  @extend .action-button;
+  padding: .25em 1em;
+  margin: 1em;
+}

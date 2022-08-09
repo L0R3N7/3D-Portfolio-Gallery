@@ -42,6 +42,7 @@ entity Category{
    id : number <<generated>>
    --
    title: string
+   color: varchar2(6)
 }
 
 entity Exhibit {

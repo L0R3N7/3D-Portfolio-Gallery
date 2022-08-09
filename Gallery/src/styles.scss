@@ -1,5 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-
+/*** Global Style Sheet ***/
 /**  Variables **/
 //Fonts
 @font-face {
@@ -92,13 +91,16 @@ a {
     filter: invert(.2);
   }
   &:hover{
-    filter: saturate(1.5);
+    @extend .hover-saturated;
   }
 }
 
 mat-icon{
   vertical-align: sub;
 }
+
+
+
 
 /** Custom - Class **/
 .wrapper{
@@ -107,6 +109,9 @@ mat-icon{
 
 .shadow{
   box-shadow: $shadow-values;
+}
+.shadow_stronger{
+  box-shadow: 0 6px 12px 0 #00000030;
 }
 .shadow-inner{
   box-shadow: inset $shadow-values;
@@ -162,6 +167,10 @@ mat-icon{
   text-decoration-line: underline;
 }
 
+.fs-2rem{
+  font-size: 2rem;
+}
+
 .action-button{
   background-image: $c-action;
   color: $c-secondary-font;
@@ -176,5 +185,14 @@ mat-icon{
   font-width: bold;
 }
 
+.hover-saturated{
+  transition: filter ease-in 250ms;
 
+  &:hover{
+    filter: saturate(1.5);
+  }
+}
 
+.pointer{
+  cursor: pointer;
+}

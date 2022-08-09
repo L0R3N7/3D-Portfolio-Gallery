@@ -10,6 +10,7 @@
   fill: none;
 }
 
+
 #styleElement{
   position: absolute;
   top: -10%;
@@ -17,4 +18,8 @@
   z-index: -1;
   width: 60vw;
   height:auto;
+}
+
+#slideshow-container{
+  display: inline;
 }

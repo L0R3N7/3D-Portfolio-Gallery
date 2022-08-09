@@ -1,0 +1,16 @@
+<div id="info-tag-wrapper" class="hover-saturated" (click)="toggleVisiblity()">
+  <mat-icon class="font-gradient fs-2rem w-auto h-auto">
+    help_outline
+  </mat-icon>
+</div>
+<div *ngIf="visible" id="info-overlay" class="vh-100 w-100">
+  <div class="container d-flex align-items-center justify-content-center flex-column py-4 h-100">
+      <div>
+        <ng-content></ng-content>
+      </div>
+      <div>
+        <button class="action-button p-2 w-100 my-3 hover-saturated" (click)="toggleVisiblity()">got it</button>
+        <p class="font-gradient underlined hover-saturated pointer" (click)="toggleVisiblity()">don't show again</p>
+      </div>
+  </div>
+</div>

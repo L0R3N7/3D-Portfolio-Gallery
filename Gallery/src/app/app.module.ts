@@ -19,7 +19,13 @@ import { FooterComponent } from './components/footer/footer.component';
 import {MatIconModule} from "@angular/material/icon";
 import { SlideshowComponent } from './components/slideshow/slideshow.component';
 import { ExhibitionCardComponent } from './components/exhibition-card/exhibition-card.component';
+import {MatCardModule} from "@angular/material/card";
 import { SearchPageComponent } from './site-components/search-page/search-page.component';
+import { CreateExhibitionPageComponent } from './site-components/create-exhibition-page/create-exhibition-page.component';
+import { TagComponent } from './components/tag/tag.component';
+import { InfoTagComponent } from './components/info-tag/info-tag.component';
+import {MatStepperModule} from "@angular/material/stepper";
+
 
 const routes: Routes = []
 
@@ -33,23 +39,28 @@ const routes: Routes = []
     FooterComponent,
     SlideshowComponent,
     ExhibitionCardComponent,
-    SearchPageComponent
+    SearchPageComponent,
+    CreateExhibitionPageComponent,
+    TagComponent,
+    InfoTagComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        RouterModule.forRoot(routes),
-        NgtCanvasModule,
-        NgtAmbientLightModule,
-        NgtSpotLightModule,
-        NgtPointLightModule,
-        NgtMeshModule,
-        NgtBoxGeometryModule,
-        NgtMeshBasicMaterialModule,
-        NgtSobaOrbitControlsModule,
-        MatIconModule,
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    RouterModule.forRoot(routes),
+    NgtCanvasModule,
+    NgtAmbientLightModule,
+    NgtSpotLightModule,
+    NgtPointLightModule,
+    NgtMeshModule,
+    NgtBoxGeometryModule,
+    NgtMeshBasicMaterialModule,
+    NgtSobaOrbitControlsModule,
+    MatIconModule,
+    MatCardModule,
+    MatStepperModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

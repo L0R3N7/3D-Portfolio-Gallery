@@ -1,12 +1,33 @@
 @import "src/styles";
 
 .color-side{
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 33.33%;
-  height: 100%;
+  height:100%;
   background-image: $c-action;
+  z-index: -9;
 }
 
 .white-side{
+  position: absolute;
+  top: 0;
+  left: 33.33%;
   width: 66.66%;
   height: 100%;
+}
+.logo{
+  width: 10%;
+  height: auto;
+  margin-right: 3%;
+}
+.title{
+  top: 10%;
+  font-size: 24px;
+
+}
+.content-wrapper{
+  margin-top: 20%;
+  margin-left: 40%;
 }
