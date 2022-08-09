@@ -55,26 +55,8 @@ const routes: Routes = []
     NgtMeshBasicMaterialModule,
     NgtSobaOrbitControlsModule,
     MatIconModule,
+    MatCardModule
   ],
-<<<<<<< Updated upstream
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        RouterModule.forRoot(routes),
-        NgtCanvasModule,
-        NgtAmbientLightModule,
-        NgtSpotLightModule,
-        NgtPointLightModule,
-        NgtMeshModule,
-        NgtBoxGeometryModule,
-        NgtMeshBasicMaterialModule,
-        NgtSobaOrbitControlsModule,
-        MatIconModule,
-        MatCardModule,
-    ],
-=======
->>>>>>> Stashed changes
   providers: [],
   bootstrap: [AppComponent]
 })
