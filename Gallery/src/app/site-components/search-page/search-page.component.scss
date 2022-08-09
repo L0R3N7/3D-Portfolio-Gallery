@@ -1,7 +1,6 @@
 @import "src/styles";
 
 .search-border{
-
   background: $c-action;
   position: relative;
   margin-top: 5%;
@@ -20,4 +19,30 @@
 .input-group-text{
   background: none;
   border: 0;
+}
+.outer-box{
+  margin: 0;
+  position: absolute;
+  top:0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.search-icon-lg{
+  position: absolute;
+  top: 12%;
+  left: 28.5%;
+  transform: scale(8);
+  color: $c-primary;
+}
+.found-results{
+  position: absolute;
+  top: 17.2%;
+  left: 33%;
+
+}
+.search-tag{
+  position: absolute;
+  top: 14.2%;
+  left: 30%;
 }

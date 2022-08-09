@@ -8,7 +8,7 @@ import {FooterService} from "../../components/footer/footer.service";
   styleUrls: ['./profile-page.component.scss']
 })
 export class ProfilePageComponent implements OnInit {
-  username : string = "Max Mittermayer";
+  username : string = "Max Mustermann";
 
   constructor(public navbar: NavbarServiceService, public footer: FooterService) {
   }

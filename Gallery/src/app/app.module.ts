@@ -24,6 +24,7 @@ import {MatCardModule} from "@angular/material/card";
 
 import { SearchPageComponent } from './site-components/search-page/search-page.component';
 import { CreateExhibitionPageComponent } from './site-components/create-exhibition-page/create-exhibition-page.component';
+import { TagComponent } from './components/tag/tag.component';
 
 
 const routes: Routes = []
@@ -39,7 +40,8 @@ const routes: Routes = []
     SlideshowComponent,
     ExhibitionCardComponent,
     SearchPageComponent,
-    CreateExhibitionPageComponent
+    CreateExhibitionPageComponent,
+    TagComponent
   ],
   imports: [
     BrowserModule,
