@@ -32,4 +32,4 @@ jobs:
 
       - name: run server
         run: ./mvnw compile quarkus:dev
-        working-directory: /dev/3DProject
+        working-directory: ./dev/3DProject
