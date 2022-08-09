@@ -10,7 +10,7 @@ export class InfoTagComponent implements OnInit {
   visible : boolean;
 
   constructor() {
-    this.visible = true;
+    this.visible = false;
   }
 
   ngOnInit(): void {
