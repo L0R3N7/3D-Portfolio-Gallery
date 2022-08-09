@@ -8,7 +8,11 @@ export class NavbarServiceService {
 
   visible: boolean;
   white: boolean;
-  constructor() { this.visible = false; this.white = false}
+
+  constructor() {
+    this.visible = false;
+    this.white = false;
+  }
 
   hide(){
     this.visible = false;

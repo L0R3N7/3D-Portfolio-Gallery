@@ -15,6 +15,7 @@ export class CreateExhibitionPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.navbar.white = false; 
     this.navbar.hide()
     this.footer.hide()
   }
