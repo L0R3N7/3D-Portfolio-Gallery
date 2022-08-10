@@ -4,8 +4,19 @@ mat-horizontal-stepper{
   background-color: unset !important;
 }
 
+.create-wrapper{
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  .create-wrapper {
+    width: 75%;
+  }
+}
+
 button{
   @extend .action-button;
-  padding: .25em 1em;
-  margin: 1em;
 }
