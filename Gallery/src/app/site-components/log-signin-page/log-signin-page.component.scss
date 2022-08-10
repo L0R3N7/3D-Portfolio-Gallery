@@ -19,15 +19,51 @@
 }
 .logo{
   width: 10%;
-  height: auto;
+  margin-bottom: 4%;
   margin-right: 3%;
+
 }
 .title{
-  top: 10%;
-  font-size: 24px;
+
+  top: 20%;
+  font-size: 40px;
 
 }
 .content-wrapper{
-  margin-top: 20%;
+  margin-top: 15%;
   margin-left: 40%;
 }
+h2{
+ text-align: center;
+}
+form{
+margin-left: 30%;
+
+}
+input{
+  margin-top: 5%;
+  width: 60%;
+  font-size: 1em;
+  border: 5px solid $c-primary;
+  border-radius: $s-round;
+  box-shadow: $shadow-values;
+}
+button{
+  margin-top: 5%;
+  width: 60%;
+  font-size: 1.5em;
+  background-image: $c-action;
+  color: $c-secondary-font;
+  box-shadow: $shadow-values;
+}
+hr{
+  width: 30%;
+
+}
+.sign-up-text{
+  text-align: center;
+}
+.ps-2{
+  text-decoration: none;
+}
+
