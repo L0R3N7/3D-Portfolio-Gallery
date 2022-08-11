@@ -32,4 +32,4 @@ jobs:
 
       - name: run server
         run: ./mvnw compile quarkus:dev
-        working-directory: /3D-Portfolio-Gallery/dev/da-3d-gallery
+        working-directory: 3D-Portfolio-Gallery/dev/da-3d-gallery
