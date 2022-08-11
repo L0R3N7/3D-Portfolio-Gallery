@@ -25,6 +25,8 @@ import { CreateExhibitionPageComponent } from './site-components/create-exhibiti
 import { TagComponent } from './components/tag/tag.component';
 import { InfoTagComponent } from './components/info-tag/info-tag.component';
 import {MatStepperModule} from "@angular/material/stepper";
+import {FormsModule} from "@angular/forms";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 
 const routes: Routes = []
@@ -43,6 +45,7 @@ const routes: Routes = []
     CreateExhibitionPageComponent,
     TagComponent,
     InfoTagComponent
+
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,9 @@ const routes: Routes = []
     NgtSobaOrbitControlsModule,
     MatIconModule,
     MatCardModule,
-    MatStepperModule
+    MatStepperModule,
+    FormsModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
