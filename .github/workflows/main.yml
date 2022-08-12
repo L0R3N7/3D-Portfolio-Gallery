@@ -32,4 +32,4 @@ jobs:
 
       - name: run server
         run: java -jar code-with-quarkus-1.0.0-SNAPSHOT-runner.jar
-        working-directory: 3D-Portfolio-Gallery/dev/
+        working-directory: ./dev/
