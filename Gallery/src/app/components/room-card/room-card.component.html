@@ -1,7 +1,7 @@
-<div id="room-card-wrapper" class="most-rounded shadow mb-2" style="min-width: 350px; width: 30%;">
-  <img style="object-fit: cover; aspect-ratio: 16/10;" class="most-rounded-top  w-100" src="https://www.smb.museum/uploads/tx_smb/news/news_67970/Neues-Museum_Raum-Prolog_Achim_Kleuker_xl.jpg">
-  <div class="d-flex p-2 justify-content-between">
-    <p class="fw-bold w-100">Room-Name</p>
-    <p class="w-100" style="text-align: right;">26 Spaces*</p>
+<div *ngIf="room" id="room-card-wrapper" class="most-rounded pb-2 bg-secondary-c shadow" style="min-width: 350px; width: 30%;">
+  <img style="object-fit: cover; aspect-ratio: 16/10;" class="most-rounded-top  w-100" src="{{this.room.room_img_url}}">
+  <div class="d-flex p-2 justify-content-between font-secondary-c">
+    <p class="text-nowrap fw-bold w-100">{{this.room.id}}: {{this.room.name}}</p>
+    <p class="text-nowrap w-100" style="text-align: right;">{{this.room.position_amount}} Spaces*</p>
   </div>
 </div>

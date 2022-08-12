@@ -28,6 +28,9 @@ import {MatStepperModule} from "@angular/material/stepper";
 import {FormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { RoomCardComponent } from './components/room-card/room-card.component';
+import { CreateExhibitionMetadataComponent } from './site-components/create-exhibition-page/create-exhibition-metadata/create-exhibition-metadata.component';
+import { CreateExhibitionRoomselectionComponent } from './site-components/create-exhibition-page/create-exhibition-roomselection/create-exhibition-roomselection.component';
+import {HttpClientModule} from "@angular/common/http";
 
 
 const routes: Routes = []
@@ -46,7 +49,9 @@ const routes: Routes = []
     CreateExhibitionPageComponent,
     TagComponent,
     InfoTagComponent,
-    RoomCardComponent
+    RoomCardComponent,
+    CreateExhibitionMetadataComponent,
+    CreateExhibitionRoomselectionComponent
 
   ],
   imports: [
@@ -66,7 +71,8 @@ const routes: Routes = []
     MatCardModule,
     MatStepperModule,
     FormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

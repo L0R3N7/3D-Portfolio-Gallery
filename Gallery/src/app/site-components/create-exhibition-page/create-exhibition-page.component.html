@@ -1,20 +1,10 @@
 <app-info-tag></app-info-tag>
 <div class="create-wrapper position-md-relative position-lg-absolute mx-auto">
   <div class="container">
-    <mat-horizontal-stepper linear #stepper (selectionChange)="selectionChanged($event)" [selectedIndex]="0">
+    <mat-horizontal-stepper linear #stepper (selectionChange)="selectionChanged($event)" [selectedIndex]="2">
       <mat-step>
         <ng-template matStepLabel>Exhibition Metadata</ng-template>
-        <h2 class="text-center">Exhibition Metadata</h2>
-        <div class="d-flex">
-          <mat-icon id="exhibition_name_icon" class="me-2">mode_edit</mat-icon>
-          <input type="text" placeholder="Exhibition Name"  id="exhibition_name">
-        </div>
-        <h4>Thumbnail</h4>
-        <h4>select Categories</h4>
-        <h4>Description</h4>
-        <textarea class=""></textarea>
-        <div>
-        </div>
+        <app-create-exhibition-metadata></app-create-exhibition-metadata>
         <div class="w-100">
           <button mat-button class="w-100" matStepperNext>Next</button>
         </div>
@@ -29,28 +19,7 @@
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Select Room</ng-template>
-        <h2 class="text-center">Select Room</h2>
-        <div>
-          <h4>Recommended:</h4>
-          <app-slideshow>
-            <app-room-card></app-room-card>
-            <app-room-card></app-room-card>
-            <app-room-card></app-room-card>
-            <app-room-card></app-room-card>
-            <app-room-card></app-room-card>
-            <app-room-card></app-room-card>
-          </app-slideshow>
-          <hr>
-          <h4>All:</h4>
-          <app-slideshow>
-            <app-room-card></app-room-card>
-            <app-room-card></app-room-card>
-            <app-room-card></app-room-card>
-            <app-room-card></app-room-card>
-            <app-room-card></app-room-card>
-            <app-room-card></app-room-card>
-          </app-slideshow>
-        </div>
+        <app-create-exhibition-roomselection></app-create-exhibition-roomselection>
         <div class="w-100 clearfix">
           <button class="w-49" mat-button matStepperPrevious>Back</button>
           <button class="float-end w-49" mat-button matStepperNext>Next</button>

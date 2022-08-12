@@ -25,17 +25,3 @@ button{
   }
 }
 
-#exhibition_name{
-  background-color: $bc-primary;
-  border: 0;
-  width: 100%;
-  font-size: 4rem;
-  &:focus-visible{
-    outline: none;
-  }
-}
-#exhibition_name_icon{
-  font-size: 4rem;
-  width: auto;
-  height: auto;
-}

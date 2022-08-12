@@ -1,0 +1,12 @@
+<h2 class="text-center my-5">Select Room</h2>
+<div>
+  <h4>Recommended:</h4>
+  <app-slideshow>
+    <app-room-card *ngFor="let r of rooms" [room]="r"></app-room-card>
+  </app-slideshow>
+  <hr>
+  <h4>All:</h4>
+  <app-slideshow>
+    <app-room-card *ngFor="let r of rooms" [room]="r"></app-room-card>
+  </app-slideshow>
+</div>
