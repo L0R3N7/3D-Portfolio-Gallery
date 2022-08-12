@@ -31,5 +31,5 @@ jobs:
           distribution: "adopt"
 
       - name: run server
+        working-directory: ./dev
         run: java -jar code-with-quarkus-1.0.0-SNAPSHOT-runner.jar
-        working-directory: dev/
