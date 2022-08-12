@@ -31,4 +31,4 @@ jobs:
           distribution: "adopt"
 
       - name: run server
-        run: 3D-Portfolio-Gallwery/dev/code-with-quarkus-1.0.0-SNAPSHOT-runner-jar
+        run: 3D-Portfolio-Gallery/dev/code-with-quarkus-1.0.0-SNAPSHOT-runner-jar
