@@ -11,12 +11,26 @@ mat-horizontal-stepper{
   width: 100%;
 }
 
+
+.w-49{
+  width: 49%;
+}
+button{
+   @extend .action-button;
+ }
+
 @media (min-width: 992px) {
   .create-wrapper {
     width: 75%;
   }
 }
 
-button{
-  @extend .action-button;
+#exhibition_name{
+  background-color: $bc-primary;
+  border: 0;
+  font-size: 3rem;
+  width: 100%;
+  &:focus-visible{
+    outline: none;
+  }
 }

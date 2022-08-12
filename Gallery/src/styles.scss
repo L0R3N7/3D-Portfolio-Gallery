@@ -129,6 +129,10 @@ mat-icon{
   border: 0px;
   border-radius: $s-max-round;
 }
+.most-rounded-top{
+  border: 0px;
+  border-radius: $s-max-round $s-max-round 0 0;
+}
 
 .bg-primary-c{
   background-color: $bc-primary !important;

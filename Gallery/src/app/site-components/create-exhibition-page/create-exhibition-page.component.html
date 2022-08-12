@@ -1,37 +1,66 @@
 <app-info-tag></app-info-tag>
 <div class="create-wrapper position-md-relative position-lg-absolute mx-auto">
   <div class="container">
-    <mat-horizontal-stepper linear #stepper (selectionChange)="selectionChanged($event)" >
+    <mat-horizontal-stepper linear #stepper (selectionChange)="selectionChanged($event)" [selectedIndex]="0">
       <mat-step>
-        <ng-template matStepLabel>Fill out </ng-template>
+        <ng-template matStepLabel>Exhibition Metadata</ng-template>
+        <h2 class="text-center">Exhibition Metadata</h2>
+        <h4>Thumbnail</h4>
+        <h4>select Categories</h4>
+        <h4>Description</h4>
+        <textarea class=""></textarea>
         <div>
-          <h1></h1>
         </div>
         <div class="w-100">
-          <button mat-button class="w-100 " matStepperNext>Next</button>
+          <button mat-button class="w-100" matStepperNext>Next</button>
         </div>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Fill out your address</ng-template>
-        <div class="row w-100 align-items-center">
-          <button class="col-5" mat-button matStepperPrevious>Back</button>
-          <button class="col-5" mat-button matStepperNext>Next</button>
+        <ng-template matStepLabel>Select Exhibits</ng-template>
+        <h2 class="text-center">Select Exhibits</h2>
+        <div class="w-100 clearfix">
+          <button class="w-49" mat-button matStepperPrevious>Back</button>
+          <button class="float-end w-49" mat-button matStepperNext>Next</button>
         </div>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Not quite yet</ng-template>
-        You are now done.
+        <ng-template matStepLabel>Select Room</ng-template>
+        <h2 class="text-center">Select Room</h2>
         <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()">Reset</button>
+          <h4>Recommended:</h4>
+          <app-slideshow>
+            <app-room-card></app-room-card>
+            <app-room-card></app-room-card>
+            <app-room-card></app-room-card>
+            <app-room-card></app-room-card>
+            <app-room-card></app-room-card>
+            <app-room-card></app-room-card>
+          </app-slideshow>
+          <hr>
+          <h4>All:</h4>
+          <app-slideshow>
+            <app-room-card></app-room-card>
+            <app-room-card></app-room-card>
+            <app-room-card></app-room-card>
+            <app-room-card></app-room-card>
+            <app-room-card></app-room-card>
+            <app-room-card></app-room-card>
+          </app-slideshow>
+        </div>
+        <div class="w-100 clearfix">
+          <button class="w-49" mat-button matStepperPrevious>Back</button>
+          <button class="float-end w-49" mat-button matStepperNext>Next</button>
         </div>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        You are now done.
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()">Reset</button>
+        <ng-template matStepLabel>Arrange Exhibition</ng-template>
+        <h2 class="text-center">Arrange Exhibition</h2>
+        <div class="my-5">
+
+        </div>
+        <div class="w-100 clearfix">
+          <button class="w-49" mat-button matStepperPrevious>Back</button>
+          <button class="float-end w-49" mat-button (click)="stepper.reset()">Reset</button>
         </div>
       </mat-step>
     </mat-horizontal-stepper>
