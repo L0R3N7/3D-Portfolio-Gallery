@@ -2,11 +2,11 @@
 <div>
   <h4>Recommended:</h4>
   <app-slideshow>
-    <app-room-card *ngFor="let r of rooms" [room]="r"></app-room-card>
+    <app-room-card class="room-card" *ngFor="let r of rooms" [room]="r" (click)="selectRoom(r.id)" [ngClass]="{'disabled' : r.id != selectedRoom_id && selectedRoom_id != -1}"></app-room-card>
   </app-slideshow>
   <hr>
   <h4>All:</h4>
   <app-slideshow>
-    <app-room-card *ngFor="let r of rooms" [room]="r"></app-room-card>
+    <app-room-card  class="room-card" *ngFor="let r of rooms" [room]="r" (click)="selectRoom(r.id)" [ngClass]="{'disabled' : r.id != selectedRoom_id && selectedRoom_id != -1}"></app-room-card>
   </app-slideshow>
 </div>

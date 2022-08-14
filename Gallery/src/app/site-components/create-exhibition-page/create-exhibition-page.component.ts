@@ -12,19 +12,17 @@ import {StepperSelectionEvent} from "@angular/cdk/stepper";
 export class CreateExhibitionPageComponent implements OnInit {
 
   @ViewChild('stepper') stepper : MatStepper | undefined;
-  constructor(public navbar: NavbarServiceService, public footer: FooterService) {
+  constructor(public navbar: NavbarServiceService, public footer: FooterService) {}
 
-  }
-
-
+  stepsCompleted : boolean[] = [];
 
   ngOnInit(): void {
     this.navbar.white = false;
     this.navbar.hide()
     this.footer.hide()
+    this.stepsCompleted = new Array(this.stepper?.steps.length).fill(false);
   }
 
   selectionChanged(event: StepperSelectionEvent) {
-    console.log(event.selectedIndex)
   }
 }

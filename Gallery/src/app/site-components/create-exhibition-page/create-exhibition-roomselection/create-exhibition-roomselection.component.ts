@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {GalleryService} from "../../../shared/gallery.service";
 import {Room} from "../../../shared/room";
 
@@ -9,9 +9,16 @@ import {Room} from "../../../shared/room";
 })
 export class CreateExhibitionRoomselectionComponent implements OnInit {
   rooms: Room[] = [];
+  selectedRoom_id : number = -1;
 
+  @Output() roomSelectedEvent = new EventEmitter<number>();
 
   constructor(public gs: GalleryService) { }
+
+  selectRoom(selectedId:number){
+    this.selectedRoom_id = selectedId;
+    this.roomSelectedEvent.emit(selectedId);
+  }
 
   ngOnInit(): void {
     this.gs.getAllRooms().subscribe(res => this.rooms = res);
