@@ -25,12 +25,15 @@ import { CreateExhibitionPageComponent } from './site-components/create-exhibiti
 import { TagComponent } from './components/tag/tag.component';
 import { InfoTagComponent } from './components/info-tag/info-tag.component';
 import {MatStepperModule} from "@angular/material/stepper";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { RoomCardComponent } from './components/room-card/room-card.component';
 import { CreateExhibitionMetadataComponent } from './site-components/create-exhibition-page/create-exhibition-metadata/create-exhibition-metadata.component';
 import { CreateExhibitionRoomselectionComponent } from './site-components/create-exhibition-page/create-exhibition-roomselection/create-exhibition-roomselection.component';
 import {HttpClientModule} from "@angular/common/http";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { SearchTagsComponent } from './components/search-tags/search-tags.component';
 
 
 const routes: Routes = []
@@ -51,7 +54,8 @@ const routes: Routes = []
     InfoTagComponent,
     RoomCardComponent,
     CreateExhibitionMetadataComponent,
-    CreateExhibitionRoomselectionComponent
+    CreateExhibitionRoomselectionComponent,
+    SearchTagsComponent
 
   ],
   imports: [
@@ -72,7 +76,10 @@ const routes: Routes = []
     MatStepperModule,
     FormsModule,
     MatFormFieldModule,
-    HttpClientModule
+    HttpClientModule,
+    MatChipsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]
