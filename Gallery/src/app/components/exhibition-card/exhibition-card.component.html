@@ -1,5 +1,15 @@
   <mat-card class="exhibition-card">
     <img mat-card-image class="card-thumbnail" src="assets/image/placeholder-card.jpg" alt="card-thumbnail">
+    <div class="outer-scroll-container">
+    <div class="scroll-container">
+      <div cdkDragLockAxis="x" cdkDragBoundary=".outer-scroll-container" cdkDrag>
+        <app-tag></app-tag>
+        <app-tag></app-tag>
+        <app-tag></app-tag>
+        <app-tag></app-tag>
+      </div>
+    </div>
+    </div>
     <mat-card-title>
       Vincent van Gogh and the philosopher stone
     </mat-card-title>

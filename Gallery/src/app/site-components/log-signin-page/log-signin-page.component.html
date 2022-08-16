@@ -4,12 +4,10 @@
     </div>
     <div class="col white-side">
       <div class="content-wrapper">
-          <img class="logo" routerLink="/home" rel="logo" src="../../../assets/image/3d-logo.png">
+          <img class="logo" rel="logo" src="../../../assets/image/3d-logo.png">
           <a class="navbar-brand no-after title" ><b class="font-gradient">Portfolio</b></a>
-
       </div>
       <h2>Welcome Back</h2>
-
       <form>
         <p>
             <input matInput placeholder="email@example.com" name="email" ngModel type="email">
@@ -20,9 +18,6 @@
         <button type="submit" class="py-1 rounded">Log In</button>
       </form>
       <hr class="mx-auto my-5">
-
-      <p class="sign-up-text">Don't have an account yet? <a class="font-gradient underlined">Sign up</a></p>
-
+      <p class="sign-up-text">Don't have an account yet? <a class="font-gradient underlined" routerLink="/signup">Sign up</a></p>
   </div>
-
   </div>

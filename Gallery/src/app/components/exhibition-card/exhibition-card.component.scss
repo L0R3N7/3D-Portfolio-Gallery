@@ -27,4 +27,10 @@ mat-card-content{
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
+.scroll-container{
+  overflow: hidden;
+}
+.outer-scroll-container{
+  position: absolute;
+  width: 200%;
+}

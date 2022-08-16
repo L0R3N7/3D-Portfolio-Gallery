@@ -27,6 +27,8 @@ import { InfoTagComponent } from './components/info-tag/info-tag.component';
 import {MatStepperModule} from "@angular/material/stepper";
 import {FormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import { SignupPageComponent } from './site-components/signup-page/signup-page.component';
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 
 const routes: Routes = []
@@ -44,7 +46,8 @@ const routes: Routes = []
     SearchPageComponent,
     CreateExhibitionPageComponent,
     TagComponent,
-    InfoTagComponent
+    InfoTagComponent,
+    SignupPageComponent
 
   ],
   imports: [
@@ -64,7 +67,8 @@ const routes: Routes = []
     MatCardModule,
     MatStepperModule,
     FormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
