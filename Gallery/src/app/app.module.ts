@@ -25,7 +25,7 @@ import { CreateExhibitionPageComponent } from './site-components/create-exhibiti
 import { TagComponent } from './components/tag/tag.component';
 import { InfoTagComponent } from './components/info-tag/info-tag.component';
 import {MatStepperModule} from "@angular/material/stepper";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { SignupPageComponent } from './site-components/signup-page/signup-page.component';
 import {DragDropModule} from "@angular/cdk/drag-drop";

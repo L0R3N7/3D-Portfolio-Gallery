@@ -1,0 +1,13 @@
+@import "src/styles";
+
+app-room-card{
+  cursor: pointer;
+}
+
+.room-card:hover{
+  filter: saturate(1.6);
+  transition: filter 250ms ease-in-out;
+}
+.disabled, .disabled:hover{
+  filter: grayscale(1);
+}

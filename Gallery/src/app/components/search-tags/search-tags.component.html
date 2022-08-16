@@ -1,0 +1,26 @@
+<input
+  class="w-100 custom_input"
+  placeholder="New category..."
+  #fruitInput
+  [formControl]="tagCtrl"
+  [matAutocomplete]="auto"
+  [matChipInputFor]="chipList"
+  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+  (matChipInputTokenEnd)="add($event)">
+<mat-chip-list #chipList aria-label="Fruit selection">
+  <mat-chip
+    class="font-secondary-c"
+    *ngFor="let tag of tags"
+    [style.background-color]="'#'.concat(tag.color)"
+    (removed)="remove(tag.title)">
+    {{tag.title}}
+    <button matChipRemove>
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </mat-chip>
+</mat-chip-list>
+<mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+  <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+    {{tag}}
+  </mat-option>
+</mat-autocomplete>

@@ -9,3 +9,15 @@
     height: auto;
   }
 }
+#slideshow-container{
+  display: inline;
+  padding-bottom: 1%;
+}
+#slideshow-container::-webkit-scrollbar{
+  height: 5px;
+}
+#slideshow-container::-webkit-scrollbar-thumb{
+  background-color: $bc-secondary;
+  border: 0px;
+  border-radius: 5px;
+}

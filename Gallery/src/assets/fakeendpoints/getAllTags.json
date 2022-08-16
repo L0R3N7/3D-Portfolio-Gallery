@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "title" : "Art",
+    "color" : "32A396"
+  },{
+    "id": 2,
+    "title" : "History",
+    "color" : "E4CB84"
+  },{
+    "id": 3,
+    "title" : "Netherlands",
+    "color" : "59939E"
+  },{
+    "id": 4,
+    "title" : "Post-Impressionist",
+    "color" : "DAAD33"
+  }
+]

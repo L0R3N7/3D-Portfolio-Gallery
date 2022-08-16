@@ -11,12 +11,21 @@ mat-horizontal-stepper{
   width: 100%;
 }
 
+
+.w-49{
+  width: 49%;
+}
+button{
+   @extend .action-button;
+ }
+
 @media (min-width: 992px) {
   .create-wrapper {
     width: 75%;
   }
 }
 
-button{
-  @extend .action-button;
+.disabled, .disabled:hover{
+  filter: grayscale(1);
+  cursor: not-allowed;
 }

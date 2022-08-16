@@ -1,37 +1,39 @@
 <app-info-tag></app-info-tag>
 <div class="create-wrapper position-md-relative position-lg-absolute mx-auto">
   <div class="container">
-    <mat-horizontal-stepper linear #stepper (selectionChange)="selectionChanged($event)" >
-      <mat-step>
-        <ng-template matStepLabel>Fill out </ng-template>
-        <div>
-          <h1></h1>
-        </div>
+    <mat-horizontal-stepper [linear]="true" #stepper (selectionChange)="selectionChanged($event)" [selectedIndex]="0">
+      <mat-step [completed]="stepsCompleted[stepper.selectedIndex]">
+      <ng-template matStepLabel>Exhibition Metadata</ng-template>
+        <app-create-exhibition-metadata></app-create-exhibition-metadata>
         <div class="w-100">
-          <button mat-button class="w-100 " matStepperNext>Next</button>
+          <button [ngClass]="{'disabled':!stepsCompleted[stepper.selectedIndex]}" class="w-100" mat-button matStepperNext>Next</button>
         </div>
       </mat-step>
-      <mat-step>
-        <ng-template matStepLabel>Fill out your address</ng-template>
-        <div class="row w-100 align-items-center">
-          <button class="col-5" mat-button matStepperPrevious>Back</button>
-          <button class="col-5" mat-button matStepperNext>Next</button>
+      <mat-step [completed]="stepsCompleted[stepper.selectedIndex]">
+      <ng-template matStepLabel>Select Exhibits</ng-template>
+        <h2 class="text-center">Select Exhibits</h2>
+        <div class="w-100 clearfix">
+          <button class="w-49" mat-button matStepperPrevious>Back</button>
+          <button class="float-end w-49" mat-button matStepperNext>Next</button>
         </div>
       </mat-step>
-      <mat-step>
-        <ng-template matStepLabel>Not quite yet</ng-template>
-        You are now done.
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()">Reset</button>
+      <mat-step [completed]="stepsCompleted[stepper.selectedIndex]">
+        <ng-template matStepLabel>Select Room</ng-template>
+        <app-create-exhibition-roomselection (roomSelectedEvent)="stepsCompleted[stepper.selectedIndex] = true"></app-create-exhibition-roomselection>
+        <div class="w-100 clearfix">
+          <button class="w-49" mat-button matStepperPrevious>Back</button>
+          <button [ngClass]="{'disabled':!stepsCompleted[stepper.selectedIndex]}" class="float-end w-49" mat-button matStepperNext>Next</button>
         </div>
       </mat-step>
-      <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        You are now done.
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()">Reset</button>
+      <mat-step [completed]="stepsCompleted[stepper.selectedIndex]">
+      <ng-template matStepLabel>Arrange Exhibition</ng-template>
+        <h2 class="text-center">Arrange Exhibition</h2>
+        <div class="my-5">
+
+        </div>
+        <div class="w-100 clearfix">
+          <button class="w-49" mat-button matStepperPrevious>Back</button>
+          <button class="float-end w-49" mat-button (click)="stepper.reset()">Reset</button>
         </div>
       </mat-step>
     </mat-horizontal-stepper>
