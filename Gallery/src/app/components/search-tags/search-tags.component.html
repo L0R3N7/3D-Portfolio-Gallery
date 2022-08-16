@@ -1,6 +1,6 @@
 <input
-  class="w-100"
-  placeholder="New fruit..."
+  class="w-100 custom_input"
+  placeholder="New category..."
   #fruitInput
   [formControl]="tagCtrl"
   [matAutocomplete]="auto"
@@ -9,9 +9,11 @@
   (matChipInputTokenEnd)="add($event)">
 <mat-chip-list #chipList aria-label="Fruit selection">
   <mat-chip
+    class="font-secondary-c"
     *ngFor="let tag of tags"
-    (removed)="remove(tag)">
-    {{tag}}
+    [style.background-color]="'#'.concat(tag.color)"
+    (removed)="remove(tag.title)">
+    {{tag.title}}
     <button matChipRemove>
       <mat-icon>cancel</mat-icon>
     </button>

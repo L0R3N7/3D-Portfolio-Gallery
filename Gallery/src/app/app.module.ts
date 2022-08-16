@@ -34,6 +34,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { SearchTagsComponent } from './components/search-tags/search-tags.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 
 const routes: Routes = []
@@ -55,7 +56,8 @@ const routes: Routes = []
     RoomCardComponent,
     CreateExhibitionMetadataComponent,
     CreateExhibitionRoomselectionComponent,
-    SearchTagsComponent
+    SearchTagsComponent,
+    FileUploadComponent
 
   ],
   imports: [

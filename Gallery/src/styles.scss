@@ -185,6 +185,16 @@ mat-icon{
   box-shadow: $shadow-values;
 }
 
+.custom_input{
+  @extend .rounded;
+  @extend .shadow;
+  border: solid .2rem $bc-secondary;
+}
+
+.error{
+  color: red;
+}
+
 .link-activated{
   @extend .font-gradient;
   @extend .underlined;
@@ -206,9 +216,6 @@ mat-icon{
 .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit{
   @extend .bg-gradient-c;
 }
-
-
-
 
 
 @media (min-width: 576px) {

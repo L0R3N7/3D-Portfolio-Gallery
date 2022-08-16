@@ -6,6 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./create-exhibition-metadata.component.scss']
 })
 export class CreateExhibitionMetadataComponent implements OnInit {
+  selectedTagIds : number[] = []
 
   constructor() {}
 

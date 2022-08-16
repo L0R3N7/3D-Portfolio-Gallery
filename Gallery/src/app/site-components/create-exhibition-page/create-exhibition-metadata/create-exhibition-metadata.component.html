@@ -1,12 +1,17 @@
 <h2 class="text-center">Exhibition Metadata</h2>
-<div class="d-flex">
+<div class="d-flex my-3">
   <mat-icon id="exhibition_name_icon" class="me-2">mode_edit</mat-icon>
-  <input type="text" placeholder="Exhibition Name"  id="exhibition_name">
+  <input type="text" placeholder="Exhibition Name *"  id="exhibition_name">
 </div>
-<h4>Thumbnail</h4>
-<h4>select Categories</h4>
-<app-search-tags></app-search-tags>
-<h4>Description</h4>
-<textarea class=""></textarea>
-<div>
+<div class="my-3">
+  <h4>Upload Thumbnail *</h4>
+  <app-file-upload></app-file-upload>
+</div>
+<div class="my-3">
+  <h4>Select Categories</h4>
+  <app-search-tags (selectedTagIds)="selectedTagIds = $event"></app-search-tags>
+</div>
+<div class="my-3">
+  <h4>Write a Description</h4>
+  <textarea class="w-100 custom_input"></textarea>
 </div>
