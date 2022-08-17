@@ -31,5 +31,5 @@ jobs:
           distribution: "adopt"
 
       - name: run server
-        working-directory: /3D-Portfolio-Gallery/Server/three-d-portfolio-server
+        working-directory: /3D-Portfolio-Gallery/Server/three-d-portfolio-server/
         run: ./mvnw compile quarkus:dev
