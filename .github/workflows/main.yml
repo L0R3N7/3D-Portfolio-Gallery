@@ -32,9 +32,9 @@ jobs:
           java-version: "17"
           distribution: "adopt"
 
-      - name: run server
-        run: ./mvnw compile quarkus:dev
-        working-directory: ./Server/three-d-portfolio-server/
+      #- name: run server
+      #  run: ./mvnw compile quarkus:dev
+      #  working-directory: ./Server/three-d-portfolio-server/
 
       - name: build image for easier upload
         run: | 
@@ -42,4 +42,8 @@ jobs:
           pwd 
           ls -l
       
-    #  - name: trigger CD
+       - name: upload "three-d-portfolio-server-runner.jar" to "target"
+        uses: actions/upload-artifact@v3
+        with:
+          name: three-d-portfolio-server-runner
+          path: ./Server/target/
