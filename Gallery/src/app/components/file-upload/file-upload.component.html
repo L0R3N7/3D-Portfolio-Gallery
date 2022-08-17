@@ -1,4 +1,7 @@
 <div class="d-grid">
-  <input type="file" id="" [accept]="">
+  <input ngfSelect type="file" [(files)]="files"  id="" accept=".jpg, .png" [maxSize]="1024" [(lastInvalids)] = "lastInvalids">
   <label class="error"></label>
+  <div *ngIf="lastInvalids?.length">
+    <p style="color:red;">Last {{ lastInvalids.length }} Invalid Selected Files</p>
+    </div>
 </div>

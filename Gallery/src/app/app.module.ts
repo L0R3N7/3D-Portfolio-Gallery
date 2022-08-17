@@ -41,6 +41,7 @@ import {FileUploadComponent} from "./components/file-upload/file-upload.componen
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatChipsModule} from "@angular/material/chips";
 import {HttpClientModule} from "@angular/common/http";
+import {ngfModule} from "angular-file";
 
 
 const routes: Routes = []
@@ -88,7 +89,8 @@ const routes: Routes = []
     ReactiveFormsModule,
     MatAutocompleteModule,
     MatChipsModule,
-    HttpClientModule
+    HttpClientModule,
+    ngfModule
   ],
   providers: [],
   bootstrap: [AppComponent]

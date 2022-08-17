@@ -8,12 +8,17 @@ import {Component, Input, OnInit} from '@angular/core';
 export class FileUploadComponent implements OnInit {
 
   @Input() media : string = '';
+  lastInvalids: any;
+  files:File[] = [];
 
   constructor() {
   }
 
   ngOnInit(): void {
   }
+
+
+
 
 }
 
