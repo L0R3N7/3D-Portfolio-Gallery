@@ -30,8 +30,6 @@ jobs:
           java-version: "17"
           distribution: "adopt"
 
-      - name: change working path
-        run: cd ..
-
       - name: run server
-        run: ls -la #./mvnw compile quarkus:dev
+        run: ./mvnw compile quarkus:dev
+        working-directory: ./Server/three-d-portfolio-server/
