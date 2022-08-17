@@ -1,11 +1,11 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {MatChipInputEvent} from "@angular/material/chips";
-import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
+import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from "@angular/core";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {FormControl} from "@angular/forms";
-import {map, Observable, startWith} from "rxjs";
-import {GalleryService} from "../../shared/gallery.service";
+import {map, Observable} from "rxjs";
 import {Tag} from "../../shared/tag";
+import {GalleryService} from "../../shared/gallery.service";
+import {MatChipInputEvent} from "@angular/material/chips";
+import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 
 @Component({
   selector: 'app-search-tags',

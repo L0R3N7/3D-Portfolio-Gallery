@@ -29,6 +29,18 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { SignupPageComponent } from './site-components/signup-page/signup-page.component';
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import {
+  CreateExhibitionMetadataComponent
+} from "./site-components/create-exhibition-page/create-exhibition-metadata/create-exhibition-metadata.component";
+import {
+  CreateExhibitionRoomselectionComponent
+} from "./site-components/create-exhibition-page/create-exhibition-roomselection/create-exhibition-roomselection.component";
+import {RoomCardComponent} from "./components/room-card/room-card.component";
+import {SearchTagsComponent} from "./components/search-tags/search-tags.component";
+import {FileUploadComponent} from "./components/file-upload/file-upload.component";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatChipsModule} from "@angular/material/chips";
+import {HttpClientModule} from "@angular/common/http";
 
 
 const routes: Routes = []
@@ -45,10 +57,14 @@ const routes: Routes = []
     ExhibitionCardComponent,
     SearchPageComponent,
     CreateExhibitionPageComponent,
+    CreateExhibitionMetadataComponent,
+    CreateExhibitionRoomselectionComponent,
+    RoomCardComponent,
+    SearchTagsComponent,
+    FileUploadComponent,
     TagComponent,
     InfoTagComponent,
     SignupPageComponent
-
   ],
   imports: [
     BrowserModule,
@@ -68,7 +84,11 @@ const routes: Routes = []
     MatStepperModule,
     FormsModule,
     MatFormFieldModule,
-    DragDropModule
+    DragDropModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
