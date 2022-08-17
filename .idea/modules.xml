@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/3D-Portfolio-Gallery.iml" filepath="$PROJECT_DIR$/.idea/3D-Portfolio-Gallery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Server/three-d-portfolio-server/three-d-portfolio-server.iml" filepath="$PROJECT_DIR$/Server/three-d-portfolio-server/three-d-portfolio-server.iml" />
+    </modules>
+  </component>
+</project>

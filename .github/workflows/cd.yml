@@ -1,0 +1,42 @@
+name: CD
+
+on:
+  workflow_dispatch:
+  
+env:
+  TARGET_FOLDER: ./Server/three-d-portfolio-server/target/
+  
+jobs:
+  native_build:
+    runs-on: ubuntu-latest
+    name: Deploy Quarkus Backend
+
+    steps:
+
+      - uses: actions/checkout@v2
+      
+      - name: install ssh key
+        uses: caberger/install-ssh-key@v1.0
+        with:
+          ssh-private-key:  ${{ secrets.EMA_KEY }}
+          user: ${{ secrets.SERVER_USER }}
+          server: ${{ secrets.SERVER }}
+          alias: three-d-portfolio-server-server
+        
+      - name: download artifact "three-d-portfolio-server-runner"
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: main.yaml
+          name: three-d-portfolio-server-runner
+          path: ${{ env.TARGET_FOLDER }}
+    
+      - name: connect to server and upload artifact "three-d-portfolio-server-runner"
+        run: |
+          ssh three-d-portfolio-server-server "rm -rf ~/dist && mkdir -p ~/dist"
+          scp -r ${{ env.TARGET_FOLDER }} three-d-portfolio-server-server:~/dist
+          
+      - name: run server jar
+        run: |
+          ssh three-d-portfolio-server-server "ls -la ~/dist && cd ~/dist/target/"
+          ssh three-d-portfolio-server-server "java -jar *.jar &"
