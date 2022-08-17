@@ -32,6 +32,7 @@ jobs:
       #  working-directory: ./Server/three-d-portfolio-server/
 
       - name: build image for easier upload
+        working-directory: ./Server/three-d-portfolio-server/
         run: | 
           mvn package -D quarkus.package.type=uber-jar
           pwd 
