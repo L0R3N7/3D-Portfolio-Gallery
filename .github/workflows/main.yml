@@ -31,7 +31,7 @@ jobs:
           distribution: "adopt"
 
       - name: change working path
-        run: cd Server/three-d-portfolio-server
+        run: pwd
 
       - name: run server
         run: ./mvnw compile quarkus:dev
