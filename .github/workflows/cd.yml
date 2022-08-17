@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   
 env:
-  TARGET_FOLDER: ./Server/target/
+  TARGET_FOLDER: ./Server/three-d-portfolio-server/target/
   
 jobs:
   native_build:
