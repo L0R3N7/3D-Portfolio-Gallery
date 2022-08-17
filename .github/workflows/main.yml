@@ -42,4 +42,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: three-d-portfolio-server-runner
-          path: ./Server/target/
+          path: ./Server/three-d-portfolio-server/target/
