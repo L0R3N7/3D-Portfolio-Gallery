@@ -289,3 +289,26 @@ mat-icon{
     position: sticky !important;
   }
 }
+
+
+
+/// Custom Hacks Overwriting Bootstrap and Angular Material
+
+.custom_scrollbar::-webkit-scrollbar{
+  height: 5px;
+}
+.custom_scrollbar::-webkit-scrollbar-thumb{
+  background-color: $bc-secondary;
+  border: 0px;
+  border-radius: 5px;
+}
+
+.exhibition-card-custom > .mat-chip-list-wrapper{
+  @extend .custom_scrollbar;
+  &::-webkit-scrollbar-thumb{
+    background-color: $bc-primary;
+  }
+  flex-wrap: nowrap !important;
+  width: 100%;
+  overflow-x: scroll;
+}
