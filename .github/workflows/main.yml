@@ -34,4 +34,4 @@ jobs:
         run: pwd
 
       - name: run server
-        run: ./mvnw compile quarkus:dev
+        run: ls -la #./mvnw compile quarkus:dev
