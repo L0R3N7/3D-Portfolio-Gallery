@@ -31,7 +31,7 @@ jobs:
           distribution: "adopt"
 
       - name: change working path
-        run: pwd
+        run: cd ..
 
       - name: run server
         run: ls -la #./mvnw compile quarkus:dev
