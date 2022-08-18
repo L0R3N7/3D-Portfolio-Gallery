@@ -18,6 +18,10 @@ mat-horizontal-stepper{
 button{
    @extend .action-button;
  }
+.backbutton{
+  background-image: none;
+  background-color: $bc-secondary;
+}
 
 @media (min-width: 992px) {
   .create-wrapper {

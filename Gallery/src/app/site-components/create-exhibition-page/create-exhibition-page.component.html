@@ -13,7 +13,7 @@
       <ng-template matStepLabel>Select Exhibits</ng-template>
         <h2 class="text-center">Select Exhibits</h2>
         <div class="w-100 clearfix">
-          <button class="w-49" mat-button matStepperPrevious>Back</button>
+          <button class="w-49 backbutton" mat-button matStepperPrevious>Back</button>
           <button class="float-end w-49" mat-button matStepperNext>Next</button>
         </div>
       </mat-step>
@@ -21,7 +21,7 @@
         <ng-template matStepLabel>Select Room</ng-template>
         <app-create-exhibition-roomselection (roomSelectedEvent)="stepsCompleted[stepper.selectedIndex] = true"></app-create-exhibition-roomselection>
         <div class="w-100 clearfix">
-          <button class="w-49" mat-button matStepperPrevious>Back</button>
+          <button class="w-49 backbutton" mat-button matStepperPrevious>Back</button>
           <button [ngClass]="{'disabled':!stepsCompleted[stepper.selectedIndex]}" class="float-end w-49" mat-button matStepperNext>Next</button>
         </div>
       </mat-step>
@@ -32,7 +32,7 @@
 
         </div>
         <div class="w-100 clearfix">
-          <button class="w-49" mat-button matStepperPrevious>Back</button>
+          <button class="w-49 backbutton" mat-button matStepperPrevious>Back</button>
           <button class="float-end w-49" mat-button (click)="stepper.reset()">Reset</button>
         </div>
       </mat-step>
