@@ -1,7 +1,7 @@
 <app-info-tag></app-info-tag>
 <div class="create-wrapper position-md-relative position-lg-absolute mx-auto">
   <div class="container">
-    <mat-horizontal-stepper [linear]="true" #stepper (selectionChange)="selectionChanged($event)" [selectedIndex]="2">
+    <mat-horizontal-stepper [linear]="true" #stepper (selectionChange)="selectionChanged($event)" [selectedIndex]="0">
       <mat-step [completed]="stepsCompleted[stepper.selectedIndex]">
       <ng-template matStepLabel>Exhibition Metadata</ng-template>
         <app-create-exhibition-metadata></app-create-exhibition-metadata>
