@@ -40,6 +40,7 @@ import {FileUploadComponent} from "./components/file-upload/file-upload.componen
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatChipsModule} from "@angular/material/chips";
 import {HttpClientModule} from "@angular/common/http";
+import { CreateExhibitionExhibitselectionComponent } from './site-components/create-exhibition-page/create-exhibition-exhibitselection/create-exhibition-exhibitselection.component';
 
 
 const routes: Routes = []
@@ -62,7 +63,8 @@ const routes: Routes = []
     SearchTagsComponent,
     FileUploadComponent,
     InfoTagComponent,
-    SignupPageComponent
+    SignupPageComponent,
+    CreateExhibitionExhibitselectionComponent
   ],
   imports: [
     BrowserModule,

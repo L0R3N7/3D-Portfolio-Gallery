@@ -312,3 +312,12 @@ mat-icon{
   width: 100%;
   overflow-x: scroll;
 }
+
+.input{
+  margin-top: 5%;
+  width: 60%;
+  font-size: 1em;
+  border: 5px solid $c-primary;
+  border-radius: $s-round;
+  box-shadow: $shadow-values;
+}

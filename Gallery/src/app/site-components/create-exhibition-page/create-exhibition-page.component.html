@@ -1,7 +1,7 @@
 <app-info-tag></app-info-tag>
 <div class="create-wrapper position-md-relative position-lg-absolute mx-auto">
   <div class="container">
-    <mat-horizontal-stepper [linear]="true" #stepper (selectionChange)="selectionChanged($event)" [selectedIndex]="0">
+    <mat-horizontal-stepper [linear]="true" #stepper (selectionChange)="selectionChanged($event)" [selectedIndex]="1  ">
       <mat-step [completed]="stepsCompleted[stepper.selectedIndex]">
       <ng-template matStepLabel>Exhibition Metadata</ng-template>
         <app-create-exhibition-metadata></app-create-exhibition-metadata>
@@ -10,8 +10,9 @@
         </div>
       </mat-step>
       <mat-step [completed]="stepsCompleted[stepper.selectedIndex]">
-      <ng-template matStepLabel>Select Exhibits</ng-template>
-        <h2 class="text-center">Select Exhibits</h2>
+      <ng-template matStepLabel>Exhibits</ng-template>
+        <h2 class="text-center">Exhibits</h2>
+        <app-create-exhibition-exhibitselection></app-create-exhibition-exhibitselection>
         <div class="w-100 clearfix">
           <button class="w-49 backbutton" mat-button matStepperPrevious>Back</button>
           <button class="float-end w-49" mat-button matStepperNext>Next</button>
