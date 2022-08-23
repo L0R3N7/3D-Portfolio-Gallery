@@ -1,11 +1,14 @@
 @import "src/styles";
 
 .create-div{
-  margin-right: 28%;
+margin-right: 15% ;
+}
+.collection-div{
+
 }
 button{
   margin-top: 5%;
-  width: 60%;
+  width: 100%;
   font-size: 1.5em;
   background-image: $c-action;
   color: $c-secondary-font;
@@ -18,6 +21,14 @@ hr{
   width: 33%;
   height: 5px;
   color: $c-primary;
-
-
 }
+.input{
+  width: 100%;
+}
+.list{
+
+  height: 100%;
+  width: 100%;
+  border: 2px solid $c-primary;
+}
+

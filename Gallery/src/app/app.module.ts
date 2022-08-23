@@ -41,6 +41,8 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatChipsModule} from "@angular/material/chips";
 import {HttpClientModule} from "@angular/common/http";
 import { CreateExhibitionExhibitselectionComponent } from './site-components/create-exhibition-page/create-exhibition-exhibitselection/create-exhibition-exhibitselection.component';
+import {MatListModule} from "@angular/material/list";
+import { ExhibitCardComponent } from './components/exhibit-card/exhibit-card.component';
 
 
 const routes: Routes = []
@@ -64,32 +66,34 @@ const routes: Routes = []
     FileUploadComponent,
     InfoTagComponent,
     SignupPageComponent,
-    CreateExhibitionExhibitselectionComponent
+    CreateExhibitionExhibitselectionComponent,
+    ExhibitCardComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    RouterModule.forRoot(routes),
-    NgtCanvasModule,
-    NgtAmbientLightModule,
-    NgtSpotLightModule,
-    NgtPointLightModule,
-    NgtMeshModule,
-    NgtBoxGeometryModule,
-    NgtMeshBasicMaterialModule,
-    NgtSobaOrbitControlsModule,
-    MatIconModule,
-    MatCardModule,
-    MatStepperModule,
-    FormsModule,
-    MatFormFieldModule,
-    DragDropModule,
-    ReactiveFormsModule,
-    MatAutocompleteModule,
-    MatChipsModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        RouterModule.forRoot(routes),
+        NgtCanvasModule,
+        NgtAmbientLightModule,
+        NgtSpotLightModule,
+        NgtPointLightModule,
+        NgtMeshModule,
+        NgtBoxGeometryModule,
+        NgtMeshBasicMaterialModule,
+        NgtSobaOrbitControlsModule,
+        MatIconModule,
+        MatCardModule,
+        MatStepperModule,
+        FormsModule,
+        MatFormFieldModule,
+        DragDropModule,
+        ReactiveFormsModule,
+        MatAutocompleteModule,
+        MatChipsModule,
+        HttpClientModule,
+        MatListModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
