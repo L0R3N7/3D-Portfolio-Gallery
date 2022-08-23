@@ -158,7 +158,7 @@ mat-icon{
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
-  &.underlined:after{
+  &.underlined:before{
       content: '';
       background: $c-action;
       bottom: 0;
