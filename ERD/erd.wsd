@@ -1,4 +1,4 @@
-@startuml
+@startuml DA-Klassendiagramm
 entity User {
     id: number <<generated>>
     --
@@ -14,6 +14,14 @@ entity Exhibition {
     thumbnail_url: string
     title: string
     room_id : number
+}
+entity Themes {
+    id: number <<generated>>
+    --
+    mat_object: string
+    mat_inside: string 
+    light_intensity: number
+    model_path: string <<nullable>>
 }
 
 entity Room {
@@ -34,8 +42,8 @@ entity Position{
 }
 
 entity Exhibition_Category {
-    Exhibition_id : number
-    Category_id : number
+    exhibition_id : number
+    category_id : number
 }
 
 entity Category{
@@ -54,22 +62,13 @@ entity Exhibit {
     desc: string
 }
 
-entity available_Exhibits_in_Exibitions{
-    Exhibition_id : number
-    Exhibit_id : number
-    ---
-    Position_id : number
-}
-
 User ||--o{ Exhibition
-User ||--o{ Exhibit
-Exhibition }o--|| available_Exhibits_in_Exibitions
-Exhibit }o--|| available_Exhibits_in_Exibitions
-available_Exhibits_in_Exibitions |o--|| Position
+Exhibit ||--|{Exhibition
+Exhibit ||--|| Position
 Exhibition }o--|| Exhibition_Category
 Exhibition_Category ||--o{ Category
 Room ||--o{ Position
 Exhibition }o--|| Room
-
-
+Themes ||--o{ Exhibition
+Themes ||--o{ Exhibit
 @enduml

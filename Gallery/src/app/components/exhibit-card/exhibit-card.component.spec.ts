@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TagComponent } from './tag.component';
+import { ExhibitCardComponent } from './exhibit-card.component';
 
-describe('TagComponent', () => {
-  let component: TagComponent;
-  let fixture: ComponentFixture<TagComponent>;
+describe('ExhibitCardComponent', () => {
+  let component: ExhibitCardComponent;
+  let fixture: ComponentFixture<ExhibitCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TagComponent ]
+      declarations: [ ExhibitCardComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TagComponent);
+    fixture = TestBed.createComponent(ExhibitCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -158,7 +158,7 @@ mat-icon{
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
-  &.underlined:after{
+  &.underlined:before{
       content: '';
       background: $c-action;
       bottom: 0;
@@ -288,4 +288,36 @@ mat-icon{
   .position-xl-sticky {
     position: sticky !important;
   }
+}
+
+
+
+/// Custom Hacks Overwriting Bootstrap and Angular Material
+
+.custom_scrollbar::-webkit-scrollbar{
+  height: 5px;
+}
+.custom_scrollbar::-webkit-scrollbar-thumb{
+  background-color: $bc-secondary;
+  border: 0px;
+  border-radius: 5px;
+}
+
+.exhibition-card-custom > .mat-chip-list-wrapper{
+  @extend .custom_scrollbar;
+  &::-webkit-scrollbar-thumb{
+    background-color: $bc-primary;
+  }
+  flex-wrap: nowrap !important;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.input{
+  margin-top: 5%;
+  width: 60%;
+  font-size: 1em;
+  border: 5px solid $c-primary;
+  border-radius: $s-round;
+  box-shadow: $shadow-values;
 }
