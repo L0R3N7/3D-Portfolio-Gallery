@@ -20,6 +20,7 @@ public class Theme {
 
     private String model_path;
 
+    // TODO relation exhibit, exhibition
 
     // region ♡ getter setter ♡
     public Long getId() {

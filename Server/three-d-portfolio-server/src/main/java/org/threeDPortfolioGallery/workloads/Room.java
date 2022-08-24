@@ -15,5 +15,9 @@ public class Room {
 
     private int positions_amount;
 
-    private String roomUrl;
+    private String room_url;
+
+    // TODO relationship to position, exhibition
+
+    // region ♡ getter setter ♡
 }
