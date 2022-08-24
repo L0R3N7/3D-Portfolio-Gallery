@@ -15,6 +15,8 @@ public class Category {
 
     private String color;
 
+    // TODO relationship to exhibition n:m
+
     // region ♡ getter setter ♡
 
     public Long getId() {
