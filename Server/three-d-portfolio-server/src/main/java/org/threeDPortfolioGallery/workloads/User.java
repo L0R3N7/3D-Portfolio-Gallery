@@ -10,11 +10,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userName;
+    private String user_name;
 
     private String email;
 
     private String iconUrl;
+
+    // TODO relationship exhibition
 
 
     // region ♡ getter setter ♡
@@ -26,12 +28,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setUserName(String username) {
-        this.userName = username;
+    public void setUser_name(String username) {
+        this.user_name = username;
     }
 
     public String getEmail() {
