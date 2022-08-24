@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "thumbnail_url": "assets/image/placeholder-card.jpg",
+    "title": "Van Gogh",
+    "room_id": 1,
+    "description": "lorem ipsum"
+  },
+  {
+    "id": 2,
+    "thumbnail_url": "https://images.utopia.de/wxNOGiicKnkNXMLIe3x6loKwrJ4zEPT-RAGE9ZxjTx0/rt:fill/w:1152/h:864/g:ce/plain/2020/02/affe-haustier-cc0-pixabay-schwoaze-200127.jpg",
+    "title": "Monkeys",
+    "room_id": 1,
+    "description": "Ahhh"
+  }
+]
