@@ -43,6 +43,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { CreateExhibitionExhibitselectionComponent } from './site-components/create-exhibition-page/create-exhibition-exhibitselection/create-exhibition-exhibitselection.component';
 import {MatListModule} from "@angular/material/list";
 import { ExhibitCardComponent } from './components/exhibit-card/exhibit-card.component';
+import { ExhibitonListComponent } from './components/exhibiton-list/exhibiton-list.component';
 
 
 const routes: Routes = []
@@ -67,7 +68,8 @@ const routes: Routes = []
     InfoTagComponent,
     SignupPageComponent,
     CreateExhibitionExhibitselectionComponent,
-    ExhibitCardComponent
+    ExhibitCardComponent,
+    ExhibitonListComponent
   ],
     imports: [
         BrowserModule,

@@ -1,5 +1,8 @@
+
+<ng-container *ngIf="exhibition">
+
   <mat-card class="exhibition-card">
-    <img mat-card-image class="card-thumbnail" src="assets/image/placeholder-card.jpg" alt="card-thumbnail">
+    <img mat-card-image class="card-thumbnail" src="{{exhibition.thumbnail_url}}" alt="card-thumbnail">
     <mat-chip-list style="position:absolute; transform: translateY(-120%); left: 1%"  class="exhibition-card-custom w-100" >
       <mat-chip>Art</mat-chip>
       <mat-chip>Art</mat-chip>
@@ -9,25 +12,16 @@
       <mat-chip>Art</mat-chip>
       <mat-chip>Art</mat-chip>
     </mat-chip-list>
-   <!-- <div class="outer-scroll-container">
-    <div class="scroll-container">
-      <div cdkDragLockAxis="x" cdkDragBoundary=".outer-scroll-container" cdkDrag>
-        <app-tag></app-tag>
-        <app-tag></app-tag>
-        <app-tag></app-tag>
-        <app-tag></app-tag>
-      </div>
-    </div>
-    </div>-->
     <mat-card-title>
-      Vincent van Gogh and the philosopher stone
+      {{exhibition.title}}
     </mat-card-title>
     <mat-card-subtitle style="color: #eee">
       by Lorenz
     </mat-card-subtitle>
     <mat-card-content>
-      Lorem ipsum dolor sit amet,
-      consetetur sadipscing elitr
+      {{exhibition.description}}
     </mat-card-content>
   </mat-card>
+
+</ng-container>
 

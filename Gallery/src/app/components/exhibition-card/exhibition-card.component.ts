@@ -1,4 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
+import {Exhibition} from "../../shared/exhibition";
+import {GalleryService} from "../../shared/gallery.service";
 
 @Component({
   selector: 'app-exhibition-card',
@@ -7,6 +9,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ExhibitionCardComponent implements OnInit {
 
+  @Input() exhibition?: Exhibition;
 
 
   constructor() { }

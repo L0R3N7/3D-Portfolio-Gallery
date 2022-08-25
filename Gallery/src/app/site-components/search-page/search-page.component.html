@@ -2,7 +2,7 @@
   <mat-icon class="search-icon-lg">search</mat-icon>
   <div class="search-border mx-auto">
     <div class="input-group rounded searchbar mx-auto">
-      <input type="search" class="form-control rounded" placeholder="Search">
+      <input type="search" class="form-control rounded" placeholder="Search" #input (keyup)="keyUp$.next(input.value)">
       <span class="input-group-text">
         <mat-icon class="search-icon mx-2">search</mat-icon>
         <mat-icon class="search-icon mx-2">filter_alt</mat-icon>
@@ -22,6 +22,6 @@
 
 
 <div class="container" style="margin-top: 15%">
-  <app-exhibition-card></app-exhibition-card>
+  <app-exhibiton-list></app-exhibiton-list>
 </div>
 
