@@ -1,8 +1,17 @@
 <div class="row position-absolute top-0 w-100 h-100" style="left: 0;">
-  <div class="col-9 " style="background-color: #C3C6E0;">
+  <div class="col-lg-9 col-sm-7 " style="background-color: #C3C6E0;">
+    <ngt-canvas>
+      <ngt-ambient-light intensity="0.5"></ngt-ambient-light>
+      <ngt-spot-light [position]="10" angle="0.15" penumbra="1"></ngt-spot-light>
+      <ngt-point-light [position]="-10"></ngt-point-light>
+      <ngt-mesh>
+        <ngt-box-geometry></ngt-box-geometry>
+      </ngt-mesh>
+      <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+    </ngt-canvas>
   </div>
-  <div class="col-3 h-100 p-0">
-    <div class="create-exhibition-content-first px-5">
+  <div class="col-lg-3 col-sm-5 h-100 p-0">
+    <div class="create-exhibition-content-first ps-5">
       <h3 class="text-center my-5">Select Room</h3>
       <div>
         <h6>Recommended:</h6>
@@ -15,7 +24,6 @@
           <app-room-card  class="room-card" *ngFor="let r of rooms" [room]="r" (click)="selectRoom(r.id)" [ngClass]="{'disabled' : r.id != selectedRoom_id && selectedRoom_id != -1}"></app-room-card>
         </app-slideshow>
       </div>
-
     </div>
     <div class="btn-end w-100 clearfix px-2 pt-3 shadow-inner" >
       <ng-content></ng-content>
