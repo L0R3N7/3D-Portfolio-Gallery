@@ -1,7 +1,7 @@
-<div *ngIf="room" id="room-card-wrapper" class="most-rounded pb-2 bg-secondary-c shadow" style="min-width: 350px; width: 30%;">
+<div *ngIf="room" id="room-card-wrapper" class="most-rounded bg-secondary-c shadow mb-2" style="min-width: 220px; width: 10vw">
   <img style="object-fit: cover; aspect-ratio: 16/10;" class="most-rounded-top  w-100" src="{{this.room.room_img_url}}">
   <div class="d-flex p-2 justify-content-between font-secondary-c">
-    <p class="text-nowrap fw-bold w-100">{{this.room.id}}: {{this.room.name}}</p>
-    <p class="text-nowrap w-100" style="text-align: right;">{{this.room.position_amount}} Spaces*</p>
+    <p class="text-two-wrap fw-bold w-100">{{this.room.name}}</p>
+    <p class="text-two-wrap w-100" style="text-align: right;">{{this.room.position_amount}} Size*</p>
   </div>
 </div>
