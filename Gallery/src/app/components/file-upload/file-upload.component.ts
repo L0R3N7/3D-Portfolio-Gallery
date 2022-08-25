@@ -1,5 +1,4 @@
-import {Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Component,  Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-file-upload',

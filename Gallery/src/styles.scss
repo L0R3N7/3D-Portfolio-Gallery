@@ -321,3 +321,17 @@ mat-icon{
   border-radius: $s-round;
   box-shadow: $shadow-values;
 }
+.mat-horizontal-stepper-header-container{
+  z-index: 9999;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.mat-horizontal-stepper-content>*{
+
+}
+.create-exhibition-content-first{
+  height: 93%;
+  overflow-y: auto;
+}
