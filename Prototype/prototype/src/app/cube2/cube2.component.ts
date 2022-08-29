@@ -73,6 +73,7 @@ export class Cube2Component implements OnInit, AfterViewInit {
   };
 
 
+
   private createScene() {
     //* Scene
     this.scene = new THREE.Scene();
@@ -144,4 +145,7 @@ export class Cube2Component implements OnInit, AfterViewInit {
   }
 
 
+  handleClick($event: MouseEvent) {
+    console.log("test")
+  }
 }

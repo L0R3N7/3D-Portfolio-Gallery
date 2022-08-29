@@ -22,7 +22,6 @@ export class SearchPageComponent implements OnInit {
   ngOnInit(): void {
     this.navbar.show()
     this.footer.show()
-
     this.keyUp$.pipe(
       filter(term => term.length >= 3),
       debounceTime(500),
