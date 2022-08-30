@@ -44,6 +44,8 @@ import { CreateExhibitionExhibitselectionComponent } from './site-components/cre
 import {MatListModule} from "@angular/material/list";
 import { ExhibitCardComponent } from './components/exhibit-card/exhibit-card.component';
 import { ExhibitonListComponent } from './components/exhibiton-list/exhibiton-list.component';
+import { ThreeRoomComponent } from './components/three/three-room/three-room.component';
+import { ThreeDObjectLoaderComponent } from './components/three/three-d-object-loader/three-d-object-loader.component';
 
 
 const routes: Routes = []
@@ -69,7 +71,9 @@ const routes: Routes = []
     SignupPageComponent,
     CreateExhibitionExhibitselectionComponent,
     ExhibitCardComponent,
-    ExhibitonListComponent
+    ExhibitonListComponent,
+    ThreeRoomComponent,
+    ThreeDObjectLoaderComponent
   ],
     imports: [
         BrowserModule,
