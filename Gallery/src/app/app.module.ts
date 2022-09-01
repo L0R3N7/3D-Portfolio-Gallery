@@ -46,6 +46,8 @@ import { ExhibitCardComponent } from './components/exhibit-card/exhibit-card.com
 import { ExhibitonListComponent } from './components/exhibiton-list/exhibiton-list.component';
 import { ThreeRoomComponent } from './components/three/three-room/three-room.component';
 import { ThreeDObjectLoaderComponent } from './components/three/three-d-object-loader/three-d-object-loader.component';
+import {NgtGroupModule} from "@angular-three/core/group";
+import {NgtPrimitiveModule} from "@angular-three/core/primitive";
 
 
 const routes: Routes = []
@@ -98,7 +100,9 @@ const routes: Routes = []
         MatAutocompleteModule,
         MatChipsModule,
         HttpClientModule,
-        MatListModule
+        MatListModule,
+        NgtGroupModule,
+        NgtPrimitiveModule
     ],
   providers: [],
   bootstrap: [AppComponent]

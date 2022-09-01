@@ -1,3 +1,6 @@
-<ngt-mesh *ngIf="threeDObject$ | async as threeDObject" [geometry]="">
-
-</ngt-mesh>
+<ngt-canvas>
+  <ng-container *ngIf="model$ | async as model">
+    <ngt-primitive [object]="model.scene"></ngt-primitive>
+  </ng-container>
+  <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+</ngt-canvas>
