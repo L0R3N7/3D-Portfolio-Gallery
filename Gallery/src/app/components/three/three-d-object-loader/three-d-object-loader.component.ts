@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NgtCanvas, NgtLoader} from "@angular-three/core";
-import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
+import {NgtLoader, NgtObjectMap} from "@angular-three/core";
+import {GLTF, GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-three-d-object-loader',
@@ -11,17 +12,23 @@ import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 
 export class ThreeDObjectLoaderComponent implements OnInit {
   @Input('src') source?: string;
-  model$ = this.loader.use(GLTFLoader, '/assets/three-d-objects/podest_01.gltf')
+  model$ : Observable<GLTF & NgtObjectMap> | undefined
+  scale : number = 1;
 
   constructor(private loader: NgtLoader) {
 
   }
 
   ngOnInit(): void {
-    console.log(this.model$)
-    this.model$.subscribe((e)=>{
-      console.log(e.scene)
-    })
+    console.log(this.source)
+    if (this.source){
+      this.model$ = this.loader.use(GLTFLoader, this.source);;
+      //@ts-ignore
+      this.model$.subscribe((e)=>{
+        //@ts-ignore
+        this.scale = 2 / e.scene.children[0].geometry.boundingSphere.radius;
+      })
+    }
   }
 }
 

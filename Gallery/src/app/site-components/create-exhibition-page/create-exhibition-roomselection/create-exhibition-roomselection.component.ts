@@ -10,6 +10,7 @@ import {Room} from "../../../shared/room";
 export class CreateExhibitionRoomselectionComponent implements OnInit {
   rooms: Room[] = [];
   selectedRoom_id : number = -1;
+  room3dUrl: string = "";
 
   @Output() roomSelectedEvent = new EventEmitter<number>();
 
@@ -17,7 +18,9 @@ export class CreateExhibitionRoomselectionComponent implements OnInit {
 
   selectRoom(selectedId:number){
     this.selectedRoom_id = selectedId;
+    this.room3dUrl = this.rooms[selectedId-1].room_url;
     this.roomSelectedEvent.emit(selectedId);
+    console.log(this.room3dUrl)
   }
 
   ngOnInit(): void {

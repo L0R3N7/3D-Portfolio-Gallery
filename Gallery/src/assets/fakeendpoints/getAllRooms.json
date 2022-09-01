@@ -4,34 +4,13 @@
     "name" : "First Test Room",
     "position_amount":  12,
     "room_img_url":  "https://www.smb.museum/uploads/tx_smb/news/news_67970/Neues-Museum_Raum-Prolog_Achim_Kleuker_xl.jpg",
-    "room_url": ""
+    "room_url": "1.gltf"
   },
   {
     "id" : 2,
     "name" : "Second Test Room",
     "position_amount":  6,
     "room_img_url":  "https://cdn.getyourguide.com/img/tour/5dc3e1094ca28.jpeg/97.jpg",
-    "room_url": ""
-  },
-  {
-    "id" : 3,
-    "name" : "Third Test Room",
-    "position_amount":  2,
-    "room_img_url":  "https://www.israelmagazin.de/wp-content/uploads/2011/02/Israel-Museum-Raum-08110-550.jpg",
-    "room_url": ""
-  },
-  {
-    "id" : 4,
-    "name" : "Fourth Test Room",
-    "position_amount":  1,
-    "room_img_url":  "https://www.belvedere.at/sites/default/files/2021-02/OB-ImBlick-Hartmann-Presse-5.jpg",
-    "room_url": ""
-  },
-  {
-    "id" : 5,
-    "name" : "Fifth Test Room",
-    "position_amount":  8,
-    "room_img_url":  "https://www.salzburg.info/deskline/infrastruktur/objekte/museum-kunst-der-verlorenen-generation_317675/image-thumb__664941__slider-main/Raum%202_3143294.jpg",
-    "room_url": ""
+    "room_url": "2.gltf"
   }
 ]

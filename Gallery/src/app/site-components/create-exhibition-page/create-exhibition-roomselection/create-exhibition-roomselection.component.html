@@ -1,6 +1,17 @@
 <div class="row position-absolute top-0 w-100 h-100" style="left: 0;">
   <div class="col-lg-9 col-sm-7 " style="background-color: #C3C6E0;">
-      <app-three-d-object-loader [src]="'assets/podest_style/podest_01.gltf'"></app-three-d-object-loader>
+    <ng-container *ngIf="room3dUrl; else noRoom">
+      <ngt-canvas>
+        <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+        <app-three-d-object-loader [src]="'assets/three-d-objects/room/floor/'.concat(room3dUrl)"></app-three-d-object-loader>
+        <app-three-d-object-loader [src]="'assets/three-d-objects/room/walls/'.concat(room3dUrl)"></app-three-d-object-loader>
+      </ngt-canvas>
+    </ng-container>
+    <ng-template #noRoom>
+      <div class="d-flex h-100 align-items-center justify-content-center">
+        <h2 class="opacity-50">No Room selected</h2>
+      </div>
+    </ng-template>
   </div>
   <div class="col-lg-3 col-sm-5 h-100 p-0">
     <div class="create-exhibition-content-first ps-5">
