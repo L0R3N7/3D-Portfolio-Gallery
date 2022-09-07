@@ -48,6 +48,7 @@ import { ThreeRoomComponent } from './components/three/three-room/three-room.com
 import { ThreeDObjectLoaderComponent } from './components/three/three-d-object-loader/three-d-object-loader.component';
 import {NgtGroupModule} from "@angular-three/core/group";
 import {NgtPrimitiveModule} from "@angular-three/core/primitive";
+import { CreateExhibitionArrangeComponent } from './site-components/create-exhibition-page/create-exhibition-arrange/create-exhibition-arrange.component';
 
 
 const routes: Routes = []
@@ -75,7 +76,8 @@ const routes: Routes = []
     ExhibitCardComponent,
     ExhibitonListComponent,
     ThreeRoomComponent,
-    ThreeDObjectLoaderComponent
+    ThreeDObjectLoaderComponent,
+    CreateExhibitionArrangeComponent
   ],
     imports: [
         BrowserModule,

@@ -2,23 +2,24 @@ import {Component, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angul
 import {NgtLoader, NgtObjectMap} from "@angular-three/core";
 import {GLTF, GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 import {Observable} from "rxjs";
-import loader from "@angular-devkit/build-angular/src/webpack/plugins/single-test-transform";
 
 @Component({
   selector: 'app-three-d-object-loader',
   templateUrl: './three-d-object-loader.component.html',
   styleUrls: ['./three-d-object-loader.component.scss'],
-
 })
 
-export class ThreeDObjectLoaderComponent implements OnChanges, OnInit {
+export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
   @Input('src') source?: string;
   scale : number = 1;
   model$ : Observable<GLTF & NgtObjectMap> | undefined;
   first : boolean = true;
-  loader: NgtLoader | undefined;
 
-  constructor() {
+  constructor(private loader : NgtLoader) {}
+
+  ngOnInit() {
+    //this.source = "assets/three-d-objects/room/floor/1.gltf"
+    this.load3dModel();
   }
 
   ngOnChanges(changes:SimpleChanges){
@@ -28,21 +29,16 @@ export class ThreeDObjectLoaderComponent implements OnChanges, OnInit {
         this.first = false;
         return;
       }
-      this.model$ = undefined;
-      this.ngOnInit();
+      this.load3dModel();
     }
-  }
-
-  ngOnInit() {
-    this.loader = inject(NgtLoader);
-    this.load3dModel();
   }
 
   load3dModel(){
     console.log(this.source);
+    console.log(this.loader)
     if (this.source && this.loader) {
       // @ts-ignore
-      this.model$ = loader.use(GLTFLoader, this.source);
+      this.model$ = this.loader.use(GLTFLoader, this.source);
       //@ts-ignore
       this.model$.subscribe((e) => {
         console.log(e.scene.children)
@@ -52,4 +48,3 @@ export class ThreeDObjectLoaderComponent implements OnChanges, OnInit {
     }
   }
 }
-

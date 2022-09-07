@@ -1,4 +1,4 @@
-import {Component,  Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-file-upload',
@@ -8,8 +8,7 @@ import {Component,  Input, OnInit } from '@angular/core';
 export class FileUploadComponent implements OnInit {
 
   @Input() acceptedMediaTypes : string[] = ["image/png", "image/jpg", "image/jpeg"];
-
-
+  @Output() blob : Blob | undefined; 
 
   constructor() {
   }
