@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-file-upload',
@@ -8,7 +8,7 @@ import {Component, Input, OnInit, Output} from '@angular/core';
 export class FileUploadComponent implements OnInit {
 
   @Input() acceptedMediaTypes : string[] = ["image/png", "image/jpg", "image/jpeg"];
-  @Output() blob : Blob | undefined; 
+  @Output() blob = new EventEmitter<string>();
 
   constructor() {
   }
@@ -17,13 +17,16 @@ export class FileUploadComponent implements OnInit {
   }
 
   fileChange(event: Event) {
-    // @ts-ignore
-    console.log(event.target.files);
+    //@ts-ignore
+    console.log(event.target.files[0]);
+
     // @ts-ignore
     if (event.target.files && event.target.files[0]){
       var reader = new FileReader();
-      reader.onload = (e: any) => {
-        console.log("Got here: "+e.target.result)
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        console.log(e)
+        //@ts-ignore
+        this.blob.emit(e.target.result);
       }
       // @ts-ignore
       reader.readAsDataURL(event.target.files[0]);

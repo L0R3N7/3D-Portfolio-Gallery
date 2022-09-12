@@ -1,13 +1,16 @@
 <div class="row position-absolute top-0 w-100 h-100" style="left: 0;">
   <div class="col-lg-9 col-sm-7 " style="background-color: #C3C6E0;">
+    <ng-container *ngIf="blob">
       <ngt-canvas>
+        <app-three-d-object-loader [blob]="blob"></app-three-d-object-loader>
       </ngt-canvas>
+    </ng-container>
   </div>
   <div class="col-lg-3 col-sm-5 h-100 p-0">
     <div class="create-exhibition-content-first ps-5">
       <h3 class="pt-5 text-center">Arrange Exhibition</h3>
       <div>
-        <app-file-upload></app-file-upload>
+        <app-file-upload (blob)="print($event)"></app-file-upload>
       </div>
     </div>
     <div class="btn-end w-100 clearfix px-2 pt-3 shadow-inner" >

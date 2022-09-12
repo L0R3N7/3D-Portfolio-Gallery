@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateExhibitionArrangeComponent implements OnInit {
 
+  blob : string | undefined;
+
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  print(event: string) {
+    this.blob = event;
+    console.log(event)
+  }
 }
