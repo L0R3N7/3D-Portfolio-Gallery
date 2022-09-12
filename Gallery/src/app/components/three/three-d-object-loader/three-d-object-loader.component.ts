@@ -1,7 +1,7 @@
 import {Component, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {NgtLoader, NgtObjectMap} from "@angular-three/core";
 import {GLTF, GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
-import {Observable} from "rxjs";
+import {Observable, toArray} from "rxjs";
 import {BlobService} from "../../../shared/blob.service";
 
 @Component({
@@ -20,7 +20,6 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
   constructor(private loader : NgtLoader, private blobService : BlobService) {}
 
   ngOnInit() {
-    //this.source = "assets/three-d-objects/room/floor/1.gltf"
     this.load3dModel();
     this.load3dModelFromBlob();
   }
@@ -37,17 +36,46 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
     }
   }
 
-  load3dModel(){
-    console.log(this.source);
-    console.log(this.loader)
+  load3dModel() {
+    console.log("####################################################### Load New Model")
+
     if (this.source && this.loader) {
-      // @ts-ignore
-      this.model$ = this.loader.use(GLTFLoader, this.source);
-      /*//@ts-ignore
-      this.model$.subscribe((e) => {
-        console.log(e.scene.children)
+      if (this.loader.cached.has(this.source)){
+        this.loader.cached.delete(this.source);
+        for (let value of this.toArray(this.loader.cached.entries())){
+          //@ts-ignore
+          value[1].subscribe((e)=>{
+            console.log("###")
+            console.log(value[0])
+            console.log(e)
+          });
+        }
+
+        this.model$ = this.loader.cached.get(this.source);
+
+      }else{
+
+        for (let value of this.toArray(this.loader.cached.entries())){
+          //@ts-ignore
+          value[1].subscribe((e)=>{
+            console.log("###")
+            console.log(value[0])
+            console.log(e)
+          });
+
+        }
+        this.model$ = this.loader.use(GLTFLoader, this.source);
+      }
+
+      /*this.model$?.subscribe((e)=> {
+        console.log(e.scene);
+      })*/
+
+      //@ts-ignore
+      /*this.model$.subscribe((e) => {
         //@ts-ignore
-        this.scale = 2 / e.scene.children[0]?.geometry?.boundingSphere?.radius ?? 1;
+        //console.log(e.scene.children.geometry)
+        //this.scale = 2 / e.scene.children[0]?.geometry?.boundingSphere?.radius ?? 1;
       })*/
     }
   }
@@ -57,19 +85,11 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
       var blob = this.blobService.cleanB64AndToBlob(this.sourceBlob);
       var url = URL.createObjectURL(blob);
       this.model$ = this.loader.use(GLTFLoader, url);
-      console.log(this.model$);
     }
-    /*if (this.sourceBlob && this.loader){
-      console.log(this.sourceBlob)
-      console.log(typeof  this.sourceBlob)
+  }
 
-      //@ts-ignore
-      var blob = this.blobService.b64ToBlob(this.sourceBlob, "octet/stream");
-      console.log(typeof blob)
-      var url = URL.createObjectURL(blob);
-      console.log(url)
-      this.model$ = this.loader.use(GLTFLoader, url);
-    }*/
+  toArray<X>(xs: Iterable<X>): X[] {
+    return [...xs]
   }
 
 

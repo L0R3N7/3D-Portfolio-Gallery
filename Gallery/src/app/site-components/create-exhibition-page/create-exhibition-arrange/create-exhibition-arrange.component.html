@@ -2,6 +2,7 @@
   <div class="col-lg-9 col-sm-7 " style="background-color: #C3C6E0;">
     <ng-container *ngIf="blob">
       <ngt-canvas>
+        <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
         <app-three-d-object-loader [blob]="blob"></app-three-d-object-loader>
       </ngt-canvas>
     </ng-container>
