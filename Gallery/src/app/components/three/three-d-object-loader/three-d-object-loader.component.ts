@@ -37,46 +37,9 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
   }
 
   load3dModel() {
-    console.log("####################################################### Load New Model")
-
     if (this.source && this.loader) {
-      if (this.loader.cached.has(this.source)){
-        this.loader.cached.delete(this.source);
-        for (let value of this.toArray(this.loader.cached.entries())){
-          //@ts-ignore
-          value[1].subscribe((e)=>{
-            console.log("###")
-            console.log(value[0])
-            console.log(e)
-          });
-        }
-
-        this.model$ = this.loader.cached.get(this.source);
-
-      }else{
-
-        for (let value of this.toArray(this.loader.cached.entries())){
-          //@ts-ignore
-          value[1].subscribe((e)=>{
-            console.log("###")
-            console.log(value[0])
-            console.log(e)
-          });
-
-        }
-        this.model$ = this.loader.use(GLTFLoader, this.source);
-      }
-
-      /*this.model$?.subscribe((e)=> {
-        console.log(e.scene);
-      })*/
-
-      //@ts-ignore
-      /*this.model$.subscribe((e) => {
-        //@ts-ignore
-        //console.log(e.scene.children.geometry)
-        //this.scale = 2 / e.scene.children[0]?.geometry?.boundingSphere?.radius ?? 1;
-      })*/
+      if (this.loader.cached.has(this.source)){this.loader.cached.delete(this.source)}
+      this.model$ = this.loader.use(GLTFLoader, this.source);
     }
   }
 
