@@ -2,8 +2,10 @@
   <div class="col-lg-9 col-sm-7 " style="background-color: #C3C6E0;">
     <ng-container *ngIf="blob">
       <ngt-canvas>
+        <ngt-ambient-light intensity="2"></ngt-ambient-light>
+        <ngt-spot-light [position]="[0, 5, 0]" penumbra="1"></ngt-spot-light>
         <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
-        <app-three-d-object-loader [blob]="blob"></app-three-d-object-loader>
+        <app-three-d-object-loader [blobModel]="blob"></app-three-d-object-loader>
       </ngt-canvas>
     </ng-container>
   </div>
