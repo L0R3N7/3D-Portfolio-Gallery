@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FileUploadOutput} from "../../../shared/file-upload-output";
 
 @Component({
   selector: 'app-create-exhibition-arrange',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateExhibitionArrangeComponent implements OnInit {
 
-  blob : string | undefined;
+  fileUploadRes : FileUploadOutput | undefined;
 
 
   constructor() { }
@@ -15,8 +16,8 @@ export class CreateExhibitionArrangeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  print(event: string) {
-    this.blob = event;
+  print(event: FileUploadOutput) {
+    this.fileUploadRes = event;
     console.log(event)
   }
 }

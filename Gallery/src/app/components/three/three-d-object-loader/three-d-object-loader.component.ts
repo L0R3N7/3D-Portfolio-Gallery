@@ -3,7 +3,11 @@ import {NgtLoader, NgtObjectMap} from "@angular-three/core";
 import {GLTF, GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 import {Observable, Subscription} from "rxjs";
 import {BlobService} from "../../../shared/blob.service";
-import {Mesh, MeshBasicMaterial, Object3D, Texture, TextureLoader} from "three";
+import {Loader, Mesh, MeshBasicMaterial, Object3D, Texture, TextureLoader} from "three";
+import {FileUploadOutput} from "../../../shared/file-upload-output";
+import {OBJLoader} from "three/examples/jsm/loaders/OBJLoader";
+import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
+import {AMFLoader} from "three/examples/jsm/loaders/AMFLoader";
 
 @Component({
   selector: 'app-three-d-object-loader',
@@ -13,16 +17,20 @@ import {Mesh, MeshBasicMaterial, Object3D, Texture, TextureLoader} from "three";
 
 export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
   @Input('srcModel') modelUrl?: string;
-  @Input('blobModel') modelBlob?: string;
+  @Input('blobModel') modelBlob?: FileUploadOutput;
   @Input('srcTexture') textureUrl ?: string = 'assets/image/placeholder-card.jpg';
   @Input('scale') scale : number = 2;
   model$ : Observable<GLTF & NgtObjectMap> | undefined;
   subscribtion :  Subscription | undefined;
   texture : Texture | undefined;
+  loaderType : [] | undefined;
 
   constructor(private loader : NgtLoader, private blobService : BlobService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // @ts-ignore
+    //this.loaderType = ['gltf' : GLTFLoader, 'obj' : OBJLoader, 'fbx' : FBXLoader, 'amf' : AMFLoader];
+  }
 
   ngOnChanges(changes:SimpleChanges){
     //resets model observer
@@ -40,13 +48,16 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
   }
 
   load3dModel() {
+
+
     if (this.modelUrl && this.loader) {
       if (this.loader.cached.has(this.modelUrl)){this.loader.cached.delete(this.modelUrl)}
       this.model$ = this.loader.use(GLTFLoader, this.modelUrl);
     }else if(this.modelBlob && this.loader){
-      var blob = this.blobService.cleanB64AndToBlob(this.modelBlob);
-      var url = URL.createObjectURL(blob);
-      this.model$ = this.loader.use(GLTFLoader, url);
+      var loaderType = GLTFLoader;
+
+      var url = URL.createObjectURL(this.modelBlob.blob);
+      this.model$ = this.loader.use(loaderType, url);
     }
   }
 
