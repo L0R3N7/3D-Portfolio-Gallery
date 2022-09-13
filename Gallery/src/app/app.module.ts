@@ -34,6 +34,7 @@ import {
 import {
   CreateExhibitionRoomselectionComponent
 } from "./site-components/create-exhibition-page/create-exhibition-roomselection/create-exhibition-roomselection.component";
+<<<<<<< Updated upstream
 import {RoomCardComponent} from "./components/room-card/room-card.component";
 import {SearchTagsComponent} from "./components/search-tags/search-tags.component";
 import {FileUploadComponent} from "./components/file-upload/file-upload.component";
@@ -44,6 +45,13 @@ import { CreateExhibitionExhibitselectionComponent } from './site-components/cre
 import {MatListModule} from "@angular/material/list";
 import { ExhibitCardComponent } from './components/exhibit-card/exhibit-card.component';
 import { ExhibitonListComponent } from './components/exhibiton-list/exhibiton-list.component';
+=======
+import {FileUploadComponent} from "./components/file-upload/file-upload.component";
+import {SearchTagsComponent} from "./components/search-tags/search-tags.component";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatChipsModule} from "@angular/material/chips";
+import {RoomCardComponent} from "./components/room-card/room-card.component";
+>>>>>>> Stashed changes
 
 
 const routes: Routes = []
@@ -67,9 +75,41 @@ const routes: Routes = []
     FileUploadComponent,
     InfoTagComponent,
     SignupPageComponent,
+<<<<<<< Updated upstream
     CreateExhibitionExhibitselectionComponent,
     ExhibitCardComponent,
     ExhibitonListComponent
+=======
+    CreateExhibitionMetadataComponent,
+    CreateExhibitionRoomselectionComponent,
+    FileUploadComponent,
+    SearchTagsComponent,
+    RoomCardComponent
+
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    RouterModule.forRoot(routes),
+    NgtCanvasModule,
+    NgtAmbientLightModule,
+    NgtSpotLightModule,
+    NgtPointLightModule,
+    NgtMeshModule,
+    NgtBoxGeometryModule,
+    NgtMeshBasicMaterialModule,
+    NgtSobaOrbitControlsModule,
+    MatIconModule,
+    MatCardModule,
+    MatStepperModule,
+    FormsModule,
+    MatFormFieldModule,
+    DragDropModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatChipsModule
+>>>>>>> Stashed changes
   ],
     imports: [
         BrowserModule,

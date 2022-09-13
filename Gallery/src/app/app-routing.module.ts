@@ -18,8 +18,8 @@ const routes: Routes = [
   {path: 'signup', component:SignupPageComponent}
 
 ]; // sets up routes constant where routes are defined
-
-// configures NgModule imports and exports
+//
+// // configures NgModule imports and exports
 @NgModule({
   declarations: [],
   imports: [ CommonModule, RouterModule.forRoot(routes) ],
