@@ -23,13 +23,18 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
   model$ : Observable<GLTF & NgtObjectMap> | undefined;
   subscribtion :  Subscription | undefined;
   texture : Texture | undefined;
-  loaderType : [] | undefined;
+  loaderType : Map<string, Loader> | undefined;
 
   constructor(private loader : NgtLoader, private blobService : BlobService) {}
 
   ngOnInit() {
     // @ts-ignore
-    //this.loaderType = ['gltf' : GLTFLoader, 'obj' : OBJLoader, 'fbx' : FBXLoader, 'amf' : AMFLoader];
+    this.loaderType = new Map<string, Loader>([
+      ['gltf', GLTFLoader],
+      ['obj', OBJLoader],
+      ['fbx', FBXLoader],
+      ['amf', AMFLoader]
+    ]);
   }
 
   ngOnChanges(changes:SimpleChanges){
@@ -54,10 +59,16 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
       if (this.loader.cached.has(this.modelUrl)){this.loader.cached.delete(this.modelUrl)}
       this.model$ = this.loader.use(GLTFLoader, this.modelUrl);
     }else if(this.modelBlob && this.loader){
-      var loaderType = GLTFLoader;
-
       var url = URL.createObjectURL(this.modelBlob.blob);
-      this.model$ = this.loader.use(loaderType, url);
+      var loader : Loader | undefined ;
+      if (this.loaderType?.get(this.modelBlob.filetype)){
+        loader = this.loaderType?.get(this.modelBlob.filetype);
+      }else{
+        loader = GLTFLoader;
+      }
+
+
+      this.model$ = this.loader.use(loader, url);
     }
   }
 
