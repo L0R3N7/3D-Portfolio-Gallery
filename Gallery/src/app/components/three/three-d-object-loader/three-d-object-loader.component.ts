@@ -60,7 +60,7 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
       this.model$ = this.loader.use(GLTFLoader, this.modelUrl);
     }else if(this.modelBlob && this.loader){
       var url = URL.createObjectURL(this.modelBlob.blob);
-      var loader : Loader | undefined ;
+      var loader;
       if (this.loaderType?.get(this.modelBlob.filetype)){
         loader = this.loaderType?.get(this.modelBlob.filetype);
       }else{
@@ -68,6 +68,7 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
       }
 
 
+      // @ts-ignore
       this.model$ = this.loader.use(loader, url);
     }
   }

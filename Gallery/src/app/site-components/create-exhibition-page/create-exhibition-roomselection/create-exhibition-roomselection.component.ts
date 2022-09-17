@@ -1,6 +1,6 @@
 import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {GalleryService} from "../../../shared/gallery.service";
-import {Room} from "../../../shared/room";
+import {Room} from "../../../shared/class/room";
 
 @Component({
   selector: 'app-create-exhibition-roomselection',

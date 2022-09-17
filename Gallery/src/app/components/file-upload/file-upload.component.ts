@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FileUploadOutput} from "../../shared/file-upload-output";
+import {GalleryService} from "../../shared/gallery.service";
 
 @Component({
   selector: 'app-file-upload',
@@ -8,11 +9,11 @@ import {FileUploadOutput} from "../../shared/file-upload-output";
 })
 export class FileUploadComponent implements OnInit {
 
-  @Input('acceptedMediaTypes') acceptedMediaTypes : string[] = ["image/png", "image/jpg", "image/jpeg"];
-  @Input('fileSize') fileSize : number = 111000;
+  @Input('acceptedMediaTypes') acceptedMediaTypes : string = "";
+  @Input('fileSize') fileSize : number = 9999999999999;
   @Output() fileOutput = new EventEmitter<FileUploadOutput>();
 
-  constructor() {
+  constructor(public galeryService : GalleryService) {
   }
 
   ngOnInit(): void {
@@ -49,7 +50,8 @@ export class FileUploadComponent implements OnInit {
     // checks if selected file has the right file type
     if (this.acceptedMediaTypes){
       var regex = new RegExp(/(\w+)(?=\|)/g)
-      var arrExtension = this.acceptedMediaTypes.join('|').concat('|').match(regex) ?? []
+      // @ts-ignore
+      var arrExtension = this.galeryService.getSupportedFiletypes(this.acceptedMediaTypes).join('|').concat('|').match(regex) ?? []
       console.log(arrExtension)
       regex = new RegExp(`/\.(${arrExtension.join('|')})/`)
       console.log(regex)

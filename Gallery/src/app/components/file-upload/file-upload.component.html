@@ -1,1 +1,2 @@
 <input type="file" id="iFile" [accept]="acceptedMediaTypes" (change)="fileChange($event)">
+<p style="font-size: 1em;">Supported file types: <br>{{galeryService.getSupportedFiletypes(acceptedMediaTypes)?.join(',') ?? ''}}</p>

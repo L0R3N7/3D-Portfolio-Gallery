@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NavbarServiceService} from "../../components/navbar/navbar-service.service";
 import {FooterService} from "../../components/footer/footer.service";
 import {GalleryService} from "../../shared/gallery.service";
-import {Exhibition} from "../../shared/exhibition";
+import {Exhibition} from "../../shared/class/exhibition";
 
 @Component({
   selector: 'app-home-page',
