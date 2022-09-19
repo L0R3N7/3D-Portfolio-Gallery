@@ -1,0 +1,9 @@
+<ng-container >
+  <ngt-canvas>
+    <ngt-ambient-light intensity="2"></ngt-ambient-light>
+    <ngt-spot-light [position]="[0, 5, 0]" penumbra="1"></ngt-spot-light>
+    <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+    <app-three-d-object-loader [src]="'assets/three-d-objects/room/floor/2.gltf'"></app-three-d-object-loader>
+    <app-three-d-object-loader [src]="'assets/three-d-objects/room/walls/2.gltf'"></app-three-d-object-loader>
+  </ngt-canvas>
+</ng-container>

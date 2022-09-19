@@ -16,7 +16,8 @@
     <app-slideshow>
       <app-exhibition-card
         *ngFor="let e of exhibitions"
-        [exhibition]="e"></app-exhibition-card>
+        [exhibition]="e"
+        routerLink="/room"></app-exhibition-card>
     </app-slideshow>
   </div>
 
