@@ -22,7 +22,10 @@ export class FileUploadComponent implements OnInit {
 
 
   fileChange(event: Event) {
-    this.inputCheck(event)
+    if(!this.inputCheck(event)){
+      this.fileOutput.emit(undefined); 
+      return; 
+    }
 
     var extension : string = "";
 
@@ -45,7 +48,10 @@ export class FileUploadComponent implements OnInit {
   }
 
   inputCheck(event: Event){
-    var isCorrectInput = true;
+    //@ts-ignore
+    if (!event.target.files[0] || !event.target.files[0].size){
+      return false; 
+    }
 
     // checks if selected file has the right file type
     if (this.acceptedMediaTypes){
@@ -58,7 +64,7 @@ export class FileUploadComponent implements OnInit {
       //@ts-ignore
       if (!this.acceptedMediaTypes.includes(event.target.files[0].type) || event.target.files[0].name.match(regex)){
         alert("We currently doesn't support this filetype")
-        isCorrectInput = false;
+        return false;
       }
     }
 
@@ -67,11 +73,11 @@ export class FileUploadComponent implements OnInit {
       //@ts-ignore
       if (event.target.files[0].size > this.fileSize){
         alert("The file exceeds the size of the limit "+this.fileSize+"b")
-        isCorrectInput = false;
+        return false;
       }
     }
 
-    return isCorrectInput;
+    return true;
   }
 }
 

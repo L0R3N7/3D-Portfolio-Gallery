@@ -2,15 +2,17 @@
   <div class="create-div">
   <h4>Create Exhibits</h4>
     <p class="sign-up-text">Upload Media<a class="font-gradient underlined mx-2">search in Files</a></p>
-    <app-file-upload (fileOutput)="cur_Exhibit.file = $event; updatedExhibitionForm()"></app-file-upload>
-    <form>
+    <app-file-upload (fileOutput)="exhibitFile = $event"></app-file-upload>
+    <form [formGroup]="exhibitForm" (ngSubmit)="addExhibit()">
       <p>
-        <input #title matInput placeholder="Title" name="title" (change)="updatedExhibitionForm();this.cur_Exhibit.title = title.value;" type="text" class="input">
+        <input #title matInput placeholder="Name" name="title" 
+        type="text" class="input" formControlName="name">
       </p>
       <p>
-        <input #desc matInput placeholder="Description" name="description" (change)="this.cur_Exhibit.desc = desc.value; updatedExhibitionForm()" type="text" class="input">
+        <input #desc matInput placeholder="Description" name="description" 
+        type="text" class="input" formControlName="desc">
       </p>
-      <button type="submit" class="py-1 rounded" [disabled]="this.btn_disabled" (click)="addExhibit()">Add to Collection</button>
+      <button type="submit" class="py-1 rounded" [ngClass]="{'btn-disabled' : exhibitForm.invalid || !exhibitFile}"  [disabled]="exhibitForm.invalid || !exhibitFile" (click)="addExhibit()">Add to Collection</button>
     </form>
   </div>
   <hr>

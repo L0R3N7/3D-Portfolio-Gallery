@@ -5,7 +5,7 @@ import {Exhibit} from "../../../shared/class/exhibit";
 import {FileUploadOutput} from "../../../shared/file-upload-output";
 import {Subject} from "rxjs";
 import {Cache} from "three";
-import files = Cache.files;
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 
@@ -16,12 +16,18 @@ import files = Cache.files;
 })
 export class CreateExhibitionExhibitselectionComponent implements OnInit {
 
-  cur_Exhibit = new Exhibit_Form();
-  exhibit_Observer = new Subject<Exhibit_Form>();
-  btn_disabled: boolean = false;
+  
+  exhibitFile : FileUploadOutput | undefined; 
+  exhibitForm = new FormGroup({
+    name: new FormControl('', Validators.required),
+    desc : new FormControl('')
+  }); 
+  
+  exhibitCollection : Exhibit[] = []; 
+
 
   constructor(private gs: GalleryService) {
-    this.exhibit_Observer.subscribe(console.log)
+    
   }
 
 
@@ -29,25 +35,11 @@ export class CreateExhibitionExhibitselectionComponent implements OnInit {
   }
 
   addExhibit() {
-    console.log(this.cur_Exhibit)
+    console.log(this.exhibitForm.value)
+    console.log(this.exhibitFile)
 
-    //console.log(this.exhibit.title)
-    //this.gs.postExhibit(this.exhibit).subscribe(data => console.log(data))
-
+    //blob
+    this.exhibitCollection.push(new Exhibit(this.exhibitCollection.length, this.exhibitFile?.blob, this.exhibitFile?.filetype, this.exhibitForm.value.desc, this.exhibitForm.value.name))
   }
 
-  updatedExhibitionForm() {
-    if (this.cur_Exhibit.file && this.cur_Exhibit.title && this.cur_Exhibit.desc) {
-      this.btn_disabled = true;
-    }
-    this.btn_disabled = false;
-
-    console.log(this.btn_disabled)
-  }
-}
-
-class Exhibit_Form{
-  file : FileUploadOutput | undefined;
-  title : string | undefined;
-  desc : string | undefined;
 }

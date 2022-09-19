@@ -185,6 +185,11 @@ mat-icon{
   box-shadow: $shadow-values;
 }
 
+.btn-disabled{
+  filter: grayscale(.9); 
+  box-shadow: 0 0 0; 
+}
+
 .custom_input{
   @extend .rounded;
   @extend .shadow;
