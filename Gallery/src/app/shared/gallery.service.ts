@@ -23,6 +23,7 @@ export class GalleryService {
   getAllExhibitions(): Observable<Exhibition[]>{
     return this.httpClient.get<Exhibition[]>("assets/fakeendpoints/exhibitions.json")
   }
+
   postExhibit(exhibit: { room_id: string; description: string; id: number; thumbnail_url: string; title: string }): Observable<any>{
     let httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
