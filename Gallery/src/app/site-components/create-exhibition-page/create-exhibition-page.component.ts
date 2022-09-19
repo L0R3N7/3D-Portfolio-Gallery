@@ -3,6 +3,7 @@ import {NavbarServiceService} from "../../components/navbar/navbar-service.servi
 import {FooterService} from "../../components/footer/footer.service";
 import {MatStepper} from "@angular/material/stepper";
 import {StepperSelectionEvent} from "@angular/cdk/stepper";
+import {Exhibition} from "../../shared/class/exhibition";
 
 @Component({
   selector: 'app-create-exhibition-page',

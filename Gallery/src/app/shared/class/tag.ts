@@ -1,5 +1,11 @@
-export interface Tag{
-  id : number,
-  title : string,
-  color : string
+export class Tag{
+  id : number;
+  title : string;
+  color : string;
+
+  constructor(id: number, title: string, color: string) {
+    this.id = id;
+    this.title = title;
+    this.color = color;
+  }
 }
