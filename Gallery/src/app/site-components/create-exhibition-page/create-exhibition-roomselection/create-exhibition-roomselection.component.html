@@ -5,8 +5,8 @@
         <ngt-ambient-light intensity="2"></ngt-ambient-light>
         <ngt-spot-light [position]="[0, 5, 0]" penumbra="1"></ngt-spot-light>
         <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
-        <app-three-d-object-loader [src]="'assets/three-d-objects/room/floor/'.concat(room3dUrl)"></app-three-d-object-loader>
-        <app-three-d-object-loader [src]="'assets/three-d-objects/room/walls/'.concat(room3dUrl)"></app-three-d-object-loader>
+        <app-three-d-object-loader [srcModel]="'assets/three-d-objects/room/floor/'.concat(room3dUrl)"></app-three-d-object-loader>
+        <app-three-d-object-loader [srcModel]="'assets/three-d-objects/room/walls/'.concat(room3dUrl)"></app-three-d-object-loader>
       </ngt-canvas>
     </ng-container>
     <ng-template #noRoom>

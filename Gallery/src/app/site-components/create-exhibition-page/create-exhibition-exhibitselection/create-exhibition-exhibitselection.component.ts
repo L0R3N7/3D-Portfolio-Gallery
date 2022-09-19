@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 import {GalleryService} from "../../../shared/gallery.service";
-import {Exhibit} from "../../../shared/exhibit";
+import {Exhibit} from "../../../shared/class/exhibit";
 
 
 

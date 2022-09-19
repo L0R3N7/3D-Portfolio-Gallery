@@ -9,7 +9,7 @@ export class BlobService {
 
   cleanB64AndToBlob(b64Data: string){
     var strArr = b64Data.split(/[,;:]/);
-    console.log(strArr)
+    if (strArr[0] != 'data' || strArr[2] != 'base64'){console.error("something wrong here" + strArr)}
     return this.b64ToBlob(strArr[3], strArr[1]);
   }
 

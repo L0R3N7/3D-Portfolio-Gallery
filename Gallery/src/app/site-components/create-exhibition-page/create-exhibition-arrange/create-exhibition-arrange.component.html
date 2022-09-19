@@ -1,9 +1,11 @@
 <div class="row position-absolute top-0 w-100 h-100" style="left: 0;">
   <div class="col-lg-9 col-sm-7 " style="background-color: #C3C6E0;">
-    <ng-container *ngIf="blob">
+    <ng-container *ngIf="fileUploadRes">
       <ngt-canvas>
+        <ngt-ambient-light intensity="2"></ngt-ambient-light>
+        <ngt-spot-light [position]="[0, 5, 0]" penumbra="1"></ngt-spot-light>
         <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
-        <app-three-d-object-loader [blob]="blob"></app-three-d-object-loader>
+        <app-three-d-object-loader [blobModel]="fileUploadRes"></app-three-d-object-loader>
       </ngt-canvas>
     </ng-container>
   </div>
@@ -11,7 +13,7 @@
     <div class="create-exhibition-content-first ps-5">
       <h3 class="pt-5 text-center">Arrange Exhibition</h3>
       <div>
-        <app-file-upload (blob)="print($event)"></app-file-upload>
+        <app-file-upload [acceptedMediaTypes]="'3d'" (fileOutput)="print($event)"></app-file-upload>
       </div>
     </div>
     <div class="btn-end w-100 clearfix px-2 pt-3 shadow-inner" >

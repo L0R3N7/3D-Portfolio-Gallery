@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
-import {Exhibition} from "../../shared/exhibition";
+import {Exhibition} from "../../shared/class/exhibition";
 import {GalleryService} from "../../shared/gallery.service";
 
 @Component({
