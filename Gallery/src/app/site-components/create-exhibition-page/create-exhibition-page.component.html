@@ -15,10 +15,11 @@
       <ng-template matStepLabel>Exhibits</ng-template>
         <div class="container mt-5">
         <h2 class="text-center">Exhibits</h2>
-        <app-create-exhibition-exhibitselection></app-create-exhibition-exhibitselection>
+        <app-create-exhibition-exhibitselection (changedExhibitList)="this.exhibitionList = $event; stepsCompleted[stepper.selectedIndex] = $event.length != 0">
+        </app-create-exhibition-exhibitselection>
           <div class="w-100 clearfix">
             <button class="w-49 backbutton" mat-button matStepperPrevious>Back</button>
-            <button class="float-end w-49" mat-button matStepperNext>Next</button>
+            <button [ngClass]="{'disabled':!stepsCompleted[stepper.selectedIndex]}" class="float-end w-49" mat-button matStepperNext>Next</button>
           </div>
         </div>
       </mat-step>

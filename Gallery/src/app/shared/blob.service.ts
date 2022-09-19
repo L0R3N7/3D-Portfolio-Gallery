@@ -32,4 +32,12 @@ export class BlobService {
     const blob = new Blob(byteArrays, {type: contentType});
     return blob;
   }
+
+  blobToBase64(blob : Blob){
+    return new Promise<string>((resolve, _) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result?.toString() ?? "");
+      reader.readAsDataURL(blob);
+    });
+  }
 }

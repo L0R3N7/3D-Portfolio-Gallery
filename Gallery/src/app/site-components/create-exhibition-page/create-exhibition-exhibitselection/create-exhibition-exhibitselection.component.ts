@@ -6,6 +6,7 @@ import {FileUploadOutput} from "../../../shared/file-upload-output";
 import {Subject} from "rxjs";
 import {Cache} from "three";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {BlobService} from "../../../shared/blob.service";
 
 
 
@@ -16,18 +17,19 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class CreateExhibitionExhibitselectionComponent implements OnInit {
 
-  
-  exhibitFile : FileUploadOutput | undefined; 
+  @Output('changedExhibitList') changedExhibitlistEvent = new EventEmitter<Exhibit[]>();
+
+  exhibitFile : FileUploadOutput | undefined;
   exhibitForm = new FormGroup({
     name: new FormControl('', Validators.required),
     desc : new FormControl('')
-  }); 
-  
-  exhibitCollection : Exhibit[] = []; 
+  });
+
+  exhibitCollection : Exhibit[] = [];
 
 
-  constructor(private gs: GalleryService) {
-    
+  constructor(private gs: GalleryService, private bs: BlobService) {
+
   }
 
 
@@ -35,11 +37,18 @@ export class CreateExhibitionExhibitselectionComponent implements OnInit {
   }
 
   addExhibit() {
-    console.log(this.exhibitForm.value)
-    console.log(this.exhibitFile)
-
-    //blob
-    this.exhibitCollection.push(new Exhibit(this.exhibitCollection.length, this.exhibitFile?.blob, this.exhibitFile?.filetype, this.exhibitForm.value.desc, this.exhibitForm.value.name))
+    this.bs.blobToBase64(this.exhibitFile!.blob).then(value => {
+      this.exhibitCollection.push(new Exhibit(this.exhibitCollection.length, value, this.exhibitFile?.filetype ?? "non", this.exhibitForm.value.name ?? "unnamed", this.exhibitForm.value.desc ?? ""))
+      this.changedExhibitlistEvent.emit(this.exhibitCollection);
+    })
   }
 
+  deleteExhibit($event: number) {
+    if ($event == 0 && this.exhibitCollection.length == 1){
+      this.exhibitCollection.shift();
+    }else {
+      this.exhibitCollection.splice($event, 1)
+    }
+    this.changedExhibitlistEvent.emit(this.exhibitCollection);
+  }
 }
