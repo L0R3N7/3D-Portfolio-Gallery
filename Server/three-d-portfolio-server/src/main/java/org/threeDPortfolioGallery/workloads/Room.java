@@ -1,15 +1,14 @@
 package org.threeDPortfolioGallery.workloads;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Room {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Room extends PanacheEntity {
 
     private String name;
 
@@ -19,5 +18,4 @@ public class Room {
 
     // TODO relationship to position, exhibition
 
-    // region ♡ getter setter ♡
 }
