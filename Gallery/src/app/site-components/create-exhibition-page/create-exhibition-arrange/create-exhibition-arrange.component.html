@@ -13,7 +13,12 @@
     <div class="create-exhibition-content-first ps-5">
       <h3 class="pt-5 text-center">Arrange Exhibition</h3>
       <div>
-        <app-file-upload [acceptedMediaTypes]="'3d'" (fileOutput)="print($event)"></app-file-upload>
+        <button class="w-100 action-button p-2">
+            Auto-Generate
+        </button>
+      </div>
+      <div cdkDropList class="exhibit-list" (cdkDropListDropped)="drop($event)">
+        <div class="exhibit-box" *ngFor="let movie of movies" cdkDrag>{{movie}}</div>
       </div>
     </div>
     <div class="btn-end w-100 clearfix px-2 pt-3 shadow-inner" >
