@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@a
 import * as THREE from "three";
 import {OBJLoader} from "three/examples/jsm/loaders/OBJLoader";
 import {GLTF, GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
-import {Object3D} from "three";
+import {Object3D, Spherical, Vector3} from "three";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import {CSS2DRenderer} from "three/examples/jsm/renderers/CSS2DRenderer";
 
@@ -11,6 +11,7 @@ import {CSS2DRenderer} from "three/examples/jsm/renderers/CSS2DRenderer";
   templateUrl: './cube2.component.html',
   styleUrls: ['./cube2.component.scss']
 })
+
 export class Cube2Component implements OnInit, AfterViewInit {
 
   @ViewChild('canvas') private canvasRef!: ElementRef;
@@ -22,6 +23,7 @@ export class Cube2Component implements OnInit, AfterViewInit {
   @Input('nearClipping') public nearClippingPane: number = 1;
 
   @Input('farClipping') public farClippingPane: number = 1000;
+
 
   //? Scene properties
   private camera!: THREE.PerspectiveCamera;

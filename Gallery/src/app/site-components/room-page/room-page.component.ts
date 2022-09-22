@@ -12,6 +12,7 @@ export class RoomPageComponent implements OnInit {
   constructor(public navbar: NavbarServiceService, public footer: FooterService) { }
 
   ngOnInit(): void {
+      this.navbar.white = false;
       this.navbar.hide()
       this.footer.hide()
   }
