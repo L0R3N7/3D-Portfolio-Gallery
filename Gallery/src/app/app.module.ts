@@ -28,6 +28,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { SignupPageComponent } from './site-components/signup-page/signup-page.component';
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import { MatSelectModule} from '@angular/material/select';
+
 import {
   CreateExhibitionMetadataComponent
 } from "./site-components/create-exhibition-page/create-exhibition-metadata/create-exhibition-metadata.component";
@@ -107,7 +109,9 @@ const routes: Routes = []
         MatListModule,
         NgtGroupModule,
         NgtPrimitiveModule,
-        NgtMeshStandardMaterialModule
+        NgtMeshStandardMaterialModule,
+        MatSelectModule,
+      
     ],
   providers: [],
   bootstrap: [AppComponent]

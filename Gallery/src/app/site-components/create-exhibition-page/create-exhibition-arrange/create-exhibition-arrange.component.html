@@ -17,12 +17,50 @@
             Auto-Generate
         </button>
       </div>
-      <div cdkDropList class="exhibit-list" (cdkDropListDropped)="drop($event)">
-        <div class="exhibit-box" *ngFor="let movie of movies" cdkDrag>{{movie}}</div>
+      
+      <div class="exhibit-container my-2">
+        <table>
+          <tr *ngFor="let e of this.exhibitList;">
+            <td></td>
+            <td>{{e.title}}</td>
+          </tr>
+        </table>
       </div>
+      <div class="d-flex exhibit-container my-2 px-4">
+        <div style="display: flex; flex-direction: column; ">
+          <h3 class="font-gradient m-3 exhibit-name px-0 mx-0">Vase</h3>
+          <div>
+            <p>Select Position</p>
+            <mat-form-field>
+              <mat-select [(value)]="selected" >
+                <mat-option value="none">No position</mat-option>
+                <mat-option value="option1">Option 1</mat-option>
+                <mat-option value="option2">Option 2</mat-option>
+                <mat-option value="option3">Option 3</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div>
+            <p>Styling</p>
+            <app-slideshow>
+              <img *ngFor="" style="aspect-ratio: 1;">
+              <div *ngFor="" class="rounded shadow">
+                <img >
+
+              </div>
+            </app-slideshow>
+          </div>
+          
+        </div>
+        <!--<h5 class="opacity-50">No Exhibit selected</h5>-->
+      </div>
+      <!--<div cdkDropList class="exhibit-list" (cdkDropListDropped)="drop($event)">
+        <div class="exhibit-box" *ngFor="let movie of movies" cdkDrag>{{movie}}</div>
+      </div>-->
     </div>
     <div class="btn-end w-100 clearfix px-2 pt-3 shadow-inner" >
       <ng-content></ng-content>
     </div>
   </div>
+
 </div>

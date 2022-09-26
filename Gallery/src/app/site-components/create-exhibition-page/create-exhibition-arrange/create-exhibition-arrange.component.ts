@@ -1,6 +1,10 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
-import {FileUploadOutput} from "../../../shared/file-upload-output";
+import { FileUploadOutput} from "../../../shared/file-upload-output";
+import { Exhibit } from 'src/app/shared/class/exhibit';
+import { Material } from 'three';
+import { Theme } from 'src/app/shared/class/theme';
+
 
 @Component({
   selector: 'app-create-exhibition-arrange',
@@ -10,24 +14,11 @@ import {FileUploadOutput} from "../../../shared/file-upload-output";
 export class CreateExhibitionArrangeComponent implements OnInit {
 
   fileUploadRes : FileUploadOutput | undefined;
-  @Input('')
+  @Input('ExhibitList') exhibitList : Exhibit[] = [new Exhibit(0, "", "", "Vase", "Tolle Vase")]
+  @Input('MaterialList') materialList : Theme[] = [new Theme(0, "", "", "Vase", "Tolle Vase")]
+  selected = "none"; 
+
   
-    movies = [
-      'Episode I - The Phantom Menace',
-      'Episode II - Attack of the Clones',
-      'Episode III - Revenge of the Sith',
-      'Episode IV - A New Hope',
-      'Episode V - The Empire Strikes Back',
-      'Episode VI - Return of the Jedi',
-      'Episode VII - The Force Awakens',
-      'Episode VIII - The Last Jedi',
-      'Episode IX – The Rise of Skywalker',
-    ];
-  
-    drop(event: CdkDragDrop<string[]>) {
-      moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
-    }
-    
   constructor() { }
 
   ngOnInit(): void {
