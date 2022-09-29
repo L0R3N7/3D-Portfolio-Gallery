@@ -1,13 +1,6 @@
 <div class="row position-absolute top-0 w-100 h-100" style="left: 0;">
   <div class="col-lg-9 col-sm-7 " style="background-color: #C3C6E0;">
-    <ng-container *ngIf="fileUploadRes">
-      <ngt-canvas>
-        <ngt-ambient-light intensity="2"></ngt-ambient-light>
-        <ngt-spot-light [position]="[0, 5, 0]" penumbra="1"></ngt-spot-light>
-        <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
-        <app-three-d-object-loader [blobModel]="fileUploadRes"></app-three-d-object-loader>
-      </ngt-canvas>
-    </ng-container>
+    <app-three-room></app-three-room>
   </div>
   <div class="col-lg-3 col-sm-5 h-100 p-0">
     <div class="create-exhibition-content-first ps-5">
@@ -30,7 +23,6 @@
         <div style="display: flex; flex-direction: column; ">
           <h3 class="font-gradient m-3 exhibit-name px-0 mx-0">Vase</h3>
           <div>
-            <p>Select Position</p>
             <mat-form-field>
               <mat-select [(value)]="selected" >
                 <mat-option value="none">No position</mat-option>
@@ -42,12 +34,8 @@
           </div>
           <div>
             <p>Styling</p>
-            <app-slideshow>
-              <img *ngFor="" style="aspect-ratio: 1;">
-              <div *ngFor="" class="rounded shadow">
-                <img >
-
-              </div>
+            <app-slideshow class="w-100">
+              <img *ngFor="let m of this.materialList" class="shadow rounded" style="aspect-ratio: 1; object-fit: contain; width: 20%; height: auto;" src="{{m.thumbnail_url}}">
             </app-slideshow>
           </div>
           

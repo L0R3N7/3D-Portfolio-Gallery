@@ -1,0 +1,16 @@
+<ngt-canvas>
+    <ngt-ambient-light intensity="2"></ngt-ambient-light>
+    <ngt-spot-light [position]="[0, 5, 0]" penumbra="1"></ngt-spot-light>
+    <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+    <ng-container *ngIf="this.room">
+        <app-three-d-object-loader [scale]="6" [srcModel]="'./assets/three-d-objects/room/floor/'+this.room.room_url"></app-three-d-object-loader>
+        <app-three-d-object-loader [scale]="6" [srcModel]="'./assets/three-d-objects/room/walls/'+this.room.room_url"></app-three-d-object-loader>
+        <ng-container *ngIf="this.room.positions">
+            <app-three-d-object-loader *ngFor="let positon of this.room.positions" [srcModel]="'./assets/three-d-objects/podest_01.gltf'"></app-three-d-object-loader>
+        </ng-container>
+    </ng-container>
+</ngt-canvas>
+<!-- TODO
+    Piller x, y position mitgeben
+    z höhe definieren, wo exhibition platzieren wird
+-->

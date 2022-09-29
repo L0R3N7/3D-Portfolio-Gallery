@@ -10,7 +10,7 @@ import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
 import {AMFLoader} from "three/examples/jsm/loaders/AMFLoader";
 
 @Component({
-  selector: 'app-three-d-object-loader',
+  selector: 'app-three-d-object-loader'     ,
   templateUrl: './three-d-object-loader.component.html',
   styleUrls: ['./three-d-object-loader.component.scss'],
 })
@@ -19,7 +19,7 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
   @Input('srcModel') modelUrl?: string;
   @Input('blobModel') modelBlob?: FileUploadOutput;
   @Input('srcTexture') textureUrl ?: string = 'assets/image/placeholder-card.jpg';
-  @Input('scale') scale : number = 2;
+  @Input('scale') scale : number = 1;
   model$ : Observable<GLTF & NgtObjectMap> | undefined;
   subscribtion :  Subscription | undefined;
   texture : Texture | undefined;
@@ -53,8 +53,6 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
   }
 
   load3dModel() {
-
-
     if (this.modelUrl && this.loader) {
       if (this.loader.cached.has(this.modelUrl)){this.loader.cached.delete(this.modelUrl)}
       this.model$ = this.loader.use(GLTFLoader, this.modelUrl);
@@ -65,8 +63,7 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
         loader = this.loaderType?.get(this.modelBlob.filetype);
       }else{
         loader = GLTFLoader;
-      }
-
+      }   
 
       // @ts-ignore
       this.model$ = this.loader.use(loader, url);
@@ -85,6 +82,8 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
     });
   }
 
+  //TODO
+  //improve (add recursive search for BufferGeometry)
   scale3dModel(arr_mesh:  Mesh[] | Object3D[]){
       var res : number = 0;
       // @ts-ignore
@@ -95,9 +94,8 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
       // @ts-ignore
       all.forEach((al)=>{res += al.geometry.boundingSphere.radius ?? 0});
       res /= all.length;
-      this.scale = (1 / res) * 1;
+      this.scale = (1 / res) * this.scale;
   }
-
 
   loadTexture() {
     this.loader.use(TextureLoader, 'assets/image/placeholder-card.jpg').subscribe((e) => {
