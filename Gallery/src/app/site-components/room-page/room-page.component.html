@@ -3,7 +3,10 @@
   <ngt-canvas>
     <ngt-ambient-light intensity="2"></ngt-ambient-light>
     <ngt-spot-light [position]="[0, 5, 0]" penumbra="1"></ngt-spot-light>
+    <!--<ngt-soba-first-person-controls></ngt-soba-first-person-controls>
     <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+    <ngt-perspective-camera></ngt-perspective-camera>-->
+    <ngt-soba-fly-controls></ngt-soba-fly-controls>
     <app-three-d-object-loader [srcModel]="'assets/three-d-objects/room/floor/2.gltf'"></app-three-d-object-loader>
     <app-three-d-object-loader [srcModel]="'assets/three-d-objects/room/walls/2.gltf'"></app-three-d-object-loader>
   </ngt-canvas>

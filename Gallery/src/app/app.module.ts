@@ -10,7 +10,11 @@ import {NgtAmbientLightModule, NgtPointLightModule, NgtSpotLightModule} from "@a
 import {NgtMeshModule} from "@angular-three/core/meshes";
 import {NgtBoxGeometryModule} from "@angular-three/core/geometries";
 import {NgtMeshBasicMaterialModule, NgtMeshStandardMaterialModule} from "@angular-three/core/materials";
-import {NgtSobaOrbitControlsModule} from "@angular-three/soba/controls";
+import {
+  NgtSobaFirstPersonControlsModule,
+  NgtSobaFlyControlsModule,
+  NgtSobaOrbitControlsModule
+} from "@angular-three/soba/controls";
 import { HomePageComponent } from './site-components/home-page/home-page.component';
 import { LogSigninPageComponent } from './site-components/log-signin-page/log-signin-page.component';
 import { ProfilePageComponent } from './site-components/profile-page/profile-page.component';
@@ -52,6 +56,7 @@ import {NgtGroupModule} from "@angular-three/core/group";
 import {NgtPrimitiveModule} from "@angular-three/core/primitive";
 import { CreateExhibitionArrangeComponent } from './site-components/create-exhibition-page/create-exhibition-arrange/create-exhibition-arrange.component';
 import { RoomPageComponent } from './site-components/room-page/room-page.component';
+import {NgtOrthographicCameraModule, NgtPerspectiveCameraModule} from "@angular-three/core/cameras";
 
 
 const routes: Routes = []
@@ -83,36 +88,40 @@ const routes: Routes = []
     CreateExhibitionArrangeComponent,
     RoomPageComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        RouterModule.forRoot(routes),
-        NgtCanvasModule,
-        NgtAmbientLightModule,
-        NgtSpotLightModule,
-        NgtPointLightModule,
-        NgtMeshModule,
-        NgtBoxGeometryModule,
-        NgtMeshBasicMaterialModule,
-        NgtSobaOrbitControlsModule,
-        MatIconModule,
-        MatCardModule,
-        MatStepperModule,
-        FormsModule,
-        MatFormFieldModule,
-        DragDropModule,
-        ReactiveFormsModule,
-        MatAutocompleteModule,
-        MatChipsModule,
-        HttpClientModule,
-        MatListModule,
-        NgtGroupModule,
-        NgtPrimitiveModule,
-        NgtMeshStandardMaterialModule,
-        MatSelectModule,
-      
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    RouterModule.forRoot(routes),
+    NgtCanvasModule,
+    NgtAmbientLightModule,
+    NgtSpotLightModule,
+    NgtPointLightModule,
+    NgtMeshModule,
+    NgtBoxGeometryModule,
+    NgtMeshBasicMaterialModule,
+    NgtSobaOrbitControlsModule,
+    MatIconModule,
+    MatCardModule,
+    MatStepperModule,
+    FormsModule,
+    MatFormFieldModule,
+    DragDropModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    HttpClientModule,
+    MatListModule,
+    NgtGroupModule,
+    NgtPrimitiveModule,
+    NgtMeshStandardMaterialModule,
+    MatSelectModule,
+    NgtSobaFirstPersonControlsModule,
+    NgtOrthographicCameraModule,
+    NgtPerspectiveCameraModule,
+    NgtSobaFlyControlsModule,
+
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
