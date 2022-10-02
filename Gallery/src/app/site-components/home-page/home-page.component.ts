@@ -11,16 +11,14 @@ import {Exhibition} from "../../shared/class/exhibition";
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(public navbar: NavbarServiceService, public footer: FooterService, private gs: GalleryService) {
+  constructor(public navbar: NavbarServiceService, public footer: FooterService, private gs: GalleryService) {}
 
-  }
   exhibitions: Exhibition[] = [];
 
   ngOnInit(): void {
     this.navbar.show()
     this.footer.show()
     this.gs.getAllExhibitions().subscribe(res => this.exhibitions = res);
-
   }
 
 }

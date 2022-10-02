@@ -63,7 +63,7 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
         loader = this.loaderType?.get(this.modelBlob.filetype);
       }else{
         loader = GLTFLoader;
-      }   
+      }
 
       // @ts-ignore
       this.model$ = this.loader.use(loader, url);
@@ -82,8 +82,7 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
     });
   }
 
-  //TODO
-  //improve (add recursive search for BufferGeometry)
+  //TODO improve (add recursive search for BufferGeometry)
   scale3dModel(arr_mesh:  Mesh[] | Object3D[]){
       var res : number = 0;
       // @ts-ignore
