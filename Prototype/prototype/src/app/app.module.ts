@@ -9,7 +9,7 @@ import {NgtAmbientLightModule, NgtPointLightModule} from "@angular-three/core/li
 import {NgtMeshModule} from "@angular-three/core/meshes";
 import {NgtBoxGeometryModule} from "@angular-three/core/geometries";
 import {NgtMeshStandardMaterialModule} from "@angular-three/core/materials";
-import {NgtSobaOrbitControlsModule} from "@angular-three/soba/controls";
+import {NgtSobaFirstPersonControlsModule, NgtSobaOrbitControlsModule} from "@angular-three/soba/controls";
 
 import { Cube2Component } from './cube2/cube2.component';
 
@@ -29,6 +29,7 @@ import { Cube2Component } from './cube2/cube2.component';
     NgtMeshStandardMaterialModule,
     NgtSobaOrbitControlsModule,
     NgtPointLightModule,
+    NgtSobaFirstPersonControlsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
