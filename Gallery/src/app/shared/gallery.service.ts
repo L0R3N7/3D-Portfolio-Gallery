@@ -10,12 +10,17 @@ import {Exhibition} from "./class/exhibition";
 })
 export class GalleryService {
   supportedFiletypes = new Map<string, string[]>();
+  private _isLoggedIn = false;
 
 
   constructor(private httpClient: HttpClient) {
     this.supportedFiletypes.set('image', ['image/png', 'image/jpeg', 'image/jpg']);
     this.supportedFiletypes.set('video', ['mov', 'mp4']);
     this.supportedFiletypes.set('3d', ['gltf', 'obj', 'fbx', 'amf']);
+  }
+
+  get isLoggedIn(): boolean {
+    return this._isLoggedIn;
   }
 
   getAllRooms(): Observable<Room[]>{

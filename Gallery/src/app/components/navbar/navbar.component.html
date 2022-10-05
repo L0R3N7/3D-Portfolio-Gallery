@@ -12,13 +12,23 @@
              routerLink="/home" routerLinkActive="link-activated"><mat-icon>home</mat-icon>Home</a>
           <a class="navbar-brand"
              routerLink="/search" routerLinkActive="link-activated"><mat-icon>search</mat-icon>Search</a>
-          <a class="navbar-brand"
+          <a class="navbar-brand" *ngIf="isLoggedIn"
              routerLink="/profile" routerLinkActive="link-activated"><mat-icon>person
           </mat-icon>Profile</a>
         </div>
       </div>
       <div class="col-3">
-        <a class="navbar-brand" style="float: right" routerLink="/log-signin"><button class="profile px-5 action-button" >Sign in / Log in</button></a>
+        <ng-container *ngIf="!isLoggedIn; else profile">
+          <a class="navbar-brand" style="float: right" routerLink="/log-signin"><button class="profile px-5 action-button" >Sign in / Log in</button></a>
+        </ng-container>
+        <ng-template #profile>
+          <a routerLink="/profile">
+            <div>
+              <img src="assets/image/profile-photo.jpg">
+              <p>Max Mustermann</p>
+            </div>
+          </a>
+        </ng-template>
       </div>
     </div>
 </nav>
