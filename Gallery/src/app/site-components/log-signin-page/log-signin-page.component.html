@@ -15,14 +15,12 @@
           <a class="navbar-brand no-after title" ><b class="font-gradient">Portfolio</b></a>
       </div>
       <h2>Welcome Back</h2>
-      <form>
-        <p>
-            <input class="input" matInput placeholder="email@example.com" name="email" ngModel type="email">
-        </p>
-        <p>
-            <input class="input" matInput placeholder="Password" name="password" ngModel type="password" >
-        </p>
-        <button type="submit" class="py-1 rounded">Log In</button>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <input class="input" placeholder="email@example.com or username" type="email" formControlName="emailOrUsername">
+        <input class="input" placeholder="Password" type="password" formControlName="password">
+        <label class="font-action-c">
+        </label>
+        <button type="submit" class="py-1 rounded" [disabled]="!loginForm.valid" [ngClass]="{'btn-disabled': !loginForm.valid}">Log In</button>
       </form>
       <hr class="mx-auto my-5">
       <p class="sign-up-text">Don't have an account yet? <a class="font-gradient underlined" routerLink="/signup">Sign up</a></p>
