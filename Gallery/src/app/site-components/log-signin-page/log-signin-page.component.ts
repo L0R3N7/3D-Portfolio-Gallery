@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {NavbarServiceService} from "../../components/navbar/navbar-service.service";
 import {FooterService} from "../../components/footer/footer.service";
 import {FormControl, FormGroup, Validator, Validators} from "@angular/forms";
+import {GalleryService} from "../../shared/gallery.service";
+import {User} from "../../shared/class/user";
+import {ActivatedRoute, Route, Router} from "@angular/router";
 
 @Component({
   selector: 'app-log-signin-page',
@@ -14,7 +17,12 @@ export class LogSigninPageComponent implements OnInit {
     password: new FormControl('', Validators.required)
   })
 
-  constructor(public navbar: NavbarServiceService, public footer: FooterService) { }
+  constructor(private navbar: NavbarServiceService,
+              private footer: FooterService,
+              private gallery: GalleryService,
+              private route: ActivatedRoute,
+              private router: Router) {}
+
 
   ngOnInit(): void {
     this.navbar.hide()
@@ -23,6 +31,9 @@ export class LogSigninPageComponent implements OnInit {
   }
 
   onSubmit() {
-
+    this.gallery.logIn(new User(-1, this.loginForm.value.emailOrUsername ?? "", this.loginForm.value.emailOrUsername ?? "", User.hashClientsidePassword(this.loginForm.value.password ?? ""), ""));
+    console.log(this.route)
+    console.log(this.router)
+    this.router.navigate(['../'], {relativeTo: this.route})
   }
 }

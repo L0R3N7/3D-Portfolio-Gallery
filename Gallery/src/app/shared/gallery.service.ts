@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Room} from "./class/room";
 import {Tag} from "./class/tag";
+import {User} from "./class/user";
 import {Exhibition} from "./class/exhibition";
 
 @Injectable({
@@ -21,6 +22,11 @@ export class GalleryService {
 
   get isLoggedIn(): boolean {
     return this._isLoggedIn;
+  }
+
+  logIn(user: User){
+    //Todo Serverendpoint
+    this._isLoggedIn = true;
   }
 
   getAllRooms(): Observable<Room[]>{

@@ -1,4 +1,4 @@
-class User{
+export class User{
   id: number;
   email: string;
   usesrname: string;
@@ -13,7 +13,7 @@ class User{
     this.icon_url = icon_url;
   }
 
-  hashClientsidePassword(password: string) : string {
+  static hashClientsidePassword(password: string) : string {
     //Todo HashClientSide
     return password;
   }
