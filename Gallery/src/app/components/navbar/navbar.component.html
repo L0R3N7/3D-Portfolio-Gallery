@@ -12,19 +12,18 @@
              routerLink="/home" routerLinkActive="link-activated"><mat-icon>home</mat-icon>Home</a>
           <a class="navbar-brand"
              routerLink="/search" routerLinkActive="link-activated"><mat-icon>search</mat-icon>Search</a>
-          <a class="navbar-brand" *ngIf="isLoggedIn"
-             routerLink="/profile" routerLinkActive="link-activated"><mat-icon>person
-          </mat-icon>Profile</a>
+          <a class="navbar-brand" *ngIf="this.navbar.loggedIn"
+             routerLink="/profile" routerLinkActive="link-activated"><mat-icon>person</mat-icon>Profile</a>
         </div>
       </div>
       <div class="col-3">
-        <ng-container *ngIf="!isLoggedIn; else profile">
+        <ng-container *ngIf="!this.navbar.loggedIn; else profile">
           <a class="navbar-brand" style="float: right" routerLink="/log-signin"><button class="profile px-5 action-button" >Sign in / Log in</button></a>
         </ng-container>
         <ng-template #profile>
-          <a routerLink="/profile">
-            <div>
-              <img src="assets/image/profile-photo.jpg">
+          <a routerLink="/profile" class="w-100">
+            <div id="profile-container" class="w-100">
+              <!--<img src="assets/image/profile-photo.jpg">-->
               <p>Max Mustermann</p>
             </div>
           </a>

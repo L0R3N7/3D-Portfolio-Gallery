@@ -15,20 +15,12 @@
       <a class="navbar-brand no-after title" ><b class="font-gradient">Portfolio</b></a>
     </div>
     <h2>Create Art Today</h2>
-    <form>
-      <p>
-        <input class="input" matInput placeholder="Username" name="text" ngModel type="email">
-      </p>
-      <p>
-        <input class="input" matInput placeholder="email@example.com" name="email" ngModel type="email">
-      </p>
-      <p>
-        <input class="input" matInput placeholder="Password" name="password" ngModel type="password" >
-      </p>
-      <p>
-        <input class="input" matInput placeholder="Confirm Password" name="password" ngModel type="password" >
-      </p>
-      <button type="submit" class="py-1 rounded">Sign Up</button>
+    <form [formGroup]="signupForm" (ngSubmit)="submit()">
+      <input class="input" formControlName="username" placeholder="Username" name="text" ngModel type="email">
+      <input class="input" formControlName="email" placeholder="email@example.com" name="email" ngModel type="email">
+      <input class="input" formControlName="password" placeholder="Password" name="password" ngModel type="password" >
+      <input class="input" formControlName="confirmPassword" placeholder="Confirm Password" name="password" ngModel type="password" >
+      <button type="submit" class="py-1 rounded" [disabled]="!signupForm.valid" [ngClass]="{'btn-disabled': !signupForm.valid}">Sign Up</button>
     </form>
     <hr class="mx-auto my-5">
     <p class="sign-up-text">Don't have an account yet? <a class="font-gradient underlined" routerLink="/log-signin">Log In</a></p>

@@ -8,10 +8,8 @@ import {GalleryService} from "../../shared/gallery.service";
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  isLoggedIn ?: Boolean;
 
-  constructor(public navbar: NavbarServiceService, public galleryService : GalleryService) {
-    this.isLoggedIn = galleryService.isLoggedIn; 
+  constructor(public navbar: NavbarServiceService) {
   }
 
   ngOnInit(): void {

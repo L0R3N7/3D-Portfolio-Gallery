@@ -5,6 +5,7 @@ import {Room} from "./class/room";
 import {Tag} from "./class/tag";
 import {User} from "./class/user";
 import {Exhibition} from "./class/exhibition";
+import {NavbarServiceService} from "../components/navbar/navbar-service.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class GalleryService {
   private _isLoggedIn = false;
 
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private navbarService : NavbarServiceService) {
     this.supportedFiletypes.set('image', ['image/png', 'image/jpeg', 'image/jpg']);
     this.supportedFiletypes.set('video', ['mov', 'mp4']);
     this.supportedFiletypes.set('3d', ['gltf', 'obj', 'fbx', 'amf']);
@@ -27,6 +28,7 @@ export class GalleryService {
   logIn(user: User){
     //Todo Serverendpoint
     this._isLoggedIn = true;
+    this.navbarService.loggedIn = this.isLoggedIn;
   }
 
   getAllRooms(): Observable<Room[]>{

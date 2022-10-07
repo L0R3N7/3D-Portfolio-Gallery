@@ -8,10 +8,12 @@ export class NavbarServiceService {
 
   visible: boolean;
   white: boolean;
+  loggedIn : boolean;
 
   constructor() {
     this.visible = false;
     this.white = false;
+    this.loggedIn = false;
   }
 
   hide(){
