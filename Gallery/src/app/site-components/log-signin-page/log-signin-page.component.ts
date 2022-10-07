@@ -35,6 +35,6 @@ export class LogSigninPageComponent implements OnInit {
     console.log(this.route)
     console.log(this.router)
     console.log(this.gallery.isLoggedIn)
-    this.router.navigate(['../'], {relativeTo: this.route})
+    this.router.navigate(['../profile'], {relativeTo: this.route})
   }
 }
