@@ -3,7 +3,7 @@ import {NgtLoader, NgtObjectMap} from "@angular-three/core";
 import {GLTF, GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 import {Observable, Subscription} from "rxjs";
 import {BlobService} from "../../../shared/blob.service";
-import {Loader, Mesh, MeshBasicMaterial, Object3D, Texture, TextureLoader} from "three";
+import {Group, Loader, Mesh, MeshBasicMaterial, Object3D, Texture, TextureLoader} from "three";
 import {FileUploadOutput} from "../../../shared/file-upload-output";
 import {OBJLoader} from "three/examples/jsm/loaders/OBJLoader";
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
@@ -18,16 +18,18 @@ import {AMFLoader} from "three/examples/jsm/loaders/AMFLoader";
 export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
   @Input('srcModel') modelUrl?: string;
   @Input('blobModel') modelBlob?: FileUploadOutput;
-  @Input('srcTexture') textureUrl ?: string = 'assets/image/placeholder-card.jpg';
+  @Input('srcTexture') textureUrl ?: string //= 'assets/image/placeholder-card.jpg';
   @Input('scale') scale : number = 1;
   model$ : Observable<GLTF & NgtObjectMap> | undefined;
-  subscribtion :  Subscription | undefined;
+  modelSceneClone : Group | undefined;
+  //subscribtion :  Subscription | undefined;
   texture : Texture | undefined;
   loaderType : Map<string, Loader> | undefined;
 
   constructor(private loader : NgtLoader, private blobService : BlobService) {}
 
   ngOnInit() {
+    // TODO Test 3D Loaders
     // @ts-ignore
     this.loaderType = new Map<string, Loader>([
       ['gltf', GLTFLoader],
@@ -38,8 +40,10 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
   }
 
   ngOnChanges(changes:SimpleChanges){
+    //this.loader.cached.clear()
+    //console.log(this.loader)
     //resets model observer
-    this.subscribtion?.unsubscribe() ;
+    //this.subscribtion?.unsubscribe() ;
 
     // load texture if provided
     if (this.textureUrl) {
@@ -56,7 +60,9 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
     if (this.modelUrl && this.loader) {
       if (this.loader.cached.has(this.modelUrl)){this.loader.cached.delete(this.modelUrl)}
       this.model$ = this.loader.use(GLTFLoader, this.modelUrl);
-    }else if(this.modelBlob && this.loader){
+    }
+    
+    /*else if(this.modelBlob && this.loader){
       var url = URL.createObjectURL(this.modelBlob.blob);
       var loader;
       if (this.loaderType?.get(this.modelBlob.filetype)){
@@ -67,24 +73,30 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
 
       // @ts-ignore
       this.model$ = this.loader.use(loader, url);
-    }
+    }*/
   }
 
   config3dModel(){
-    this.subscribtion = this.model$?.subscribe((e)=>{
+    this.model$?.subscribe((e : GLTF)=>{
+      this.modelSceneClone = e.scene; 
+      console.log(e)
+      console.log(this.modelSceneClone)
+      
+      //this.scale = (1 / 100) * this.scale;
+      
       // calculates the size of an object and adjusts the scale accordingly
-      this.scale3dModel(e.scene.children);
+      //this.scale3dModel();
       // if texture is provided uses it on the loaded 3d model
-      if (this.texture){
+      /*if (this.texture){
         var material = new MeshBasicMaterial({map: this.texture});
         this.recursiveChildsMaterial(e.scene.children, material);
-      }
+      }*/
     });
   }
 
   //TODO improve (add recursive search for BufferGeometry)
-  scale3dModel(arr_mesh:  Mesh[] | Object3D[]){
-      var res : number = 0;
+  scale3dModel(){//arr_mesh:  Mesh[] | Object3D[]){
+      /*var res : number = 0;
       // @ts-ignore
       const all = arr_mesh.filter((obj) => {
         // @ts-ignore
@@ -92,8 +104,8 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
       });
       // @ts-ignore
       all.forEach((al)=>{res += al.geometry.boundingSphere.radius ?? 0});
-      res /= all.length;
-      this.scale = (1 / res) * this.scale;
+      res /= all.length;*/
+      this.scale = (1 / 100) * this.scale;
   }
 
   loadTexture() {
