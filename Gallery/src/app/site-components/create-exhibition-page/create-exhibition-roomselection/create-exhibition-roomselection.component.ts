@@ -11,6 +11,7 @@ export class CreateExhibitionRoomselectionComponent implements OnInit {
   rooms: Room[] = [];
   selectedRoom_id : number = -1;
   room3dUrl: string = "";
+  rangevalue = 1;
   @ViewChild("resetButton") button : ElementRef | undefined;
 
   @Output() roomSelectedEvent = new EventEmitter<number>();
@@ -34,4 +35,7 @@ export class CreateExhibitionRoomselectionComponent implements OnInit {
     this.gs.getAllRooms().subscribe(res => this.rooms = res);
   }
 
+  test(value: string) {
+    this.rangevalue = parseInt(value);
+  }
 }

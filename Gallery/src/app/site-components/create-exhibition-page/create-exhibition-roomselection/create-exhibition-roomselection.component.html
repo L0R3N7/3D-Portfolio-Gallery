@@ -5,8 +5,8 @@
         <ngt-ambient-light intensity="2"></ngt-ambient-light>
         <ngt-spot-light [position]="[0, 5, 0]" penumbra="1"></ngt-spot-light>
         <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
-        <app-three-d-object-loader [srcModel]="'assets/three-d-objects/room/floor/'.concat(room3dUrl)" [scale]="1"></app-three-d-object-loader>
-        <app-three-d-object-loader [srcModel]="'assets/three-d-objects/room/walls/'.concat(room3dUrl)" [scale]="1"></app-three-d-object-loader>
+        <app-three-d-object-loader [srcModel]="'assets/three-d-objects/room/floor/'.concat(room3dUrl)" [scale]="rangevalue"></app-three-d-object-loader>
+        <app-three-d-object-loader [srcModel]="'assets/three-d-objects/room/walls/'.concat(room3dUrl)" [scale]="rangevalue"></app-three-d-object-loader>
       </ngt-canvas>
     </ng-container>
     <ng-template #noRoom>
@@ -20,6 +20,8 @@
       <h3 class="text-center my-5">Select Room</h3>
       <button #resetButton (click)="room3dUrl=''"></button>
       <div>
+        <p>{{rangevalue}}</p>
+        <input #rangeInput type="range" min="0" max="11" value="1"  step="1" (change)="test(rangeInput.value)"/>
         <h6>Recommended:</h6>
         <app-slideshow>
           <app-room-card class="room-card" *ngFor="let r of rooms" [room]="r" (click)="selectRoom(r.id)" [ngClass]="{'disabled' : r.id != selectedRoom_id && selectedRoom_id != -1}"></app-room-card>

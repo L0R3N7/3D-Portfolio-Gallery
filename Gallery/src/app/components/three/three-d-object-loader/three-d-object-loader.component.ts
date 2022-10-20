@@ -3,7 +3,7 @@ import {NgtLoader, NgtObjectMap} from "@angular-three/core";
 import {GLTF, GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 import {Observable, Subscription} from "rxjs";
 import {BlobService} from "../../../shared/blob.service";
-import {Group, Loader, Mesh, MeshBasicMaterial, Object3D, Texture, TextureLoader} from "three";
+import {BufferGeometry, Group, Loader, Mesh, MeshBasicMaterial, Object3D, Texture, TextureLoader} from "three";
 import {FileUploadOutput} from "../../../shared/file-upload-output";
 import {OBJLoader} from "three/examples/jsm/loaders/OBJLoader";
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
@@ -21,8 +21,6 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
   @Input('srcTexture') textureUrl ?: string //= 'assets/image/placeholder-card.jpg';
   @Input('scale') scale : number = 1;
   model$ : Observable<GLTF & NgtObjectMap> | undefined;
-  modelSceneClone : Group | undefined;
-  //subscribtion :  Subscription | undefined;
   texture : Texture | undefined;
   loaderType : Map<string, Loader> | undefined;
 
@@ -40,10 +38,12 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
   }
 
   ngOnChanges(changes:SimpleChanges){
-    //this.loader.cached.clear()
-    //console.log(this.loader)
-    //resets model observer
-    //this.subscribtion?.unsubscribe() ;
+
+    let keys = Object.keys(changes);
+
+    if (Object.keys(changes).includes("scale")){
+      this.scale = changes["scale"].currentValue;
+    }
 
     // load texture if provided
     if (this.textureUrl) {
@@ -51,18 +51,20 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
     }
 
     // load 3D Data - per local url or per blob
-    this.load3dModel();
+    if (this.modelUrl || this.modelBlob && keys.includes("modelUrl") || keys.includes("modelBlob")){
+      this.load3dModel();
+    }
     // configs the 3D Model
-    this.config3dModel();
+    if (this.scale){
+      this.config3dModel();
+    }
   }
 
   load3dModel() {
     if (this.modelUrl && this.loader) {
       if (this.loader.cached.has(this.modelUrl)){this.loader.cached.delete(this.modelUrl)}
       this.model$ = this.loader.use(GLTFLoader, this.modelUrl);
-    }
-
-    else if(this.modelBlob && this.loader){
+    } else if(this.modelBlob && this.loader){
       var url = URL.createObjectURL(this.modelBlob.blob);
       var loader;
       if (this.loaderType?.get(this.modelBlob.filetype)){
@@ -70,7 +72,6 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
       }else{
         loader = GLTFLoader;
       }
-
       // @ts-ignore
       this.model$ = this.loader.use(loader, url);
     }
@@ -78,13 +79,10 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
 
   config3dModel(){
     this.model$?.subscribe((e : GLTF)=>{
-      this.modelSceneClone = e.scene;
-      console.log(e)
-      console.log(this.modelSceneClone)
-
       // calculates the size of an object and adjusts the scale accordingly
       // TODO Fix Scaling Method
-      //this.scale3dModel();
+      this.scale *= 1 / this.scale3dModel(e.scene.children)
+      console.log(this.scale)
       // if texture is provided uses it on the loaded 3d model
       if (this.texture){
         var material = new MeshBasicMaterial({map: this.texture});
@@ -93,19 +91,19 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
     });
   }
 
-  //TODO improve (add recursive search for BufferGeometry)
-  scale3dModel(){//arr_mesh:  Mesh[] | Object3D[]){
-      var res : number = 0;
-      // @ts-ignore
-      const all = arr_mesh.filter((obj) => {
-        // @ts-ignore
-        return obj.geometry.type == 'BufferGeometry'
-      });
-      // @ts-ignore
-      all.forEach((al)=>{res += al.geometry.boundingSphere.radius ?? 0});
-      res /= all.length;
-      this.scale = (1 / 100) * this.scale;
+  scale3dModel(arr_mesh : Object3D[], stepps: number = 5) : number{
+    let radius = 0;
+    // @ts-ignore
+    arr_mesh.forEach((mesh: Object3D) => {
+      //@ts-ignore
+      radius += mesh.geometry.boundingSphere.radius;
+      if (mesh.children.length != 0 && stepps > 0) {
+        return this.scale3dModel(mesh.children, stepps - 1) + radius;
+      }
+    })
+    return radius;
   }
+
 
   loadTexture() {
     this.loader.use(TextureLoader, 'assets/image/placeholder-card.jpg').subscribe((e) => {
