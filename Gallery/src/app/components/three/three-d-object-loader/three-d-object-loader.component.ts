@@ -61,8 +61,8 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
       if (this.loader.cached.has(this.modelUrl)){this.loader.cached.delete(this.modelUrl)}
       this.model$ = this.loader.use(GLTFLoader, this.modelUrl);
     }
-    
-    /*else if(this.modelBlob && this.loader){
+
+    else if(this.modelBlob && this.loader){
       var url = URL.createObjectURL(this.modelBlob.blob);
       var loader;
       if (this.loaderType?.get(this.modelBlob.filetype)){
@@ -73,30 +73,29 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
 
       // @ts-ignore
       this.model$ = this.loader.use(loader, url);
-    }*/
+    }
   }
 
   config3dModel(){
     this.model$?.subscribe((e : GLTF)=>{
-      this.modelSceneClone = e.scene; 
+      this.modelSceneClone = e.scene;
       console.log(e)
       console.log(this.modelSceneClone)
-      
-      //this.scale = (1 / 100) * this.scale;
-      
+
       // calculates the size of an object and adjusts the scale accordingly
+      // TODO Fix Scaling Method
       //this.scale3dModel();
       // if texture is provided uses it on the loaded 3d model
-      /*if (this.texture){
+      if (this.texture){
         var material = new MeshBasicMaterial({map: this.texture});
         this.recursiveChildsMaterial(e.scene.children, material);
-      }*/
+      }
     });
   }
 
   //TODO improve (add recursive search for BufferGeometry)
   scale3dModel(){//arr_mesh:  Mesh[] | Object3D[]){
-      /*var res : number = 0;
+      var res : number = 0;
       // @ts-ignore
       const all = arr_mesh.filter((obj) => {
         // @ts-ignore
@@ -104,7 +103,7 @@ export class ThreeDObjectLoaderComponent implements OnInit, OnChanges{
       });
       // @ts-ignore
       all.forEach((al)=>{res += al.geometry.boundingSphere.radius ?? 0});
-      res /= all.length;*/
+      res /= all.length;
       this.scale = (1 / 100) * this.scale;
   }
 

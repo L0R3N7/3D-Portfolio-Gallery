@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NavbarServiceService} from "../../components/navbar/navbar-service.service";
 import {FooterService} from "../../components/footer/footer.service";
 import * as THREE from 'three';
+import {Object3D} from "three";
 
 
 @Component({

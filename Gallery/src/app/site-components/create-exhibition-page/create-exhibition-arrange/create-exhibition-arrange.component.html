@@ -1,6 +1,6 @@
 <div class="row position-absolute top-0 w-100 h-100" style="left: 0;">
   <div class="col-lg-9 col-sm-7 " style="background-color: #C3C6E0;">
-    <!--<app-three-room></app-three-room>-->
+    <app-three-room></app-three-room>
   </div>
   <div class="col-lg-3 col-sm-5 h-100 p-0">
     <div class="create-exhibition-content-first ps-5">
@@ -10,7 +10,7 @@
             Auto-Generate
         </button>
       </div>
-      
+
       <div class="exhibit-container my-2">
         <table>
           <tr *ngFor="let e of this.exhibitList;">
@@ -38,7 +38,7 @@
               <img *ngFor="let m of this.materialList" class="shadow rounded" style="aspect-ratio: 1; object-fit: contain; width: 20%; height: auto;" src="{{m.thumbnail_url}}">
             </app-slideshow>
           </div>
-          
+
         </div>
         <!--<h5 class="opacity-50">No Exhibit selected</h5>-->
       </div>
