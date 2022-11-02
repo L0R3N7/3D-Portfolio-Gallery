@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
-import {NgtCanvasModule} from "@angular-three/core";
+import {NgtCanvasModule, NgtComponentStore} from "@angular-three/core";
 import {NgtAmbientLightModule, NgtPointLightModule, NgtSpotLightModule} from "@angular-three/core/lights";
 import {NgtMeshModule} from "@angular-three/core/meshes";
 import {NgtBoxGeometryModule} from "@angular-three/core/geometries";
@@ -61,6 +61,8 @@ import {NgtSobaLoaderModule} from "@angular-three/soba/loaders";
 
 
 const routes: Routes = []
+
+
 
 @NgModule({
   declarations: [

@@ -14,12 +14,14 @@ import {NgtSobaFirstPersonControlsModule, NgtSobaOrbitControlsModule} from "@ang
 import { Cube2Component } from './cube2/cube2.component';
 import {NgtColorAttributeModule} from "@angular-three/core/attributes";
 import {NgtSobaLoaderModule} from "@angular-three/soba/loaders";
+import { ControlsComponent } from './controls/controls.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    Cube2Component
+    Cube2Component,
+    ControlsComponent
   ],
   imports: [
     BrowserModule,
