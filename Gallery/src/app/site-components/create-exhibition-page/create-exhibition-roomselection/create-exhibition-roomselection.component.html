@@ -1,13 +1,7 @@
 <div class="row position-absolute top-0 w-100 h-100" style="left: 0;">
   <div class="col-lg-9 col-sm-7 " style="background-color: #C3C6E0;">
     <ng-container *ngIf="room3dUrl; else noRoom">
-      <!--<ngt-canvas>
-        <ngt-ambient-light intensity="2"></ngt-ambient-light>
-        <ngt-spot-light [position]="[0, 5, 0]" penumbra="1"></ngt-spot-light>
-        <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
-        <app-three-d-object-loader [srcModel]="'assets/three-d-objects/room/floor/'.concat(room3dUrl)" [scale]="rangevalue"></app-three-d-object-loader>
-        <app-three-d-object-loader [srcModel]="'assets/three-d-objects/room/walls/'.concat(room3dUrl)" [scale]="rangevalue"></app-three-d-object-loader>
-      </ngt-canvas>-->
+      <app-three-room-selection [srcModel]="room3dUrl"></app-three-room-selection>
     </ng-container>
     <ng-template #noRoom>
       <div class="d-flex h-100 align-items-center justify-content-center">

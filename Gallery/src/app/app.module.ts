@@ -58,6 +58,7 @@ import { CreateExhibitionArrangeComponent } from './site-components/create-exhib
 import { RoomPageComponent } from './site-components/room-page/room-page.component';
 import {NgtOrthographicCameraModule, NgtPerspectiveCameraModule} from "@angular-three/core/cameras";
 import {NgtSobaLoaderModule} from "@angular-three/soba/loaders";
+import { ThreeRoomSelectionComponent } from './components/three/three-room-selection/three-room-selection.component';
 
 
 const routes: Routes = []
@@ -89,7 +90,8 @@ const routes: Routes = []
     ThreeRoomComponent,
     ThreeDObjectLoaderComponent,
     CreateExhibitionArrangeComponent,
-    RoomPageComponent
+    RoomPageComponent,
+    ThreeRoomSelectionComponent
   ],
     imports: [
         BrowserModule,
