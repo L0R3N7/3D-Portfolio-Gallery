@@ -80,8 +80,4 @@ export class ThreeRoomSelectionComponent implements AfterViewInit, OnChanges {
     this.controls?.update();
     this.renderer?.render(this.scene, this.camera! );
   }
-
-
-
-
 }
