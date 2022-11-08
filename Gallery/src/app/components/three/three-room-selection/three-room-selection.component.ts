@@ -5,6 +5,7 @@ import * as THREE from "three";
 import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 import {FirstPersonControls} from "three/examples/jsm/controls/FirstPersonControls";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
+import {TextureLoader} from "three";
 
 @Component({
   selector: 'app-three-room-selection',
@@ -15,12 +16,13 @@ export class ThreeRoomSelectionComponent implements AfterViewInit, OnChanges {
   @ViewChild('threeCanvas') threeCanvas!: ElementRef;
   @ViewChild('lookupSize') lookupSize !: ElementRef;
 
-  @Input("srcModel") srcModel : String = "";
+  @Input("srcModel") srcModel: String = "";
+  @Input("srcTexture") srcTexture: String = "";
 
 
   scene = new THREE.Scene()
-  clock = new THREE.Clock()
   loader = new GLTFLoader().setPath( 'assets/three-d-objects/room/' );
+  textureLoader = new THREE.TextureLoader();
 
   camera ?: THREE.PerspectiveCamera;
   renderer ?: THREE.WebGLRenderer;
@@ -43,6 +45,7 @@ export class ThreeRoomSelectionComponent implements AfterViewInit, OnChanges {
       this.scene.clear();
       this.loader.load( 'walls/'+this.srcModel, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
         this.scene.add( gltf.scene );
+
       });
       this.loader.load( 'floor/'+this.srcModel, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
         this.scene.add( gltf.scene );
