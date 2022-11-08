@@ -1,19 +1,28 @@
-import { Component, Input, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import { Room } from 'src/app/shared/class/room';
 import { Position } from 'src/app/shared/class/position';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import Stats from "three/examples/jsm/libs/stats.module";
 import {BoxGeometry} from "three";
+import {PositionConfig} from "../../../shared/class/positionConfig";
 
 @Component({
   selector: 'app-three-room',
   templateUrl: './three-room.component.html',
   styleUrls: ['./three-room.component.scss']
 })
-export class ThreeRoomComponent implements AfterViewInit {
+export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
 
   position_arr : Position[] = [new Position(1, 2, 0, 0, false),
@@ -21,6 +30,7 @@ export class ThreeRoomComponent implements AfterViewInit {
     new Position(3, 2, 1, 0, false)]
   @Input('room') room : Room = new Room(2,  "small room", 0, "https://www.smb.museum/uploads/tx_smb/news/news_67970/Neues-Museum_Raum-Prolog_Achim_Kleuker_xl.jpg", "2.gltf", this.position_arr)
   @Input('mode') mode : String = "create";
+  @Input('positionConfigList') positionConfigList ?: PositionConfig[];
 
   @ViewChild('threeCanvas') threeCanvas!: ElementRef;
   @ViewChild('lookupSize') lookupSize !: ElementRef;
@@ -33,23 +43,50 @@ export class ThreeRoomComponent implements AfterViewInit {
   renderer ?: THREE.WebGLRenderer;
   controls ?: FirstPersonControls | OrbitControls;
 
-  potests ?: BoxGeometry[];
+  potests = new BoxGeometry(20, 80, 20);
+  basic_material = new THREE.MeshBasicMaterial({color: 0x00ee00, opacity: .5})
+  isAboutToDestroy = false;
 
   constructor() {
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes)
+  }
+
   ngAfterViewInit(): void {
+    if (!this.room){
+      return
+    }
+
     this.setup()
+    //Light
+    const bulbGeometry = new THREE.SphereGeometry(.02, 16, 8);
+    const bulbLight = new THREE.PointLight( 0xffee88, 3, 1000, 2);
+    const bulbMat = new THREE.MeshStandardMaterial( {
+      emissive: 0xffffee,
+      emissiveIntensity: 1,
+      color: 0x000000
+    } );
+    bulbLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
+    bulbLight.position.set( 0, 100, 0 );
+    bulbLight.castShadow = true;
+    this.scene.add( bulbLight );
+
     //Load Room
     this.loader.load( `room/walls/${this.room.id}.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
       this.scene.add( gltf.scene );
     });
-    this.loader.load( `podest_01.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+    this.loader.load( `room/floor/${this.room.id}.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
       this.scene.add( gltf.scene );
     });
-    //Load Sockels
-    for (let i = 0; i < this.room.positions.length; i++){
 
+    //Sockels
+    let faktor = 100;
+    for (let i = 0; i < this.room.positions.length; i++){
+      let cube = new THREE.Mesh(this.potests, this.basic_material);
+      cube.position.set(this.room.positions[i].x * faktor, 0, this.room.positions[i].y * faktor);
+      this.scene.add(cube);
     }
     this.animate();
   }
@@ -65,6 +102,7 @@ export class ThreeRoomComponent implements AfterViewInit {
 
     if (this.mode == "create"){
       this.controls = new OrbitControls(this.camera, this.renderer.domElement)
+      this.camera?.position.set( - 1.8, 100, 10 );
     }else{
       this.controls = new FirstPersonControls(this.camera, this.renderer.domElement)
       this.controls!.lookSpeed = 0.2;
@@ -85,8 +123,16 @@ export class ThreeRoomComponent implements AfterViewInit {
   }
 
   animate = () => {
-    requestAnimationFrame( this.animate );
+    if (!this.isAboutToDestroy){
+      requestAnimationFrame( this.animate );
+    }
     this.controls?.update(this.clock.getDelta())
     this.renderer?.render(this.scene, this.camera! );
+    console.log("Animate")
+  }
+
+  ngOnDestroy() {
+    this.isAboutToDestroy = true
+    this.scene.clear()
   }
 }

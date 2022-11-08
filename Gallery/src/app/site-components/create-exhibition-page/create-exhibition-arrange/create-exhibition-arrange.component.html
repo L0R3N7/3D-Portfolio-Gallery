@@ -1,6 +1,6 @@
 <div class="row position-absolute top-0 w-100 h-100" style="left: 0;">
   <div class="col-lg-9 col-sm-7 " style="background-color: #C3C6E0; padding: 0px;">
-    <app-three-room></app-three-room>
+    <app-three-room [positionConfigList]="positionConfigList"></app-three-room>
   </div>
   <div class="col-lg-3 col-sm-5 h-100 p-0">
     <div class="create-exhibition-content-first ps-5">
@@ -13,32 +13,36 @@
       <div class="exhibit-container my-2">
         <table>
           <tr *ngFor="let e of this.exhibitList;">
-            <td></td>
-            <td>{{e.title}}</td>
+            <td (click)="exhibitOption(e.id)">{{e.title}}</td>
           </tr>
         </table>
       </div>
       <div class="d-flex exhibit-container my-2 px-4">
-        <div style="display: flex; flex-direction: column; ">
-          <h3 class="font-gradient m-3 exhibit-name px-0 mx-0">Vase</h3>
-          <div>
-            <mat-form-field>
-              <mat-select [(value)]="selected" >
-                <mat-option value="none">No position</mat-option>
-                <mat-option value="option1">Option 1</mat-option>
-                <mat-option value="option2">Option 2</mat-option>
-                <mat-option value="option3">Option 3</mat-option>
-              </mat-select>
-            </mat-form-field>
+        <ng-container *ngIf="selectedId != -1; else NoExhibitionOption">
+          <div style="display: flex; flex-direction: column; ">
+            <h3 class="font-gradient m-3 exhibit-name px-0 mx-0">{{this.exhibitList[this.selectedId].title}}</h3>
+            <p style="font-size: 1rem">{{this.exhibitList[this.selectedId].desc}}</p>
+            <div>
+              <mat-form-field>
+                <mat-select [(value)]="selected" (selectionChange)="selectedPosition()">
+                  <mat-option value="-1">No position</mat-option>
+                    <mat-option  *ngFor="let position of room.positions" value="{{position.id}}">Position {{position.id}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <p>Styling</p>
+              <app-slideshow class="w-100">
+                <img (click)="selectedMaterial(m.id)" [ngStyle]="{'border': (isMaterialSelected(m.id)) ? 'solid 3px black' : ''}"  *ngFor="let m of this.materialList" class="shadow rounded" style="aspect-ratio: 1; object-fit: contain; width: 20%; height: auto;" src="{{m.thumbnail_url}}">
+              </app-slideshow>
+            </div>
           </div>
-          <div>
-            <p>Styling</p>
-            <app-slideshow class="w-100">
-              <img *ngFor="let m of this.materialList" class="shadow rounded" style="aspect-ratio: 1; object-fit: contain; width: 20%; height: auto;" src="{{m.thumbnail_url}}">
-            </app-slideshow>
+        </ng-container>
+        <ng-template #NoExhibitionOption>
+          <div class="d-flex h-100 align-items-center justify-content-center text-center">
+            <h4 class="opacity-50">No Exhibit selected</h4>
           </div>
-
-        </div>
+        </ng-template>
         <!--<h5 class="opacity-50">No Exhibit selected</h5>-->
       </div>
       <!--<div cdkDropList class="exhibit-list" (cdkDropListDropped)="drop($event)">
