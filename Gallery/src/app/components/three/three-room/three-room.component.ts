@@ -27,7 +27,7 @@ export class ThreeRoomComponent implements AfterViewInit {
 
   scene = new THREE.Scene()
   clock = new THREE.Clock()
-  loader = new GLTFLoader().setPath( 'assets/three-d-objects/room/' );
+  loader = new GLTFLoader().setPath( 'assets/three-d-objects/' );
 
   camera ?: THREE.PerspectiveCamera;
   renderer ?: THREE.WebGLRenderer;
@@ -41,12 +41,15 @@ export class ThreeRoomComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.setup()
     //Load Room
-    this.loader.load( `walls/${this.room.id}.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+    this.loader.load( `room/walls/${this.room.id}.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+      this.scene.add( gltf.scene );
+    });
+    this.loader.load( `podest_01.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
       this.scene.add( gltf.scene );
     });
     //Load Sockels
     for (let i = 0; i < this.room.positions.length; i++){
-      
+
     }
     this.animate();
   }
@@ -64,8 +67,9 @@ export class ThreeRoomComponent implements AfterViewInit {
       this.controls = new OrbitControls(this.camera, this.renderer.domElement)
     }else{
       this.controls = new FirstPersonControls(this.camera, this.renderer.domElement)
-      this.controls!.lookSpeed = 0.0;
+      this.controls!.lookSpeed = 0.2;
       this.controls!.movementSpeed = 100;
+      this.controls!.lookVertical = false;
     }
   }
 
