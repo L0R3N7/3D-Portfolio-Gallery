@@ -6,10 +6,10 @@ export class Room{
   position_amount: number;
   room_img_url: string;
   room_url : string;
-  positions : Position[] | undefined;
+  positions : Position[];
 
 
-  constructor(id: number, name: string, position_amount: number, room_img_url: string, room_url: string, positions: Position[] | undefined) {
+  constructor(id: number, name: string, position_amount: number, room_img_url: string, room_url: string, positions: Position[]) {
     this.id = id;
     this.name = name;
     this.position_amount = position_amount;

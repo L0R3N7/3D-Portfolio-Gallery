@@ -5,6 +5,8 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
+import Stats from "three/examples/jsm/libs/stats.module";
+import {BoxGeometry} from "three";
 
 @Component({
   selector: 'app-three-room',
@@ -12,6 +14,7 @@ import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
   styleUrls: ['./three-room.component.scss']
 })
 export class ThreeRoomComponent implements AfterViewInit {
+
 
   position_arr : Position[] = [new Position(1, 2, 0, 0, false),
     new Position(2, 2, 1, 1, false),
@@ -30,14 +33,21 @@ export class ThreeRoomComponent implements AfterViewInit {
   renderer ?: THREE.WebGLRenderer;
   controls ?: FirstPersonControls | OrbitControls;
 
+  potests ?: BoxGeometry[];
+
   constructor() {
   }
 
   ngAfterViewInit(): void {
     this.setup()
-    this.loader.load( 'walls/2.gltf', (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+    //Load Room
+    this.loader.load( `walls/${this.room.id}.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
       this.scene.add( gltf.scene );
     });
+    //Load Sockels
+    for (let i = 0; i < this.room.positions.length; i++){
+      
+    }
     this.animate();
   }
 
