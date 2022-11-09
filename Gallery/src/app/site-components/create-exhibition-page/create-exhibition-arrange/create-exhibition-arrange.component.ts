@@ -7,6 +7,7 @@ import { Theme } from 'src/app/shared/class/theme';
 import { Room } from 'src/app/shared/class/room';
 import { Position } from 'src/app/shared/class/position';
 import {PositionConfig} from "../../../shared/class/positionConfig";
+import {ExhibitArrangeService} from "./exhibit-arrange.service";
 
 @Component({
   selector: 'app-create-exhibition-arrange',
@@ -47,9 +48,11 @@ export class CreateExhibitionArrangeComponent implements OnInit {
   selected = "-1";
   position?: Position;
 
-  constructor() {
+  constructor(
+    private exhibitArrangeService : ExhibitArrangeService
+  ) {
     for (var i = 0; i < this.exhibitList.length; i++){
-      this.positionConfigList[i] = new PositionConfig(-1, -1, "", "", undefined);
+      this.positionConfigList[i] = new PositionConfig(-1, -1, this.exhibitList[i].model_url, "", undefined);
     }
   }
 
@@ -84,6 +87,7 @@ export class CreateExhibitionArrangeComponent implements OnInit {
     if (numSelected != -1){
       this.positionConfigList[this.selectedId].position_id =  numSelected;
       console.log(this.positionConfigList)
+      this.exhibitArrangeService.setPositionConfigList(this.positionConfigList)
     }
     /*
     if (
@@ -98,5 +102,12 @@ export class CreateExhibitionArrangeComponent implements OnInit {
     }
     */
     // Zu müde
+  }
+
+  automaticalPlacement() {
+    for (var i = 0; i < this.positionConfigList.length; i++){
+      this.positionConfigList[i].position_id = i+1;
+    }
+    this.exhibitArrangeService.setPositionConfigList(this.positionConfigList)
   }
 }

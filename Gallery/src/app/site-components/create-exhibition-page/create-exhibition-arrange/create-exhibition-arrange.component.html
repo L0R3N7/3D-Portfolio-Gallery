@@ -6,14 +6,14 @@
     <div class="create-exhibition-content-first ps-5">
       <h3 class="pt-5 text-center">Arrange Exhibition</h3>
       <div>
-        <button class="w-100 action-button p-2">
+        <button class="w-100 action-button p-2" (click)="automaticalPlacement()">
             Auto-Generate
         </button>
       </div>
       <div class="exhibit-container my-2">
         <table>
           <tr *ngFor="let e of this.exhibitList;">
-            <td (click)="exhibitOption(e.id)">{{e.title}}</td>
+            <td [ngStyle]="{'font-weight': (this.positionConfigList[e.id].position_id != -1) ? 'bold' : 'normal'}" (click)="exhibitOption(e.id)">{{e.title}}</td>
           </tr>
         </table>
       </div>

@@ -16,6 +16,10 @@ import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonCont
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import {BoxGeometry} from "three";
 import {PositionConfig} from "../../../shared/class/positionConfig";
+import {
+  ExhibitArrangeService
+} from "../../../site-components/create-exhibition-page/create-exhibition-arrange/exhibit-arrange.service";
+import {generateTypeCheckBlock} from "@angular/compiler-cli/src/ngtsc/typecheck/src/type_check_block";
 
 @Component({
   selector: 'app-three-room',
@@ -47,7 +51,32 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   basic_material = new THREE.MeshBasicMaterial({color: 0x00ee00, opacity: .5})
   isAboutToDestroy = false;
 
-  constructor() {
+  constructor(private exhibitArrangeService : ExhibitArrangeService) {
+    exhibitArrangeService.getPositionConfigList().subscribe(
+      values => {
+        for (let value of values){
+          if(!value.position_id){
+            continue;
+          }
+          if (value.uuid){
+            const object = this.scene.getObjectByProperty('uuid', value.uuid);
+            if (object){
+              this.scene.remove( object );
+              object.clear()
+            }
+          }
+          this.loader.load(value.exhibit_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+            value.uuid = gltf.scene.uuid;
+            console.log(this.room.positions[value.position_id -1].y * 100)
+            gltf.scene.position.set(this.room.positions[value.position_id -1].x * 200, 200, this.room.positions[value.position_id -1].y * 200)
+            gltf.scene.scale.set(.5, .5, .5)
+            //gltf.scene
+            this.scene.add( gltf.scene );
+            console.log("loaded cheese")
+          });
+        }
+      }
+    )
   }
 
   ngOnChanges(changes: SimpleChanges) {
