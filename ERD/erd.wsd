@@ -24,6 +24,7 @@ entity Themes {
     mat_floor: string <<nullable>>
     light_intensity: number
     model_path: string <<nullable>>
+    is_exhibit: boolean
 }
 
 entity Room {
