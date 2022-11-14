@@ -15,11 +15,11 @@ mat-horizontal-stepper{
 .w-49{
   width: 49%;
 }
-.button{
+button{
   @extend .action-button;
   background-image: none;
   background-color: $bc-secondary;
-  & .backbutton{
+  &.backbutton{
     filter: grayscale(.5);
   }
 }
