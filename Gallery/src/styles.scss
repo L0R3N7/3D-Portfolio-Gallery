@@ -22,7 +22,7 @@
 ///Background
 $bc-primary: #eee;
 $bc-secondary: #9096c5;
-$bc-primary-opacity: #eeeeee9f; 
+$bc-primary-opacity: #eeeeee9f;
 $bc-secondary-opacity: #9096c59f;
 ///Font
 $c-font: #222;
@@ -102,6 +102,10 @@ mat-icon{
 }
 
 /** Custom - Class **/
+.w-33{
+  width: 33%;
+}
+
 .wrapper{
   margin: 0 $s-side-margin;
 }
@@ -188,8 +192,8 @@ mat-icon{
 }
 
 .btn-disabled{
-  filter: grayscale(.9); 
-  box-shadow: 0 0 0; 
+  filter: grayscale(.9);
+  box-shadow: 0 0 0;
 }
 
 .custom_input{

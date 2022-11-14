@@ -28,6 +28,7 @@ import {generateTypeCheckBlock} from "@angular/compiler-cli/src/ngtsc/typecheck/
 })
 export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
+  faktor = 200;
 
   position_arr : Position[] = [new Position(1, 2, 0, 0, false),
     new Position(2, 2, 1, 1, false),
@@ -47,7 +48,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   renderer ?: THREE.WebGLRenderer;
   controls ?: FirstPersonControls | OrbitControls;
 
-  potests = new BoxGeometry(20, 80, 20);
+  potests = new BoxGeometry(50, 40, 50);
   basic_material = new THREE.MeshBasicMaterial({color: 0x00ee00, opacity: .5})
   isAboutToDestroy = false;
 
@@ -70,15 +71,13 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
           //load 3D Exhibit
           this.loader.load(value.exhibit_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
             value.uuid = gltf.scene.uuid;
-            console.log(this.room.positions[value.position_id -1].y * 100)
-            gltf.scene.position.set(this.room.positions[value.position_id -1].x * 200, 200, this.room.positions[value.position_id -1].y * 200)
-            gltf.scene.scale.set(.5, .5, .5)
+            gltf.scene.scale.set(.05, .05, .05)
+            gltf.scene.position.set(this.room.positions[value.position_id -1].x * this.faktor ,
+              this.potests.parameters.height + this.getSize(gltf.scene).y,
+              this.room.positions[value.position_id -1].y * this.faktor + this.getSize(gltf.scene).x / 2)
             //gltf.scene
             this.scene.add( gltf.scene );
             console.log("loaded cheese")
-            console.log(this.getSize(gltf.scene))
-            console.log(gltf.scene.getWorldScale(new Vector3()))
-            console.log(gltf.scene.getWorldPosition(new Vector3()))
           });
         }
       }
@@ -113,14 +112,14 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
       this.scene.add( gltf.scene );
     });
     this.loader.load( `room/floor/${this.room.id}.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+      gltf.scene.position.setY(this.getSize(gltf.scene).y / 2)
       this.scene.add( gltf.scene );
     });
 
     //Sockels
-    let faktor = 100;
     for (let i = 0; i < this.room.positions.length; i++){
       let cube = new THREE.Mesh(this.potests, this.basic_material);
-      cube.position.set(this.room.positions[i].x * faktor, 0, this.room.positions[i].y * faktor);
+      cube.position.set(this.room.positions[i].x * this.faktor, this.potests.parameters.height / 2, this.room.positions[i].y * this.faktor);
       this.scene.add(cube);
     }
     this.animate();

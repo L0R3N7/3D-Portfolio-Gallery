@@ -24,7 +24,7 @@ export class CreateExhibitionArrangeComponent implements OnInit {
     new Position(2, 2, 1, 1, false),
     new Position(3, 2, 1, 0, false)]
   @Input('room') room : Room = new Room(2,  "small room", 0, "https://www.smb.museum/uploads/tx_smb/news/news_67970/Neues-Museum_Raum-Prolog_Achim_Kleuker_xl.jpg", "2.gltf", this.position_arr);
-  @Input('ExhibitList') exhibitList : Exhibit[] = [new Exhibit(0, "cheese.gltf", "", "Käse", "Tolle Käser, nichtmal stinkig")]
+  @Input('ExhibitList') exhibitList : Exhibit[] = [new Exhibit(1, "cheese.gltf", "", "Käse", "Tolle Käser, nichtmal stinkig")]
   @Input('MaterialList') materialList : Theme[] = [
     new Theme(1, "https://cdn.shopify.com/s/files/1/0561/2168/8256/products/trumerholz-gehackte-larche-wohnwand_695x695.jpg?v=1660934418", "", 0, "",""),
     new Theme(2, "https://cdn.shopify.com/s/files/1/0561/2168/8256/products/trumerholz-gehackte-larche-wohnwand_695x695.jpg?v=1660934418", "", 0, "",""),
@@ -66,6 +66,7 @@ export class CreateExhibitionArrangeComponent implements OnInit {
 
   exhibitOption(id: number) {
     this.selectedId = id;
+    this.selected = this.exhibitArrangeService.getPositionConfigList().getValue()[this.selectedId].position_id.toString();
   }
 
   containsInConfigArray(id: number) {
