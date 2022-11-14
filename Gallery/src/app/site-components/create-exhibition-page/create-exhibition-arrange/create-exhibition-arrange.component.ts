@@ -65,7 +65,8 @@ export class CreateExhibitionArrangeComponent implements OnInit {
   }
 
   exhibitOption(id: number) {
-    this.selectedId = id;
+    this.selectedId = id
+    this.selected = this.exhibitArrangeService.getPositionConfigList().getValue()[id].position_id.toString()
   }
 
   containsInConfigArray(id: number) {

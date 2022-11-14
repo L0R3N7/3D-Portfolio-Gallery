@@ -14,7 +14,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {BoxGeometry} from "three";
+import {BoxGeometry, Vector3} from "three";
 import {PositionConfig} from "../../../shared/class/positionConfig";
 import {
   ExhibitArrangeService
@@ -47,9 +47,10 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   renderer ?: THREE.WebGLRenderer;
   controls ?: FirstPersonControls | OrbitControls;
 
-  potests = new BoxGeometry(20, 80, 20);
+  potests = new BoxGeometry(20, 45, 20);
   basic_material = new THREE.MeshBasicMaterial({color: 0x00ee00, opacity: .5})
   isAboutToDestroy = false;
+  factor = 100
 
   constructor(private exhibitArrangeService : ExhibitArrangeService) {
     exhibitArrangeService.getPositionConfigList().subscribe(
@@ -67,9 +68,9 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
           }
           this.loader.load(value.exhibit_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
             value.uuid = gltf.scene.uuid;
-            console.log(this.room.positions[value.position_id -1].y * 100)
-            gltf.scene.position.set(this.room.positions[value.position_id -1].x * 200, 200, this.room.positions[value.position_id -1].y * 200)
-            gltf.scene.scale.set(.5, .5, .5)
+            gltf.scene.scale.set(.05, .05, .05)
+            gltf.scene.position.set(this.room.positions[value.position_id -1].x * this.factor, this.potests.parameters.height + this.getSize(gltf.scene).y,
+              this.room.positions[value.position_id -1].y * this.factor + this.potests.parameters.depth / 2)
             //gltf.scene
             this.scene.add( gltf.scene );
             console.log("loaded cheese")
@@ -114,10 +115,9 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
     });
 
     //Sockels
-    let faktor = 100;
     for (let i = 0; i < this.room.positions.length; i++){
       let cube = new THREE.Mesh(this.potests, this.basic_material);
-      cube.position.set(this.room.positions[i].x * faktor, 0, this.room.positions[i].y * faktor);
+      cube.position.set(this.room.positions[i].x * this.factor, this.potests.parameters.height / 2, this.room.positions[i].y * this.factor);
       this.scene.add(cube);
     }
     this.animate();
@@ -166,5 +166,9 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   ngOnDestroy() {
     this.isAboutToDestroy = true
     this.scene.clear()
+  }
+
+  getSize(scene: THREE.Object3D){
+    return new THREE.Box3().setFromObject(scene).getSize(new Vector3());
   }
 }
