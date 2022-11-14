@@ -14,7 +14,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {BoxGeometry, Vector2, Vector3} from "three";
+import {BoxGeometry} from "three";
 import {PositionConfig} from "../../../shared/class/positionConfig";
 import {
   ExhibitArrangeService
@@ -53,11 +53,9 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   isAboutToDestroy = false;
 
   constructor(private exhibitArrangeService : ExhibitArrangeService) {
-    //Places Exhibition, if they have an according potest position
     exhibitArrangeService.getPositionConfigList().subscribe(
       values => {
         for (let value of values){
-          //removes pre-existing exhibits
           if(!value.position_id){
             continue;
           }
@@ -68,7 +66,6 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
               object.clear()
             }
           }
-          //load 3D Exhibit
           this.loader.load(value.exhibit_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
             value.uuid = gltf.scene.uuid;
             gltf.scene.scale.set(.05, .05, .05)
@@ -168,9 +165,5 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   ngOnDestroy() {
     this.isAboutToDestroy = true
     this.scene.clear()
-  }
-
-  getSize(scene : THREE.Object3D){
-    return new THREE.Box3().setFromObject(scene).getSize(new THREE.Vector3())
   }
 }
