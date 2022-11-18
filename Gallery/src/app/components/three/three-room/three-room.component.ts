@@ -27,14 +27,11 @@ import {generateTypeCheckBlock} from "@angular/compiler-cli/src/ngtsc/typecheck/
   styleUrls: ['./three-room.component.scss']
 })
 export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
-
-
   position_arr : Position[] = [new Position(1, 2, 0, 0, false),
     new Position(2, 2, 1, 1, false),
     new Position(3, 2, 1, 0, false)]
   @Input('room') room : Room = new Room(2,  "small room", 0, "https://www.smb.museum/uploads/tx_smb/news/news_67970/Neues-Museum_Raum-Prolog_Achim_Kleuker_xl.jpg", "2.gltf", this.position_arr)
   @Input('mode') mode : String = "create";
-  @Input('positionConfigList') positionConfigList ?: PositionConfig[];
 
   @ViewChild('threeCanvas') threeCanvas!: ElementRef;
   @ViewChild('lookupSize') lookupSize !: ElementRef;
@@ -53,12 +50,11 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   factor = 100
 
   constructor(private exhibitArrangeService : ExhibitArrangeService) {
+    // Load exhibit based on the positionConfigList
     exhibitArrangeService.getPositionConfigList().subscribe(
       values => {
         for (let value of values){
-          if(!value.position_id){
-            continue;
-          }
+          // If there was an preexisting object delete it
           if (value.uuid){
             const object = this.scene.getObjectByProperty('uuid', value.uuid);
             if (object){
@@ -66,14 +62,37 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
               object.clear()
             }
           }
+          // If there is no possition don't draw the object
+          if(!value.position_id){
+            continue;
+          }
+          // load and configure exhibit object
           this.loader.load(value.exhibit_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
             value.uuid = gltf.scene.uuid;
-            gltf.scene.scale.set(.05, .05, .05)
-            gltf.scene.position.set(this.room.positions[value.position_id -1].x * this.factor, this.potests.parameters.height + this.getSize(gltf.scene).y,
-              this.room.positions[value.position_id -1].y * this.factor + this.potests.parameters.depth / 2)
+            // TODO: add custom slider to adjust size
+            let size = 1 / this.getSize(gltf.scene).length()
+            gltf.scene.scale.set(size, size, size)
+            // Alignment / Positioning
+            let x = this.room.positions[value.position_id -1].x * this.factor
+            let y = this.potests.parameters.height + this.getSize(gltf.scene).y
+            let z = this.room.positions[value.position_id -1].y * this.factor
+            switch (value.alignment) {
+              case "l":
+                z += this.potests.parameters.depth / 2
+                break
+              case "r":
+                z -= this.potests.parameters.depth / 2
+                break
+              case "t":
+                z += this.potests.parameters.width / 2
+                break
+              case "b":
+                z -= this.potests.parameters.width / 2
+            }
+            gltf.scene.position.set(x, y, z)
             //gltf.scene
             this.scene.add( gltf.scene );
-            console.log("loaded cheese")
+            console.log(`loaded object: ${value.exhibit_url}`)
             console.log(this.getSize(gltf.scene))
             console.log(gltf.scene.getWorldScale(new Vector3()))
             console.log(gltf.scene.getWorldPosition(new Vector3()))

@@ -17,7 +17,8 @@ const routes: Routes = [
   {path: 'profile', component:ProfilePageComponent},
   {path: 'create', component:CreateExhibitionPageComponent},
   {path: 'signup', component:SignupPageComponent},
-  {path: 'room', component:RoomPageComponent}
+  {path: 'room', component:RoomPageComponent},
+  {path: '**', redirectTo: 'home'}
 
 
 ]; // sets up routes constant where routes are defined

@@ -12,9 +12,4 @@ export class User{
     this.password = password;
     this.icon_url = icon_url;
   }
-
-  static hashClientsidePassword(password: string) : string {
-    //Todo HashClientSide
-    return password;
-  }
 }
