@@ -31,9 +31,7 @@ export class LogSigninPageComponent implements OnInit {
   }
 
   onSubmit() {
-    this.gallery.logIn(new User(-1, this.loginForm.value.emailOrUsername ?? "", this.loginForm.value.emailOrUsername ?? "", User.hashClientsidePassword(this.loginForm.value.password ?? ""), ""));
-    console.log(this.route)
-    console.log(this.router)
+    this.gallery.logIn(new User(-1, this.loginForm.value.emailOrUsername ?? "", this.loginForm.value.emailOrUsername ?? "", this.loginForm.value.password ?? "", ""));
     console.log(this.gallery.isLoggedIn)
     this.router.navigate(['../profile'], {relativeTo: this.route})
   }

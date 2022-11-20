@@ -52,7 +52,7 @@ export class CreateExhibitionArrangeComponent implements OnInit {
     // Load based on the availabe positions and the exhibitions a default object into the behavioursubject positionConfiger
     let temp_positionConfigList : PositionConfig[] = []
     for (var i = 0; i < this.exhibitList.length; i++){
-      temp_positionConfigList[i] = new PositionConfig(-1, -1, this.exhibitList[i].model_url, "", "c", undefined);
+      temp_positionConfigList[i] = new PositionConfig(-1, -1, this.exhibitList[i].model_url, "", "c", 1, undefined);
     }
     this.exhibitArrangeService.setPositionConfigList(temp_positionConfigList)
 
