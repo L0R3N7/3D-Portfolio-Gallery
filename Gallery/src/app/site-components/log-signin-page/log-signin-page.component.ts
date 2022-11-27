@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validator, Validators} from "@angular/forms";
 import {GalleryService} from "../../shared/gallery.service";
 import {User} from "../../shared/class/user";
 import {ActivatedRoute, Route, Router} from "@angular/router";
+import {UserLoginDTO} from "../../shared/class/dto/UserLoginDTO";
 
 @Component({
   selector: 'app-log-signin-page',
@@ -21,7 +22,8 @@ export class LogSigninPageComponent implements OnInit {
               private footer: FooterService,
               private gallery: GalleryService,
               private route: ActivatedRoute,
-              private router: Router) {}
+              private router: Router
+  ) {}
 
 
   ngOnInit(): void {
@@ -31,8 +33,16 @@ export class LogSigninPageComponent implements OnInit {
   }
 
   onSubmit() {
-    this.gallery.logIn(new User(-1, this.loginForm.value.emailOrUsername ?? "", this.loginForm.value.emailOrUsername ?? "", this.loginForm.value.password ?? "", ""));
-    console.log(this.gallery.isLoggedIn)
-    this.router.navigate(['../profile'], {relativeTo: this.route})
+    if(this.loginForm.valid){
+      this.gallery.logIn(new UserLoginDTO(this.loginForm.value.emailOrUsername ?? '', this.loginForm.value.password ?? '')).subscribe(
+        value => {
+          console.log(value.status)
+        }
+      )
+
+      //this.gallery.logIn(new User(-1, this.loginForm.value.emailOrUsername ?? "", this.loginForm.value.emailOrUsername ?? "", this.loginForm.value.password ?? "", ""));
+      //console.log(this.gallery.isLoggedIn)
+      //this.router.navigate(['../profile'], {relativeTo: this.route})
+    }
   }
 }

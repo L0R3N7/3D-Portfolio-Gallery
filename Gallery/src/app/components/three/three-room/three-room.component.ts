@@ -71,6 +71,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
             value.uuid = gltf.scene.uuid;
             // TODO: add custom slider to adjust size
             let size = 1 / this.getSize(gltf.scene).length()
+            size *= this.factor;
             gltf.scene.scale.set(size, size, size)
             // Alignment / Positioning
             let x = this.room.positions[value.position_id -1].x * this.factor

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Room} from "./class/room";
 import {Tag} from "./class/tag";
 import {User} from "./class/user";
 import {Exhibition} from "./class/exhibition";
 import {NavbarServiceService} from "../components/navbar/navbar-service.service";
+import {UserLoginDTO} from "./class/dto/UserLoginDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,12 @@ export class GalleryService {
     return this._isLoggedIn;
   }
 
-  logIn(user: User){
+  logIn(user: UserLoginDTO): Observable<HttpResponse<Object>>{
     //Todo Serverendpoint
+    return this.httpClient.post("http://localhost:8080/api/user/login",user, {observe: 'response'});
+  }
+
+  logInSuccessful(){
     this._isLoggedIn = true;
     this.navbarService.loggedIn = this.isLoggedIn;
   }
