@@ -1,48 +1,36 @@
 package org.threeDPortfolioGallery.workloads;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
-public class Exhibition {
+public class Exhibition extends PanacheEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public String thumbnail_url;
 
-    private String thumbnail_url;
+    public String title;
 
-    private String title;
+    // relationship
 
-    // TODO relationship to room, theme, exhibit
+    @OneToMany(mappedBy = "exhibition")
+    public List<Exhibit> exhibits;
 
-    // region ♡ getter setter ♡
+    @ManyToOne
+    public Theme theme;
 
-    public Long getId() {
-        return id;
-    }
+    @JsonIgnore
+    // TODO: check if okay like that, Cascade types
+    @ManyToOne(cascade = CascadeType.ALL )
+    public User user;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @OneToMany(mappedBy = "exhibition")
+    public List<Room> rooms;
 
-    public String getThumbnail_url() {
-        return thumbnail_url;
-    }
-
-    public void setThumbnail_url(String thumbnail_url) {
-        this.thumbnail_url = thumbnail_url;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    // endregion
+    @ManyToMany(mappedBy = "exhibitions")
+    List<Category> categories;
 }

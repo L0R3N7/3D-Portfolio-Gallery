@@ -1,57 +1,36 @@
 package org.threeDPortfolioGallery.workloads;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name="users")        // causes exception if not here because "User" (in Postgres) is reserved
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Table(name="Users")        // causes exception if not here because "User" (in Postgres) is reserved
+public class User extends PanacheEntity {
 
-    private String user_name;
+    public String user_name;
 
-    private String email;
+    public String email;
 
-    private String iconUrl;
+    public String iconUrl;
 
-    // TODO relationship exhibition
+    public String password;
 
+    // relationship exhibition
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    public List<Exhibition> exhibitions;
 
-    // region ♡ getter setter ♡
-    public Long getId() {
-        return id;
+    public static User create(String user_name, String email, String iconUrl, String password, List<Exhibition> exhibitions) {
+        User user = new User();
+        user.user_name = user_name;
+        user.email = email;
+        user.iconUrl = iconUrl;
+        user.password = password;
+        user.exhibitions = exhibitions;
+        return user;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUser_name() {
-        return user_name;
-    }
-
-    public void setUser_name(String username) {
-        this.user_name = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getIconUrl() {
-        return iconUrl;
-    }
-
-    public void setIconUrl(String iconUrl) {
-        this.iconUrl = iconUrl;
-    }
-
-    // endregion
-
 }

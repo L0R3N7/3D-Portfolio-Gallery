@@ -1,0 +1,10 @@
+org/threeDPortfolioGallery/models/UserDTO.class
+org/threeDPortfolioGallery/GreetingResource.class
+org/threeDPortfolioGallery/workloads/Exhibit.class
+org/threeDPortfolioGallery/workloads/Exhibition.class
+org/threeDPortfolioGallery/workloads/User.class
+META-INF/panache-archive.marker
+org/threeDPortfolioGallery/workloads/Theme.class
+org/threeDPortfolioGallery/workloads/Position.class
+org/threeDPortfolioGallery/workloads/Category.class
+org/threeDPortfolioGallery/workloads/Room.class

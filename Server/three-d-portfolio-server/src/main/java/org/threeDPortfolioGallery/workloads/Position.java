@@ -1,57 +1,24 @@
 package org.threeDPortfolioGallery.workloads;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
+import javax.persistence.*;
 
 @Entity
-public class Position {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Position extends PanacheEntity {
 
-    private Long x;
+    public Long x;
 
-    private Long y;
+    public Long y;
 
-    private boolean is_wall;
+    public boolean is_wall;
 
-    // TODO relationship to room, exhibit
+    // relationship
 
-    // region ♡ getter setter ♡
+    @ManyToOne
+    public Room room;
 
-    public Long getId() {
-        return id;
-    }
+    @OneToOne(mappedBy = "position", cascade = CascadeType.ALL)
+    public Exhibit exhibit;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getX() {
-        return x;
-    }
-
-    public void setX(Long x) {
-        this.x = x;
-    }
-
-    public Long getY() {
-        return y;
-    }
-
-    public void setY(Long y) {
-        this.y = y;
-    }
-
-    public boolean isIs_wall() {
-        return is_wall;
-    }
-
-    public void setIs_wall(boolean is_wall) {
-        this.is_wall = is_wall;
-    }
-
-    // endregion
 }

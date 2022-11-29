@@ -1,23 +1,25 @@
 package org.threeDPortfolioGallery.workloads;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
-public class Room {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Room extends PanacheEntity {
 
-    private String name;
+    public String name;
 
-    private int positions_amount;
+    public int positions_amount;
 
-    private String room_url;
+    public String room_url;
 
-    // TODO relationship to position, exhibition
+    // relationship
 
-    // region ♡ getter setter ♡
+    @ManyToOne
+    public Exhibition exhibition;
+
+    @OneToMany(mappedBy = "room")
+    public List<Position> positions;
+
 }

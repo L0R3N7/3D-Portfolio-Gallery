@@ -1,47 +1,33 @@
 package org.threeDPortfolioGallery.workloads;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
-public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Category extends PanacheEntity {
 
-    private String title;
+    public String title;
 
-    private String color;
+    public String color;
 
     // TODO relationship to exhibition n:m
 
-    // region ♡ getter setter ♡
+    @ManyToMany
+            @JoinTable(
+                    name = "exhibitions_categories",
+                    joinColumns = @JoinColumn(name = "category_id"),
+                    inverseJoinColumns = @JoinColumn(name = "exhibition_id")
+            )
+    List<Exhibition> exhibitions;
+    /*
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToMany
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    List<Exhibition> likedCourses;
+*/
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    // endregion
 }
