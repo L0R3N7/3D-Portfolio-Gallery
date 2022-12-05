@@ -14,12 +14,13 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {BoxGeometry, Vector3} from "three";
+import {BoxGeometry, Camera, Vector3} from "three";
 import {PositionConfig} from "../../../shared/class/positionConfig";
 import {
   ExhibitArrangeService
 } from "../../../site-components/create-exhibition-page/create-exhibition-arrange/exhibit-arrange.service";
 import {generateTypeCheckBlock} from "@angular/compiler-cli/src/ngtsc/typecheck/src/type_check_block";
+import {render} from "@angular-three/core";
 
 @Component({
   selector: 'app-three-room',
@@ -39,6 +40,9 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   scene = new THREE.Scene()
   clock = new THREE.Clock()
   loader = new GLTFLoader().setPath( 'assets/three-d-objects/' );
+
+  raycaster = new THREE.Raycaster()
+  mouse = new THREE.Vector2()
 
   camera ?: THREE.PerspectiveCamera;
   renderer ?: THREE.WebGLRenderer;
@@ -113,6 +117,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
     }
 
     this.setup()
+
     //Light
     const bulbGeometry = new THREE.SphereGeometry(.02, 16, 8);
     const bulbLight = new THREE.PointLight( 0xffee88, 3, 1000, 2);
@@ -152,14 +157,21 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
     this.scene.background = new THREE.Color( 0xf7f8fa )
     this.camera?.position.set( - 1.8, 100, 2.7 );
 
+
     if (this.mode == "create"){
       this.controls = new OrbitControls(this.camera, this.renderer.domElement)
       this.camera?.position.set( - 1.8, 100, 10 );
+
     }else{
       this.controls = new FirstPersonControls(this.camera, this.renderer.domElement)
       this.controls!.lookSpeed = 0.2;
       this.controls!.movementSpeed = 100;
       this.controls!.lookVertical = false;
+
+      window.addEventListener( 'pointerdown', this.onPointerMove );
+
+
+
     }
   }
 
@@ -174,19 +186,38 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
     }
   }
 
+  hoverExhibit(){
+    this.raycaster.setFromCamera(this.mouse, this.camera! )
+    const intersects = this.raycaster.intersectObjects(this.scene.children)
+  if (intersects.length > 0){
+    console.log(intersects[0].object)
+  }
+  }
+
   animate = () => {
     if (!this.isAboutToDestroy){
       requestAnimationFrame( this.animate );
     }
     this.controls?.update(this.clock.getDelta())
+    this.hoverExhibit()
     this.renderer?.render(this.scene, this.camera! );
-    console.log("Animate")
+
   }
 
   ngOnDestroy() {
     this.isAboutToDestroy = true
     this.scene.clear()
   }
+
+  //raycasting - mouse init
+  onPointerMove(){
+    // calculate pointer position in normalized device coordinates
+    // (-1 to +1) for both components
+    this.mouse.x = this.lookupSize.nativeElement.offsetWidth
+    this.mouse.y = this.lookupSize.nativeElement.offsetHeight
+
+  }
+
 
   getSize(scene: THREE.Object3D){
     return new THREE.Box3().setFromObject(scene).getSize(new Vector3());
