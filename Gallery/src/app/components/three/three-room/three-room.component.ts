@@ -42,7 +42,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   loader = new GLTFLoader().setPath( 'assets/three-d-objects/' );
 
   raycaster = new THREE.Raycaster()
-  mouse = new THREE.Vector2()
+  pointer = new THREE.Vector2()
 
   camera ?: THREE.PerspectiveCamera;
   renderer ?: THREE.WebGLRenderer;
@@ -164,14 +164,19 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
     }else{
       this.controls = new FirstPersonControls(this.camera, this.renderer.domElement)
-      this.controls!.lookSpeed = 0.2;
+      this.controls!.lookSpeed = 0.002;
       this.controls!.movementSpeed = 100;
       this.controls!.lookVertical = false;
 
-      window.addEventListener( 'pointerdown', this.onPointerMove );
 
-
-
+      // Inter
+      window.addEventListener( 'pointerdown', (event: PointerEvent) => {
+        // calculate pointer position in normalized device coordinates
+        // (-1 to +1) for both components
+        this.pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1
+        this.pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1
+        this.hoverExhibit()
+      });
     }
   }
 
@@ -187,19 +192,34 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   }
 
   hoverExhibit(){
-    this.raycaster.setFromCamera(this.mouse, this.camera! )
+    this.raycaster.setFromCamera(this.pointer, this.camera! )
     const intersects = this.raycaster.intersectObjects(this.scene.children)
-  if (intersects.length > 0){
-    console.log(intersects[0].object)
-  }
-  }
+
+      const values = this.exhibitArrangeService.getPositionConfigList().getValue();
+
+            for (let value of values) {
+                console.log(intersects[0])
+                console.log(value)
+
+                if (value.uuid == intersects[0].object.parent?.parent?.uuid) {
+                  if (value.uuid != null) {
+                    const object = this.scene.getObjectByProperty('uuid', value.uuid);
+                    console.log(value.description)
+                  }
+
+
+              }
+            }
+      }
+
 
   animate = () => {
     if (!this.isAboutToDestroy){
       requestAnimationFrame( this.animate );
     }
+
     this.controls?.update(this.clock.getDelta())
-    this.hoverExhibit()
+
     this.renderer?.render(this.scene, this.camera! );
 
   }
@@ -208,16 +228,6 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
     this.isAboutToDestroy = true
     this.scene.clear()
   }
-
-  //raycasting - mouse init
-  onPointerMove(){
-    // calculate pointer position in normalized device coordinates
-    // (-1 to +1) for both components
-    this.mouse.x = this.lookupSize.nativeElement.offsetWidth
-    this.mouse.y = this.lookupSize.nativeElement.offsetHeight
-
-  }
-
 
   getSize(scene: THREE.Object3D){
     return new THREE.Box3().setFromObject(scene).getSize(new Vector3());
