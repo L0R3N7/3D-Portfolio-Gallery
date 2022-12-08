@@ -13,8 +13,6 @@ import {UserLoginDTO} from "./class/dto/UserLoginDTO";
 })
 export class GalleryService {
   supportedFiletypes = new Map<string, string[]>();
-  private _isLoggedIn = false;
-
 
   constructor(private httpClient: HttpClient, private navbarService : NavbarServiceService) {
     this.supportedFiletypes.set('image', ['image/png', 'image/jpeg', 'image/jpg']);
@@ -22,19 +20,6 @@ export class GalleryService {
     this.supportedFiletypes.set('3d', ['gltf', 'obj', 'fbx', 'amf']);
   }
 
-  get isLoggedIn(): boolean {
-    return this._isLoggedIn;
-  }
-
-  logIn(user: UserLoginDTO): Observable<HttpResponse<Object>>{
-    //Todo Serverendpoint
-    return this.httpClient.post("http://localhost:8080/api/user/login",user, {observe: 'response'});
-  }
-
-  logInSuccessful(){
-    this._isLoggedIn = true;
-    this.navbarService.loggedIn = this.isLoggedIn;
-  }
 
   getAllRooms(): Observable<Room[]>{
     return this.httpClient.get<Room[]>("assets/fakeendpoints/getAllRooms.json");

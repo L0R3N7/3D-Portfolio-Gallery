@@ -16,7 +16,7 @@ import {
   NgtSobaOrbitControlsModule
 } from "@angular-three/soba/controls";
 import { HomePageComponent } from './site-components/home-page/home-page.component';
-import { LogSigninPageComponent } from './site-components/log-signin-page/log-signin-page.component';
+import { LogSigninPageComponent } from './site-components/auth/log-signin-page/log-signin-page.component';
 import { ProfilePageComponent } from './site-components/profile-page/profile-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -30,7 +30,7 @@ import { InfoTagComponent } from './components/info-tag/info-tag.component';
 import {MatStepperModule} from "@angular/material/stepper";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
-import { SignupPageComponent } from './site-components/signup-page/signup-page.component';
+import { SignupPageComponent } from './site-components/auth/signup-page/signup-page.component';
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import { MatSelectModule} from '@angular/material/select';
 
@@ -45,7 +45,7 @@ import {SearchTagsComponent} from "./components/search-tags/search-tags.componen
 import {FileUploadComponent} from "./components/file-upload/file-upload.component";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatChipsModule} from "@angular/material/chips";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { CreateExhibitionExhibitselectionComponent } from './site-components/create-exhibition-page/create-exhibition-exhibitselection/create-exhibition-exhibitselection.component';
 import {MatListModule} from "@angular/material/list";
 import { ExhibitCardComponent } from './components/exhibit-card/exhibit-card.component';
@@ -59,6 +59,7 @@ import { RoomPageComponent } from './site-components/room-page/room-page.compone
 import {NgtOrthographicCameraModule, NgtPerspectiveCameraModule} from "@angular-three/core/cameras";
 import {NgtSobaLoaderModule} from "@angular-three/soba/loaders";
 import { ThreeRoomSelectionComponent } from './components/three/three-room-selection/three-room-selection.component';
+import {AuthInterceptor} from "./site-components/auth/auth.interceptor";
 
 
 const routes: Routes = []
@@ -128,7 +129,12 @@ const routes: Routes = []
         NgtSobaLoaderModule,
 
     ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

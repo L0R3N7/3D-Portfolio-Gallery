@@ -3,8 +3,6 @@
       <div class="col-3">
         <img class="logo" routerLink="/home" rel="logo" src="../../../assets/image/3d-logo.png">
         <a class="navbar-brand no-after title" routerLink="/home"><b class="font-gradient">Portfolio</b></a>
-
-
       </div>
       <div class="col-6 text-center">
         <div class="d-flex justify-content-center gap-5">
@@ -12,19 +10,20 @@
              routerLink="/home" routerLinkActive="link-activated"><mat-icon>home</mat-icon>Home</a>
           <a class="navbar-brand"
              routerLink="/search" routerLinkActive="link-activated"><mat-icon>search</mat-icon>Search</a>
-          <a class="navbar-brand" *ngIf="this.navbar.loggedIn"
+          <a class="navbar-brand" *ngIf="this.auth.isLoggedIn()"
              routerLink="/profile" routerLinkActive="link-activated"><mat-icon>person</mat-icon>Profile</a>
         </div>
       </div>
       <div class="col-3">
-        <ng-container *ngIf="!this.navbar.loggedIn; else profile">
+        <ng-container *ngIf="!this.auth.isLoggedIn(); else profile">
           <a class="navbar-brand" style="float: right" routerLink="/log-signin"><button class="profile px-5 action-button" >Sign in / Log in</button></a>
         </ng-container>
         <ng-template #profile>
-          <a routerLink="/profile" class="w-100">
+          <a routerLink="/profile" class="w-100" style="text-decoration: none">
             <div id="profile-container" class="w-100">
-              <!--<img src="assets/image/profile-photo.jpg">-->
-              <p>Max Mustermann</p>
+              <p routerLinkActive="link-activated">Max Mustermann</p>
+              <img src="assets/image/profile-photo.jpg">
+
             </div>
           </a>
         </ng-template>
