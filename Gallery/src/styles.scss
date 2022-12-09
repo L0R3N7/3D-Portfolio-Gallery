@@ -22,6 +22,8 @@
 ///Background
 $bc-primary: #eee;
 $bc-secondary: #9096c5;
+$bc-primary-opacity: #eeeeee9f; 
+$bc-secondary-opacity: #9096c59f;
 ///Font
 $c-font: #222;
 $c-secondary-font: #eee;
@@ -183,6 +185,11 @@ mat-icon{
   border: none;
   border-radius: $s-round;
   box-shadow: $shadow-values;
+}
+
+.btn-disabled{
+  filter: grayscale(.9); 
+  box-shadow: 0 0 0; 
 }
 
 .custom_input{

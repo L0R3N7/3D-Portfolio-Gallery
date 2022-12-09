@@ -16,11 +16,12 @@ mat-horizontal-stepper{
   width: 49%;
 }
 button{
-   @extend .action-button;
- }
-.backbutton{
+  @extend .action-button;
   background-image: none;
   background-color: $bc-secondary;
+  &.backbutton{
+    filter: grayscale(.5);
+  }
 }
 
 @media (min-width: 992px) {

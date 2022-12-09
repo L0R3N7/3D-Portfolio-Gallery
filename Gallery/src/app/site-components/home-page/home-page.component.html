@@ -13,10 +13,11 @@
     <h3>Exhibitions</h3>
     <p>the latest exhibitions</p>
     <p>check them out</p>
-    <app-slideshow>
+    <app-slideshow *ngIf="exhibitions">
       <app-exhibition-card
         *ngFor="let e of exhibitions"
-        [exhibition]="e"></app-exhibition-card>
+        [exhibtion]="e"
+        routerLink="/room"></app-exhibition-card>
     </app-slideshow>
   </div>
 

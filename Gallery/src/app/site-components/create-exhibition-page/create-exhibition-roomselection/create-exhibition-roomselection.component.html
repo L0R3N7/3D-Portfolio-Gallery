@@ -1,10 +1,21 @@
 <div class="row position-absolute top-0 w-100 h-100" style="left: 0;">
-  <div class="col-9 " style="background-color: #C3C6E0;">
+  <div class="col-lg-9 col-sm-7 " style="background-color: #C3C6E0; padding: 0px;">
+    <ng-container *ngIf="room3dUrl; else noRoom">
+      <app-three-room-selection [srcModel]="room3dUrl"></app-three-room-selection>
+    </ng-container>
+    <ng-template #noRoom>
+      <div class="d-flex h-100 align-items-center justify-content-center">
+        <h2 class="opacity-50">No Room selected</h2>
+      </div>
+    </ng-template>
   </div>
-  <div class="col-3 h-100 p-0">
-    <div class="create-exhibition-content-first px-5">
+  <div class="col-lg-3 col-sm-5 h-100 p-0">
+    <div class="create-exhibition-content-first ps-5">
       <h3 class="text-center my-5">Select Room</h3>
+      <button #resetButton (click)="room3dUrl=''"></button>
       <div>
+        <p>{{rangevalue}}</p>
+        <input #rangeInput type="range" min="0" max="11" value="1"  step="1" (change)="test(rangeInput.value)"/>
         <h6>Recommended:</h6>
         <app-slideshow>
           <app-room-card class="room-card" *ngFor="let r of rooms" [room]="r" (click)="selectRoom(r.id)" [ngClass]="{'disabled' : r.id != selectedRoom_id && selectedRoom_id != -1}"></app-room-card>
@@ -12,10 +23,9 @@
         <hr>
         <h6>All:</h6>
         <app-slideshow>
-          <app-room-card  class="room-card" *ngFor="let r of rooms" [room]="r" (click)="selectRoom(r.id)" [ngClass]="{'disabled' : r.id != selectedRoom_id && selectedRoom_id != -1}"></app-room-card>
+          <app-room-card class="room-card" *ngFor="let r of rooms" [room]="r" (click)="selectRoom(r.id)" [ngClass]="{'disabled' : r.id != selectedRoom_id && selectedRoom_id != -1}"></app-room-card>
         </app-slideshow>
       </div>
-
     </div>
     <div class="btn-end w-100 clearfix px-2 pt-3 shadow-inner" >
       <ng-content></ng-content>

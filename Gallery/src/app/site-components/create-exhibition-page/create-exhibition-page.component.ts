@@ -3,6 +3,8 @@ import {NavbarServiceService} from "../../components/navbar/navbar-service.servi
 import {FooterService} from "../../components/footer/footer.service";
 import {MatStepper} from "@angular/material/stepper";
 import {StepperSelectionEvent} from "@angular/cdk/stepper";
+import {Exhibition} from "../../shared/class/exhibition";
+import {Exhibit} from "../../shared/class/exhibit";
 
 @Component({
   selector: 'app-create-exhibition-page',
@@ -15,6 +17,7 @@ export class CreateExhibitionPageComponent implements OnInit {
   constructor(public navbar: NavbarServiceService, public footer: FooterService) {}
 
   stepsCompleted : boolean[] = [];
+  exhibitionList : Exhibit[] | undefined = [];
 
   ngOnInit(): void {
     this.navbar.white = false;

@@ -1,0 +1,59 @@
+@import "../../../../styles";
+
+.color-side{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 33.33%;
+  height:100%;
+  background-image: $c-action;
+  z-index: -9;
+}
+
+.white-side{
+  position: absolute;
+  top: 0;
+  left: 33.33%;
+  width: 66.66%;
+  height: 100%;
+}
+.logo{
+  width: 10%;
+  margin-bottom: 4%;
+  margin-right: 3%;
+
+}
+.title{
+  top: 20%;
+  font-size: 40px;
+}
+.content-wrapper{
+  margin-top: 5%;
+  margin-left: 40%;
+}
+h2{
+  text-align: center;
+}
+form{
+  margin-left: 30%;
+
+}
+button{
+  margin-top: 5%;
+  width: 60%;
+  font-size: 1.5em;
+  background-image: $c-action;
+  color: $c-secondary-font;
+  box-shadow: $shadow-values;
+}
+hr{
+  width: 30%;
+
+}
+.sign-up-text{
+  text-align: center;
+}
+.ps-2{
+  text-decoration: none;
+}
+

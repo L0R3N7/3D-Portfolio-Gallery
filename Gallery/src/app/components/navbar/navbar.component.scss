@@ -1,5 +1,19 @@
 @import "src/styles";
-
+#profile-container{
+  display: flex;
+  justify-content: flex-end;
+  > p{
+    display: inherit;
+    align-self: baseline;
+    margin-bottom: 0;
+  }
+  > img{
+    margin-left: 1rem;
+    border: 0px;
+    border-radius: 100%;
+    height: 2rem;
+  }
+}
 
 
 .logo{

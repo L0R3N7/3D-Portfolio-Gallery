@@ -1,6 +1,5 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
-import {Exhibition} from "../../shared/exhibition";
-import {GalleryService} from "../../shared/gallery.service";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Exhibition} from "../../shared/class/exhibition";
 
 @Component({
   selector: 'app-exhibition-card',
@@ -9,12 +8,17 @@ import {GalleryService} from "../../shared/gallery.service";
 })
 export class ExhibitionCardComponent implements OnInit {
 
-  @Input() exhibition?: Exhibition;
+  @Input('exhibtion') exhibition?: Exhibition;
+  @Input('delete') isDeleteMode : boolean = false;
+  @Output('delete') deleteEvent : EventEmitter<Exhibition> = new EventEmitter<Exhibition>();
 
-
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  onDelete() {
+    this.deleteEvent.emit(this.exhibition) ;
+  }
 }
