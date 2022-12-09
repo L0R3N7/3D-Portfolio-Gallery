@@ -19,16 +19,18 @@ entity Exhibition {
 entity Themes {
     id: number <<generated>>
     --
-    mat_object: string
-    mat_inside: string 
+    thumbnail_url: string
+    mat_wall_or_object: string
+    mat_floor: string <<nullable>>
     light_intensity: number
     model_path: string <<nullable>>
+    is_exhibit: boolean
 }
 
 entity Room {
     id : number <<generated>>
     --
-    name: string
+    name: string◊
     positions_amount : number
     room_url: string
 }
