@@ -15,7 +15,7 @@
       <a class="navbar-brand no-after title" ><b class="font-gradient">Portfolio</b></a>
     </div>
     <h2>Create Art Today</h2>
-    <form [formGroup]="signupForm" (ngSubmit)="submit()">
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
       <input class="input" formControlName="username" placeholder="Username" name="text" ngModel type="email">
       <input class="input" formControlName="email" placeholder="email@example.com" name="email" ngModel type="email">
       <input class="input" formControlName="password" placeholder="Password" name="password" ngModel type="password" >
