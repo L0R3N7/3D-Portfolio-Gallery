@@ -40,6 +40,7 @@ import {
 import {
   CreateExhibitionRoomselectionComponent
 } from "./site-components/create-exhibition-page/create-exhibition-roomselection/create-exhibition-roomselection.component";
+<<<<<<< Updated upstream
 import {RoomCardComponent} from "./components/room-card/room-card.component";
 import {SearchTagsComponent} from "./components/search-tags/search-tags.component";
 import {FileUploadComponent} from "./components/file-upload/file-upload.component";
@@ -50,6 +51,7 @@ import { CreateExhibitionExhibitselectionComponent } from './site-components/cre
 import {MatListModule} from "@angular/material/list";
 import { ExhibitCardComponent } from './components/exhibit-card/exhibit-card.component';
 import { ExhibitonListComponent } from './components/exhibiton-list/exhibiton-list.component';
+<<<<<<< HEAD
 import { ThreeRoomComponent } from './components/three/three-room/three-room.component';
 import { ThreeDObjectLoaderComponent } from './components/three/three-d-object-loader/three-d-object-loader.component';
 import {NgtGroupModule} from "@angular-three/core/group";
@@ -60,6 +62,15 @@ import {NgtOrthographicCameraModule, NgtPerspectiveCameraModule} from "@angular-
 import {NgtSobaLoaderModule} from "@angular-three/soba/loaders";
 import { ThreeRoomSelectionComponent } from './components/three/three-room-selection/three-room-selection.component';
 import {AuthInterceptor} from "./site-components/auth/auth.interceptor";
+=======
+=======
+import {FileUploadComponent} from "./components/file-upload/file-upload.component";
+import {SearchTagsComponent} from "./components/search-tags/search-tags.component";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatChipsModule} from "@angular/material/chips";
+import {RoomCardComponent} from "./components/room-card/room-card.component";
+>>>>>>> Stashed changes
+>>>>>>> ddd5c569c51da686162428c044cf5f2cfba35601
 
 
 const routes: Routes = []
@@ -85,14 +96,50 @@ const routes: Routes = []
     FileUploadComponent,
     InfoTagComponent,
     SignupPageComponent,
+<<<<<<< Updated upstream
     CreateExhibitionExhibitselectionComponent,
     ExhibitCardComponent,
+<<<<<<< HEAD
     ExhibitonListComponent,
     ThreeRoomComponent,
     ThreeDObjectLoaderComponent,
     CreateExhibitionArrangeComponent,
     RoomPageComponent,
     ThreeRoomSelectionComponent
+=======
+    ExhibitonListComponent
+=======
+    CreateExhibitionMetadataComponent,
+    CreateExhibitionRoomselectionComponent,
+    FileUploadComponent,
+    SearchTagsComponent,
+    RoomCardComponent
+
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    RouterModule.forRoot(routes),
+    NgtCanvasModule,
+    NgtAmbientLightModule,
+    NgtSpotLightModule,
+    NgtPointLightModule,
+    NgtMeshModule,
+    NgtBoxGeometryModule,
+    NgtMeshBasicMaterialModule,
+    NgtSobaOrbitControlsModule,
+    MatIconModule,
+    MatCardModule,
+    MatStepperModule,
+    FormsModule,
+    MatFormFieldModule,
+    DragDropModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatChipsModule
+>>>>>>> Stashed changes
+>>>>>>> ddd5c569c51da686162428c044cf5f2cfba35601
   ],
     imports: [
         BrowserModule,
