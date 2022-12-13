@@ -49,7 +49,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   renderer ?: THREE.WebGLRenderer;
   controls ?: FirstPersonControls | OrbitControls;
 
-  potests = new BoxGeometry(20, 45, 20);
+  potests = new BoxGeometry(20, 70, 20);
   basic_material = new THREE.MeshBasicMaterial({color: 0x00ee00, opacity: .5})
   isAboutToDestroy = false;
   factor = 100
@@ -74,32 +74,32 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
             }
           }
           // If there is no possition don't draw the object
-          if(!value.position_id){
+          if(!value.position_id || value.position_id == -1){
             continue;
           }
           // load and configure exhibit object
           this.loader.load(value.exhibit_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
             value.uuid = gltf.scene.uuid;
             // TODO: add custom slider to adjust size
-            let size = 1 / this.getSize(gltf.scene).length()
-            size *= this.factor;
-            gltf.scene.scale.set(size, size, size)
+            let size = this.getSize(gltf.scene)
+            gltf.scene.scale.set(1 / size.x * value.scale_factor, 1 / size.y * value.scale_factor, 1 / size.z * value.scale_factor)
             // Alignment / Positioning
+
             let x = this.room.positions[value.position_id -1].x * this.factor
             let y = this.potests.parameters.height + this.getSize(gltf.scene).y
             let z = this.room.positions[value.position_id -1].y * this.factor
             switch (value.alignment) {
               case "l":
-                z += this.potests.parameters.depth / 2
+                z += 1 / size.z * value.scale_factor
                 break
               case "r":
-                z -= this.potests.parameters.depth / 2
+                z -= 1 / size.z * value.scale_factor
                 break
               case "t":
-                z += this.potests.parameters.width / 2
+                x += 1 / size.x * value.scale_factor
                 break
               case "b":
-                z -= this.potests.parameters.width / 2
+                x -= 1 / size.x * value.scale_factor
             }
             gltf.scene.position.set(x, y, z)
             //gltf.scene
@@ -140,6 +140,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
     //Load Room
     this.loader.load( `room/walls/${this.room.id}.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+      gltf.scene.scale.y = 350
       this.scene.add( gltf.scene );
     });
     this.loader.load( `room/floor/${this.room.id}.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
@@ -153,12 +154,10 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
       this.scene.add(cube);
     }
       this.animate();
-
-
   }
 
   setup = () => {
-    this.camera = new THREE.PerspectiveCamera( 100, this.lookupSize.nativeElement.offsetWidth / this.lookupSize.nativeElement.offsetHeight, 0.1, 1000);
+    this.camera = new THREE.PerspectiveCamera( 80, this.lookupSize.nativeElement.offsetWidth / this.lookupSize.nativeElement.offsetHeight, 0.1, 1000);
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.threeCanvas.nativeElement
     });
@@ -169,7 +168,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
     if (this.mode == "create"){
       this.controls = new OrbitControls(this.camera, this.renderer.domElement)
-      this.camera?.position.set( - 1.8, 100, 10 );
+      this.camera?.position.set( - 1.8, 180, 10 );
 
     }else{
       this.controls = new FirstPersonControls(this.camera, this.renderer.domElement)
