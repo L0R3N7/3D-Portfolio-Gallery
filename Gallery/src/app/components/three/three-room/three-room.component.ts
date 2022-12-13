@@ -14,7 +14,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {BoxGeometry} from "three";
+import {BoxGeometry, Raycaster} from "three";
 import {PositionConfig} from "../../../shared/class/positionConfig";
 import {
   ExhibitArrangeService
@@ -42,6 +42,8 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   scene = new THREE.Scene()
   clock = new THREE.Clock()
   loader = new GLTFLoader().setPath( 'assets/three-d-objects/' );
+
+  raycaster = new THREE.Raycaster()
 
   camera ?: THREE.PerspectiveCamera;
   renderer ?: THREE.WebGLRenderer;
