@@ -9,6 +9,7 @@ import {Exhibition} from "./class/exhibition";
 @Injectable({
   providedIn: 'root'
 })
+
 export class GalleryService {
   supportedFiletypes = new Map<string, string[]>();
 
@@ -17,6 +18,8 @@ export class GalleryService {
     this.supportedFiletypes.set('video', ['mov', 'mp4']);
     this.supportedFiletypes.set('3d', ['gltf', 'obj', 'fbx', 'amf']);
   }
+
+  URL = "http://localhost:8080/api/"
 
   getAllRooms(): Observable<Room[]>{
     return this.httpClient.get<Room[]>("assets/fakeendpoints/getAllRooms.json");
@@ -27,7 +30,11 @@ export class GalleryService {
   }
 
   getAllExhibitions(): Observable<Exhibition[]>{
-    return this.httpClient.get<Exhibition[]>("assets/fakeendpoints/exhibitions.json")
+    return this.httpClient.get<Exhibition[]>(this.URL + "exhibitions/all" )
+  }
+
+  getAllSearch(searchTerm: String): Observable<Exhibition[]>{
+    return this.httpClient.get<Exhibition[]>(this.URL + "exhibitions/search/" + searchTerm )
   }
 
   postExhibit(exhibit: { room_id: string; description: string; id: number; thumbnail_url: string; title: string }): Observable<any>{
