@@ -6,7 +6,7 @@ import {
   ElementRef,
   OnDestroy,
   OnChanges,
-  SimpleChanges
+  SimpleChanges, Inject
 } from '@angular/core';
 import { Room } from 'src/app/shared/class/room';
 import { Position } from 'src/app/shared/class/position';
@@ -21,6 +21,7 @@ import {
 } from "../../../site-components/create-exhibition-page/create-exhibition-arrange/exhibit-arrange.service";
 import {generateTypeCheckBlock} from "@angular/compiler-cli/src/ngtsc/typecheck/src/type_check_block";
 import {render} from "@angular-three/core";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-three-room',
@@ -53,7 +54,13 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   isAboutToDestroy = false;
   factor = 100
 
-  constructor(private exhibitArrangeService : ExhibitArrangeService) {
+  dialogOpen = false;
+  animationid?: number
+  objectDescription?: String
+  objectTitle?: String
+
+
+  constructor(private exhibitArrangeService : ExhibitArrangeService, public dialog: MatDialog) {
     // Load exhibit based on the positionConfigList
     exhibitArrangeService.getPositionConfigList().subscribe(
       values => {
@@ -145,7 +152,9 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
       cube.position.set(this.room.positions[i].x * this.factor, this.potests.parameters.height / 2, this.room.positions[i].y * this.factor);
       this.scene.add(cube);
     }
-    this.animate();
+      this.animate();
+
+
   }
 
   setup = () => {
@@ -167,6 +176,8 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
       this.controls!.lookSpeed = 0.002;
       this.controls!.movementSpeed = 100;
       this.controls!.lookVertical = false;
+      this.controls!.mouseDragOn = false;
+      this.controls!.autoForward = false
 
 
       // Inter
@@ -176,6 +187,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
         this.pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1
         this.pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1
         this.hoverExhibit()
+
       });
     }
   }
@@ -191,12 +203,29 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
     }
   }
 
-  hoverExhibit(){
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+   const dialogRef = this.dialog.open(ExhibitDialog, {
+      width: '100%',
+      data: {description: this.objectDescription, title: this.objectTitle},
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+
+    this.dialogOpen = true
+    console.log(this.animationid)
+    cancelAnimationFrame(this.animationid!)
+
+    dialogRef.afterClosed().subscribe(r => {
+      this.dialogOpen = false
+      this.animate()
+    })
+  }
+
+hoverExhibit(){
     this.raycaster.setFromCamera(this.pointer, this.camera! )
     const intersects = this.raycaster.intersectObjects(this.scene.children)
-
-      const values = this.exhibitArrangeService.getPositionConfigList().getValue();
-
+    const values = this.exhibitArrangeService.getPositionConfigList().getValue();
             for (let value of values) {
                 console.log(intersects[0])
                 console.log(value)
@@ -205,23 +234,22 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
                   if (value.uuid != null) {
                     const object = this.scene.getObjectByProperty('uuid', value.uuid);
                     console.log(value.description)
+
+                    this.objectDescription = value.description
+                    this.objectTitle = value.title
+                    this.openDialog('1000ms', '300ms')
                   }
-
-
               }
             }
       }
 
-
   animate = () => {
-    if (!this.isAboutToDestroy){
-      requestAnimationFrame( this.animate );
-    }
+      if (!this.isAboutToDestroy && (!this.dialogOpen)) {
+        this.animationid = requestAnimationFrame(this.animate);
+      }
 
-    this.controls?.update(this.clock.getDelta())
-
-    this.renderer?.render(this.scene, this.camera! );
-
+      this.controls?.update(this.clock.getDelta())
+      this.renderer?.render(this.scene, this.camera!);
   }
 
   ngOnDestroy() {
@@ -231,5 +259,17 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
   getSize(scene: THREE.Object3D){
     return new THREE.Box3().setFromObject(scene).getSize(new Vector3());
+  }
+
+}
+
+
+@Component({
+  selector: 'exhibit-dialog',
+  templateUrl: 'exhibit-dialog.html',
+})
+export class ExhibitDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ExhibitDialog>) {
+
   }
 }

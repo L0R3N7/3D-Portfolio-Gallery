@@ -49,7 +49,7 @@ import { CreateExhibitionExhibitselectionComponent } from './site-components/cre
 import {MatListModule} from "@angular/material/list";
 import { ExhibitCardComponent } from './components/exhibit-card/exhibit-card.component';
 import { ExhibitonListComponent } from './components/exhibiton-list/exhibiton-list.component';
-import { ThreeRoomComponent } from './components/three/three-room/three-room.component';
+import {ExhibitDialog, ThreeRoomComponent} from './components/three/three-room/three-room.component';
 import { ThreeDObjectLoaderComponent } from './components/three/three-d-object-loader/three-d-object-loader.component';
 import {NgtGroupModule} from "@angular-three/core/group";
 import {NgtPrimitiveModule} from "@angular-three/core/primitive";
@@ -59,6 +59,7 @@ import {NgtOrthographicCameraModule, NgtPerspectiveCameraModule} from "@angular-
 import {NgtSobaLoaderModule} from "@angular-three/soba/loaders";
 import { ThreeRoomSelectionComponent } from './components/three/three-room-selection/three-room-selection.component';
 import {AuthInterceptor} from "./site-components/auth/auth.interceptor";
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 
 const routes: Routes = []
 
@@ -93,7 +94,8 @@ const routes: Routes = []
     CreateExhibitionRoomselectionComponent,
     FileUploadComponent,
     SearchTagsComponent,
-    RoomCardComponent
+    RoomCardComponent,
+    ExhibitDialog
   ],
   imports: [
       BrowserModule,
@@ -119,6 +121,7 @@ const routes: Routes = []
       MatChipsModule,
       HttpClientModule,
       MatListModule,
+      MatDialogModule,
       NgtGroupModule,
       NgtPrimitiveModule,
       NgtMeshStandardMaterialModule,
