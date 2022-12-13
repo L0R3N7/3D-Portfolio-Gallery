@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {CreateExhibitionPageService} from "../create-exhibition-page.service";
 
 @Component({
   selector: 'app-create-exhibition-metadata',
@@ -8,7 +9,7 @@ import {Component, OnInit} from '@angular/core';
 export class CreateExhibitionMetadataComponent implements OnInit {
   selectedTagIds : number[] = []
 
-  constructor() {}
+  constructor(private createService: CreateExhibitionPageService) {}
 
   ngOnInit(): void {
   }

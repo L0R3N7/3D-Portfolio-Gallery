@@ -22,7 +22,7 @@
 ///Background
 $bc-primary: #eee;
 $bc-secondary: #9096c5;
-$bc-primary-opacity: #eeeeee9f; 
+$bc-primary-opacity: #eeeeee9f;
 $bc-secondary-opacity: #9096c59f;
 ///Font
 $c-font: #222;
@@ -188,8 +188,8 @@ mat-icon{
 }
 
 .btn-disabled{
-  filter: grayscale(.9); 
-  box-shadow: 0 0 0; 
+  filter: grayscale(.9);
+  box-shadow: 0 0 0;
 }
 
 .custom_input{
@@ -324,7 +324,7 @@ mat-icon{
   margin-top: 5%;
   width: 60%;
   font-size: 1em;
-  border: 5px solid $c-primary;
+  border: .25rem solid $c-primary;
   border-radius: $s-round;
   box-shadow: $shadow-values;
 }
@@ -334,9 +334,6 @@ mat-icon{
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-}
-.mat-horizontal-stepper-content>*{
-
 }
 .create-exhibition-content-first{
   height: 93%;

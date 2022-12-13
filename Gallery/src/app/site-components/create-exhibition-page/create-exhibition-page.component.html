@@ -33,8 +33,11 @@
       <mat-step [completed]="stepsCompleted[stepper.selectedIndex]">
         <ng-template matStepLabel>Arrange Exhibition</ng-template>
         <app-create-exhibition-arrange>
-          <button class="w-49 backbutton" mat-button matStepperPrevious>Back</button>
-          <button class="float-end w-49" mat-button (click)="stepper.reset()">Reset</button>
+          <div class="w-100" style="display: flex; justify-content: space-evenly; ">
+            <button mat-button  class="w-100 backbutton" matStepperPrevious>Back</button>
+            <button mat-button class="w-100 mx-2" routerLink="/room">Preview</button>
+            <button mat-button class="w-100" (click)="stepper.reset()">Publish</button>
+          </div>
         </app-create-exhibition-arrange>
       </mat-step>
     </mat-horizontal-stepper>
