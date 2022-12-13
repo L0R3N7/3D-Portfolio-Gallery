@@ -17,11 +17,20 @@
       </button>
     </mat-chip>
   </mat-chip-list>
-  <p class="found-results font-gradient">4 results found</p>
+  <p class="found-results font-gradient">{{searchResults.length}} Ergebnisse</p>
 </div>
 
 
 <div class="container" style="margin-top: 15%">
-  <app-exhibiton-list></app-exhibiton-list>
-</div>
 
+  <div *ngIf="searchResults.length">
+    <div class="container">
+      <div class="row">
+        <app-exhibition-card class="col-3"
+             *ngFor="let e of searchResults"
+             [exhibtion]="e"></app-exhibition-card>
+      </div>
+    </div>
+
+  </div>
+</div>
