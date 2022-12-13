@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavbarServiceService} from "./navbar-service.service";
 import {GalleryService} from "../../shared/gallery.service";
+import {AuthService} from "../../site-components/auth/auth.service";
 
 @Component({
   selector: 'app-navbar',
@@ -9,15 +10,11 @@ import {GalleryService} from "../../shared/gallery.service";
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public navbar: NavbarServiceService) {
+  constructor(public navbar: NavbarServiceService, public auth: AuthService) {
   }
 
   ngOnInit(): void {
     this.navbar.white = false;
     this.navbar.visible = true;
-    var inlineNav : any;
   }
-
-
-
 }

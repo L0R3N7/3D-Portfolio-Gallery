@@ -1,0 +1,28 @@
+  <div class="row cover">
+    <div class="col color-side d-flex justify-content-center flex-column">
+      <img
+        src="../../../../assets/image/statue.png"
+        class="w-auto h-75"
+        style="object-fit: cover"
+      >
+      <p  class="font-secondary-c m-5"
+      >A new way to experience
+        in the infinite virutal space. </p>
+    </div>
+    <div class="col white-side">
+      <div class="content-wrapper">
+          <img class="logo" rel="logo" src="../../../../assets/image/3d-logo.png">
+          <a class="navbar-brand no-after title" ><b class="font-gradient">Portfolio</b></a>
+      </div>
+      <h2>Welcome Back</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <input class="input" placeholder="email@example.com or username" type="email" formControlName="emailOrUsername">
+        <input class="input" placeholder="Password" type="password" formControlName="password">
+        <label class="font-action-c">
+        </label>
+        <button type="submit" class="py-1 rounded" [disabled]="!loginForm.valid" [ngClass]="{'btn-disabled': !loginForm.valid}">Log In</button>
+      </form>
+      <hr class="mx-auto my-5">
+      <p class="sign-up-text">Don't have an account yet? <a class="font-gradient underlined" routerLink="/signup">Sign up</a></p>
+  </div>
+  </div>

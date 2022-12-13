@@ -14,12 +14,13 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {BoxGeometry, Raycaster} from "three";
+import {BoxGeometry, Camera, Vector3} from "three";
 import {PositionConfig} from "../../../shared/class/positionConfig";
 import {
   ExhibitArrangeService
 } from "../../../site-components/create-exhibition-page/create-exhibition-arrange/exhibit-arrange.service";
 import {generateTypeCheckBlock} from "@angular/compiler-cli/src/ngtsc/typecheck/src/type_check_block";
+import {render} from "@angular-three/core";
 
 @Component({
   selector: 'app-three-room',
@@ -27,14 +28,11 @@ import {generateTypeCheckBlock} from "@angular/compiler-cli/src/ngtsc/typecheck/
   styleUrls: ['./three-room.component.scss']
 })
 export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
-
-
   position_arr : Position[] = [new Position(1, 2, 0, 0, false),
     new Position(2, 2, 1, 1, false),
     new Position(3, 2, 1, 0, false)]
   @Input('room') room : Room = new Room(2,  "small room", 0, "https://www.smb.museum/uploads/tx_smb/news/news_67970/Neues-Museum_Raum-Prolog_Achim_Kleuker_xl.jpg", "2.gltf", this.position_arr)
   @Input('mode') mode : String = "create";
-  @Input('positionConfigList') positionConfigList ?: PositionConfig[];
 
   @ViewChild('threeCanvas') threeCanvas!: ElementRef;
   @ViewChild('lookupSize') lookupSize !: ElementRef;
@@ -44,22 +42,23 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   loader = new GLTFLoader().setPath( 'assets/three-d-objects/' );
 
   raycaster = new THREE.Raycaster()
+  pointer = new THREE.Vector2()
 
   camera ?: THREE.PerspectiveCamera;
   renderer ?: THREE.WebGLRenderer;
   controls ?: FirstPersonControls | OrbitControls;
 
-  potests = new BoxGeometry(20, 80, 20);
+  potests = new BoxGeometry(20, 45, 20);
   basic_material = new THREE.MeshBasicMaterial({color: 0x00ee00, opacity: .5})
   isAboutToDestroy = false;
+  factor = 100
 
   constructor(private exhibitArrangeService : ExhibitArrangeService) {
+    // Load exhibit based on the positionConfigList
     exhibitArrangeService.getPositionConfigList().subscribe(
       values => {
         for (let value of values){
-          if(!value.position_id){
-            continue;
-          }
+          // If there was an preexisting object delete it
           if (value.uuid){
             const object = this.scene.getObjectByProperty('uuid', value.uuid);
             if (object){
@@ -67,14 +66,41 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
               object.clear()
             }
           }
+          // If there is no possition don't draw the object
+          if(!value.position_id){
+            continue;
+          }
+          // load and configure exhibit object
           this.loader.load(value.exhibit_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
             value.uuid = gltf.scene.uuid;
-            console.log(this.room.positions[value.position_id -1].y * 100)
-            gltf.scene.position.set(this.room.positions[value.position_id -1].x * 200, 200, this.room.positions[value.position_id -1].y * 200)
-            gltf.scene.scale.set(.5, .5, .5)
+            // TODO: add custom slider to adjust size
+            let size = 1 / this.getSize(gltf.scene).length()
+            size *= this.factor;
+            gltf.scene.scale.set(size, size, size)
+            // Alignment / Positioning
+            let x = this.room.positions[value.position_id -1].x * this.factor
+            let y = this.potests.parameters.height + this.getSize(gltf.scene).y
+            let z = this.room.positions[value.position_id -1].y * this.factor
+            switch (value.alignment) {
+              case "l":
+                z += this.potests.parameters.depth / 2
+                break
+              case "r":
+                z -= this.potests.parameters.depth / 2
+                break
+              case "t":
+                z += this.potests.parameters.width / 2
+                break
+              case "b":
+                z -= this.potests.parameters.width / 2
+            }
+            gltf.scene.position.set(x, y, z)
             //gltf.scene
             this.scene.add( gltf.scene );
-            console.log("loaded cheese")
+            console.log(`loaded object: ${value.exhibit_url}`)
+            console.log(this.getSize(gltf.scene))
+            console.log(gltf.scene.getWorldScale(new Vector3()))
+            console.log(gltf.scene.getWorldPosition(new Vector3()))
           });
         }
       }
@@ -91,6 +117,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
     }
 
     this.setup()
+
     //Light
     const bulbGeometry = new THREE.SphereGeometry(.02, 16, 8);
     const bulbLight = new THREE.PointLight( 0xffee88, 3, 1000, 2);
@@ -113,10 +140,9 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
     });
 
     //Sockels
-    let faktor = 100;
     for (let i = 0; i < this.room.positions.length; i++){
       let cube = new THREE.Mesh(this.potests, this.basic_material);
-      cube.position.set(this.room.positions[i].x * faktor, 0, this.room.positions[i].y * faktor);
+      cube.position.set(this.room.positions[i].x * this.factor, this.potests.parameters.height / 2, this.room.positions[i].y * this.factor);
       this.scene.add(cube);
     }
     this.animate();
@@ -131,14 +157,26 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
     this.scene.background = new THREE.Color( 0xf7f8fa )
     this.camera?.position.set( - 1.8, 100, 2.7 );
 
+
     if (this.mode == "create"){
       this.controls = new OrbitControls(this.camera, this.renderer.domElement)
       this.camera?.position.set( - 1.8, 100, 10 );
+
     }else{
       this.controls = new FirstPersonControls(this.camera, this.renderer.domElement)
-      this.controls!.lookSpeed = 0.2;
+      this.controls!.lookSpeed = 0.002;
       this.controls!.movementSpeed = 100;
       this.controls!.lookVertical = false;
+
+
+      // Inter
+      window.addEventListener( 'pointerdown', (event: PointerEvent) => {
+        // calculate pointer position in normalized device coordinates
+        // (-1 to +1) for both components
+        this.pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1
+        this.pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1
+        this.hoverExhibit()
+      });
     }
   }
 
@@ -153,17 +191,45 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
     }
   }
 
+  hoverExhibit(){
+    this.raycaster.setFromCamera(this.pointer, this.camera! )
+    const intersects = this.raycaster.intersectObjects(this.scene.children)
+
+      const values = this.exhibitArrangeService.getPositionConfigList().getValue();
+
+            for (let value of values) {
+                console.log(intersects[0])
+                console.log(value)
+
+                if (value.uuid == intersects[0].object.parent?.parent?.uuid) {
+                  if (value.uuid != null) {
+                    const object = this.scene.getObjectByProperty('uuid', value.uuid);
+                    console.log(value.description)
+                  }
+
+
+              }
+            }
+      }
+
+
   animate = () => {
     if (!this.isAboutToDestroy){
       requestAnimationFrame( this.animate );
     }
+
     this.controls?.update(this.clock.getDelta())
+
     this.renderer?.render(this.scene, this.camera! );
-    console.log("Animate")
+
   }
 
   ngOnDestroy() {
     this.isAboutToDestroy = true
     this.scene.clear()
+  }
+
+  getSize(scene: THREE.Object3D){
+    return new THREE.Box3().setFromObject(scene).getSize(new Vector3());
   }
 }

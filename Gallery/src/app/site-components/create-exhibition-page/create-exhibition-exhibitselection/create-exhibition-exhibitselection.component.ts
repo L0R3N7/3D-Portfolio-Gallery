@@ -3,8 +3,6 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {GalleryService} from "../../../shared/gallery.service";
 import {Exhibit} from "../../../shared/class/exhibit";
 import {FileUploadOutput} from "../../../shared/file-upload-output";
-import {Subject} from "rxjs";
-import {Cache} from "three";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {BlobService} from "../../../shared/blob.service";
 
@@ -32,7 +30,6 @@ export class CreateExhibitionExhibitselectionComponent implements OnInit {
 
   }
 
-
   ngOnInit(): void {
   }
 
@@ -49,6 +46,6 @@ export class CreateExhibitionExhibitselectionComponent implements OnInit {
     }else {
       this.exhibitCollection.splice($event, 1)
     }
-    this.changedExhibitlistEvent.emit(this.exhibitCollection);
+    this.changedExhibitlistEvent.emit(this.exhibitCollection)
   }
 }

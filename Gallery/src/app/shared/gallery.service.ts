@@ -1,34 +1,21 @@
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Room} from "./class/room";
-import {Tag} from "./class/tag";
-import {User} from "./class/user";
-import {Exhibition} from "./class/exhibition";
 import {NavbarServiceService} from "../components/navbar/navbar-service.service";
+import {Room} from "./class/room";
+import {Observable} from "rxjs";
+import {Tag} from "./class/tag";
+import {Exhibition} from "./class/exhibition";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GalleryService {
   supportedFiletypes = new Map<string, string[]>();
-  private _isLoggedIn = false;
-
 
   constructor(private httpClient: HttpClient, private navbarService : NavbarServiceService) {
     this.supportedFiletypes.set('image', ['image/png', 'image/jpeg', 'image/jpg']);
     this.supportedFiletypes.set('video', ['mov', 'mp4']);
     this.supportedFiletypes.set('3d', ['gltf', 'obj', 'fbx', 'amf']);
-  }
-
-  get isLoggedIn(): boolean {
-    return this._isLoggedIn;
-  }
-
-  logIn(user: User){
-    //Todo Serverendpoint
-    this._isLoggedIn = true;
-    this.navbarService.loggedIn = this.isLoggedIn;
   }
 
   getAllRooms(): Observable<Room[]>{
