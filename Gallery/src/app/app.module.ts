@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
-import {NgtCanvasModule, NgtComponentStore} from "@angular-three/core";
+import {NgtCanvasModule} from "@angular-three/core";
 import {NgtAmbientLightModule, NgtPointLightModule, NgtSpotLightModule} from "@angular-three/core/lights";
 import {NgtMeshModule} from "@angular-three/core/meshes";
 import {NgtBoxGeometryModule} from "@angular-three/core/geometries";
@@ -33,14 +33,12 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import { SignupPageComponent } from './site-components/auth/signup-page/signup-page.component';
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import { MatSelectModule} from '@angular/material/select';
-
 import {
   CreateExhibitionMetadataComponent
 } from "./site-components/create-exhibition-page/create-exhibition-metadata/create-exhibition-metadata.component";
 import {
   CreateExhibitionRoomselectionComponent
 } from "./site-components/create-exhibition-page/create-exhibition-roomselection/create-exhibition-roomselection.component";
-<<<<<<< Updated upstream
 import {RoomCardComponent} from "./components/room-card/room-card.component";
 import {SearchTagsComponent} from "./components/search-tags/search-tags.component";
 import {FileUploadComponent} from "./components/file-upload/file-upload.component";
@@ -51,7 +49,6 @@ import { CreateExhibitionExhibitselectionComponent } from './site-components/cre
 import {MatListModule} from "@angular/material/list";
 import { ExhibitCardComponent } from './components/exhibit-card/exhibit-card.component';
 import { ExhibitonListComponent } from './components/exhibiton-list/exhibiton-list.component';
-<<<<<<< HEAD
 import { ThreeRoomComponent } from './components/three/three-room/three-room.component';
 import { ThreeDObjectLoaderComponent } from './components/three/three-d-object-loader/three-d-object-loader.component';
 import {NgtGroupModule} from "@angular-three/core/group";
@@ -62,20 +59,8 @@ import {NgtOrthographicCameraModule, NgtPerspectiveCameraModule} from "@angular-
 import {NgtSobaLoaderModule} from "@angular-three/soba/loaders";
 import { ThreeRoomSelectionComponent } from './components/three/three-room-selection/three-room-selection.component';
 import {AuthInterceptor} from "./site-components/auth/auth.interceptor";
-=======
-=======
-import {FileUploadComponent} from "./components/file-upload/file-upload.component";
-import {SearchTagsComponent} from "./components/search-tags/search-tags.component";
-import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import {MatChipsModule} from "@angular/material/chips";
-import {RoomCardComponent} from "./components/room-card/room-card.component";
->>>>>>> Stashed changes
->>>>>>> ddd5c569c51da686162428c044cf5f2cfba35601
-
 
 const routes: Routes = []
-
-
 
 @NgModule({
   declarations: [
@@ -96,86 +81,54 @@ const routes: Routes = []
     FileUploadComponent,
     InfoTagComponent,
     SignupPageComponent,
-<<<<<<< Updated upstream
     CreateExhibitionExhibitselectionComponent,
     ExhibitCardComponent,
-<<<<<<< HEAD
     ExhibitonListComponent,
     ThreeRoomComponent,
     ThreeDObjectLoaderComponent,
     CreateExhibitionArrangeComponent,
     RoomPageComponent,
-    ThreeRoomSelectionComponent
-=======
-    ExhibitonListComponent
-=======
+    ThreeRoomSelectionComponent,
     CreateExhibitionMetadataComponent,
     CreateExhibitionRoomselectionComponent,
     FileUploadComponent,
     SearchTagsComponent,
     RoomCardComponent
-
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    RouterModule.forRoot(routes),
-    NgtCanvasModule,
-    NgtAmbientLightModule,
-    NgtSpotLightModule,
-    NgtPointLightModule,
-    NgtMeshModule,
-    NgtBoxGeometryModule,
-    NgtMeshBasicMaterialModule,
-    NgtSobaOrbitControlsModule,
-    MatIconModule,
-    MatCardModule,
-    MatStepperModule,
-    FormsModule,
-    MatFormFieldModule,
-    DragDropModule,
-    ReactiveFormsModule,
-    MatAutocompleteModule,
-    MatChipsModule
->>>>>>> Stashed changes
->>>>>>> ddd5c569c51da686162428c044cf5f2cfba35601
+      BrowserModule,
+      BrowserAnimationsModule,
+      AppRoutingModule,
+      RouterModule.forRoot(routes),
+      NgtCanvasModule,
+      NgtAmbientLightModule,
+      NgtSpotLightModule,
+      NgtPointLightModule,
+      NgtMeshModule,
+      NgtBoxGeometryModule,
+      NgtMeshBasicMaterialModule,
+      NgtSobaOrbitControlsModule,
+      MatIconModule,
+      MatCardModule,
+      MatStepperModule,
+      FormsModule,
+      MatFormFieldModule,
+      DragDropModule,
+      ReactiveFormsModule,
+      MatAutocompleteModule,
+      MatChipsModule,
+      HttpClientModule,
+      MatListModule,
+      NgtGroupModule,
+      NgtPrimitiveModule,
+      NgtMeshStandardMaterialModule,
+      MatSelectModule,
+      NgtSobaFirstPersonControlsModule,
+      NgtOrthographicCameraModule,
+      NgtPerspectiveCameraModule,
+      NgtSobaFlyControlsModule,
+      NgtSobaLoaderModule,
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        RouterModule.forRoot(routes),
-        NgtCanvasModule,
-        NgtAmbientLightModule,
-        NgtSpotLightModule,
-        NgtPointLightModule,
-        NgtMeshModule,
-        NgtBoxGeometryModule,
-        NgtMeshBasicMaterialModule,
-        NgtSobaOrbitControlsModule,
-        MatIconModule,
-        MatCardModule,
-        MatStepperModule,
-        FormsModule,
-        MatFormFieldModule,
-        DragDropModule,
-        ReactiveFormsModule,
-        MatAutocompleteModule,
-        MatChipsModule,
-        HttpClientModule,
-        MatListModule,
-        NgtGroupModule,
-        NgtPrimitiveModule,
-        NgtMeshStandardMaterialModule,
-        MatSelectModule,
-        NgtSobaFirstPersonControlsModule,
-        NgtOrthographicCameraModule,
-        NgtPerspectiveCameraModule,
-        NgtSobaFlyControlsModule,
-        NgtSobaLoaderModule,
-
-    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,

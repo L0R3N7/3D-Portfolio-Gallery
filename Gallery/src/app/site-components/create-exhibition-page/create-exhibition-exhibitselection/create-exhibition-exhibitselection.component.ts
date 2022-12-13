@@ -1,16 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 import {GalleryService} from "../../../shared/gallery.service";
-<<<<<<< HEAD
 import {Exhibit} from "../../../shared/class/exhibit";
 import {FileUploadOutput} from "../../../shared/file-upload-output";
-import {Subject} from "rxjs";
-import {Cache} from "three";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {BlobService} from "../../../shared/blob.service";
-=======
-import {Exhibit} from "../../../shared/exhibit";
->>>>>>> ddd5c569c51da686162428c044cf5f2cfba35601
 
 
 
@@ -21,7 +15,6 @@ import {Exhibit} from "../../../shared/exhibit";
 })
 export class CreateExhibitionExhibitselectionComponent implements OnInit {
 
-<<<<<<< HEAD
   @Output('changedExhibitList') changedExhibitlistEvent = new EventEmitter<Exhibit[]>();
 
   exhibitFile : FileUploadOutput | undefined;
@@ -37,22 +30,10 @@ export class CreateExhibitionExhibitselectionComponent implements OnInit {
 
   }
 
-=======
-  exhibits: Exhibit[] = [];
-  exhibit = { id: 0,
-    thumbnail_url: '',
-    title: '',
-    room_id: '',
-    description: ''};
-
-  constructor(private gs: GalleryService) { }
->>>>>>> ddd5c569c51da686162428c044cf5f2cfba35601
-
   ngOnInit(): void {
   }
 
   addExhibit() {
-<<<<<<< HEAD
     this.bs.blobToBase64(this.exhibitFile!.blob).then(value => {
       this.exhibitCollection.push(new Exhibit(this.exhibitCollection.length, value, this.exhibitFile?.filetype ?? "non", this.exhibitForm.value.name ?? "unnamed", this.exhibitForm.value.desc ?? ""))
       this.changedExhibitlistEvent.emit(this.exhibitCollection);
@@ -65,11 +46,6 @@ export class CreateExhibitionExhibitselectionComponent implements OnInit {
     }else {
       this.exhibitCollection.splice($event, 1)
     }
-    this.changedExhibitlistEvent.emit(this.exhibitCollection);
-=======
-      console.log(this.exhibit.title)
-      this.gs.postExhibit(this.exhibit).subscribe(data => console.log(data))
-
->>>>>>> ddd5c569c51da686162428c044cf5f2cfba35601
+    this.changedExhibitlistEvent.emit(this.exhibitCollection)
   }
 }
