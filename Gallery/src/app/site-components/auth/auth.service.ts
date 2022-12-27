@@ -14,12 +14,12 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(user: UserLoginDTO): Observable<any> {
-    return this.http.post(this.SERVER_URL + "login", user)
+    return this.http.post(this.SERVER_URL + "login", user, {responseType: 'text'})
   }
 
   isLoggedIn(): boolean {
     if (localStorage.getItem('id_token') && localStorage.getItem('expires_at')){
-      let temp = new Date().getTime() / 1000
+      let temp = new Date().getTime()
       const exp = Number(localStorage.getItem('expires_at'))
       return temp < exp
     }else{
