@@ -34,28 +34,21 @@ export class LogSigninPageComponent implements OnInit {
 
   onSubmit() {
     if(this.loginForm.valid){
-      localStorage.setItem('id_token', "token")
-      let date = new Date()
-      date.setHours(date.getHours() + 1)
-      localStorage.setItem('expires_at', String(date.getTime() / 1000))
-      this.router.navigateByUrl('/profile')
-      // TODO add logic when endpoint work
-      /*this.auth.login(new UserLoginDTO(this.loginForm.value.emailOrUsername ?? '', this.loginForm.value.password ?? '')).subscribe(
+      this.auth.login(new UserLoginDTO(this.loginForm.value.emailOrUsername ?? '', this.loginForm.value.password ?? '')).subscribe(
         value => {
-          console.log("log")
-          localStorage.setItem('id_token', value.token)
-          //TODO when JWT Token works use real values
-          //localStorage.setItem('expires_at', value.expires_at)
-          let date = new Date()
-          date.setHours(date.getHours() + 1)
-          localStorage.setItem('expires_at', String(date.getTime() / 1000))
+          let decodedJWTPayload = JSON.parse(atob(value.split('.')[1]))
+
+          console.log(value)
+          localStorage.setItem("user", decodedJWTPayload.sub)
+          localStorage.setItem('id_token', value)
+          localStorage.setItem('expires_at', decodedJWTPayload.exp)
           this.router.navigateByUrl('/profile')
         }, error => {
           console.log("Login Unscuc")
           console.log(error)
           this.auth.logout()
         }
-      )*/
+      )
     }
   }
 }
