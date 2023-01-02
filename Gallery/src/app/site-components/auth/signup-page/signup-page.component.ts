@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {NavbarServiceService} from "../../../components/navbar/navbar-service.service";
 import {FooterService} from "../../../components/footer/footer.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
+import {UserNewDTO} from "../../../shared/class/dto/UserNewDTO";
+import {UserLoginDTO} from "../../../shared/class/dto/UserLoginDTO";
 
 @Component({
   selector: 'app-signup-page',
@@ -14,7 +16,7 @@ export class SignupPageComponent implements OnInit {
 
   signupForm = new FormGroup({
     username : new FormControl('', Validators.required),
-    email : new FormControl('', Validators.email),
+    email : new FormControl('', [Validators.email, Validators.required]),
     password : new FormControl('', Validators.required),
     confirmPassword : new FormControl('', Validators.required),
   })
@@ -28,29 +30,34 @@ export class SignupPageComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.signupForm.valid){
-      localStorage.setItem('id_token', "token")
-      let date = new Date()
-      date.setHours(date.getHours() + 1)
-      localStorage.setItem('expires_at', String(date.getTime() / 1000))
-      this.router.navigateByUrl('/profile')
-      // TODO add logic when endpoint work
-      /*this.auth.login(new UserLoginDTO(this.loginForm.value.emailOrUsername ?? '', this.loginForm.value.password ?? '')).subscribe(
-        value => {
-          console.log("log")
-          localStorage.setItem('id_token', value.token)
-          //TODO when JWT Token works use real values
-          //localStorage.setItem('expires_at', value.expires_at)
-          let date = new Date()
-          date.setHours(date.getHours() + 1)
-          localStorage.setItem('expires_at', String(date.getTime() / 1000))
-          this.router.navigateByUrl('/profile')
-        }, error => {
-          console.log("Login Unscuc")
-          console.log(error)
-          this.auth.logout()
-        }
-      )*/
+    if(this.signupForm.valid) {
+      const email = this.signupForm.value.email!
+      const name = this.signupForm.value.username!
+      const password = this.signupForm.value.password!
+      this.auth.newUsers(new UserNewDTO(name, email, "https://randomuser.me/api/portraits/women/7.jpg", password))
+        .subscribe({
+            next: value => {
+              this.auth.login(new UserLoginDTO(name, password)).subscribe({
+                  next: value1 => {
+                    this.auth.setSaveJWT(value1)
+                    this.router.navigateByUrl('/profile')
+                  },
+                  error: err => {
+                    this.auth.logout()
+                    //Todo - error msg
+                  }
+                }
+              )
+            },
+            error: value => {
+              // TODO - Error Msg
+            }
+          }
+        )
+    }
+  }
+}
+
     }
   }
 }
