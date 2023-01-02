@@ -19,7 +19,15 @@ export class SignupPageComponent implements OnInit {
     email : new FormControl('', [Validators.email, Validators.required]),
     password : new FormControl('', Validators.required),
     confirmPassword : new FormControl('', Validators.required),
-  })
+  },
+    [CustomValidators.MatchValidator('password', 'confirmPassword')]
+  )
+  get passwordMatchError(){
+    return (
+      this.signupForm.getError('mismatchError') &&
+        this.signupForm.get('confirmPassword')?.touched
+    )
+  }
 
   constructor(public navbar: NavbarServiceService, public footer: FooterService, private auth: AuthService, private router: Router) { }
 
@@ -58,6 +66,15 @@ export class SignupPageComponent implements OnInit {
   }
 }
 
+export class CustomValidators {
+  static MatchValidator(source: string, target: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const sourceCtrl = control.get(source)
+      const targetCtrl = control.get(target)
+
+      return sourceCtrl && targetCtrl &&sourceCtrl.value !== targetCtrl.value
+        ? {mismatchError: true}
+        : null
     }
   }
 }

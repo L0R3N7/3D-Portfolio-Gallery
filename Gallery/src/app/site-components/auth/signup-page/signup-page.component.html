@@ -20,6 +20,13 @@
       <input class="input" formControlName="email" placeholder="email@example.com" name="email" ngModel type="email">
       <input class="input" formControlName="password" placeholder="Password" name="password" ngModel type="password" >
       <input class="input" formControlName="confirmPassword" placeholder="Confirm Password" name="password" ngModel type="password" >
+      <div>
+        <div *ngIf="passwordMatchError" class="mt-4">
+          <mat-error>
+            Passwörter stimmen nicht übereinander
+          </mat-error>
+        </div>
+      </div>
       <button type="submit" class="py-1 rounded" [disabled]="!signupForm.valid" [ngClass]="{'btn-disabled': !signupForm.valid}">Sign Up</button>
     </form>
     <hr class="mx-auto my-5">
