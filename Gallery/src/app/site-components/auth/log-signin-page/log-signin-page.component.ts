@@ -14,6 +14,8 @@ import {AuthService} from "../auth.service";
   styleUrls: ['./log-signin-page.component.scss']
 })
 export class LogSigninPageComponent implements OnInit {
+  showLogginError = false
+
   loginForm = new FormGroup({
     emailOrUsername: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
@@ -44,8 +46,7 @@ export class LogSigninPageComponent implements OnInit {
           localStorage.setItem('expires_at', decodedJWTPayload.exp)
           this.router.navigateByUrl('/profile')
         }, error => {
-          console.log("Login Unscuc")
-          console.log(error)
+          this.showLogginError = true;
           this.auth.logout()
         }
       )
