@@ -37,12 +37,15 @@ export class LogSigninPageComponent implements OnInit {
   onSubmit() {
     if(this.loginForm.valid){
       this.auth.login(new UserLoginDTO(this.loginForm.value.emailOrUsername ?? '', this.loginForm.value.password ?? '')).subscribe(
-        value => {
-          this.auth.setSaveJWT(value);
-          this.router.navigateByUrl('/profile')
-        }, error => {
-          this.showLogginError = true;
-          this.auth.logout()
+        {
+          next: value => {
+            this.auth.setSaveJWT(value);
+            this.router.navigateByUrl('/profile')
+          },
+          error: err => {
+            this.showLogginError = true;
+            this.auth.logout()
+          }
         }
       )
     }
