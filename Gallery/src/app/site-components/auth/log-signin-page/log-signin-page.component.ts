@@ -14,6 +14,8 @@ import {AuthService} from "../auth.service";
   styleUrls: ['./log-signin-page.component.scss']
 })
 export class LogSigninPageComponent implements OnInit {
+  showLogginError = false
+
   loginForm = new FormGroup({
     emailOrUsername: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
@@ -35,18 +37,15 @@ export class LogSigninPageComponent implements OnInit {
   onSubmit() {
     if(this.loginForm.valid){
       this.auth.login(new UserLoginDTO(this.loginForm.value.emailOrUsername ?? '', this.loginForm.value.password ?? '')).subscribe(
-        value => {
-          let decodedJWTPayload = JSON.parse(atob(value.split('.')[1]))
-
-          console.log(value)
-          localStorage.setItem("user", decodedJWTPayload.sub)
-          localStorage.setItem('id_token', value)
-          localStorage.setItem('expires_at', decodedJWTPayload.exp)
-          this.router.navigateByUrl('/profile')
-        }, error => {
-          console.log("Login Unscuc")
-          console.log(error)
-          this.auth.logout()
+        {
+          next: value => {
+            this.auth.setSaveJWT(value);
+            this.router.navigateByUrl('/profile')
+          },
+          error: err => {
+            this.showLogginError = true;
+            this.auth.logout()
+          }
         }
       )
     }
