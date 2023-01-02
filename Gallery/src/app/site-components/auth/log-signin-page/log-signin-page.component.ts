@@ -38,12 +38,7 @@ export class LogSigninPageComponent implements OnInit {
     if(this.loginForm.valid){
       this.auth.login(new UserLoginDTO(this.loginForm.value.emailOrUsername ?? '', this.loginForm.value.password ?? '')).subscribe(
         value => {
-          let decodedJWTPayload = JSON.parse(atob(value.split('.')[1]))
-
-          console.log(value)
-          localStorage.setItem("user", decodedJWTPayload.sub)
-          localStorage.setItem('id_token', value)
-          localStorage.setItem('expires_at', decodedJWTPayload.exp)
+          this.auth.setSaveJWT(value);
           this.router.navigateByUrl('/profile')
         }, error => {
           this.showLogginError = true;

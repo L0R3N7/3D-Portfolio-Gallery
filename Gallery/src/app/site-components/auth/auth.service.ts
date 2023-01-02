@@ -28,8 +28,16 @@ export class AuthService {
   }
 
   logout(){
+    localStorage.removeItem("user")
     localStorage.removeItem('id_token')
     localStorage.removeItem('expires_at')
+  }
+
+  setSaveJWT(value: any) {
+    let decodedJWTPayload = JSON.parse(atob(value.split('.')[1]))
+    localStorage.setItem("user", decodedJWTPayload.sub)
+    localStorage.setItem('id_token', value)
+    localStorage.setItem('expires_at', decodedJWTPayload.exp)
   }
 }
 
