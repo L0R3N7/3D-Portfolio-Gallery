@@ -14,7 +14,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {BoxGeometry, Camera, Vector3} from "three";
+import {BoxGeometry, Camera, Object3D, PerspectiveCamera, Vector3} from "three";
 import {PositionConfig} from "../../../shared/class/positionConfig";
 import {
   ExhibitArrangeService
@@ -22,6 +22,9 @@ import {
 import {generateTypeCheckBlock} from "@angular/compiler-cli/src/ngtsc/typecheck/src/type_check_block";
 import {render} from "@angular-three/core";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
+import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
+import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass";
 
 @Component({
   selector: 'app-three-room',
@@ -43,9 +46,12 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   loader = new GLTFLoader().setPath( 'assets/three-d-objects/' );
 
   raycaster = new THREE.Raycaster()
+  collisionRaycaster = new THREE.Raycaster()
+
   pointer = new THREE.Vector2()
 
   camera ?: THREE.PerspectiveCamera;
+  camera2 ?: THREE.PerspectiveCamera;
   renderer ?: THREE.WebGLRenderer;
   controls ?: FirstPersonControls | OrbitControls;
 
@@ -59,6 +65,8 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   objectDescription?: String
   objectTitle?: String
 
+  composer?: EffectComposer;
+  selectedObjects: Object3D[] = [];
 
   constructor(private exhibitArrangeService : ExhibitArrangeService, public dialog: MatDialog) {
     // Load exhibit based on the positionConfigList
@@ -185,9 +193,18 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
         // (-1 to +1) for both components
         this.pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1
         this.pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1
-        this.hoverExhibit()
-
+        this.clickExhibit()
       });
+
+      window.addEventListener( 'pointermove', (event: PointerEvent) => {
+        // calculate pointer position in normalized device coordinates
+        // (-1 to +1) for both components
+        this.pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1
+        this.pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1
+        this.hoverExhibit()
+      });
+
+      this.camera2 = this.camera.clone()
     }
   }
 
@@ -214,25 +231,24 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
     this.dialogOpen = true
     console.log(this.animationid)
     cancelAnimationFrame(this.animationid!)
+    this.clock.stop()
 
     dialogRef.afterClosed().subscribe(r => {
       this.dialogOpen = false
       this.animate()
+      this.clock.start()
     })
   }
 
-hoverExhibit(){
+clickExhibit(){
     this.raycaster.setFromCamera(this.pointer, this.camera! )
     const intersects = this.raycaster.intersectObjects(this.scene.children)
+  console.log(this.pointer.x)
     const values = this.exhibitArrangeService.getPositionConfigList().getValue();
             for (let value of values) {
-                console.log(intersects[0])
-                console.log(value)
-
                 if (value.uuid == intersects[0].object.parent?.parent?.uuid) {
                   if (value.uuid != null) {
                     const object = this.scene.getObjectByProperty('uuid', value.uuid);
-                    console.log(value.description)
 
                     this.objectDescription = value.description
                     this.objectTitle = value.title
@@ -242,13 +258,65 @@ hoverExhibit(){
             }
       }
 
+  hoverExhibit(){
+    this.raycaster.setFromCamera(this.pointer, this.camera! )
+    const intersects = this.raycaster.intersectObjects(this.scene.children)
+    const values = this.exhibitArrangeService.getPositionConfigList().getValue();
+
+
+    for (let value of values) {
+      if (value.uuid == intersects[0].object.parent?.parent?.uuid) {
+        if (value.uuid != null) {
+
+          const object = this.scene.getObjectByProperty('uuid', value.uuid);
+          const renderPass = new RenderPass( this.scene, this.camera! );
+          this.composer = new EffectComposer(this.renderer!)
+          this.composer.addPass( renderPass );
+          const outlinePass = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), this.scene, this.camera! );
+          this.composer.addPass( outlinePass );
+
+          this.addSelectedObjects(object!);
+
+          outlinePass.selectedObjects = this.selectedObjects;
+
+
+        }
+      }
+    }
+  }
+
+  addSelectedObjects( object: Object3D ){
+    this.selectedObjects = [];
+    this.selectedObjects.push(object)
+  }
+
+  detectCollision(){
+    this.collisionRaycaster.set(this.camera!.position, this.camera2!.position.normalize())
+    this.collisionRaycaster.far = 100
+    const intersects = this.collisionRaycaster.intersectObjects(this.scene.children)
+    if(intersects.length > 0){
+      
+    }
+  }
+
+
+
   animate = () => {
       if (!this.isAboutToDestroy && (!this.dialogOpen)) {
         this.animationid = requestAnimationFrame(this.animate);
       }
 
       this.controls?.update(this.clock.getDelta())
+
+      var cameraChanged = this.compareCameras(this.camera!, this.camera2!)
+      console.log(cameraChanged)
+      if (cameraChanged){
+          this.detectCollision()
+      }
+
       this.renderer?.render(this.scene, this.camera!);
+      this.composer?.render()
+      this.camera2?.copy(this.camera!)
   }
 
   ngOnDestroy() {
@@ -258,6 +326,13 @@ hoverExhibit(){
 
   getSize(scene: THREE.Object3D){
     return new THREE.Box3().setFromObject(scene).getSize(new Vector3());
+  }
+  compareCameras(camera: PerspectiveCamera, camera2: PerspectiveCamera): boolean{
+    if(camera.position.x == camera2.position.x && camera.position.y == camera2.position.y){
+      return false
+    }else{
+      return true
+    }
   }
 
 }
