@@ -18,9 +18,10 @@
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <input class="input" placeholder="email@example.com or username" type="email" formControlName="emailOrUsername">
         <input class="input" placeholder="Password" type="password" formControlName="password">
-        <label class="font-action-c">
-        </label>
         <button type="submit" class="py-1 rounded" [disabled]="!loginForm.valid" [ngClass]="{'btn-disabled': !loginForm.valid}">Log In</button>
+        <div class="text-center my-2" style="width: 60%">
+          <mat-error *ngIf="showLogginError">Benutzername oder Passwort waren falsch.</mat-error>
+        </div>
       </form>
       <hr class="mx-auto my-5">
       <p class="sign-up-text">Don't have an account yet? <a class="font-gradient underlined" routerLink="/signup">Sign up</a></p>
