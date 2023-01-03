@@ -47,6 +47,7 @@
                 <img (click)="selectedMaterial(m.id)" [ngStyle]="{'border': (isMaterialSelected(m.id)) ? 'solid 3px black' : ''}"  *ngFor="let m of this.materialList" class="shadow rounded" style="aspect-ratio: 1; object-fit: contain; width: 20%; height: auto;" src="{{m.thumbnail_url}}">
               </app-slideshow>
               <p>Scaling</p>
+              <input type="range" min="1" max="10" [value]="getObjectScale()" (change)="setObjectScale(ScalingSelection.value)" #ScalingSelection>
             </div>
           </div>
         </ng-container>

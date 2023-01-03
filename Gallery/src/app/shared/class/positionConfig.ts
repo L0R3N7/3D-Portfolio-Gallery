@@ -7,8 +7,9 @@ export class PositionConfig{
   scale_factor: number
   uuid?: string
   description: string
+  title: string
 
-  constructor(position_id: number, material_id: number, exhibit_url: string, exhibit_type: string, alignment: string, scale_factor: number, uuid: string | undefined, description: string) {
+  constructor(position_id: number, material_id: number, exhibit_url: string, exhibit_type: string, alignment: string, scale_factor: number, uuid: string | undefined, description: string, title: string) {
     this.position_id = position_id;
     this.material_id = material_id;
     this.exhibit_url = exhibit_url;
@@ -17,5 +18,6 @@ export class PositionConfig{
     this.alignment = alignment;
     this.scale_factor = scale_factor;
     this.description = description;
+    this.title = title
   }
 }

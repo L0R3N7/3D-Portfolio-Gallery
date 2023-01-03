@@ -6,7 +6,7 @@ import {
   ElementRef,
   OnDestroy,
   OnChanges,
-  SimpleChanges
+  SimpleChanges, Inject
 } from '@angular/core';
 import { Room } from 'src/app/shared/class/room';
 import { Position } from 'src/app/shared/class/position';
@@ -14,13 +14,17 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {BoxGeometry, Camera, Vector3} from "three";
+import {BoxGeometry, Camera, Object3D, PerspectiveCamera, Vector3} from "three";
 import {PositionConfig} from "../../../shared/class/positionConfig";
 import {
   ExhibitArrangeService
 } from "../../../site-components/create-exhibition-page/create-exhibition-arrange/exhibit-arrange.service";
 import {generateTypeCheckBlock} from "@angular/compiler-cli/src/ngtsc/typecheck/src/type_check_block";
 import {render} from "@angular-three/core";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
+import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
+import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass";
 
 @Component({
   selector: 'app-three-room',
@@ -42,18 +46,29 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   loader = new GLTFLoader().setPath( 'assets/three-d-objects/' );
 
   raycaster = new THREE.Raycaster()
+  collisionRaycaster = new THREE.Raycaster()
+
   pointer = new THREE.Vector2()
 
   camera ?: THREE.PerspectiveCamera;
+  camera2 ?: THREE.PerspectiveCamera;
   renderer ?: THREE.WebGLRenderer;
   controls ?: FirstPersonControls | OrbitControls;
 
-  potests = new BoxGeometry(20, 45, 20);
+  potests = new BoxGeometry(20, 70, 20);
   basic_material = new THREE.MeshBasicMaterial({color: 0x00ee00, opacity: .5})
   isAboutToDestroy = false;
   factor = 100
 
-  constructor(private exhibitArrangeService : ExhibitArrangeService) {
+  dialogOpen = false;
+  animationid?: number
+  objectDescription?: String
+  objectTitle?: String
+
+  composer?: EffectComposer;
+  selectedObjects: Object3D[] = [];
+
+  constructor(private exhibitArrangeService : ExhibitArrangeService, public dialog: MatDialog) {
     // Load exhibit based on the positionConfigList
     exhibitArrangeService.getPositionConfigList().subscribe(
       values => {
@@ -67,32 +82,32 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
             }
           }
           // If there is no possition don't draw the object
-          if(!value.position_id){
+          if(!value.position_id || value.position_id == -1){
             continue;
           }
           // load and configure exhibit object
           this.loader.load(value.exhibit_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
             value.uuid = gltf.scene.uuid;
             // TODO: add custom slider to adjust size
-            let size = 1 / this.getSize(gltf.scene).length()
-            size *= this.factor;
-            gltf.scene.scale.set(size, size, size)
+            let size = this.getSize(gltf.scene)
+            gltf.scene.scale.set(1 / size.x * value.scale_factor, 1 / size.y * value.scale_factor, 1 / size.z * value.scale_factor)
             // Alignment / Positioning
+
             let x = this.room.positions[value.position_id -1].x * this.factor
             let y = this.potests.parameters.height + this.getSize(gltf.scene).y
             let z = this.room.positions[value.position_id -1].y * this.factor
             switch (value.alignment) {
               case "l":
-                z += this.potests.parameters.depth / 2
+                z += 1 / size.z * value.scale_factor
                 break
               case "r":
-                z -= this.potests.parameters.depth / 2
+                z -= 1 / size.z * value.scale_factor
                 break
               case "t":
-                z += this.potests.parameters.width / 2
+                x += 1 / size.x * value.scale_factor
                 break
               case "b":
-                z -= this.potests.parameters.width / 2
+                x -= 1 / size.x * value.scale_factor
             }
             gltf.scene.position.set(x, y, z)
             //gltf.scene
@@ -133,6 +148,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
     //Load Room
     this.loader.load( `room/walls/${this.room.id}.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+      gltf.scene.scale.y = 350
       this.scene.add( gltf.scene );
     });
     this.loader.load( `room/floor/${this.room.id}.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
@@ -145,11 +161,11 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
       cube.position.set(this.room.positions[i].x * this.factor, this.potests.parameters.height / 2, this.room.positions[i].y * this.factor);
       this.scene.add(cube);
     }
-    this.animate();
+      this.animate();
   }
 
   setup = () => {
-    this.camera = new THREE.PerspectiveCamera( 100, this.lookupSize.nativeElement.offsetWidth / this.lookupSize.nativeElement.offsetHeight, 0.1, 1000);
+    this.camera = new THREE.PerspectiveCamera( 80, this.lookupSize.nativeElement.offsetWidth / this.lookupSize.nativeElement.offsetHeight, 0.1, 1000);
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.threeCanvas.nativeElement
     });
@@ -160,13 +176,15 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
     if (this.mode == "create"){
       this.controls = new OrbitControls(this.camera, this.renderer.domElement)
-      this.camera?.position.set( - 1.8, 100, 10 );
+      this.camera?.position.set( - 1.8, 180, 10 );
 
     }else{
       this.controls = new FirstPersonControls(this.camera, this.renderer.domElement)
       this.controls!.lookSpeed = 0.002;
       this.controls!.movementSpeed = 100;
       this.controls!.lookVertical = false;
+      this.controls!.mouseDragOn = false;
+      this.controls!.autoForward = false
 
 
       // Inter
@@ -175,8 +193,18 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
         // (-1 to +1) for both components
         this.pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1
         this.pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1
+        this.clickExhibit()
+      });
+
+      window.addEventListener( 'pointermove', (event: PointerEvent) => {
+        // calculate pointer position in normalized device coordinates
+        // (-1 to +1) for both components
+        this.pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1
+        this.pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1
         this.hoverExhibit()
       });
+
+      this.camera2 = this.camera.clone()
     }
   }
 
@@ -191,37 +219,104 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
     }
   }
 
-  hoverExhibit(){
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+   const dialogRef = this.dialog.open(ExhibitDialog, {
+      width: '100%',
+      data: {description: this.objectDescription, title: this.objectTitle},
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+
+    this.dialogOpen = true
+    console.log(this.animationid)
+    cancelAnimationFrame(this.animationid!)
+    this.clock.stop()
+
+    dialogRef.afterClosed().subscribe(r => {
+      this.dialogOpen = false
+      this.animate()
+      this.clock.start()
+    })
+  }
+
+clickExhibit(){
     this.raycaster.setFromCamera(this.pointer, this.camera! )
     const intersects = this.raycaster.intersectObjects(this.scene.children)
-
-      const values = this.exhibitArrangeService.getPositionConfigList().getValue();
-
+  console.log(this.pointer.x)
+    const values = this.exhibitArrangeService.getPositionConfigList().getValue();
             for (let value of values) {
-                console.log(intersects[0])
-                console.log(value)
-
                 if (value.uuid == intersects[0].object.parent?.parent?.uuid) {
                   if (value.uuid != null) {
                     const object = this.scene.getObjectByProperty('uuid', value.uuid);
-                    console.log(value.description)
+
+                    this.objectDescription = value.description
+                    this.objectTitle = value.title
+                    this.openDialog('1000ms', '300ms')
                   }
-
-
               }
             }
       }
 
+  hoverExhibit(){
+    this.raycaster.setFromCamera(this.pointer, this.camera! )
+    const intersects = this.raycaster.intersectObjects(this.scene.children)
+    const values = this.exhibitArrangeService.getPositionConfigList().getValue();
+
+
+    for (let value of values) {
+      if (value.uuid == intersects[0].object.parent?.parent?.uuid) {
+        if (value.uuid != null) {
+
+          const object = this.scene.getObjectByProperty('uuid', value.uuid);
+          const renderPass = new RenderPass( this.scene, this.camera! );
+          this.composer = new EffectComposer(this.renderer!)
+          this.composer.addPass( renderPass );
+          const outlinePass = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), this.scene, this.camera! );
+          this.composer.addPass( outlinePass );
+
+          this.addSelectedObjects(object!);
+
+          outlinePass.selectedObjects = this.selectedObjects;
+
+
+        }
+      }
+    }
+  }
+
+  addSelectedObjects( object: Object3D ){
+    this.selectedObjects = [];
+    this.selectedObjects.push(object)
+  }
+
+  detectCollision(){
+    this.collisionRaycaster.set(this.camera!.position, this.camera2!.position.normalize())
+    this.collisionRaycaster.far = 100
+    const intersects = this.collisionRaycaster.intersectObjects(this.scene.children)
+    if(intersects.length > 0){
+      
+    }
+  }
+
+
 
   animate = () => {
-    if (!this.isAboutToDestroy){
-      requestAnimationFrame( this.animate );
-    }
+      if (!this.isAboutToDestroy && (!this.dialogOpen)) {
+        this.animationid = requestAnimationFrame(this.animate);
+      }
 
-    this.controls?.update(this.clock.getDelta())
+      this.controls?.update(this.clock.getDelta())
 
-    this.renderer?.render(this.scene, this.camera! );
+      var cameraChanged = this.compareCameras(this.camera!, this.camera2!)
+      console.log(cameraChanged)
+      if (cameraChanged){
+          this.detectCollision()
+      }
 
+      this.renderer?.render(this.scene, this.camera!);
+      this.composer?.render()
+      this.camera2?.copy(this.camera!)
   }
 
   ngOnDestroy() {
@@ -231,5 +326,24 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
   getSize(scene: THREE.Object3D){
     return new THREE.Box3().setFromObject(scene).getSize(new Vector3());
+  }
+  compareCameras(camera: PerspectiveCamera, camera2: PerspectiveCamera): boolean{
+    if(camera.position.x == camera2.position.x && camera.position.y == camera2.position.y){
+      return false
+    }else{
+      return true
+    }
+  }
+
+}
+
+
+@Component({
+  selector: 'exhibit-dialog',
+  templateUrl: 'exhibit-dialog.html',
+})
+export class ExhibitDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ExhibitDialog>) {
+
   }
 }

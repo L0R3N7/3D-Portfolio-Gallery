@@ -22,14 +22,20 @@ export class SearchPageComponent implements OnInit {
   ngOnInit(): void {
     this.navbar.show()
     this.footer.show()
+
+    this.galleryService.getAllExhibitions().subscribe(res => this.searchResults = res);
+
+
     this.keyUp$.pipe(
       filter(term => term.length >= 3),
       debounceTime(500),
       distinctUntilChanged(),
       tap(() => this.isLoading = true),
-      switchMap(searchTerm => this.galleryService.getAllExhibitions()),
+      switchMap(searchTerm => this.galleryService.getAllSearch(searchTerm)),
       tap(()=> this.isLoading = false)
     ).subscribe(exhibitions => this.searchResults = exhibitions)
+
+    console.log(this.searchResults)
 
 
   }

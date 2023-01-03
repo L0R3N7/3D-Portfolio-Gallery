@@ -52,7 +52,7 @@ export class CreateExhibitionArrangeComponent implements OnInit {
     // Load based on the availabe positions and the exhibitions a default object into the behavioursubject positionConfiger
     let temp_positionConfigList : PositionConfig[] = []
     for (var i = 0; i < this.exhibitList.length; i++){
-      temp_positionConfigList[i] = new PositionConfig(-1, -1, this.exhibitList[i].model_url, "", "c", 1, undefined, this.exhibitList[i].desc);
+      temp_positionConfigList[i] = new PositionConfig(-1, -1, this.exhibitList[i].model_url, "", "c", 4, undefined, this.exhibitList[i].desc, this.exhibitList[i].title);
     }
     this.exhibitArrangeService.setPositionConfigList(temp_positionConfigList)
 
@@ -129,4 +129,16 @@ export class CreateExhibitionArrangeComponent implements OnInit {
     temp_PositionConfig[this.selectedId].alignment = value
     this.exhibitArrangeService.setPositionConfigList(temp_PositionConfig)
   }
+
+  setObjectScale(value: string) {
+    let temp_PositionConfig = this.exhibitArrangeService.getPositionConfigList().getValue();
+    //console.log("Scaling: "+value) Number(value)
+    temp_PositionConfig[this.selectedId].scale_factor = + value;
+    this.exhibitArrangeService.setPositionConfigList(temp_PositionConfig)
+  }
+
+  getObjectScale() : string {
+    return ""+this.exhibitArrangeService.getPositionConfigList().getValue()[this.selectedId].scale_factor;
+  }
+
 }
