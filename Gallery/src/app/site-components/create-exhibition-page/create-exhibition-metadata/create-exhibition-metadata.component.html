@@ -4,7 +4,10 @@
 </div>
 <div class="my-3">
   <h4>Upload Thumbnail</h4>
-  <app-file-upload></app-file-upload>
+  <div>
+    <img *ngIf="imageUrl" [src]="imageUrl">
+    <app-file-upload [acceptedMediaTypes]="'image'" (fileOutput)="setSelectedFoto($event)"></app-file-upload>
+  </div>
 </div>
 <div class="my-3">
   <h4>Select Categories</h4>

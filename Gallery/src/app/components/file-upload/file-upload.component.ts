@@ -7,7 +7,7 @@ import {GalleryService} from "../../shared/gallery.service";
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss']
 })
-export class FileUploadComponent implements OnInit {
+export class FileUploadComponent {
 
   @Input('acceptedMediaTypes') acceptedMediaTypes : string = "";
   @Input('fileSize') fileSize : number = 9999999999999;
@@ -16,15 +16,10 @@ export class FileUploadComponent implements OnInit {
   constructor(public galeryService : GalleryService) {
   }
 
-  ngOnInit(): void {
-  }
-
-
-
   fileChange(event: Event) {
     if(!this.inputCheck(event)){
-      this.fileOutput.emit(undefined); 
-      return; 
+      console.error("unsupported media type")
+      return;
     }
 
     var extension : string = "";
@@ -50,7 +45,7 @@ export class FileUploadComponent implements OnInit {
   inputCheck(event: Event){
     //@ts-ignore
     if (!event.target.files[0] || !event.target.files[0].size){
-      return false; 
+      return false;
     }
 
     // checks if selected file has the right file type
@@ -60,9 +55,8 @@ export class FileUploadComponent implements OnInit {
       var arrExtension = this.galeryService.getSupportedFiletypes(this.acceptedMediaTypes).join('|').concat('|').match(regex) ?? []
       console.log(arrExtension)
       regex = new RegExp(`/\.(${arrExtension.join('|')})/`)
-      console.log(regex)
       //@ts-ignore
-      if (!this.acceptedMediaTypes.includes(event.target.files[0].type) || event.target.files[0].name.match(regex)){
+      if (!this.galeryService.getSupportedFiletypes(this.acceptedMediaTypes).includes(event.target.files[0].type) || event.target.files[0].name.match(regex)){
         alert("We currently doesn't support this filetype")
         return false;
       }
