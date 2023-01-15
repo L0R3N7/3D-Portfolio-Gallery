@@ -5,6 +5,7 @@ import {MatStepper} from "@angular/material/stepper";
 import {StepperSelectionEvent} from "@angular/cdk/stepper";
 import {Exhibition} from "../../shared/class/exhibition";
 import {Exhibit} from "../../shared/class/exhibit";
+import {CreateExhibitionPageService} from "./create-exhibition-page.service";
 
 @Component({
   selector: 'app-create-exhibition-page',
@@ -14,16 +15,22 @@ import {Exhibit} from "../../shared/class/exhibit";
 export class CreateExhibitionPageComponent implements OnInit {
 
   @ViewChild('stepper') stepper : MatStepper | undefined;
-  constructor(public navbar: NavbarServiceService, public footer: FooterService) {}
-
+  selectedIndex = 0
   stepsCompleted : boolean[] = [];
   exhibitionList : Exhibit[] | undefined = [];
 
+  constructor(private createService: CreateExhibitionPageService, navbar: NavbarServiceService, footer: FooterService) {
+    navbar.white = false
+    navbar.hide()
+    footer.hide()
+    this.selectedIndex = this.createService.getSelectedState()
+  }
+
   ngOnInit(): void {
-    this.navbar.white = false;
-    this.navbar.hide()
-    this.footer.hide()
-    this.stepsCompleted = new Array(this.stepper?.steps.length).fill(false);
+    this.stepsCompleted = new Array(this.stepper?.steps.length).fill(false)
+    this.createService.wizMetadata.subscribe(value => {
+      this.stepsCompleted[0] = value != undefined
+    })
   }
 
   selectionChanged(event: StepperSelectionEvent) {

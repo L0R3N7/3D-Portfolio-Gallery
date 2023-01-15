@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from "@angular/core";
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from "@angular/core";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {FormControl} from "@angular/forms";
 import {map, Observable} from "rxjs";
@@ -13,6 +13,7 @@ import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
   styleUrls: ['./search-tags.component.scss']
 })
 export class SearchTagsComponent implements OnInit {
+  @Input("alreadySelectedTags") alreadySelectedTagIds : number[] | undefined;
   @Output() selectedTagIds = new EventEmitter<number[]>();
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -28,10 +29,30 @@ export class SearchTagsComponent implements OnInit {
     galleryService.getAllTags().subscribe((res:Tag[]) => {
       this.allTagsTitle = res.map(value => {return value.title})
       this.allTags = res;
+      if(this.alreadySelectedTagIds){
+        console.log("Already went through")
+
+        let alreadyTags = this.allTags.filter(value => {
+          let index : number = this.alreadySelectedTagIds?.findIndex(value1 => {return value1 == value.id}) ?? -1
+
+          console.log(index)
+
+          if (index != -1){
+            this.alreadySelectedTagIds?.splice(index, 1)
+            return true
+          }
+          return false
+        })
+        if (alreadyTags.length > 0 ){
+          console.log(alreadyTags)
+
+          this.tags.push(...alreadyTags)
+        }
+      }
     })
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
       map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allTagsTitle.slice())),
-    );
+    )
   }
 
   ngOnInit(): void {

@@ -1,6 +1,6 @@
 <div class="d-flex my-3 justify-content-center">
   <mat-icon id="exhibition_name_icon" class="me-2">mode_edit</mat-icon>
-  <input type="text" placeholder="Exhibition Name *"  id="exhibition_name">
+  <input type="text" placeholder="Exhibition Name *"  id="exhibition_name" [(ngModel)]="exhibitionName" (change)="change()">
 </div>
 <div class="my-3">
   <h4>Upload Thumbnail</h4>
@@ -11,9 +11,10 @@
 </div>
 <div class="my-3">
   <h4>Select Categories</h4>
-  <app-search-tags (selectedTagIds)="selectedTagIds = $event"></app-search-tags>
+  <app-search-tags (selectedTagIds)="selectedTagIds = $event; change()" [alreadySelectedTags]="selectedTagIds" ></app-search-tags>
 </div>
 <div class="my-3">
   <h4>Write a Description</h4>
-  <textarea class="w-100 custom_input"></textarea>
+  <textarea class="w-100 custom_input" [(ngModel)]="description" (change)="change()"></textarea>
 </div>
+
