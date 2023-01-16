@@ -5,7 +5,8 @@ import {Exhibit} from "../../../shared/class/exhibit";
 import {FileUploadOutput} from "../../../shared/file-upload-output";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {BlobService} from "../../../shared/blob.service";
-
+import {CreateExhibitionPageService} from "../create-exhibition-page.service";
+import produce from "immer";
 
 
 @Component({
@@ -26,8 +27,10 @@ export class CreateExhibitionExhibitselectionComponent implements OnInit {
   exhibitCollection : Exhibit[] = [];
 
 
-  constructor(private gs: GalleryService, private bs: BlobService) {
-
+  constructor(private cs: CreateExhibitionPageService, private bs: BlobService) {
+    this.cs.wizExhibits.subscribe(value => {
+      this.exhibitCollection = value
+    })
   }
 
   ngOnInit(): void {
@@ -35,17 +38,28 @@ export class CreateExhibitionExhibitselectionComponent implements OnInit {
 
   addExhibit() {
     this.bs.blobToBase64(this.exhibitFile!.blob).then(value => {
-      this.exhibitCollection.push(new Exhibit(this.exhibitCollection.length, value, this.exhibitFile?.filetype ?? "non", this.exhibitForm.value.name ?? "unnamed", this.exhibitForm.value.desc ?? ""))
-      this.changedExhibitlistEvent.emit(this.exhibitCollection);
+      // Update Value in Service
+
+      console.log("asdfasdf")
+      let temp = this.cs.wizExhibits.value
+      temp.push(new Exhibit(this.exhibitCollection.length, value, this.exhibitFile?.filetype ?? "non", this.exhibitForm.value.name ?? "unnamed", this.exhibitForm.value.desc ?? ""))
+      this.cs.wizExhibits.next(temp)
+      this.cs.saveExhibit()
+      this.exhibitForm.controls['name'].setValue("")
+      this.exhibitForm.controls['desc'].setValue("")
     })
   }
 
   deleteExhibit($event: number) {
     if ($event == 0 && this.exhibitCollection.length == 1){
-      this.exhibitCollection.shift();
+      this.cs.wizExhibits.next(produce(this.cs.wizExhibits.value, draft => {draft.shift()}))
     }else {
-      this.exhibitCollection.splice($event, 1)
+      this.cs.wizExhibits.next(produce(this.cs.wizExhibits.value, draft => {draft.splice($event, 1)}))
     }
-    this.changedExhibitlistEvent.emit(this.exhibitCollection)
+    this.cs.saveExhibit()
+  }
+
+  changeFile($event: FileUploadOutput) {
+    this.exhibitFile = $event;
   }
 }

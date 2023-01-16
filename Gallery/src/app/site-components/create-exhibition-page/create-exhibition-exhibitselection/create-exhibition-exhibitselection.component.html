@@ -2,7 +2,7 @@
   <div class="create-div w-50">
   <h4>Create Exhibits</h4>
     <p class="sign-up-text">Upload Media<a class="font-gradient underlined mx-2">search in Files</a></p>
-    <app-file-upload (fileOutput)="exhibitFile = $event"></app-file-upload>
+    <app-file-upload (fileOutput)="changeFile($event)"></app-file-upload>
     <form [formGroup]="exhibitForm" (ngSubmit)="addExhibit()">
       <p>
         <input matInput placeholder="Name" name="title"
@@ -20,10 +20,12 @@
     <h4 >Collection</h4>
       <div
         class="container list rounded" style="display: grid; grid-template-columns: 1fr 1fr 1fr;  grid-gap: 1em;">
-        <app-exhibit-card
-          *ngFor="let exhibit of this.exhibitCollection; index as i" [exhibit]="exhibit" [count]="i"
-          (delete)="deleteExhibit($event)">
-        </app-exhibit-card>
+        <div *ngIf="exhibitCollection.length > 0">
+          <app-exhibit-card
+            *ngFor="let exhibit of this.exhibitCollection; index as i" [exhibit]="exhibit" [count]="i"
+            (delete)="deleteExhibit($event)">
+          </app-exhibit-card>
+        </div>
       </div>
   </div>
 </div>

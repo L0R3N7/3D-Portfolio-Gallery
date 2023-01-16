@@ -13,6 +13,7 @@ import {Meta} from "@angular/platform-browser";
 export class CreateExhibitionPageService {
 
   METADATAKEY = "metadata"
+  EXHIBITKEY = "exhibit"
 
   initialStateExhibits : Exhibit[] = []
   initialStatePositionConfigList: PositionConfig[] = []
@@ -31,6 +32,9 @@ export class CreateExhibitionPageService {
     if (sessionStorage.getItem(this.METADATAKEY)){
       this.wizMetadata.next(JSON.parse(sessionStorage.getItem(this.METADATAKEY)!!))
     }
+    if (sessionStorage.getItem(this.EXHIBITKEY)){
+      this.wizExhibits.next(JSON.parse(sessionStorage.getItem(this.EXHIBITKEY)!!))
+    }
   }
 
   getSelectedState(): number{
@@ -45,9 +49,14 @@ export class CreateExhibitionPageService {
   }
 
   saveMetaDate() {
-    console.log("saving data")
     if(this.wizMetadata.value != undefined){
       sessionStorage.setItem(this.METADATAKEY, JSON.stringify(this.wizMetadata.value))
+    }
+  }
+
+  saveExhibit() {
+    if (this.wizExhibits.value.length > 0){
+      sessionStorage.setItem(this.EXHIBITKEY, JSON.stringify(this.wizExhibits.value))
     }
   }
 }

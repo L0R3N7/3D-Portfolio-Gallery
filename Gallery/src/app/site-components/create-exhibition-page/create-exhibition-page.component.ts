@@ -31,6 +31,9 @@ export class CreateExhibitionPageComponent implements OnInit {
     this.createService.wizMetadata.subscribe(value => {
       this.stepsCompleted[0] = value != undefined
     })
+    this.createService.wizExhibits.subscribe(value => {
+      this.stepsCompleted[1] = value.length > 0
+    })
   }
 
   selectionChanged(event: StepperSelectionEvent) {
