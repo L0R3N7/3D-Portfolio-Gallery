@@ -14,6 +14,7 @@ export class CreateExhibitionPageService {
 
   METADATAKEY = "metadata"
   EXHIBITKEY = "exhibit"
+  ROOMIKEY = "room"
 
   initialStateExhibits : Exhibit[] = []
   initialStatePositionConfigList: PositionConfig[] = []
@@ -34,6 +35,9 @@ export class CreateExhibitionPageService {
     }
     if (sessionStorage.getItem(this.EXHIBITKEY)){
       this.wizExhibits.next(JSON.parse(sessionStorage.getItem(this.EXHIBITKEY)!!))
+    }
+    if (sessionStorage.getItem(this.ROOMIKEY)){
+      this.wizRoomId.next(JSON.parse(sessionStorage.getItem(this.ROOMIKEY)!!))
     }
   }
 
@@ -57,6 +61,12 @@ export class CreateExhibitionPageService {
   saveExhibit() {
     if (this.wizExhibits.value.length > 0){
       sessionStorage.setItem(this.EXHIBITKEY, JSON.stringify(this.wizExhibits.value))
+    }
+  }
+
+  saveRoomId() {
+    if (this.wizRoomId.value != undefined){
+      sessionStorage.setItem(this.ROOMIKEY, JSON.stringify(this.wizRoomId.value))
     }
   }
 }

@@ -25,7 +25,7 @@
       </mat-step>
       <mat-step [completed]="stepsCompleted[stepper.selectedIndex]">
         <ng-template matStepLabel>Select Room</ng-template>
-        <app-create-exhibition-roomselection (roomSelectedEvent)="stepsCompleted[stepper.selectedIndex] = true">
+        <app-create-exhibition-roomselection>
           <button class="w-49 backbutton" mat-button matStepperPrevious>Back</button>
           <button [ngClass]="{'disabled':!stepsCompleted[stepper.selectedIndex]}" class="float-end w-49" mat-button matStepperNext>Next</button>
         </app-create-exhibition-roomselection>
