@@ -4,6 +4,7 @@ import {FooterService} from "../../components/footer/footer.service";
 import {GalleryService} from "../../shared/gallery.service";
 import {Exhibition} from "../../shared/class/exhibition";
 import {debounce, debounceTime, distinctUntilChanged, filter, Observable, Subject, switchMap, tap} from "rxjs";
+import {Category} from "../../shared/class/category";
 
 @Component({
   selector: 'app-search-page',
@@ -15,6 +16,7 @@ export class SearchPageComponent implements OnInit {
   keyUp$ = new Subject<string>;
   isLoading = false;
   searchResults: Exhibition[] = [];
+  categories: Category[] = []
 
   constructor(public navbar: NavbarServiceService, public footer: FooterService, public galleryService: GalleryService) {
 }
@@ -36,8 +38,11 @@ export class SearchPageComponent implements OnInit {
     ).subscribe(exhibitions => this.searchResults = exhibitions)
 
     console.log(this.searchResults)
-
-
   }
-
+  
+  getCategories(){
+    this.galleryService.getAllCatagories().subscribe((c) => {
+      this.categories = c
+    })
+  }
 }
