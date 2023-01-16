@@ -22,7 +22,7 @@
 ///Background
 $bc-primary: #eee;
 $bc-secondary: #9096c5;
-$bc-primary-opacity: #eeeeee9f; 
+$bc-primary-opacity: #eeeeee9f;
 $bc-secondary-opacity: #9096c59f;
 ///Font
 $c-font: #222;
@@ -188,8 +188,8 @@ mat-icon{
 }
 
 .btn-disabled{
-  filter: grayscale(.9); 
-  box-shadow: 0 0 0; 
+  filter: grayscale(.9);
+  box-shadow: 0 0 0;
 }
 
 .custom_input{
@@ -341,4 +341,8 @@ mat-icon{
 .create-exhibition-content-first{
   height: 93%;
   overflow-y: auto;
+}
+
+.mat-dialog-container {
+  border-radius: 0px !important;
 }

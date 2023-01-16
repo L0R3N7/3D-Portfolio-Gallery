@@ -1,11 +1,16 @@
 <div class="outer-box" style="margin-top: 5%">
-  <mat-icon class="search-icon-lg">search</mat-icon>
   <div class="search-border mx-auto">
     <div class="input-group rounded searchbar mx-auto">
       <input type="search" class="form-control rounded" placeholder="Search" #input (keyup)="keyUp$.next(input.value)">
       <span class="input-group-text">
         <mat-icon class="search-icon mx-2">search</mat-icon>
-        <mat-icon class="search-icon mx-2">filter_alt</mat-icon>
+
+        <mat-icon (click)="getCategories()" [matMenuTriggerFor]="menu" class="search-icon mx-2">filter_alt</mat-icon>
+        <mat-menu #menu="matMenu">
+          <ul *ngFor="let c of categories">
+          <mat-checkbox  [ngStyle]="{'color': c.color}"><p>{{c.category_title}}</p></mat-checkbox>
+        </ul>
+        </mat-menu>
       </span>
     </div>
   </div>
