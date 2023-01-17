@@ -1,41 +1,40 @@
 import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {GalleryService} from "../../../shared/gallery.service";
 import {Room} from "../../../shared/class/room";
+import {CreateExhibitionPageService} from "../create-exhibition-page.service";
 
 @Component({
   selector: 'app-create-exhibition-roomselection',
   templateUrl: './create-exhibition-roomselection.component.html',
   styleUrls: ['./create-exhibition-roomselection.component.scss']
 })
-export class CreateExhibitionRoomselectionComponent implements OnInit {
+export class CreateExhibitionRoomselectionComponent {
   rooms: Room[] = [];
-  selectedRoom_id : number = -1;
-  room3dUrl: string = "";
-  rangevalue = 1;
-  @ViewChild("resetButton") button : ElementRef | undefined;
+  filteredRoom: Room[] = [];
+  selectedRoom_id ?: number = undefined;
 
-  @Output() roomSelectedEvent = new EventEmitter<number>();
+  constructor(gs: GalleryService, private cs: CreateExhibitionPageService) {
+    gs.getAllRooms().subscribe(res => {
+      console.log("ser")
 
-  constructor(public gs: GalleryService) { }
+      this.rooms = res
+      this.filteredRoom = this.rooms.filter(value => {return value.position_amount > cs.wizExhibits.value.length})
+    });
+    cs.wizRoomId.subscribe(value => {
+      if (value){
+        this.selectedRoom_id = value
+      }
+    })
+  }
 
   selectRoom(selectedId:number){
-    this.button?.nativeElement.click;
-    this.selectedRoom_id = selectedId;
-    this.roomSelectedEvent.emit(selectedId);
-    // @ts-ignore
-    setTimeout(this.setRoomName(), 500);
-    console.log(this.room3dUrl)
+    this.cs.wizRoomId.next(selectedId)
+    this.cs.saveRoomId()
   }
 
-  setRoomName(){
-    this.room3dUrl = this.rooms[this.selectedRoom_id-1].room_url;
-  }
-
-  ngOnInit(): void {
-    this.gs.getAllRooms().subscribe(res => this.rooms = res);
-  }
-
-  test(value: string) {
-    this.rangevalue = parseInt(value);
+  getFilteredRooms() : Room[] {
+    return this.rooms.filter(value => {
+        return value.positions.length < this.cs.wizExhibits.value.length
+    })
   }
 }

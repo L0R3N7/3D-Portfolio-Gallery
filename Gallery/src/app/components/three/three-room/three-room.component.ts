@@ -295,28 +295,33 @@ clickExhibit(){
     this.collisionRaycaster.far = 100
     const intersects = this.collisionRaycaster.intersectObjects(this.scene.children)
     if(intersects.length > 0){
-      
+
     }
   }
 
 
 
   animate = () => {
-      if (!this.isAboutToDestroy && (!this.dialogOpen)) {
-        this.animationid = requestAnimationFrame(this.animate);
-      }
+    if (!this.isAboutToDestroy && (!this.dialogOpen)) {
+      this.animationid = requestAnimationFrame(this.animate);
+    }
 
-      this.controls?.update(this.clock.getDelta())
-
+    this.controls?.update(this.clock.getDelta())
+    if (this.mode != "create" ){
       var cameraChanged = this.compareCameras(this.camera!, this.camera2!)
       console.log(cameraChanged)
       if (cameraChanged){
-          this.detectCollision()
+        this.detectCollision()
       }
+    }
 
-      this.renderer?.render(this.scene, this.camera!);
-      this.composer?.render()
+
+    this.renderer?.render(this.scene, this.camera!);
+    this.composer?.render()
+
+    if(this.mode != "create"){
       this.camera2?.copy(this.camera!)
+    }
   }
 
   ngOnDestroy() {
