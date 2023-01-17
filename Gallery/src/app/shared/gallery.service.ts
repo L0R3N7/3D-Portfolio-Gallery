@@ -5,6 +5,7 @@ import {Room} from "./class/room";
 import {Observable} from "rxjs";
 import {Tag} from "./class/tag";
 import {Exhibition} from "./class/exhibition";
+import {Category} from "./class/category";
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,11 @@ export class GalleryService {
     return this.httpClient.get<Exhibition[]>(this.URL + "exhibitions/search/" + searchTerm )
   }
 
+  getAllCatagories(): Observable<Category[]>{
+    return this.httpClient.get<Category[]>(this.URL + "category/all")
+  }
+
+
   postExhibit(exhibit: { room_id: string; description: string; id: number; thumbnail_url: string; title: string }): Observable<any>{
     let httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -44,6 +50,8 @@ export class GalleryService {
     });
     return this.httpClient.post("assets/fakeendpoints/exhibit.json", exhibit,  { headers: httpHeaders })
   }
+
+
 
   getSupportedFiletypes(type:string = ""){
     for (const key of this.supportedFiletypes.keys()){
