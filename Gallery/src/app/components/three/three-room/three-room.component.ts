@@ -14,7 +14,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {Box3, BoxGeometry, Camera, Color, Object3D, PerspectiveCamera, Vector3} from "three";
+import {Box3, BoxGeometry, Camera, Color, Object3D, PerspectiveCamera, Scene, Vector3} from "three";
 import {PositionConfig} from "../../../shared/class/positionConfig";
 import {
   ExhibitArrangeService
@@ -138,9 +138,9 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
     //Light
     const bulbGeometry = new THREE.SphereGeometry(.02, 16, 8);
-    const bulbLight = new THREE.PointLight( 0xffee88, 3, 1000, 2);
+    const bulbLight = new THREE.PointLight( 0xffffff, 3, 1000, 2);
     const bulbMat = new THREE.MeshStandardMaterial( {
-      emissive: 0xffffee,
+      emissive: 0xffffff,
       emissiveIntensity: 1,
       color: 0x000000
     } );
@@ -158,12 +158,15 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
       this.scene.add( gltf.scene );
     });
 
-    //Sockels
-    for (let i = 0; i < this.room.positions.length; i++){
-      let cube = new THREE.Mesh(this.potests, this.basic_material);
-      cube.position.set(this.room.positions[i].x * this.factor, this.potests.parameters.height / 2, this.room.positions[i].y * this.factor);
-      this.scene.add(cube);
+    //Load Sockels
+      for (let i = 0; i < this.room.positions.length; i++){
+        this.loader.load('podest.gltf', (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+          console.log(gltf)
+          gltf.scene.position.set(this.room.positions[i].x * this.factor, 0, this.room.positions[i].y * this.factor)
+          this.scene.add(gltf.scene)
+        })
     }
+
       this.animate();
   }
 
