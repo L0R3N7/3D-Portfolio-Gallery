@@ -285,8 +285,9 @@ clickExhibit(){
 
 
     for (let value of values) {
+      if (value.uuid != null) {
       if (value.uuid == intersects[0].object.parent?.parent?.uuid) {
-        if (value.uuid != null) {
+
 
           const object = this.scene.getObjectByProperty('uuid', value.uuid);
           const renderPass = new RenderPass( this.scene, this.camera! );
@@ -373,9 +374,61 @@ clickExhibit(){
 @Component({
   selector: 'exhibit-dialog',
   templateUrl: 'exhibit-dialog.html',
+  styleUrls: ['./three-room.component.scss']
 })
-export class ExhibitDialog {
+  export class ExhibitDialog implements AfterViewInit{
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ExhibitDialog>) {
 
   }
+  //DetailView
+  @ViewChild('threeDetailCanvas') threeDetailCanvas!: ElementRef;
+  @ViewChild('lookUpSizeDetail') lookUpSizeDetail!: ElementRef;
+  cameraDetail ?: THREE.PerspectiveCamera;
+  rendererDetail ?: THREE.WebGLRenderer;
+  controlsDetail ?: OrbitControls;
+  sceneDetail = new THREE.Scene()
+  loaderDetail = new GLTFLoader().setPath( 'assets/three-d-objects/' );
+
+  ngAfterViewInit() {
+    this.setup()
+    this.animate()
+    this.loadExhibit()
+  }
+
+  setup = () => {
+    this.rendererDetail = new THREE.WebGLRenderer({
+      canvas: this.threeDetailCanvas.nativeElement
+    });
+
+    this.cameraDetail = new THREE.PerspectiveCamera( 100, this.lookUpSizeDetail.nativeElement.offsetWidth / this.lookUpSizeDetail.nativeElement.offsetWidth, 0.1, 1000);
+    this.cameraDetail?.position.set( - 1.8, 180, 10 );
+    this.controlsDetail = new OrbitControls(this.cameraDetail, this.rendererDetail.domElement)
+    this.sceneDetail.background = new THREE.Color( 0xf7f8fa )
+
+  }
+
+  animate = () => {
+    requestAnimationFrame( this.animate );
+    this.controlsDetail?.update();
+    this.rendererDetail?.render(this.sceneDetail, this.cameraDetail!)
+  }
+
+  loadExhibit(){
+    this.loaderDetail.load(this.data.objectUrl,(gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+      this.sceneDetail.add(gltf.scene)
+    })
+    //Light
+    const bulbGeometry = new THREE.SphereGeometry(.02, 16, 8);
+    const bulbLight = new THREE.PointLight( 0xffee88, 3, 1000, 2);
+    const bulbMat = new THREE.MeshStandardMaterial( {
+      emissive: 0xffffee,
+      emissiveIntensity: 1,
+      color: 0x000000
+    } );
+    bulbLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
+    bulbLight.position.set( 0, 100, 0 );
+    bulbLight.castShadow = true;
+    this.sceneDetail.add( bulbLight );
+  }
+
 }

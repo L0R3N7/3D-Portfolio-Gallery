@@ -14,7 +14,6 @@ export class ExhibitonListComponent implements OnInit {
 
   ngOnInit(): void {
     this.gs.getAllExhibitions().subscribe(res => this.exhibitions = res);
-
-  }
+   }
 
 }

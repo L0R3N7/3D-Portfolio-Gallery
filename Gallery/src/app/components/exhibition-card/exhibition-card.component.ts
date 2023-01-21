@@ -16,6 +16,7 @@ export class ExhibitionCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.exhibition)
   }
 
   onDelete() {

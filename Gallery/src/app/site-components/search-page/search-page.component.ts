@@ -37,12 +37,13 @@ export class SearchPageComponent implements OnInit {
       tap(()=> this.isLoading = false)
     ).subscribe(exhibitions => this.searchResults = exhibitions)
 
-    console.log(this.searchResults)
   }
-  
+
   getCategories(){
     this.galleryService.getAllCatagories().subscribe((c) => {
       this.categories = c
+      console.log(this.categories)
+
     })
   }
 }
