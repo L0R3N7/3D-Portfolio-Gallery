@@ -21,7 +21,7 @@ export class CreateExhibitionPageService {
 
   wizMetadata : BehaviorSubject<Metadata | undefined> = new BehaviorSubject<Metadata | undefined>(undefined)
   wizExhibits : BehaviorSubject<Exhibit[]> = new BehaviorSubject(this.initialStateExhibits)
-  wizRoomId : BehaviorSubject<number | undefined> = new BehaviorSubject<number | undefined>(undefined)
+  wizRoom : BehaviorSubject<Room | undefined> = new BehaviorSubject<Room | undefined>(undefined)
   wizPositionConfigList : BehaviorSubject<PositionConfig[]> = new BehaviorSubject(this.initialStatePositionConfigList)
 
   constructor() {
@@ -37,14 +37,14 @@ export class CreateExhibitionPageService {
       this.wizExhibits.next(JSON.parse(sessionStorage.getItem(this.EXHIBITKEY)!!))
     }
     if (sessionStorage.getItem(this.ROOMIKEY)){
-      this.wizRoomId.next(JSON.parse(sessionStorage.getItem(this.ROOMIKEY)!!))
+      this.wizRoom.next(JSON.parse(sessionStorage.getItem(this.ROOMIKEY)!!))
     }
   }
 
   getSelectedState(): number{
     if (this.wizPositionConfigList.value.length > 0){
       return 3
-    }else if (this.wizRoomId.value){
+    }else if (this.wizRoom.value){
       return 2
     }else if (this.wizExhibits.value.length > 0){
       return 1
@@ -64,9 +64,9 @@ export class CreateExhibitionPageService {
     }
   }
 
-  saveRoomId() {
-    if (this.wizRoomId.value != undefined){
-      sessionStorage.setItem(this.ROOMIKEY, JSON.stringify(this.wizRoomId.value))
+  saveRoom() {
+    if (this.wizRoom.value != undefined){
+      sessionStorage.setItem(this.ROOMIKEY, JSON.stringify(this.wizRoom.value))
     }
   }
 }

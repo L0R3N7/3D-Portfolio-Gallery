@@ -15,16 +15,13 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import {BoxGeometry, Camera, Object3D, PerspectiveCamera, Vector3} from "three";
-import {PositionConfig} from "../../../shared/class/positionConfig";
-import {
-  ExhibitArrangeService
-} from "../../../site-components/create-exhibition-page/create-exhibition-arrange/exhibit-arrange.service";
-import {generateTypeCheckBlock} from "@angular/compiler-cli/src/ngtsc/typecheck/src/type_check_block";
-import {render} from "@angular-three/core";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass";
+import {
+  CreateExhibitionPageService
+} from "../../../site-components/create-exhibition-page/create-exhibition-page.service";
 
 @Component({
   selector: 'app-three-room',
@@ -68,9 +65,9 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   composer?: EffectComposer;
   selectedObjects: Object3D[] = [];
 
-  constructor(private exhibitArrangeService : ExhibitArrangeService, public dialog: MatDialog) {
+  constructor(private createService: CreateExhibitionPageService, public dialog: MatDialog) {
     // Load exhibit based on the positionConfigList
-    exhibitArrangeService.getPositionConfigList().subscribe(
+    createService.wizPositionConfigList.subscribe(
       values => {
         for (let value of values){
           // If there was an preexisting object delete it
@@ -244,7 +241,7 @@ clickExhibit(){
     this.raycaster.setFromCamera(this.pointer, this.camera! )
     const intersects = this.raycaster.intersectObjects(this.scene.children)
   console.log(this.pointer.x)
-    const values = this.exhibitArrangeService.getPositionConfigList().getValue();
+    const values = this.createService.wizPositionConfigList.getValue();
             for (let value of values) {
                 if (value.uuid == intersects[0].object.parent?.parent?.uuid) {
                   if (value.uuid != null) {
@@ -261,7 +258,7 @@ clickExhibit(){
   hoverExhibit(){
     this.raycaster.setFromCamera(this.pointer, this.camera! )
     const intersects = this.raycaster.intersectObjects(this.scene.children)
-    const values = this.exhibitArrangeService.getPositionConfigList().getValue();
+    const values = this.createService.wizPositionConfigList.getValue();
 
 
     for (let value of values) {

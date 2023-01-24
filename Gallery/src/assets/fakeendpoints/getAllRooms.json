@@ -2,9 +2,32 @@
   {
     "id" : 1,
     "name" : "First Test Room",
-    "position_amount":  12,
+    "position_amount":  3,
     "room_img_url":  "https://www.smb.museum/uploads/tx_smb/news/news_67970/Neues-Museum_Raum-Prolog_Achim_Kleuker_xl.jpg",
-    "room_url": "1.gltf"
+    "room_url": "1.gltf",
+    "positions": [
+      {
+        "id": 1,
+        "room_id": 1,
+        "x" : 0,
+        "y" : 0,
+        "is_Wall" : false
+      },
+      {
+        "id": 2,
+        "room_id": 1,
+        "x" : 1,
+        "y" : 1,
+        "is_Wall" : false
+      },
+      {
+        "id": 3,
+        "room_id": 1,
+        "x" : 0,
+        "y" : 1,
+        "is_Wall" : false
+      }
+    ]
   },
   {
     "id" : 2,

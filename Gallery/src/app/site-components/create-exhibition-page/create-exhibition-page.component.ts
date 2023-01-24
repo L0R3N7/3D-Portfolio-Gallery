@@ -34,7 +34,7 @@ export class CreateExhibitionPageComponent implements OnInit {
     this.createService.wizExhibits.subscribe(value => {
       this.stepsCompleted[1] = value.length > 0
     })
-    this.createService.wizRoomId.subscribe(value => {
+    this.createService.wizRoom.subscribe(value => {
       this.stepsCompleted[2] = value != undefined
     })
   }

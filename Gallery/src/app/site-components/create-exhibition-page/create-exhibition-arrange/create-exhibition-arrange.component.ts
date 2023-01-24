@@ -3,9 +3,9 @@ import { FileUploadOutput} from "../../../shared/file-upload-output";
 import { Exhibit } from 'src/app/shared/class/exhibit';
 import { Theme } from 'src/app/shared/class/theme';
 import { Room } from 'src/app/shared/class/room';
-import { Position } from 'src/app/shared/class/position';
 import {PositionConfig} from "../../../shared/class/positionConfig";
-import {ExhibitArrangeService} from "./exhibit-arrange.service";
+import {CreateExhibitionPageService} from "../create-exhibition-page.service";
+import produce from "immer";
 
 @Component({
   selector: 'app-create-exhibition-arrange',
@@ -15,14 +15,8 @@ import {ExhibitArrangeService} from "./exhibit-arrange.service";
 export class CreateExhibitionArrangeComponent implements OnInit {
 
   selectedId = -1;
+  selected = "-1";
   fileUploadRes : FileUploadOutput | undefined;
-
-  position_arr : Position[] = [new Position(1, 2, 0, 0, false),
-    new Position(2, 2, 1, 1, false),
-    new Position(3, 2, 1, 0, false)]
-  @Input('room') room : Room = new Room(2,  "small room", 0, "https://www.smb.museum/uploads/tx_smb/news/news_67970/Neues-Museum_Raum-Prolog_Achim_Kleuker_xl.jpg", "2.gltf", this.position_arr);
-  @Input('ExhibitList') exhibitList : Exhibit[] = [new Exhibit(0, "cheese.gltf", "", "Käse", "Tolle Käser, nichtmal stinkig"),
-    new Exhibit(1, "podest_01.gltf", "", "1.0 Podest", "The first desigend podest for this website")]
   @Input('MaterialList') materialList : Theme[] = [
     new Theme(1, "https://cdn.shopify.com/s/files/1/0561/2168/8256/products/trumerholz-gehackte-larche-wohnwand_695x695.jpg?v=1660934418", "", 0, "",""),
     new Theme(2, "https://cdn.shopify.com/s/files/1/0561/2168/8256/products/trumerholz-gehackte-larche-wohnwand_695x695.jpg?v=1660934418", "", 0, "",""),
@@ -41,24 +35,31 @@ export class CreateExhibitionArrangeComponent implements OnInit {
     new Theme(15, "https://cdn.shopify.com/s/files/1/0561/2168/8256/products/trumerholz-gehackte-larche-wohnwand_695x695.jpg?v=1660934418", "", 0, "","")
   ]
 
-  //@Input('room') room : Room; //= new Room(0,  "small room", 0, "https://www.smb.museum/uploads/tx_smb/news/news_67970/Neues-Museum_Raum-Prolog_Achim_Kleuker_xl.jpg", "2.gltf", undefined)
+  exhibitList: Exhibit[] = []
+  room: Room | undefined
 
-  selected = "-1";
-  position?: Position;
 
   constructor(
-    private exhibitArrangeService : ExhibitArrangeService
+    private createService : CreateExhibitionPageService
   ) {
-    // Load based on the availabe positions and the exhibitions a default object into the behavioursubject positionConfiger
-    let temp_positionConfigList : PositionConfig[] = []
-    for (var i = 0; i < this.exhibitList.length; i++){
-      temp_positionConfigList[i] = new PositionConfig(-1, -1, this.exhibitList[i].model_url, "", "c", 4, undefined, this.exhibitList[i].desc, this.exhibitList[i].title);
-    }
-    this.exhibitArrangeService.setPositionConfigList(temp_positionConfigList)
 
-    this.exhibitArrangeService.getPositionConfigList().subscribe(values => {
+    createService.wizExhibits.subscribe(value => {
+      let tempPositionConfigList: PositionConfig[] = []
+
+      this.exhibitList = value
+      for (let i = 0; i < value.length; i++){
+        tempPositionConfigList.push(new PositionConfig(-1, -1, value[i].model_url, "", "c", 4, undefined, value[i].desc, value[i].title))
+      }
+      createService.wizPositionConfigList.next(tempPositionConfigList)
+    })
+
+    createService.wizRoom.subscribe(value => {
+      this.room = value
+    })
+
+    this.createService.wizPositionConfigList.subscribe(values => {
       if (this.selectedId != -1){
-        this.selected = this.exhibitArrangeService.getPositionConfigList().getValue()[this.selectedId].position_id.toString()
+        this.selected = values[this.selectedId].position_id.toString()
       }
     })
   }
@@ -73,26 +74,27 @@ export class CreateExhibitionArrangeComponent implements OnInit {
 
   exhibitOption(id: number) {
     this.selectedId = id
-    this.selected = this.exhibitArrangeService.getPositionConfigList().getValue()[id].position_id.toString()
+    this.selected = this.createService.wizPositionConfigList.getValue()[id].position_id.toString()
   }
 
   containsInConfigArray(id: number) {
-    console.log("hihi")
-    return this.exhibitArrangeService.getPositionConfigList().getValue().find(value => value.position_id == id) != undefined;
+    return this.createService.wizPositionConfigList.getValue().find(value => value.position_id == id) != undefined;
   }
 
   isMaterialSelected(material_id: number) {
-    return this.exhibitArrangeService.getPositionConfigList().getValue()[this.selectedId].material_id == material_id;
+    return this.createService.wizPositionConfigList.getValue()[this.selectedId].material_id == material_id;
   }
 
   selectedMaterial(id: number) {
-    this.exhibitArrangeService.getPositionConfigList().getValue()[this.selectedId].material_id = id;
+    this.createService.wizPositionConfigList.next(produce(this.createService.wizPositionConfigList.getValue(), draft => {
+      draft[this.selectedId].material_id = id
+    }))
   }
   selectedPosition() {
     var numSelected = Number(this.selected);
 
     if (numSelected != -1){
-      let temp_SelectedPosition = this.exhibitArrangeService.getPositionConfigList().getValue();
+      let temp_SelectedPosition = this.createService.wizPositionConfigList.getValue();
 
       // Position swap if something had position_id already
       let temp_positionId = temp_SelectedPosition[this.selectedId].position_id
@@ -100,45 +102,44 @@ export class CreateExhibitionArrangeComponent implements OnInit {
       if (temp_id != -1){
         temp_SelectedPosition[temp_id].position_id = temp_positionId
       }
-      console.log("here")
 
       temp_SelectedPosition[this.selectedId].position_id = numSelected;
 
-      this.exhibitArrangeService.setPositionConfigList(temp_SelectedPosition)
+      this.createService.wizPositionConfigList.next(temp_SelectedPosition)
     }
   }
 
   automaticalPlacement() {
-    let temp_positionConfigList : PositionConfig[] = this.exhibitArrangeService.getPositionConfigList().getValue();
+    let temp_positionConfigList : PositionConfig[] = this.createService.wizPositionConfigList.getValue();
     for (var i = 0; i < temp_positionConfigList.length; i++){
       temp_positionConfigList[i].position_id = i+1;
     }
-    this.exhibitArrangeService.setPositionConfigList(temp_positionConfigList)
+    this.createService.wizPositionConfigList.next(temp_positionConfigList)
   }
 
   isLoadedInThe3DScene(id: number){
-    return this.exhibitArrangeService.getPositionConfigList().getValue()[id].position_id != -1
+    return this.createService.wizPositionConfigList.getValue()[id].position_id != -1
   }
 
   getAlignment(){
-    return this.exhibitArrangeService.getPositionConfigList().getValue()[this.selectedId].alignment;
+    return this.createService.wizPositionConfigList.getValue()[this.selectedId].alignment;
   }
 
   selecteAligment(value: string) {
-    let temp_PositionConfig  = this.exhibitArrangeService.getPositionConfigList().getValue();
+    let temp_PositionConfig  = this.createService.wizPositionConfigList.getValue();
     temp_PositionConfig[this.selectedId].alignment = value
-    this.exhibitArrangeService.setPositionConfigList(temp_PositionConfig)
+    this.createService.wizPositionConfigList.next(temp_PositionConfig)
   }
 
   setObjectScale(value: string) {
-    let temp_PositionConfig = this.exhibitArrangeService.getPositionConfigList().getValue();
+    let temp_PositionConfig = this.createService.wizPositionConfigList.getValue();
     //console.log("Scaling: "+value) Number(value)
     temp_PositionConfig[this.selectedId].scale_factor = + value;
-    this.exhibitArrangeService.setPositionConfigList(temp_PositionConfig)
+    this.createService.wizPositionConfigList.next(temp_PositionConfig)
   }
 
   getObjectScale() : string {
-    return ""+this.exhibitArrangeService.getPositionConfigList().getValue()[this.selectedId].scale_factor;
+    return ""+this.createService.wizPositionConfigList.getValue()[this.selectedId].scale_factor;
   }
 
 }

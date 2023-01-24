@@ -38,9 +38,8 @@ export class CreateExhibitionExhibitselectionComponent implements OnInit {
 
   addExhibit() {
     this.bs.blobToBase64(this.exhibitFile!.blob).then(value => {
+      console.log(value)
       // Update Value in Service
-
-      console.log("asdfasdf")
       let temp = this.cs.wizExhibits.value
       temp.push(new Exhibit(this.exhibitCollection.length, value, this.exhibitFile?.filetype ?? "non", this.exhibitForm.value.name ?? "unnamed", this.exhibitForm.value.desc ?? ""))
       this.cs.wizExhibits.next(temp)

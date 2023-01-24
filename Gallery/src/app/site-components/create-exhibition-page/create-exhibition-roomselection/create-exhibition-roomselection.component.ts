@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {GalleryService} from "../../../shared/gallery.service";
 import {Room} from "../../../shared/class/room";
 import {CreateExhibitionPageService} from "../create-exhibition-page.service";
@@ -20,21 +20,29 @@ export class CreateExhibitionRoomselectionComponent {
       this.rooms = res
       this.filteredRoom = this.rooms.filter(value => {return value.position_amount > cs.wizExhibits.value.length})
     });
-    cs.wizRoomId.subscribe(value => {
+    cs.wizRoom.subscribe(value => {
       if (value){
-        this.selectedRoom_id = value
+        this.selectedRoom_id = value.id
       }
     })
   }
 
   selectRoom(selectedId:number){
-    this.cs.wizRoomId.next(selectedId)
-    this.cs.saveRoomId()
+    let tempRoom = this.getLocalRoomById(selectedId)
+
+    if (tempRoom.length == 1){
+      this.cs.wizRoom.next(tempRoom[0])
+      this.cs.saveRoom()
+    }
   }
 
   getFilteredRooms() : Room[] {
     return this.rooms.filter(value => {
         return value.positions.length < this.cs.wizExhibits.value.length
     })
+  }
+
+  getLocalRoomById(id: number): Room[]{
+    return this.rooms.filter(value => {return value.id == id})
   }
 }
