@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Exhibition} from "../../shared/class/exhibition";
+import {ExhibitionUser} from "../../shared/class/exhibition-user";
 
 @Component({
   selector: 'app-exhibition-card',
@@ -8,7 +9,7 @@ import {Exhibition} from "../../shared/class/exhibition";
 })
 export class ExhibitionCardComponent implements OnInit {
 
-  @Input('exhibtion') exhibition?: Exhibition;
+  @Input('exhibtion') exhibition?: ExhibitionUser;
   @Input('delete') isDeleteMode : boolean = false;
   @Output('delete') deleteEvent : EventEmitter<Exhibition> = new EventEmitter<Exhibition>();
 
@@ -16,10 +17,10 @@ export class ExhibitionCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.exhibition)
+    console.log(this.exhibition?.exhibition)
   }
 
   onDelete() {
-    this.deleteEvent.emit(this.exhibition) ;
+    this.deleteEvent.emit(this.exhibition?.exhibition) ;
   }
 }

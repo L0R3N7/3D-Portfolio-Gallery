@@ -1,6 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import {AfterViewInit, Component, OnInit} from "@angular/core";
 import {NavbarServiceService} from "../../components/navbar/navbar-service.service";
 import {FooterService} from "../../components/footer/footer.service";
+import {ActivatedRoute} from "@angular/router";
+import {GalleryService} from "../../shared/gallery.service";
+import {ExhibitionUser} from "../../shared/class/exhibition-user";
+import {Exhibition} from "../../shared/class/exhibition";
 
 
 @Component({
@@ -10,13 +14,40 @@ import {FooterService} from "../../components/footer/footer.service";
 
 })
 export class RoomPageComponent implements OnInit {
-  constructor(public navbar: NavbarServiceService, public footer: FooterService ) {}
+  constructor(public navbar: NavbarServiceService, public footer: FooterService, private route: ActivatedRoute, private gs: GalleryService) {}
+
+  id?: number;
+  private sub: any;
+  exhibtion = {} as Exhibition;
 
   ngOnInit(): void {
+
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +params['id'];
+    })
+    this.getExhibitionById()
+
+
     this.navbar.white = false;
     this.navbar.hide()
     this.footer.hide()
+    console.log(this.exhibtion)
+
   }
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
+
+  getExhibitionById(){
+    if(this.id){
+      this.gs.getExhibitonById(this.id).subscribe(value => {
+          this.exhibtion = value
+      })
+
+    }
+  }
+
 }
 
 

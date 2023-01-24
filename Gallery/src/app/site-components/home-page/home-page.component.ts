@@ -3,6 +3,7 @@ import {NavbarServiceService} from "../../components/navbar/navbar-service.servi
 import {FooterService} from "../../components/footer/footer.service";
 import {GalleryService} from "../../shared/gallery.service";
 import {Exhibition} from "../../shared/class/exhibition";
+import {ExhibitionUser} from "../../shared/class/exhibition-user";
 
 @Component({
   selector: 'app-home-page',
@@ -13,7 +14,7 @@ export class HomePageComponent implements OnInit {
 
   constructor(public navbar: NavbarServiceService, public footer: FooterService, private gs: GalleryService) {}
 
-  exhibitions: Exhibition[] = [];
+  exhibitions: ExhibitionUser[] = [];
 
   ngOnInit(): void {
     this.navbar.show()
