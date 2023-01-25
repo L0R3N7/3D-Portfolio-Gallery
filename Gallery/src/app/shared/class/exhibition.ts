@@ -14,6 +14,7 @@ export class Exhibition {
   tags : Tag[] | undefined;
   categories: Category[] | undefined
 
+
   constructor(id: number, thumbnail_url: string | undefined, title: string, room_id: number, description: string | undefined, exhibits: Exhibit[] | undefined, room: Room | undefined, tag: Tag[] | undefined) {
     this.id = id;
     this.thumbnail_url = thumbnail_url;

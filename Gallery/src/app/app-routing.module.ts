@@ -17,7 +17,7 @@ const routes: Routes = [
   {path: 'profile', component:ProfilePageComponent},
   {path: 'create', component:CreateExhibitionPageComponent},
   {path: 'signup', component:SignupPageComponent},
-  {path: 'room', component:RoomPageComponent},
+  {path: 'room/:id', component:RoomPageComponent},
   {path: '**', redirectTo: 'home'}
 
 

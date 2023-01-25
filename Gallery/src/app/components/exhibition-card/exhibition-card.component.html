@@ -5,20 +5,21 @@
       <span>X</span>
     </button>
     <mat-card class="exhibition-card">
-      <img mat-card-image class="card-thumbnail" src="{{exhibition.thumbnail_url}}" alt="card-thumbnail">
-      <ng-container *ngIf="exhibition.tags">
+      <img mat-card-image class="card-thumbnail" src="{{exhibition.exhibition.thumbnail_url}}" alt="card-thumbnail">
+      <ng-container *ngIf="exhibition.exhibition.categories">
         <mat-chip-list style="position:absolute; transform: translateY(-120%); left: 1%"  class="exhibition-card-custom w-100">
-          <mat-chip [style.background-color]="tag.color.concat('#')" *ngFor="let tag of exhibition.tags">{{tag.title}}</mat-chip>
+          <mat-chip [style.background-color]="tag.color" *ngFor="let tag of exhibition.exhibition.categories">{{tag.category_title}}</mat-chip>
         </mat-chip-list>
       </ng-container>
       <mat-card-title>
-        {{exhibition.title}}
+        {{exhibition.exhibition.title}}
       </mat-card-title>
-      <!--<mat-card-subtitle style="color: #eee">
-        by Lorenz
-      </mat-card-subtitle>-->
+      <mat-card-subtitle style="color: #eee">
+      {{exhibition.user_name}}
+    </mat-card-subtitle>
+
       <mat-card-content>
-        {{exhibition.description}}
+        {{exhibition.exhibition.description}}
       </mat-card-content>
     </mat-card>
   </div>

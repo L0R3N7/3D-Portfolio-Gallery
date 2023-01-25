@@ -4,11 +4,11 @@
       <input type="search" class="form-control rounded" placeholder="Search" #input (keyup)="keyUp$.next(input.value)">
       <span class="input-group-text">
         <mat-icon class="search-icon mx-2">search</mat-icon>
-
-        <mat-icon (click)="getCategories()" [matMenuTriggerFor]="menu" class="search-icon mx-2">filter_alt</mat-icon>
+        <mat-icon (menuOpened)="getCategories()" (menuClosed)="onMenuClose()" [matMenuTriggerFor]="menu" class="search-icon mx-2">{{filter_icon}}</mat-icon>
         <mat-menu #menu="matMenu">
           <ul *ngFor="let c of categories">
-          <mat-checkbox  [ngStyle]="{'color': c.color}"><p>{{c.category_title}}</p></mat-checkbox>
+          <mat-checkbox #menuItems (click)="$event.stopPropagation(); addCategory(c.id)"  [ngStyle]="{'color': c.color}"
+          ><p>{{c.category_title}}</p></mat-checkbox>
         </ul>
         </mat-menu>
       </span>

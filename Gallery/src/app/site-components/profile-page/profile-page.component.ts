@@ -3,6 +3,7 @@ import {NavbarServiceService} from "../../components/navbar/navbar-service.servi
 import {FooterService} from "../../components/footer/footer.service";
 import {Exhibition} from "../../shared/class/exhibition";
 import {GalleryService} from "../../shared/gallery.service";
+import {ExhibitionUser} from "../../shared/class/exhibition-user";
 
 @Component({
   selector: 'app-profile-page',
@@ -13,7 +14,7 @@ export class ProfilePageComponent implements OnInit {
   username : string = "Max Mustermann";
   isDeleteMode : boolean = true;
 
-  exhibition_list ?: Exhibition[];
+  exhibition_list ?: ExhibitionUser[];
 
   constructor(public navbar: NavbarServiceService, public footer: FooterService, public gallery_service: GalleryService) {
     gallery_service.getAllExhibitions().subscribe( (e) => {
@@ -31,7 +32,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   //Todo add server remove; add "are your sure?" prompt
-  deleteExhibtionEvent(e: Exhibition) {
-    this.exhibition_list?.splice(this.exhibition_list?.indexOf(e), 1)
-  }
+  //deleteExhibtionEvent(e: Exhibition) {
+  //  this.exhibition_list?.splice(this.exhibition_list?.indexOf(e), 1)
+ // }
 }
