@@ -76,7 +76,7 @@ export class GalleryService {
     return this.httpClient.request(req)
   }
 
-  getFile(fileName: string): Observable<any>{
+  getFile(fileName: string): Observable<Blob>{
     return this.httpClient.get(`${this.URL}exhibitions/get/${fileName}`, {responseType: 'blob'})
   }
 }

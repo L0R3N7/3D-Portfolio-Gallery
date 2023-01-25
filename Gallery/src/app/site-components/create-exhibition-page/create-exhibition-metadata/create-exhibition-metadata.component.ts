@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {FileUploadOutput} from "../../../shared/file-upload-output";
 import {CreateExhibitionPageService, Metadata} from "../create-exhibition-page.service";
 
 @Component({

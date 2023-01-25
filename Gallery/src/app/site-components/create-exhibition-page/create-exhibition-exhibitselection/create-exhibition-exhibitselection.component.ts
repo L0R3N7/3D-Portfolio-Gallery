@@ -37,16 +37,15 @@ export class CreateExhibitionExhibitselectionComponent implements OnInit {
   }
 
   addExhibit() {
-    this.bs.blobToBase64(this.exhibitFile!.blob).then(value => {
-      console.log(value)
+    if (this.exhibitFile){
       // Update Value in Service
       let temp = this.cs.wizExhibits.value
-      temp.push(new Exhibit(this.exhibitCollection.length, value, this.exhibitFile?.filetype ?? "non", this.exhibitForm.value.name ?? "unnamed", this.exhibitForm.value.desc ?? ""))
+      temp.push(new Exhibit(this.exhibitCollection.length, this.exhibitFile.url , this.exhibitFile.filetype, this.exhibitForm.value.name ?? "unnamed", this.exhibitForm.value.desc ?? ""))
       this.cs.wizExhibits.next(temp)
       this.cs.saveExhibit()
       this.exhibitForm.controls['name'].setValue("")
       this.exhibitForm.controls['desc'].setValue("")
-    })
+    }
   }
 
   deleteExhibit($event: number) {

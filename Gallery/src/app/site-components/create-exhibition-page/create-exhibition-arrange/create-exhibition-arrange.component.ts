@@ -67,11 +67,6 @@ export class CreateExhibitionArrangeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  print(event: FileUploadOutput) {
-    this.fileUploadRes = event;
-    console.log(event)
-  }
-
   exhibitOption(id: number) {
     this.selectedId = id
     this.selected = this.createService.wizPositionConfigList.getValue()[id].position_id.toString()
@@ -91,7 +86,7 @@ export class CreateExhibitionArrangeComponent implements OnInit {
     }))
   }
   selectedPosition() {
-    var numSelected = Number(this.selected);
+    const numSelected = Number(this.selected);
 
     if (numSelected != -1){
       let temp_SelectedPosition = this.createService.wizPositionConfigList.getValue();
@@ -141,5 +136,4 @@ export class CreateExhibitionArrangeComponent implements OnInit {
   getObjectScale() : string {
     return ""+this.createService.wizPositionConfigList.getValue()[this.selectedId].scale_factor;
   }
-
 }

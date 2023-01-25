@@ -87,7 +87,12 @@ export class FileUploadComponent {
         }
         if (event instanceof HttpResponse) {
           this.message = event.body.message;
-          //this.fileInfos = this.uploadService.getFiles();
+          const serverFileName : string = this.message.split("/").pop() ?? "";
+          if (serverFileName.length > 0){
+            const fuo = new FileUploadOutput(serverFileName,
+            serverFileName.split('.')[1].toLowerCase());
+            this.fileOutput.emit(fuo)
+          }
         }
       }
     })
