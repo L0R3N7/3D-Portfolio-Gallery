@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {NavbarServiceService} from "../components/navbar/navbar-service.service";
 import {Room} from "./class/room";
@@ -81,6 +81,19 @@ export class GalleryService {
       }
     }
     return ""
+  }
+
+  postFile(fd: FormData): Observable<HttpEvent<any>> {
+    const req = new HttpRequest('POST', `${this.URL}exhibitions/upload`, fd, {
+      reportProgress: true,
+      responseType: "json"
+    })
+
+    return this.httpClient.request(req)
+  }
+
+  getFile(fileName: string): Observable<Blob>{
+    return this.httpClient.get(`${this.URL}exhibitions/get/${fileName}`, {responseType: 'blob'})
   }
 }
 

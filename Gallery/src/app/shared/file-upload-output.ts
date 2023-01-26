@@ -1,15 +1,9 @@
-import {BlobService} from "./blob.service";
-
 export class FileUploadOutput{
-  blob: Blob;
+  url: string;
   filetype: string;
 
-  constructor(blob : Blob | string, filetype : string) {
-    if (typeof blob === "string") {
-      var blobService = new BlobService();
-      blob = blobService.cleanB64AndToBlob(blob)
-    }
-    this.blob = blob;
+  constructor(url: string, filetype: string) {
+    this.url = url;
     this.filetype = filetype;
   }
 }

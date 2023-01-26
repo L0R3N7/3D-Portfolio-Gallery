@@ -26,7 +26,7 @@
               <mat-form-field>
                 <mat-select [(value)]="selected" (selectionChange)="selectedPosition()">
                   <mat-option value="-1">No position</mat-option>
-                  <mat-option  *ngFor="let position of room.positions" value="{{position.id}}">Position {{position.id}}</mat-option>
+                  <mat-option  *ngFor="let position of room?.positions" value="{{position.id}}">Position {{position.id}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>

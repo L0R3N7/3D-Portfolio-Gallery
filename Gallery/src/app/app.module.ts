@@ -50,7 +50,6 @@ import {MatListModule} from "@angular/material/list";
 import { ExhibitCardComponent } from './components/exhibit-card/exhibit-card.component';
 import { ExhibitonListComponent } from './components/exhibiton-list/exhibiton-list.component';
 import {ExhibitDialog, ThreeRoomComponent} from './components/three/three-room/three-room.component';
-import { ThreeDObjectLoaderComponent } from './components/three/three-d-object-loader/three-d-object-loader.component';
 import {NgtGroupModule} from "@angular-three/core/group";
 import {NgtPrimitiveModule} from "@angular-three/core/primitive";
 import { CreateExhibitionArrangeComponent } from './site-components/create-exhibition-page/create-exhibition-arrange/create-exhibition-arrange.component';
@@ -88,7 +87,6 @@ const routes: Routes = []
     ExhibitCardComponent,
     ExhibitonListComponent,
     ThreeRoomComponent,
-    ThreeDObjectLoaderComponent,
     CreateExhibitionArrangeComponent,
     RoomPageComponent,
     ThreeRoomSelectionComponent,

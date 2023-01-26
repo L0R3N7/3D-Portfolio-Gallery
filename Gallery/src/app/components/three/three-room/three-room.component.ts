@@ -14,18 +14,15 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {Box3, BoxGeometry, Camera, Color, Object3D, PerspectiveCamera, Scene, Vector3} from "three";
-import {PositionConfig} from "../../../shared/class/positionConfig";
-import {
-  ExhibitArrangeService
-} from "../../../site-components/create-exhibition-page/create-exhibition-arrange/exhibit-arrange.service";
-import {generateTypeCheckBlock} from "@angular/compiler-cli/src/ngtsc/typecheck/src/type_check_block";
-import {render} from "@angular-three/core";
+import {BoxGeometry, Object3D, PerspectiveCamera, Vector3} from "three";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass";
-import {OBB} from "three/examples/jsm/math/OBB";
+import {
+  CreateExhibitionPageService
+} from "../../../site-components/create-exhibition-page/create-exhibition-page.service";
+import {GalleryService} from "../../../shared/gallery.service";
 
 @Component({
   selector: 'app-three-room',
@@ -44,7 +41,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
   scene = new THREE.Scene()
   clock = new THREE.Clock()
-  loader = new GLTFLoader().setPath( 'assets/three-d-objects/' );
+  loader = new GLTFLoader()
 
   raycaster = new THREE.Raycaster()
   collisionRaycaster = new THREE.Raycaster()
@@ -70,10 +67,9 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   composer?: EffectComposer;
   selectedObjects: Object3D[] = [];
 
-
-  constructor(private exhibitArrangeService : ExhibitArrangeService, public dialog: MatDialog) {
+  constructor(private createService: CreateExhibitionPageService, public dialog: MatDialog, gs: GalleryService) {
     // Load exhibit based on the positionConfigList
-    exhibitArrangeService.getPositionConfigList().subscribe(
+    createService.wizPositionConfigList.subscribe(
       values => {
         for (let value of values){
           // If there was an preexisting object delete it
@@ -88,38 +84,44 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
           if(!value.position_id || value.position_id == -1){
             continue;
           }
-          // load and configure exhibit object
-          this.loader.load(value.exhibit_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
-            value.uuid = gltf.scene.uuid;
-            // TODO: add custom slider to adjust size
-            let size = this.getSize(gltf.scene)
-            gltf.scene.scale.set(1 / size.x * value.scale_factor, 1 / size.y * value.scale_factor, 1 / size.z * value.scale_factor)
-            // Alignment / Positioning
+          // Todo: has to be changed and cashed somewhere so it mustn't allways download new
+          gs.getFile(value.exhibit_url).subscribe(downloadedExhibit => {
+            // Wir gehen davon aus, dass es sich um eine 3D gltf model handelt
+            console.log("Blob Loading")
+            console.log(downloadedExhibit)
+            const url = URL.createObjectURL(downloadedExhibit)
 
-            let x = this.room.positions[value.position_id -1].x * this.factor
-            let y = this.potests.parameters.height + this.getSize(gltf.scene).y
-            let z = this.room.positions[value.position_id -1].y * this.factor
-            switch (value.alignment) {
-              case "l":
-                z += 1 / size.z * value.scale_factor
-                break
-              case "r":
-                z -= 1 / size.z * value.scale_factor
-                break
-              case "t":
-                x += 1 / size.x * value.scale_factor
-                break
-              case "b":
-                x -= 1 / size.x * value.scale_factor
-            }
-            gltf.scene.position.set(x, y, z)
-            //gltf.scene
-            this.scene.add( gltf.scene );
-            console.log(`loaded object: ${value.exhibit_url}`)
-            console.log(this.getSize(gltf.scene))
-            console.log(gltf.scene.getWorldScale(new Vector3()))
-            console.log(gltf.scene.getWorldPosition(new Vector3()))
-          });
+            this.loader.load(url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+              value.uuid = gltf.scene.uuid;
+              let size = this.getSize(gltf.scene)
+              gltf.scene.scale.set(1 / size.x * value.scale_factor, 1 / size.y * value.scale_factor, 1 / size.z * value.scale_factor)
+              // Alignment / Positioning
+
+              let x = this.room.positions[value.position_id -1].x * this.factor
+              let y = this.potests.parameters.height + this.getSize(gltf.scene).y
+              let z = this.room.positions[value.position_id -1].y * this.factor
+              switch (value.alignment) {
+                case "l":
+                  z += 1 / size.z * value.scale_factor
+                  break
+                case "r":
+                  z -= 1 / size.z * value.scale_factor
+                  break
+                case "t":
+                  x += 1 / size.x * value.scale_factor
+                  break
+                case "b":
+                  x -= 1 / size.x * value.scale_factor
+              }
+              gltf.scene.position.set(x, y, z)
+              //gltf.scene
+              this.scene.add( gltf.scene );
+              console.log(`loaded object: ${value.exhibit_url}`)
+              console.log(this.getSize(gltf.scene))
+              console.log(gltf.scene.getWorldScale(new Vector3()))
+              console.log(gltf.scene.getWorldPosition(new Vector3()))
+            });
+          })
         }
       }
     )
@@ -150,23 +152,22 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
     this.scene.add( bulbLight );
 
     //Load Room
-    this.loader.load( `room/walls/${this.room.id}.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+    this.loader.load( `assets/three-d-objects/room/walls/${this.room.id}.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
       gltf.scene.scale.y = 350
       this.scene.add( gltf.scene );
     });
-    this.loader.load( `room/floor/${this.room.id}.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+    this.loader.load( `assets/three-d-objects/room/floor/${this.room.id}.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
       this.scene.add( gltf.scene );
     });
 
     //Load Sockels
       for (let i = 0; i < this.room.positions.length; i++){
-        this.loader.load('podest.gltf', (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+        this.loader.load('assets/three-d-objects/podest.gltf', (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
           console.log(gltf)
           gltf.scene.position.set(this.room.positions[i].x * this.factor, 0, this.room.positions[i].y * this.factor)
           this.scene.add(gltf.scene)
         })
     }
-
       this.animate();
   }
 
@@ -241,7 +242,6 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
       exitAnimationDuration,
     });
 
-
     this.dialogOpen = true
     console.log(this.animationid)
     cancelAnimationFrame(this.animationid!)
@@ -263,7 +263,7 @@ clickExhibit(){
     this.raycaster.setFromCamera(this.pointer, this.camera! )
     const intersects = this.raycaster.intersectObjects(this.scene.children)
   console.log(this.pointer.x)
-    const values = this.exhibitArrangeService.getPositionConfigList().getValue();
+    const values = this.createService.wizPositionConfigList.getValue();
             for (let value of values) {
                 if (value.uuid == intersects[0].object.parent?.parent?.uuid) {
                   if (value.uuid != null) {
@@ -281,7 +281,7 @@ clickExhibit(){
   hoverExhibit(){
     this.raycaster.setFromCamera(this.pointer, this.camera! )
     const intersects = this.raycaster.intersectObjects(this.scene.children)
-    const values = this.exhibitArrangeService.getPositionConfigList().getValue();
+    const values = this.createService.wizPositionConfigList.getValue();
 
 
     for (let value of values) {
@@ -312,8 +312,6 @@ clickExhibit(){
   }
 
   detectCollision(){
-
-
     this.collisionRaycaster.set(this.camera!.position, this.camera2!.position.normalize())
     this.collisionRaycaster.far = 100
     const intersects = this.collisionRaycaster.intersectObjects(this.scene.children)
@@ -338,12 +336,7 @@ clickExhibit(){
         }
       }
 
-      this.renderer?.render(this.scene, this.camera!);
-      this.composer?.render()
 
-      if(this.mode != "create"){
-        this.camera2?.copy(this.camera!)
-      }
     this.renderer?.render(this.scene, this.camera!);
     this.composer?.render()
 

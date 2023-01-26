@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {FileUploadOutput} from "../../../shared/file-upload-output";
 import {CreateExhibitionPageService, Metadata} from "../create-exhibition-page.service";
 
 @Component({
@@ -9,7 +8,6 @@ import {CreateExhibitionPageService, Metadata} from "../create-exhibition-page.s
 })
 export class CreateExhibitionMetadataComponent implements OnInit {
   selectedTagIds : number[] = []
-  selectedFoto?: FileUploadOutput;
   imageUrl ?: string;
   exhibitionName: string = "";
   description: string = "";
@@ -34,11 +32,5 @@ export class CreateExhibitionMetadataComponent implements OnInit {
 
 
   ngOnInit(): void {
-  }
-
-  setSelectedFoto(value: FileUploadOutput){
-    this.selectedFoto = value;
-    this.imageUrl = URL.createObjectURL(value.blob);
-    this.change()
   }
 }
