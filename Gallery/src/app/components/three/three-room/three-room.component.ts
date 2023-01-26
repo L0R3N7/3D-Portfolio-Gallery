@@ -67,7 +67,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   composer?: EffectComposer;
   selectedObjects: Object3D[] = [];
 
-  constructor(private createService: CreateExhibitionPageService, public dialog: MatDialog, gs: GalleryService) {
+  constructor(private createService: CreateExhibitionPageService, public dialog: MatDialog, public gs: GalleryService) {
     // Load exhibit based on the positionConfigList
     createService.wizPositionConfigList.subscribe(
       values => {
@@ -90,7 +90,12 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
             console.log("Blob Loading")
             console.log(downloadedExhibit)
             const url = URL.createObjectURL(downloadedExhibit)
+            console.log(value.exhibit_url)
+            console.log(url)
 
+            if(url){
+
+            }
             this.loader.load(url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
               value.uuid = gltf.scene.uuid;
               let size = this.getSize(gltf.scene)
@@ -140,15 +145,18 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
     //Light
     const bulbGeometry = new THREE.SphereGeometry(.02, 16, 8);
-    const bulbLight = new THREE.PointLight( 0xffffff, 3, 1000, 2);
+    const bulbLight = new THREE.PointLight( 0xffffff, 3, 4000, 2);
     const bulbMat = new THREE.MeshStandardMaterial( {
       emissive: 0xffffff,
       emissiveIntensity: 1,
       color: 0x000000
     } );
+    bulbLight.castShadow = true
     bulbLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
-    bulbLight.position.set( 0, 100, 0 );
+    bulbLight.position.set( 0, 100, 10 );
     bulbLight.castShadow = true;
+
+
     this.scene.add( bulbLight );
 
     //Load Room
@@ -187,7 +195,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
     }else{
       this.controls = new FirstPersonControls(this.camera, this.renderer.domElement)
-      this.controls!.lookSpeed = 0.002;
+      this.controls!.lookSpeed = 0.2;
       this.controls!.movementSpeed = 100;
       this.controls!.lookVertical = false;
       this.controls!.mouseDragOn = false;
@@ -271,8 +279,16 @@ clickExhibit(){
 
                     this.objectDescription = value.description
                     this.objectTitle = value.title
-                    this.objectUrl = value.exhibit_url
-                    this.openDialog('1000ms', '300ms')
+                    console.log( value.exhibit_url)
+                      this.gs.getFile(value.exhibit_url).subscribe(downloadedExhibit => {
+                      // Wir gehen davon aus, dass es sich um eine 3D gltf model handelt
+                      console.log("Blob Loading")
+                      console.log(downloadedExhibit)
+                      this.objectUrl = URL.createObjectURL(downloadedExhibit)
+                      this.openDialog('1000ms', '300ms')
+                    })
+
+
                   }
               }
             }
@@ -379,8 +395,8 @@ clickExhibit(){
   cameraDetail ?: THREE.PerspectiveCamera;
   rendererDetail ?: THREE.WebGLRenderer;
   controlsDetail ?: OrbitControls;
-  sceneDetail = new THREE.Scene()
-  loaderDetail = new GLTFLoader().setPath( 'assets/three-d-objects/' );
+  sceneDetail = new THREE.Scene();
+  loaderDetail = new GLTFLoader();
 
   ngAfterViewInit() {
     this.setup()
@@ -421,7 +437,8 @@ clickExhibit(){
     bulbLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
     bulbLight.position.set( 0, 100, 0 );
     bulbLight.castShadow = true;
-    this.sceneDetail.add( bulbLight );
+
+
   }
 
 }
