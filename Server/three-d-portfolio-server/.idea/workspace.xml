@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0cf43ecb-89fb-4c56-9512-a88bc3a2facd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../Gallery/src/app/components/three/three-room/exhibit-dialog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Gallery/src/app/components/three/three-room/three-room.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Gallery/src/app/components/three/three-room/three-room.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Gallery/src/app/shared/class/exhibition-user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Gallery/src/app/components/exhibition-card/exhibition-card.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../Gallery/src/app/components/exhibition-card/exhibition-card.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Gallery/src/app/components/exhibition-card/exhibition-card.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Gallery/src/app/components/exhibition-card/exhibition-card.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Gallery/src/app/components/exhibiton-list/exhibiton-list.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Gallery/src/app/components/exhibiton-list/exhibiton-list.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Gallery/src/app/shared/gallery.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Gallery/src/app/shared/gallery.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Gallery/src/app/site-components/home-page/home-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Gallery/src/app/site-components/home-page/home-page.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Gallery/src/app/site-components/profile-page/profile-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../Gallery/src/app/site-components/profile-page/profile-page.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Gallery/src/app/site-components/profile-page/profile-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Gallery/src/app/site-components/profile-page/profile-page.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Gallery/src/app/site-components/search-page/search-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Gallery/src/app/site-components/search-page/search-page.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +35,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "C:/Users/Fabian/Documents/GitHub/3dserver",
+    "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -41,6 +49,8 @@
       <updated>1660648783483</updated>
       <workItem from="1670949111653" duration="76000" />
       <workItem from="1670951115849" duration="83000" />
+      <workItem from="1673705362980" duration="13000" />
+      <workItem from="1674475181601" duration="34000" />
     </task>
     <servers />
   </component>

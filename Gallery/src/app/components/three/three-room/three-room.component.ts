@@ -6,7 +6,7 @@ import {
   ElementRef,
   OnDestroy,
   OnChanges,
-  SimpleChanges, Inject
+  SimpleChanges, Inject, createComponent, OnInit
 } from '@angular/core';
 import { Room } from 'src/app/shared/class/room';
 import { Position } from 'src/app/shared/class/position';
@@ -15,6 +15,13 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import {BoxGeometry, Camera, Object3D, PerspectiveCamera, Vector3} from "three";
+import {Box3, BoxGeometry, Camera, Color, Object3D, PerspectiveCamera, Scene, Vector3} from "three";
+import {PositionConfig} from "../../../shared/class/positionConfig";
+import {
+  ExhibitArrangeService
+} from "../../../site-components/create-exhibition-page/create-exhibition-arrange/exhibit-arrange.service";
+import {generateTypeCheckBlock} from "@angular/compiler-cli/src/ngtsc/typecheck/src/type_check_block";
+import {render} from "@angular-three/core";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
@@ -62,6 +69,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   animationid?: number
   objectDescription?: String
   objectTitle?: String
+  objectUrl?: String
 
   composer?: EffectComposer;
   selectedObjects: Object3D[] = [];
@@ -139,9 +147,9 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
     //Light
     const bulbGeometry = new THREE.SphereGeometry(.02, 16, 8);
-    const bulbLight = new THREE.PointLight( 0xffee88, 3, 1000, 2);
+    const bulbLight = new THREE.PointLight( 0xffffff, 3, 1000, 2);
     const bulbMat = new THREE.MeshStandardMaterial( {
-      emissive: 0xffffee,
+      emissive: 0xffffff,
       emissiveIntensity: 1,
       color: 0x000000
     } );
@@ -159,11 +167,13 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
       this.scene.add( gltf.scene );
     });
 
-    //Sockels
-    for (let i = 0; i < this.room.positions.length; i++){
-      let cube = new THREE.Mesh(this.potests, this.basic_material);
-      cube.position.set(this.room.positions[i].x * this.factor, this.potests.parameters.height / 2, this.room.positions[i].y * this.factor);
-      this.scene.add(cube);
+    //Load Sockels
+      for (let i = 0; i < this.room.positions.length; i++){
+        this.loader.load('podest.gltf', (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+          console.log(gltf)
+          gltf.scene.position.set(this.room.positions[i].x * this.factor, 0, this.room.positions[i].y * this.factor)
+          this.scene.add(gltf.scene)
+        })
     }
       this.animate();
   }
@@ -209,6 +219,10 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
       });
 
       this.camera2 = this.camera.clone()
+
+      document.addEventListener('keydown', (event: KeyboardEvent) => {
+          this.handleCollision()
+      })
     }
   }
 
@@ -226,8 +240,11 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
    const dialogRef = this.dialog.open(ExhibitDialog, {
+      maxWidth: '100vw',
+      maxHeight: '50vh',
       width: '100%',
-      data: {description: this.objectDescription, title: this.objectTitle},
+      height: '100%',
+      data: {description: this.objectDescription, title: this.objectTitle, objectUrl: this.objectUrl},
       enterAnimationDuration,
       exitAnimationDuration,
     });
@@ -244,6 +261,11 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
     })
   }
 
+handleCollision(){
+ this.detectCollision();
+ this.clock.start();
+}
+
 clickExhibit(){
     this.raycaster.setFromCamera(this.pointer, this.camera! )
     const intersects = this.raycaster.intersectObjects(this.scene.children)
@@ -256,6 +278,7 @@ clickExhibit(){
 
                     this.objectDescription = value.description
                     this.objectTitle = value.title
+                    this.objectUrl = value.exhibit_url
                     this.openDialog('1000ms', '300ms')
                   }
               }
@@ -269,8 +292,9 @@ clickExhibit(){
 
 
     for (let value of values) {
+      if (value.uuid != null) {
       if (value.uuid == intersects[0].object.parent?.parent?.uuid) {
-        if (value.uuid != null) {
+
 
           const object = this.scene.getObjectByProperty('uuid', value.uuid);
           const renderPass = new RenderPass( this.scene, this.camera! );
@@ -282,6 +306,8 @@ clickExhibit(){
           this.addSelectedObjects(object!);
 
           outlinePass.selectedObjects = this.selectedObjects;
+
+
         }
       }
     }
@@ -297,22 +323,25 @@ clickExhibit(){
     this.collisionRaycaster.far = 100
     const intersects = this.collisionRaycaster.intersectObjects(this.scene.children)
     if(intersects.length > 0){
+       this.clock.stop()
     }
   }
 
-  animate = () => {
-    if (!this.isAboutToDestroy && (!this.dialogOpen)) {
-      this.animationid = requestAnimationFrame(this.animate);
-    }
 
-    this.controls?.update(this.clock.getDelta())
-    if (this.mode != "create" ){
-      var cameraChanged = this.compareCameras(this.camera!, this.camera2!)
-      console.log(cameraChanged)
-      if (cameraChanged){
-        this.detectCollision()
+
+  animate = () => {
+      if (!this.isAboutToDestroy && (!this.dialogOpen)) {
+        this.animationid = requestAnimationFrame(this.animate);
       }
-    }
+
+
+      this.controls?.update(this.clock.getDelta())
+      if (this.mode != "create"){
+        var cameraChanged = this.compareCameras(this.camera!, this.camera2!)
+        if (cameraChanged){
+          this.detectCollision()
+        }
+      }
 
 
     this.renderer?.render(this.scene, this.camera!);
@@ -338,14 +367,68 @@ clickExhibit(){
       return true
     }
   }
+
 }
+
 
 @Component({
   selector: 'exhibit-dialog',
   templateUrl: 'exhibit-dialog.html',
+  styleUrls: ['./three-room.component.scss']
 })
-export class ExhibitDialog {
+  export class ExhibitDialog implements AfterViewInit{
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ExhibitDialog>) {
 
   }
+  //DetailView
+  @ViewChild('threeDetailCanvas') threeDetailCanvas!: ElementRef;
+  @ViewChild('lookUpSizeDetail') lookUpSizeDetail!: ElementRef;
+  cameraDetail ?: THREE.PerspectiveCamera;
+  rendererDetail ?: THREE.WebGLRenderer;
+  controlsDetail ?: OrbitControls;
+  sceneDetail = new THREE.Scene()
+  loaderDetail = new GLTFLoader().setPath( 'assets/three-d-objects/' );
+
+  ngAfterViewInit() {
+    this.setup()
+    this.animate()
+    this.loadExhibit()
+  }
+
+  setup = () => {
+    this.rendererDetail = new THREE.WebGLRenderer({
+      canvas: this.threeDetailCanvas.nativeElement
+    });
+
+    this.cameraDetail = new THREE.PerspectiveCamera( 100, this.lookUpSizeDetail.nativeElement.offsetWidth / this.lookUpSizeDetail.nativeElement.offsetWidth, 0.1, 1000);
+    this.cameraDetail?.position.set( - 1.8, 180, 10 );
+    this.controlsDetail = new OrbitControls(this.cameraDetail, this.rendererDetail.domElement)
+    this.sceneDetail.background = new THREE.Color( 0xf7f8fa )
+
+  }
+
+  animate = () => {
+    requestAnimationFrame( this.animate );
+    this.controlsDetail?.update();
+    this.rendererDetail?.render(this.sceneDetail, this.cameraDetail!)
+  }
+
+  loadExhibit(){
+    this.loaderDetail.load(this.data.objectUrl,(gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+      this.sceneDetail.add(gltf.scene)
+    })
+    //Light
+    const bulbGeometry = new THREE.SphereGeometry(.02, 16, 8);
+    const bulbLight = new THREE.PointLight( 0xffee88, 3, 1000, 2);
+    const bulbMat = new THREE.MeshStandardMaterial( {
+      emissive: 0xffffee,
+      emissiveIntensity: 1,
+      color: 0x000000
+    } );
+    bulbLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
+    bulbLight.position.set( 0, 100, 0 );
+    bulbLight.castShadow = true;
+    this.sceneDetail.add( bulbLight );
+  }
+
 }

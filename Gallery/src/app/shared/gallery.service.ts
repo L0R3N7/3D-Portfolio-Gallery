@@ -5,6 +5,8 @@ import {Room} from "./class/room";
 import {Observable} from "rxjs";
 import {Tag} from "./class/tag";
 import {Exhibition} from "./class/exhibition";
+import {Category} from "./class/category";
+import {ExhibitionUser} from "./class/exhibition-user";
 
 @Injectable({
   providedIn: 'root'
@@ -29,13 +31,25 @@ export class GalleryService {
     return this.httpClient.get<Tag[]>("assets/fakeendpoints/getAllTags.json");
   }
 
-  getAllExhibitions(): Observable<Exhibition[]>{
-    return this.httpClient.get<Exhibition[]>(this.URL + "exhibitions/all" )
+  getAllExhibitions(): Observable<ExhibitionUser[]>{
+    return this.httpClient.get<ExhibitionUser[]>(this.URL + "exhibitions/all" )
   }
 
-  getAllSearch(searchTerm: String): Observable<Exhibition[]>{
-    return this.httpClient.get<Exhibition[]>(this.URL + "exhibitions/search/" + searchTerm )
+  getExhibitonById(id: number): Observable<Exhibition>{
+    return this.httpClient.get<Exhibition>(this.URL + "exhibitions/" + id)
   }
+  getExhibitonByIds(ids: string): Observable<ExhibitionUser[]>{
+    return this.httpClient.get<ExhibitionUser[]>(this.URL + "exhibitions/getByCategoryIds/" + ids)
+  }
+
+  getAllSearch(searchTerm: String): Observable<ExhibitionUser[]>{
+    return this.httpClient.get<ExhibitionUser[]>(this.URL + "exhibitions/search/" + searchTerm )
+  }
+
+  getAllCatagories(): Observable<Category[]>{
+    return this.httpClient.get<Category[]>(this.URL + "category/all")
+  }
+
 
   postExhibit(exhibit: { room_id: string; description: string; id: number; thumbnail_url: string; title: string }): Observable<any>{
     let httpHeaders = new HttpHeaders({
@@ -44,6 +58,8 @@ export class GalleryService {
     });
     return this.httpClient.post("assets/fakeendpoints/exhibit.json", exhibit,  { headers: httpHeaders })
   }
+
+
 
   getSupportedFiletypes(type:string = ""){
     for (const key of this.supportedFiletypes.keys()){
