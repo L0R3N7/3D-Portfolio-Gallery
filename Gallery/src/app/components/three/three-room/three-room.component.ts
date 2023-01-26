@@ -14,14 +14,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {BoxGeometry, Camera, Object3D, PerspectiveCamera, Vector3} from "three";
-import {Box3, BoxGeometry, Camera, Color, Object3D, PerspectiveCamera, Scene, Vector3} from "three";
-import {PositionConfig} from "../../../shared/class/positionConfig";
-import {
-  ExhibitArrangeService
-} from "../../../site-components/create-exhibition-page/create-exhibition-arrange/exhibit-arrange.service";
-import {generateTypeCheckBlock} from "@angular/compiler-cli/src/ngtsc/typecheck/src/type_check_block";
-import {render} from "@angular-three/core";
+import {BoxGeometry, Object3D, PerspectiveCamera, Vector3} from "three";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
@@ -169,7 +162,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
     //Load Sockels
       for (let i = 0; i < this.room.positions.length; i++){
-        this.loader.load('podest.gltf', (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+        this.loader.load('assets/three-d-objects/podest.gltf', (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
           console.log(gltf)
           gltf.scene.position.set(this.room.positions[i].x * this.factor, 0, this.room.positions[i].y * this.factor)
           this.scene.add(gltf.scene)
