@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CreateExhibitionPageService, Metadata} from "../create-exhibition-page.service";
+import {FileUploadOutput} from "../../../shared/file-upload-output";
 
 @Component({
   selector: 'app-create-exhibition-metadata',
@@ -11,6 +12,7 @@ export class CreateExhibitionMetadataComponent implements OnInit {
   imageUrl ?: string;
   exhibitionName: string = "";
   description: string = "";
+  thumbnailUrl = ''
 
   constructor(private createService : CreateExhibitionPageService) {
     let value = createService.wizMetadata.value
@@ -23,7 +25,7 @@ export class CreateExhibitionMetadataComponent implements OnInit {
 
   change(){
     if (this.exhibitionName != ""){
-      this.createService.wizMetadata.next(new Metadata(this.exhibitionName, this.description, this.selectedTagIds, undefined))
+      this.createService.wizMetadata.next(new Metadata(this.exhibitionName, this.description, this.selectedTagIds, this.thumbnailUrl))
       this.createService.saveMetaDate();
     }else{
       this.createService.wizMetadata.next(undefined)
@@ -32,5 +34,10 @@ export class CreateExhibitionMetadataComponent implements OnInit {
 
 
   ngOnInit(): void {
+  }
+
+  thumbnailUploaded(event: FileUploadOutput) {
+    this.thumbnailUrl = event.url
+    this.change()
   }
 }

@@ -75,13 +75,13 @@ export class Metadata{
   title: string
   desc?: string
   tagIds : number[] = []
-  thumbnail?: File
+  thumbnailUrl: string
 
-  constructor(title: string, desc: string, tagIds: number[], thumbnail: File | undefined) {
+  constructor(title: string, desc: string, tagIds: number[], thumbnailUrl: string) {
     this.title = title;
     this.desc = desc;
     this.tagIds = tagIds;
-    this.thumbnail = thumbnail;
+    this.thumbnailUrl = thumbnailUrl;
   }
 }
 

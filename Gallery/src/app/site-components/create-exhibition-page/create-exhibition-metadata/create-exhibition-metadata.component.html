@@ -5,7 +5,7 @@
 <div class="my-3">
   <h4>Upload Thumbnail</h4>
   <div>
-    <app-file-upload [acceptedMediaTypes]="'image'"></app-file-upload>
+    <app-file-upload [acceptedMediaTypes]="'image'" (fileOutput)="thumbnailUploaded($event)"></app-file-upload>
   </div>
 </div>
 <div class="my-3">
