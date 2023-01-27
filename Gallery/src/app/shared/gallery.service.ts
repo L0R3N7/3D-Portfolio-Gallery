@@ -16,7 +16,7 @@ export class GalleryService {
   supportedFiletypes = new Map<string, string[]>();
 
   constructor(private httpClient: HttpClient, private navbarService : NavbarServiceService) {
-    this.supportedFiletypes.set('image', ['image/png', 'image/jpeg', 'image/jpg']);
+    this.supportedFiletypes.set('image', ['image/png', 'image/jpeg', 'image/jpg', 'png', 'jpeg', 'jpg']);
     this.supportedFiletypes.set('video', ['mov', 'mp4']);
     this.supportedFiletypes.set('3d', ['gltf', 'obj', 'fbx', 'amf']);
   }
@@ -86,14 +86,14 @@ export class GalleryService {
   postFile(fd: FormData): Observable<HttpEvent<any>> {
     const req = new HttpRequest('POST', `${this.URL}exhibitions/upload`, fd, {
       reportProgress: true,
-      responseType: "json"
+      responseType: "text"
     })
 
     return this.httpClient.request(req)
   }
 
   getFile(fileName: string): Observable<Blob>{
-    return this.httpClient.get(`${this.URL}exhibitions/get/${fileName}`, {responseType: 'blob'})
+    return this.httpClient.get(`${this.URL}exhibitions/download/${fileName}`, {responseType: 'blob'})
   }
 }
 

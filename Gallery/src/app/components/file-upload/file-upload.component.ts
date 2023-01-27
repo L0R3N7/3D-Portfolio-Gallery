@@ -19,7 +19,7 @@ export class FileUploadComponent {
   selectedFile?: File;
 
 
-  constructor(public galeryService : GalleryService) {
+  constructor(public galleryService : GalleryService) {
   }
 
   fileChange(event: Event) {
@@ -48,9 +48,9 @@ export class FileUploadComponent {
     // checks if selected file has the right file type
     if (this.acceptedMediaTypes){
       var regex = new RegExp(/(\w+)(?=\|)/g)
-      var arrExtension = this.galeryService?.getSupportedFiletypes(this.acceptedMediaTypes)?.join('|').concat('|').match(regex) ?? []
+      var arrExtension = this.galleryService?.getSupportedFiletypes(this.acceptedMediaTypes)?.join('|').concat('|').match(regex) ?? []
       regex = new RegExp(`/\.(${arrExtension.join('|')})/`)
-      if (!this.galeryService?.getSupportedFiletypes(this.acceptedMediaTypes)?.includes(file.type) || file.name.match(regex)){
+      if (!this.galleryService?.getSupportedFiletypes(this.acceptedMediaTypes)?.includes(file.type) || file.name.match(regex)){
         this.message += "For this application this media type is wrong\n"
         return false;
       }
@@ -69,28 +69,23 @@ export class FileUploadComponent {
     console.log("Upload process begins")
 
     this.progress = 0
-    var output =file.name.replace(/[\[\]']+/g,'');
-
+    const output = file.name.replace(/[\[\]']+/g,'');
     const fd = new FormData();
 
     fd.append('uploadedFile', file, output);
 
-    this.galeryService.postFile(fd).subscribe({
+    this.galleryService.postFile(fd).subscribe({
       next: (event: any) => {
-        console.log(event)
-        console.log(event instanceof  HttpResponse)
 
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(100 * event.loaded / event.total);
-        } else {
+        }else if (event instanceof HttpResponse) {
+          this.message = event.body;
 
-        }
-        if (event instanceof HttpResponse) {
-          this.message = event.body.message;
           const serverFileName : string = this.message.split("/").pop() ?? "";
           if (serverFileName.length > 0){
             const fuo = new FileUploadOutput(serverFileName,
-            serverFileName.split('.')[1].toLowerCase());
+              serverFileName.split('.')[1].toLowerCase());
             this.fileOutput.emit(fuo)
           }
         }
