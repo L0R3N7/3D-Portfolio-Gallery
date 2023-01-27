@@ -6,6 +6,7 @@ import {BehaviorSubject} from "rxjs";
 import {PositionConfig} from "../../shared/class/positionConfig";
 import {HttpClient} from "@angular/common/http";
 import {Meta} from "@angular/platform-browser";
+import {GalleryService} from "../../shared/gallery.service";
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class CreateExhibitionPageService {
   wizRoom : BehaviorSubject<Room | undefined> = new BehaviorSubject<Room | undefined>(undefined)
   wizPositionConfigList : BehaviorSubject<PositionConfig[]> = new BehaviorSubject(this.initialStatePositionConfigList)
 
-  constructor() {
+  constructor(private galleryService: GalleryService) {
     this.checkSavedData()
   }
 
@@ -68,6 +69,10 @@ export class CreateExhibitionPageService {
     if (this.wizRoom.value != undefined){
       sessionStorage.setItem(this.ROOMIKEY, JSON.stringify(this.wizRoom.value))
     }
+  }
+
+  upload() {
+    this.galleryService.postExhibition()
   }
 }
 

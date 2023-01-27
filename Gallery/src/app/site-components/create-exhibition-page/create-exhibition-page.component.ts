@@ -41,4 +41,8 @@ export class CreateExhibitionPageComponent implements OnInit {
 
   selectionChanged(event: StepperSelectionEvent) {
   }
+
+  upload() {
+    this.createService.upload()
+  }
 }
