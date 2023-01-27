@@ -29,11 +29,7 @@ export class ExhibitCardComponent implements OnInit {
     console.log(this.exhibit)
 
     if (this.exhibit){
-      const fileTypes = [...this.galleryService.supportedFiletypes.keys()]
-      const fileTypeOfExhibit = fileTypes.find(value => {return this.galleryService.supportedFiletypes.get(value)!.includes(this.exhibit?.data_type ?? '')}) ?? ''
-
-      console.log(this.exhibit.data_type)
-      console.log(this.galleryService.supportedFiletypes)
+      const fileTypeOfExhibit = this.galleryService.getFileTypeCategoryByFileType(this.exhibit.data_type) ?? ''
       console.log(fileTypeOfExhibit)
 
       return fileTypeOfExhibit.concat("icon.svg")

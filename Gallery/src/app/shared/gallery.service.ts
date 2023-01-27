@@ -23,6 +23,13 @@ export class GalleryService {
 
   URL = "http://localhost:8080/api/"
 
+  getFileTypeCategoryByFileType(fileType: string): string | undefined{
+    return [...this.supportedFiletypes.keys()]
+      .find(value => {
+        return this.supportedFiletypes.get(value)!.includes(fileType)
+      })
+  }
+
   getAllRooms(): Observable<Room[]>{
     return this.httpClient.get<Room[]>("assets/fakeendpoints/getAllRooms.json");
   }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FileUploadOutput} from "../../../shared/file-upload-output";
+import { FileUploadOutput} from "../../../shared/class/file-upload-output";
 import { Exhibit } from 'src/app/shared/class/exhibit';
 import { Theme } from 'src/app/shared/class/theme';
 import { Room } from 'src/app/shared/class/room';

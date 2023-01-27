@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FileUploadOutput} from "../../shared/file-upload-output";
+import {FileUploadOutput} from "../../shared/class/file-upload-output";
 import {GalleryService} from "../../shared/gallery.service";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
 

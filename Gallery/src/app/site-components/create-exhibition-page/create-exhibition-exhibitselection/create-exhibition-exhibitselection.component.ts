@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 import {GalleryService} from "../../../shared/gallery.service";
 import {Exhibit} from "../../../shared/class/exhibit";
-import {FileUploadOutput} from "../../../shared/file-upload-output";
+import {FileUploadOutput} from "../../../shared/class/file-upload-output";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {BlobService} from "../../../shared/blob.service";
 import {CreateExhibitionPageService} from "../create-exhibition-page.service";

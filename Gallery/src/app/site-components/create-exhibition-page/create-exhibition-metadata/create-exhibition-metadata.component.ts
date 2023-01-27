@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CreateExhibitionPageService, Metadata} from "../create-exhibition-page.service";
-import {FileUploadOutput} from "../../../shared/file-upload-output";
+import {FileUploadOutput} from "../../../shared/class/file-upload-output";
 
 @Component({
   selector: 'app-create-exhibition-metadata',
