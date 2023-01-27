@@ -19,13 +19,11 @@
   <div class="collection-div w-50">
     <h4 >Collection</h4>
       <div
-        class="container list rounded" style="display: grid; grid-template-columns: 1fr 1fr 1fr;  grid-gap: 1em;">
-        <div *ngIf="exhibitCollection.length > 0">
+        class="container list rounded" style="display: grid; grid-template-columns: 1fr 1fr 1fr;  grid-gap: 1em; overflow-y: scroll">
           <app-exhibit-card
             *ngFor="let exhibit of this.exhibitCollection; index as i" [exhibit]="exhibit" [count]="i"
             (delete)="deleteExhibit($event)">
           </app-exhibit-card>
-        </div>
       </div>
   </div>
 </div>

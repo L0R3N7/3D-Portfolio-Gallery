@@ -6,7 +6,7 @@
     >
       <mat-icon>close</mat-icon>
     </button>
-    <img class="w-100 h-auto" style="aspect-ratio: 4/3; object-fit: contain;" src="./assets/image/statue.png">
+    <img class="w-100 h-auto" style="aspect-ratio: 4/3; object-fit: contain;"  [src]="'./assets/image/' + this.imageName">
     <div>
       <p class="text-center py-2">{{exhibit.title}}</p>
     </div>
