@@ -56,7 +56,6 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   potests = new BoxGeometry(20, 70, 20);
   basic_material = new THREE.MeshBasicMaterial({color: 0x00ee00, opacity: .5})
   isAboutToDestroy = false;
-  factor = 100
 
   dialogOpen = false;
   animationid?: number
@@ -67,64 +66,69 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   composer?: EffectComposer;
   selectedObjects: Object3D[] = [];
 
-  constructor(private createService: CreateExhibitionPageService, public dialog: MatDialog, gs: GalleryService) {
+  constructor(private createService: CreateExhibitionPageService, public dialog: MatDialog, private gs: GalleryService) {
     // Load exhibit based on the positionConfigList
     createService.wizPositionConfigList.subscribe(
       values => {
-        for (let value of values){
+        for (let value of values) {
           // If there was an preexisting object delete it
-          if (value.uuid){
+          if (value.uuid) {
             const object = this.scene.getObjectByProperty('uuid', value.uuid);
-            if (object){
-              this.scene.remove( object );
+            if (object) {
+              this.scene.remove(object);
               object.clear()
             }
           }
           // If there is no possition don't draw the object
-          if(!value.position_id || value.position_id == -1){
+          if (!value.position_id || value.position_id == -1) {
             continue;
           }
           // Todo: has to be changed and cashed somewhere so it mustn't allways download new
           gs.getFile(value.exhibit_url).subscribe(downloadedExhibit => {
-            // Wir gehen davon aus, dass es sich um eine 3D gltf model handelt
             console.log("Blob Loading")
-            console.log(downloadedExhibit)
+
+            const fileType = this.gs.getFileTypeCategoryByFileType(value.exhibit_type)
             const url = URL.createObjectURL(downloadedExhibit)
+            let x = this.room.positions[value.position_id - 1].x
+            let y = this.potests.parameters.height
+            let z = this.room.positions[value.position_id - 1].y
 
-            this.loader.load(url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
-              value.uuid = gltf.scene.uuid;
-              let size = this.getSize(gltf.scene)
-              gltf.scene.scale.set(1 / size.x * value.scale_factor, 1 / size.y * value.scale_factor, 1 / size.z * value.scale_factor)
-              // Alignment / Positioning
 
-              let x = this.room.positions[value.position_id -1].x * this.factor
-              let y = this.potests.parameters.height + this.getSize(gltf.scene).y
-              let z = this.room.positions[value.position_id -1].y * this.factor
-              switch (value.alignment) {
-                case "l":
-                  z += 1 / size.z * value.scale_factor
-                  break
-                case "r":
-                  z -= 1 / size.z * value.scale_factor
-                  break
-                case "t":
-                  x += 1 / size.x * value.scale_factor
-                  break
-                case "b":
-                  x -= 1 / size.x * value.scale_factor
+            switch (fileType) {
+              case '3d': {
+                this.loader.load(url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+                  value.uuid = gltf.scene.uuid;
+                  let size = this.getSize(gltf.scene)
+                  gltf.scene.scale.set(1 / size.x * value.scale_factor, 1 / size.y * value.scale_factor, 1 / size.z * value.scale_factor)
+                  // Alignment / Positioning
+                  y += this.getSize(gltf.scene).y
+                  switch (value.alignment) {
+                    case "l":
+                      z += 1 / size.z * value.scale_factor
+                      break
+                    case "r":
+                      z -= 1 / size.z * value.scale_factor
+                      break
+                    case "t":
+                      x += 1 / size.x * value.scale_factor
+                      break
+                    case "b":
+                      x -= 1 / size.x * value.scale_factor
+                  }
+                  gltf.scene.position.set(x, y, z)
+                  //gltf.scene
+                  this.scene.add(gltf.scene);
+                })
+                break;
               }
-              gltf.scene.position.set(x, y, z)
-              //gltf.scene
-              this.scene.add( gltf.scene );
-              console.log(`loaded object: ${value.exhibit_url}`)
-              console.log(this.getSize(gltf.scene))
-              console.log(gltf.scene.getWorldScale(new Vector3()))
-              console.log(gltf.scene.getWorldPosition(new Vector3()))
-            });
+              case 'image': {
+               
+                break;
+              }
+            }
           })
         }
-      }
-    )
+      })
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -164,7 +168,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
       for (let i = 0; i < this.room.positions.length; i++){
         this.loader.load('assets/three-d-objects/podest.gltf', (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
           console.log(gltf)
-          gltf.scene.position.set(this.room.positions[i].x * this.factor, 0, this.room.positions[i].y * this.factor)
+          gltf.scene.position.set(this.room.positions[i].x, 0, this.room.positions[i].y)
           this.scene.add(gltf.scene)
         })
     }
