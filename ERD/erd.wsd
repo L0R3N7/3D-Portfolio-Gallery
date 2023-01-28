@@ -20,19 +20,20 @@ entity Themes {
     id: number <<generated>>
     --
     thumbnail_url: string
-    mat_wall_or_object: string
-    mat_floor: string <<nullable>>
+    container_url: string
+    container_mat_url: string
+    ..
     light_intensity: number
-    model_path: string <<nullable>>
-    is_exhibit: boolean
 }
 
 entity Room {
     id : number <<generated>>
     --
-    name: string◊
+    name: string
     positions_amount : number
     room_url: string
+    wall_mat_url: string
+    floor_mat_url: string
 }
 
 entity Position{
@@ -63,6 +64,8 @@ entity Exhibit {
     datatype: string
     title: string
     desc: string
+    scale: number
+    alignment: number (1)
 }
 
 User ||--o{ Exhibition
@@ -72,6 +75,5 @@ Exhibition }o--|| Exhibition_Category
 Exhibition_Category ||--o{ Category
 Room ||--o{ Position
 Exhibition }o--|| Room
-Themes ||--o{ Exhibition
 Themes ||--o{ Exhibit
 @enduml
