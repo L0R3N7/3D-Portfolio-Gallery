@@ -19,6 +19,7 @@ entity Exhibition {
 entity Themes {
     id: number <<generated>>
     --
+    name: string
     thumbnail_url: string
     container_url: string
     container_mat_url: string
