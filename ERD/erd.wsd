@@ -31,7 +31,6 @@ entity Room {
     id : number <<generated>>
     --
     name: string
-    positions_amount : number
     room_url: string
     wall_mat_url: string
     floor_mat_url: string
