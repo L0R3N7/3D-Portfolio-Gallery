@@ -43,6 +43,7 @@ entity Position{
     x : number
     y : number
     is_Wall : boolean
+    decrease : number (OPTIONAL)
 }
 
 entity Exhibition_Category {
@@ -65,7 +66,7 @@ entity Exhibit {
     title: string
     desc: string
     scale: number
-    alignment: number (1)
+    alignment: number(1)
 }
 
 User ||--o{ Exhibition
