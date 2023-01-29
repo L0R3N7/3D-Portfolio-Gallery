@@ -43,7 +43,7 @@ entity Position{
     x : number
     y : number
     is_Wall : boolean
-    decrease : number (OPTIONAL)
+    rotation : number (OPTIONAL)
 }
 
 entity Exhibition_Category {
