@@ -85,7 +85,7 @@ export class FileUploadComponent {
           const serverFileName : string = this.message.split("/").pop() ?? "";
           if (serverFileName.length > 0){
             const fuo = new FileUploadOutput(serverFileName,
-              serverFileName.split('.')[1].toLowerCase());
+              (serverFileName.split('.').pop() ?? "") .toLowerCase());
             this.fileOutput.emit(fuo)
           }
         }

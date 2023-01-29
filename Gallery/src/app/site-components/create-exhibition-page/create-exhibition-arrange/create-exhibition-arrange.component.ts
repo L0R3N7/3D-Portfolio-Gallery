@@ -48,7 +48,7 @@ export class CreateExhibitionArrangeComponent implements OnInit {
 
       this.exhibitList = value
       for (let i = 0; i < value.length; i++){
-        tempPositionConfigList.push(new PositionConfig(-1, -1, value[i].model_url, value[i].model_url, "c", 4, undefined, value[i].desc, value[i].title))
+        tempPositionConfigList.push(new PositionConfig(-1, -1, value[i].model_url, value[i].data_type, "c", 4, undefined, value[i].desc, value[i].title))
       }
       createService.wizPositionConfigList.next(tempPositionConfigList)
     })

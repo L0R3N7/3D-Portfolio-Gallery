@@ -85,7 +85,6 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
           }
           // Todo: has to be changed and cashed somewhere so it mustn't allways download new
           gs.getFile(value.exhibit_url).subscribe(downloadedExhibit => {
-            console.log("Blob Loading")
 
             const fileType = this.gs.getFileTypeCategoryByFileType(value.exhibit_type)
             const url = URL.createObjectURL(downloadedExhibit)
@@ -96,6 +95,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
             switch (fileType) {
               case '3d': {
+                console.log("Loading 3d Data")
                 this.loader.load(url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
                   value.uuid = gltf.scene.uuid;
                   let size = this.getSize(gltf.scene)
@@ -122,7 +122,16 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
                 break;
               }
               case 'image': {
-               
+                console.log("Loading Image")
+                const geometry = new THREE.BoxGeometry(100, 100, .1)
+                const texture = new THREE.TextureLoader().load(url)
+                texture.wrapS = THREE.RepeatWrapping;
+                texture.wrapT = THREE.RepeatWrapping;
+                texture.repeat.set( 1, 1 );
+                const material = new THREE.MeshBasicMaterial({map: texture})
+                const cube = new THREE.Mesh(geometry, material);
+                value.uuid = cube.uuid
+                this.scene.add(cube)
                 break;
               }
             }
@@ -168,7 +177,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
       for (let i = 0; i < this.room.positions.length; i++){
         this.loader.load('assets/three-d-objects/podest.gltf', (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
           console.log(gltf)
-          gltf.scene.position.set(this.room.positions[i].x, 0, this.room.positions[i].y)
+          gltf.scene.position.set(this.room.positions[i].x * 100, 0, this.room.positions[i].y * 100)
           this.scene.add(gltf.scene)
         })
     }
