@@ -13,7 +13,7 @@ import {User} from "../../shared/class/user";
   styleUrls: ['./profile-page.component.scss']
 })
 export class ProfilePageComponent implements OnInit {
-  user?: User;
+  user ?: User
   isDeleteMode : boolean = true;
   exhibition_list ?: ExhibitionUser[];
 
@@ -21,8 +21,9 @@ export class ProfilePageComponent implements OnInit {
     const userId = localStorage.getItem('user_id') ?? ''
     this.authService.getUser(userId).subscribe(user => {
       this.user = user
+
       this.authService.getUserExhibtions(userId).subscribe(exhibitionList => {
-        this.exhibition_list = exhibitionList.map(exhibition => { return new ExhibitionUser(exhibition, this.user?.icon_url ?? '', this.user?.usesrname ?? 'you')})
+        this.exhibition_list = exhibitionList.map(exhibition => { return new ExhibitionUser(exhibition, user?.icon_url ?? '', user?.user_name ?? 'you')})
       })
     })
   }
@@ -30,8 +31,6 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit(): void {
     this.navbar.show()
     this.footer.show()
-
-
   }
 
   onDelete() {

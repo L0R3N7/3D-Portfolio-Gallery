@@ -1,7 +1,7 @@
 <div class="container my-5">
   <div class="d-flex justify-content-center align-items-center">
-    <img id="profile-pic" class="me-5" src="./assets/image/profile-photo.jpg">
-    <h1>Hi {{user?.usesrname ?? 'you'}}</h1>
+    <img id="profile-pic" class="me-5" [src]="user?.icon_url ?? './assets/image/profile-photo.jpg'">
+    <h1>Hi {{user?.user_name ?? 'Maxi'}}</h1>
   </div>
   <div class="mt-5">
     <div class="d-flex justify-content-between">

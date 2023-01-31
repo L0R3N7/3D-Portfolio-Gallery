@@ -21,8 +21,8 @@
         <ng-template #profile>
           <a routerLink="/profile" class="w-100" style="text-decoration: none">
             <div id="profile-container" class="w-100">
-              <p routerLinkActive="link-activated">Max Mustermann</p>
-              <img src="assets/image/profile-photo.jpg">
+              <p routerLinkActive="link-activated">{{user?.user_name ?? 'Maxi'}}</p>
+              <img [src]="user?.icon_url ?? 'assets/image/profile-photo.jpg'">
 
             </div>
           </a>
