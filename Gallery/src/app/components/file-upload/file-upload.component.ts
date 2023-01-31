@@ -76,6 +76,7 @@ export class FileUploadComponent {
 
     this.galleryService.postFile(fd).subscribe({
       next: (event: any) => {
+        console.log(event)
 
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(100 * event.loaded / event.total);

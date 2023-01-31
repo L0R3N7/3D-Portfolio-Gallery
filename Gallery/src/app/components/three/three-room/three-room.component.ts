@@ -88,9 +88,11 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
             const fileType = this.gs.getFileTypeCategoryByFileType(value.exhibit_type)
             const url = URL.createObjectURL(downloadedExhibit)
-            let x = this.room.positions[value.position_id - 1].x
+            let x = this.room.positions[value.position_id - 1].x * 100
             let y = this.potests.parameters.height
-            let z = this.room.positions[value.position_id - 1].y
+            let z = this.room.positions[value.position_id - 1].y * 100
+
+            console.log("Loading 3d Model: Position #", value.position_id, " ", x, y, z)
 
 
             switch (fileType) {
@@ -116,6 +118,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
                       x -= 1 / size.x * value.scale_factor
                   }
                   gltf.scene.position.set(x, y, z)
+                  console.log(x,y,z)
                   //gltf.scene
                   this.scene.add(gltf.scene);
                 })

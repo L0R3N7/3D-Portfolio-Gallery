@@ -6,6 +6,8 @@ import { Room } from 'src/app/shared/class/room';
 import {PositionConfig} from "../../../shared/class/positionConfig";
 import {CreateExhibitionPageService} from "../create-exhibition-page.service";
 import produce from "immer";
+import {Position} from "../../../shared/class/position";
+import {GalleryService} from "../../../shared/gallery.service";
 
 @Component({
   selector: 'app-create-exhibition-arrange',
@@ -16,6 +18,8 @@ export class CreateExhibitionArrangeComponent {
 
   selectedArrayPosition = -1;
   selectedId = "-1";
+  filteredPosition : Position[] = []
+
   @Input('MaterialList') materialList : Theme[] = [
     new Theme(1, "https://cdn.shopify.com/s/files/1/0561/2168/8256/products/trumerholz-gehackte-larche-wohnwand_695x695.jpg?v=1660934418", "", 0, "",""),
     new Theme(2, "https://cdn.shopify.com/s/files/1/0561/2168/8256/products/trumerholz-gehackte-larche-wohnwand_695x695.jpg?v=1660934418", "", 0, "",""),
@@ -39,7 +43,8 @@ export class CreateExhibitionArrangeComponent {
 
 
   constructor(
-    private createService : CreateExhibitionPageService
+    private createService : CreateExhibitionPageService,
+    private galleryService: GalleryService
   ) {
     createService.wizRoom.subscribe(value => {
       this.room = value
@@ -66,6 +71,7 @@ export class CreateExhibitionArrangeComponent {
 
   exhibitOption(id: number) {
     this.selectedArrayPosition = id
+    this.filteredPosition = this.getFilteredRoomPositionsByDataType(this.exhibitList[this.selectedArrayPosition].data_type)
     this.selectedId = this.createService.wizPositionConfigList.getValue()[id].position_id.toString()
   }
 
@@ -97,11 +103,24 @@ export class CreateExhibitionArrangeComponent {
     }
   }
 
-  automaticalPlacement() {
+  automaticallyPlacement() {
     let temp_positionConfigList : PositionConfig[] = this.createService.wizPositionConfigList.getValue();
-    for (var i = 0; i < temp_positionConfigList.length; i++){
-      temp_positionConfigList[i].position_id = i+1;
-    }
+    let temp_position = this.room?.positions
+
+    temp_position?.forEach((position) => {
+      const positionConfigIndex = temp_positionConfigList.findIndex(positionConfig => {
+        if (positionConfig.position_id != -1){
+          return false
+        }
+        const category = this.galleryService.getClassificationPerType(positionConfig.exhibit_type)
+        return (category == '3d' && !position.is_Wall) || (category != '3d' && position.is_Wall)
+      })
+
+      if (positionConfigIndex != -1){
+        temp_positionConfigList[positionConfigIndex].position_id = position.id
+      }
+    })
+
     this.createService.wizPositionConfigList.next(temp_positionConfigList)
   }
 
@@ -129,4 +148,15 @@ export class CreateExhibitionArrangeComponent {
   getObjectScale() : string {
     return ""+this.createService.wizPositionConfigList.getValue()[this.selectedArrayPosition].scale_factor;
   }
+
+
+  getFilteredRoomPositionsByWall(isWall: boolean): Position[]{
+    return this.room?.positions.filter(value => {return value.is_Wall == isWall}) ?? []
+  }
+
+  getFilteredRoomPositionsByDataType(data_type: string) {
+    const category = this.galleryService.getFileTypeCategoryByFileType(data_type)
+    return this.getFilteredRoomPositionsByWall(category != '3d')
+  }
 }
+

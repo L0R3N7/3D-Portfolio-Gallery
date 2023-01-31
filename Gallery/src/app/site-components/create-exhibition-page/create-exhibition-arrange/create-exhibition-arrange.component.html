@@ -6,7 +6,7 @@
     <div class="create-exhibition-content-first ps-5">
       <h3 class="pt-5 text-center">Arrange Exhibition</h3>
       <div>
-        <button class="w-100 action-button p-2" (click)="automaticalPlacement()">
+        <button class="w-100 action-button p-2" (click)="automaticallyPlacement()">
             Auto-Generate
         </button>
       </div>
@@ -26,7 +26,7 @@
               <mat-form-field>
                 <mat-select [(value)]="selectedId" (selectionChange)="selectedPosition()">
                   <mat-option value="-1">No position</mat-option>
-                  <mat-option  *ngFor="let position of room?.positions" value="{{position.id}}">Position {{position.id}}</mat-option>
+                  <mat-option  *ngFor="let position of filteredPosition" value="{{position.id}}">Position {{position.id}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
