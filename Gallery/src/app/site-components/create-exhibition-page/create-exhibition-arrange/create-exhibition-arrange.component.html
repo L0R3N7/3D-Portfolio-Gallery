@@ -18,13 +18,13 @@
         </table>
       </div>
       <div class="d-flex exhibit-container my-2 px-4 w-100" style="overflow-y: scroll; overflow-x: hidden">
-        <ng-container *ngIf="selectedId != -1; else NoExhibitionOption">
+        <ng-container *ngIf="selectedArrayPosition != -1; else NoExhibitionOption">
           <div style="display: flex; flex-direction: column; width: inherit">
-            <h3 class="font-gradient m-3 exhibit-name px-0 mx-0">{{this.exhibitList[this.selectedId].title}}</h3>
-            <p style="font-size: 1rem">{{this.exhibitList[this.selectedId].desc}}</p>
+            <h3 class="font-gradient m-3 exhibit-name px-0 mx-0">{{this.exhibitList[this.selectedArrayPosition].title}}</h3>
+            <p style="font-size: 1rem">{{this.exhibitList[this.selectedArrayPosition].desc}}</p>
             <div>
               <mat-form-field>
-                <mat-select [(value)]="selected" (selectionChange)="selectedPosition()">
+                <mat-select [(value)]="selectedId" (selectionChange)="selectedPosition()">
                   <mat-option value="-1">No position</mat-option>
                   <mat-option  *ngFor="let position of room?.positions" value="{{position.id}}">Position {{position.id}}</mat-option>
                 </mat-select>

@@ -7,6 +7,7 @@ import {Tag} from "./class/tag";
 import {Exhibition} from "./class/exhibition";
 import {Category} from "./class/category";
 import {ExhibitionUser} from "./class/exhibition-user";
+import {AddExhibitionDTO} from "./class/dto/addExhibitionDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -103,8 +104,9 @@ export class GalleryService {
     return this.httpClient.get(`${this.URL}exhibitions/download/${fileName}`, {responseType: 'blob'})
   }
 
-  postExhibition() {
-
+  postExhibition(tempAddExhibition: AddExhibitionDTO): Observable<any>{
+    return this.httpClient.post(`${this.URL}exhibitions/new`, tempAddExhibition)
   }
 }
+
 

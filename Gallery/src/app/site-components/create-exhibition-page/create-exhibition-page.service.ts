@@ -7,6 +7,7 @@ import {PositionConfig} from "../../shared/class/positionConfig";
 import {HttpClient} from "@angular/common/http";
 import {Meta} from "@angular/platform-browser";
 import {GalleryService} from "../../shared/gallery.service";
+import {AddExhibitDTO, AddExhibitionDTO} from "../../shared/class/dto/addExhibitionDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -72,7 +73,48 @@ export class CreateExhibitionPageService {
   }
 
   upload() {
-    this.galleryService.postExhibition()
+    if (this.uploadValid()){
+      this.postExhibition()
+    }
+  }
+
+  private uploadValid() {
+    return false;
+  }
+
+  private  postExhibition(){
+    const tempMeta = this.wizMetadata.value
+    const tempRoom = this.wizRoom.value
+    const tempPositionConfig = this.wizPositionConfigList.value
+    const tempExhibitits = this.wizExhibits.value
+    const userId = -1
+
+    if(tempMeta != undefined &&
+      tempRoom != undefined &&
+      tempPositionConfig != undefined &&
+      tempExhibitits != undefined &&
+      userId != undefined){
+
+      const tempAddExhibit: Array<AddExhibitDTO | undefined> = tempPositionConfig.filter(value => {
+        return value.position_id != -1
+      }).map(value => {
+
+        const exhibit = tempExhibitits.find(value1 => {
+          return value1.model_url == value.exhibit_url
+        })
+
+        if (exhibit != undefined){
+          return new AddExhibitDTO(exhibit.data_type, exhibit.desc, exhibit.title, exhibit.model_url, value.scale_factor, value.alignment, value.material_id, value.position_id)
+        }
+        return
+      })
+
+
+      const tempAddExhibition = new AddExhibitionDTO(tempMeta.title,
+        tempMeta.desc ?? '', tempRoom.id, userId, tempMeta.tagIds, tempAddExhibit, tempMeta.thumbnailUrl)
+
+      this.galleryService.postExhibition(tempAddExhibition)
+    }
   }
 }
 
