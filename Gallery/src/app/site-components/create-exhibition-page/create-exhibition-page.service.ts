@@ -8,6 +8,8 @@ import {HttpClient} from "@angular/common/http";
 import {Meta} from "@angular/platform-browser";
 import {GalleryService} from "../../shared/gallery.service";
 import {AddExhibitDTO, AddExhibitionDTO} from "../../shared/class/dto/addExhibitionDTO";
+import {AuthService} from "../auth/auth.service";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +28,7 @@ export class CreateExhibitionPageService {
   wizRoom : BehaviorSubject<Room | undefined> = new BehaviorSubject<Room | undefined>(undefined)
   wizPositionConfigList : BehaviorSubject<PositionConfig[]> = new BehaviorSubject(this.initialStatePositionConfigList)
 
-  constructor(private galleryService: GalleryService) {
+  constructor(private galleryService: GalleryService, private authService: AuthService, private route: Router) {
     this.checkSavedData()
   }
 
@@ -78,8 +80,14 @@ export class CreateExhibitionPageService {
     }
   }
 
-  private uploadValid() {
-    return false;
+  uploadValid(): Boolean {
+    console.log("Upload Valid")
+
+    return this.wizMetadata.value != undefined
+      && this.wizRoom.value != undefined
+      && this.wizPositionConfigList.value.length > 0
+      && this.wizExhibits.value.length > 0
+      && localStorage.getItem('user_id') != undefined
   }
 
   private  postExhibition(){
@@ -87,7 +95,7 @@ export class CreateExhibitionPageService {
     const tempRoom = this.wizRoom.value
     const tempPositionConfig = this.wizPositionConfigList.value
     const tempExhibitits = this.wizExhibits.value
-    const userId = -1
+    const userId = localStorage.getItem('user_id')
 
     if(tempMeta != undefined &&
       tempRoom != undefined &&
@@ -98,7 +106,6 @@ export class CreateExhibitionPageService {
       const tempAddExhibit: Array<AddExhibitDTO | undefined> = tempPositionConfig.filter(value => {
         return value.position_id != -1
       }).map(value => {
-
         const exhibit = tempExhibitits.find(value1 => {
           return value1.model_url == value.exhibit_url
         })
@@ -111,10 +118,17 @@ export class CreateExhibitionPageService {
 
 
       const tempAddExhibition = new AddExhibitionDTO(tempMeta.title,
-        tempMeta.desc ?? '', tempRoom.id, userId, tempMeta.tagIds, tempAddExhibit, tempMeta.thumbnailUrl)
+        tempMeta.desc ?? '', tempRoom.id, parseInt(userId), tempMeta.tagIds, tempAddExhibit, tempMeta.thumbnailUrl)
 
-      this.galleryService.postExhibition(tempAddExhibition)
-    }
+      console.log(tempAddExhibition)
+      this.galleryService.postExhibition(tempAddExhibition).subscribe({
+        next: _ => {
+          this.route.navigate(["/home"])
+        },
+        error: err => {
+          console.error("Error at Exhibition Post", err)
+        }
+      })}
   }
 }
 

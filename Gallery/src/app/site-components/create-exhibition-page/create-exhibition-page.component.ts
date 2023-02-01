@@ -19,7 +19,7 @@ export class CreateExhibitionPageComponent implements OnInit {
   stepsCompleted : boolean[] = [];
   exhibitionList : Exhibit[] | undefined = [];
 
-  constructor(private createService: CreateExhibitionPageService, navbar: NavbarServiceService, footer: FooterService) {
+  constructor(public createService: CreateExhibitionPageService, navbar: NavbarServiceService, footer: FooterService) {
     navbar.white = false
     navbar.hide()
     footer.hide()
