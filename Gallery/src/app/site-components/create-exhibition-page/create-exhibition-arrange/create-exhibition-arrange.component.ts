@@ -46,8 +46,8 @@ export class CreateExhibitionArrangeComponent {
     private createService : CreateExhibitionPageService,
     private galleryService: GalleryService
   ) {
-    createService.wizRoom.subscribe(value => {
-      this.room = value
+    createService.wizRoom.subscribe(room => {
+      this.room = room
       createService.wizExhibits.subscribe(exhibitList => {
         this.exhibitList = exhibitList
         createService.wizPositionConfigList.next(this.resetPositionConfig(exhibitList))
@@ -113,7 +113,7 @@ export class CreateExhibitionArrangeComponent {
           return false
         }
         const category = this.galleryService.getClassificationPerType(positionConfig.exhibit_type)
-        return (category == '3d' && !position.is_Wall) || (category != '3d' && position.is_Wall)
+        return (category == '3d' && !position.is_wall) || (category != '3d' && position.is_wall)
       })
 
       if (positionConfigIndex != -1){
@@ -151,12 +151,14 @@ export class CreateExhibitionArrangeComponent {
 
 
   getFilteredRoomPositionsByWall(isWall: boolean): Position[]{
-    return this.room?.positions.filter(value => {return value.is_Wall == isWall}) ?? []
+    return this.room?.positions.filter(position => {return position.is_wall == isWall}) ?? []
   }
 
   getFilteredRoomPositionsByDataType(data_type: string) {
     const category = this.galleryService.getFileTypeCategoryByFileType(data_type)
-    return this.getFilteredRoomPositionsByWall(category != '3d')
+    const filteredPosition = this.getFilteredRoomPositionsByWall(category != '3d')
+    console.log("Filtering ", this.room?.positions, filteredPosition, category)
+    return filteredPosition
   }
 }
 

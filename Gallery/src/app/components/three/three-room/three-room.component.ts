@@ -65,6 +65,8 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   selectedObjects: Object3D[] = [];
 
   constructor(private createService: CreateExhibitionPageService, public dialog: MatDialog, private gs: GalleryService) {
+    console.log("loaded 3d scene", this.mode)
+
     createService.wizRoom.subscribe(
       room => {
         this.room = room
@@ -74,9 +76,10 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
           console.log("Tring to load sockels", room.positions)
           //Load Sockels
           for (let i = 0; i < room.positions.length; i++){
+            if (room.positions[i].is_wall) continue;
             this.loader.load('assets/three-d-objects/podest.gltf', (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
               console.log(gltf)
-              gltf.scene.position.set(room.positions[i].x                                                                          , 0, room.positions[i].y)
+              gltf.scene.position.set(room.positions[i].x, 0, room.positions[i].y)
               this.room_uuid.push(gltf.scene.uuid)
               this.scene.add(gltf.scene)
             })
@@ -119,18 +122,22 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
                 if (value.uuid) {
                   this.clearScene(value.uuid)
                 }
-                // If there is no possition don't draw the object
-                if (!value.position_id || value.position_id == -1) {
+                // If there is no position don't draw the object
+                if (value.position_id == undefined || value.position_id == -1) {
                   continue;
                 }
+
+                console.log("Loading 3D Data Url: ", value.exhibit_url)
                 // Todo: has to be changed and cashed somewhere so it mustn't allways download new
                 gs.getFile(value.exhibit_url).subscribe(downloadedExhibit => {
 
                   const fileType = this.gs.getFileTypeCategoryByFileType(value.exhibit_type)
                   const url = URL.createObjectURL(downloadedExhibit)
-                  let x = room.positions[value.position_id - 1].x * 100
+                  const currentPosition = room.positions.find(position => {return position.id == value.position_id})
+
+                  let x = currentPosition?.x ?? 0
                   let y = this.potests.parameters.height
-                  let z = room.positions[value.position_id - 1].y * 100
+                  let z = currentPosition?.y ?? 0
 
                   console.log("Loading 3d Model: Position #", value.position_id, " ", x, y, z)
 
@@ -166,14 +173,19 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
                     }
                     case 'image': {
                       console.log("Loading Image")
-                      const geometry = new THREE.BoxGeometry(100, 100, .1)
-                      const texture = new THREE.TextureLoader().load(url)
+                      const texture = new THREE.TextureLoader().load(url, (tex) => {
+                        tex.needsUpdate = true;
+                        cube.scale.set(1.0, tex.image.height / tex.image.width, 1.0);
+                      });
                       texture.wrapS = THREE.RepeatWrapping;
                       texture.wrapT = THREE.RepeatWrapping;
                       texture.repeat.set( 1, 1 );
+                      const geometry = new THREE.BoxGeometry(100, 100, .1)
                       const material = new THREE.MeshBasicMaterial({map: texture})
                       const cube = new THREE.Mesh(geometry, material);
                       value.uuid = cube.uuid
+                      cube.position.set(x, y, z)
+                      cube.rotation.set(0, THREE.MathUtils.degToRad(currentPosition?.rotation ?? 0), 0)
                       this.scene.add(cube)
                       break;
                     }
@@ -200,10 +212,6 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   }
 
   ngAfterViewInit(): void {
-    if (!this.room){
-      return
-    }
-
     this.setup()
 
     //Light
@@ -247,8 +255,6 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
       this.controls!.mouseDragOn = false;
       this.controls!.autoForward = false
 
-
-      // Inter
       window.addEventListener( 'pointerdown', (event: PointerEvent) => {
         // calculate pointer position in normalized device coordinates
         // (-1 to +1) for both components

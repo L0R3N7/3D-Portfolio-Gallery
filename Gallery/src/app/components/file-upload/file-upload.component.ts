@@ -83,7 +83,11 @@ export class FileUploadComponent {
         }else if (event instanceof HttpResponse) {
           this.message = event.body;
 
-          const serverFileName : string = this.message.split("/").pop() ?? "";
+          console.log("Uploading Suc; Resp: ", event.body)
+
+          // Example URL
+          // src/main/resources/files/exhibits/file5cheese.gltf
+          const serverFileName : string = this.message.split("files/").pop()?.replace('/', '%2F') ?? "";
           if (serverFileName.length > 0){
             const fuo = new FileUploadOutput(serverFileName,
               (serverFileName.split('.').pop() ?? "") .toLowerCase());
