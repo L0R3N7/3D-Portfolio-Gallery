@@ -31,9 +31,11 @@ entity Room {
     id : number <<generated>>
     --
     name: string
+    thumbnail_url: string
     room_url: string
     wall_mat_url: string
     floor_mat_url: string
+    floorRepeatTexture: number
 }
 
 entity Position{
