@@ -32,7 +32,7 @@ export class GalleryService {
   }
 
   getAllRooms(): Observable<Room[]>{
-    return this.httpClient.get<Room[]>("assets/fakeendpoints/getAllRooms.json");
+    return this.httpClient.get<Room[]>(`${this.URL}rooms/allRoomPositions`);
   }
 
   getAllTags(): Observable<Tag[]>{

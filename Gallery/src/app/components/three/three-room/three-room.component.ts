@@ -30,10 +30,8 @@ import {GalleryService} from "../../../shared/gallery.service";
   styleUrls: ['./three-room.component.scss']
 })
 export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
-  position_arr : Position[] = [new Position(1, 2, 0, 0, false),
-    new Position(2, 2, 1, 1, false),
-    new Position(3, 2, 1, 0, false)]
-  @Input('room') room : Room = new Room(2,  "small room", 0, "https://www.smb.museum/uploads/tx_smb/news/news_67970/Neues-Museum_Raum-Prolog_Achim_Kleuker_xl.jpg", "2.gltf", this.position_arr)
+  room ?: Room
+  room_uuid: string[] = []
   @Input('mode') mode : String = "create";
 
   @ViewChild('threeCanvas') threeCanvas!: ElementRef;
@@ -67,80 +65,134 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   selectedObjects: Object3D[] = [];
 
   constructor(private createService: CreateExhibitionPageService, public dialog: MatDialog, private gs: GalleryService) {
-    // Load exhibit based on the positionConfigList
-    createService.wizPositionConfigList.subscribe(
-      values => {
-        for (let value of values) {
-          // If there was an preexisting object delete it
-          if (value.uuid) {
-            const object = this.scene.getObjectByProperty('uuid', value.uuid);
-            if (object) {
-              this.scene.remove(object);
-              object.clear()
-            }
+    createService.wizRoom.subscribe(
+      room => {
+        this.room = room
+
+        if (room != undefined){
+
+          console.log("Tring to load sockels", room.positions)
+          //Load Sockels
+          for (let i = 0; i < room.positions.length; i++){
+            this.loader.load('assets/three-d-objects/podest.gltf', (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+              console.log(gltf)
+              gltf.scene.position.set(room.positions[i].x                                                                          , 0, room.positions[i].y)
+              this.room_uuid.push(gltf.scene.uuid)
+              this.scene.add(gltf.scene)
+            })
           }
-          // If there is no possition don't draw the object
-          if (!value.position_id || value.position_id == -1) {
-            continue;
+
+          //Load Room
+          if(this.room_uuid.length > 0){
+            this.room_uuid.forEach(room_uuid => {this.clearScene(room_uuid)})
+            this.room_uuid = []
           }
-          // Todo: has to be changed and cashed somewhere so it mustn't allways download new
-          gs.getFile(value.exhibit_url).subscribe(downloadedExhibit => {
 
-            const fileType = this.gs.getFileTypeCategoryByFileType(value.exhibit_type)
-            const url = URL.createObjectURL(downloadedExhibit)
-            let x = this.room.positions[value.position_id - 1].x * 100
-            let y = this.potests.parameters.height
-            let z = this.room.positions[value.position_id - 1].y * 100
+          console.log("Loading Room")
+          gs.getFile(room.room_wall_url.replace("/", "%2F")).subscribe(downloadedWall => {
+            const wall_url = URL.createObjectURL(downloadedWall)
+            console.log("loaded wall", room.room_wall_url)
 
-            console.log("Loading 3d Model: Position #", value.position_id, " ", x, y, z)
-
-
-            switch (fileType) {
-              case '3d': {
-                console.log("Loading 3d Data")
-                this.loader.load(url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
-                  value.uuid = gltf.scene.uuid;
-                  let size = this.getSize(gltf.scene)
-                  gltf.scene.scale.set(1 / size.x * value.scale_factor, 1 / size.y * value.scale_factor, 1 / size.z * value.scale_factor)
-                  // Alignment / Positioning
-                  y += this.getSize(gltf.scene).y
-                  switch (value.alignment) {
-                    case "l":
-                      z += 1 / size.z * value.scale_factor
-                      break
-                    case "r":
-                      z -= 1 / size.z * value.scale_factor
-                      break
-                    case "t":
-                      x += 1 / size.x * value.scale_factor
-                      break
-                    case "b":
-                      x -= 1 / size.x * value.scale_factor
-                  }
-                  gltf.scene.position.set(x, y, z)
-                  console.log(x,y,z)
-                  //gltf.scene
-                  this.scene.add(gltf.scene);
-                })
-                break;
-              }
-              case 'image': {
-                console.log("Loading Image")
-                const geometry = new THREE.BoxGeometry(100, 100, .1)
-                const texture = new THREE.TextureLoader().load(url)
-                texture.wrapS = THREE.RepeatWrapping;
-                texture.wrapT = THREE.RepeatWrapping;
-                texture.repeat.set( 1, 1 );
-                const material = new THREE.MeshBasicMaterial({map: texture})
-                const cube = new THREE.Mesh(geometry, material);
-                value.uuid = cube.uuid
-                this.scene.add(cube)
-                break;
-              }
-            }
+            this.loader.load( wall_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+              gltf.scene.scale.y = 350
+              this.room_uuid.push(gltf.scene.uuid)
+              this.scene.add( gltf.scene );
+            });
           })
+
+          gs.getFile(room.room_floor_url.replace("/", "%2F")).subscribe(downloadedFloor => {
+            const floor_url = URL.createObjectURL(downloadedFloor)
+            console.log("loaded floor", room.room_floor_url)
+
+            this.loader.load( floor_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+              this.scene.add( gltf.scene );
+              this.room_uuid.push(gltf.scene.uuid)
+            });
+          })
+
+
+          // Load exhibit based on the positionConfigList
+          createService.wizPositionConfigList.subscribe(
+            values => {
+              for (let value of values) {
+                // If there was an preexisting object delete it
+                if (value.uuid) {
+                  this.clearScene(value.uuid)
+                }
+                // If there is no possition don't draw the object
+                if (!value.position_id || value.position_id == -1) {
+                  continue;
+                }
+                // Todo: has to be changed and cashed somewhere so it mustn't allways download new
+                gs.getFile(value.exhibit_url).subscribe(downloadedExhibit => {
+
+                  const fileType = this.gs.getFileTypeCategoryByFileType(value.exhibit_type)
+                  const url = URL.createObjectURL(downloadedExhibit)
+                  let x = room.positions[value.position_id - 1].x * 100
+                  let y = this.potests.parameters.height
+                  let z = room.positions[value.position_id - 1].y * 100
+
+                  console.log("Loading 3d Model: Position #", value.position_id, " ", x, y, z)
+
+
+                  switch (fileType) {
+                    case '3d': {
+                      console.log("Loading 3d Data")
+                      this.loader.load(url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+                        value.uuid = gltf.scene.uuid;
+                        let size = this.getSize(gltf.scene)
+                        gltf.scene.scale.set(1 / size.x * value.scale_factor, 1 / size.y * value.scale_factor, 1 / size.z * value.scale_factor)
+                        // Alignment / Positioning
+                        y += this.getSize(gltf.scene).y
+                        switch (value.alignment) {
+                          case "l":
+                            z += 1 / size.z * value.scale_factor
+                            break
+                          case "r":
+                            z -= 1 / size.z * value.scale_factor
+                            break
+                          case "t":
+                            x += 1 / size.x * value.scale_factor
+                            break
+                          case "b":
+                            x -= 1 / size.x * value.scale_factor
+                        }
+                        gltf.scene.position.set(x, y, z)
+                        console.log(x,y,z)
+                        //gltf.scene
+                        this.scene.add(gltf.scene);
+                      })
+                      break;
+                    }
+                    case 'image': {
+                      console.log("Loading Image")
+                      const geometry = new THREE.BoxGeometry(100, 100, .1)
+                      const texture = new THREE.TextureLoader().load(url)
+                      texture.wrapS = THREE.RepeatWrapping;
+                      texture.wrapT = THREE.RepeatWrapping;
+                      texture.repeat.set( 1, 1 );
+                      const material = new THREE.MeshBasicMaterial({map: texture})
+                      const cube = new THREE.Mesh(geometry, material);
+                      value.uuid = cube.uuid
+                      this.scene.add(cube)
+                      break;
+                    }
+                  }
+                })
+              }
+            })
         }
       })
+  }
+
+  clearScene(uuid: string){
+    if (uuid) {
+      const object = this.scene.getObjectByProperty('uuid', uuid);
+      if (object) {
+        this.scene.remove(object);
+        object.clear()
+      }
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -167,23 +219,9 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
     bulbLight.castShadow = true;
     this.scene.add( bulbLight );
 
-    //Load Room
-    this.loader.load( `assets/three-d-objects/room/walls/${this.room.id}.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
-      gltf.scene.scale.y = 350
-      this.scene.add( gltf.scene );
-    });
-    this.loader.load( `assets/three-d-objects/room/floor/${this.room.id}.gltf`, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
-      this.scene.add( gltf.scene );
-    });
 
-    //Load Sockels
-      for (let i = 0; i < this.room.positions.length; i++){
-        this.loader.load('assets/three-d-objects/podest.gltf', (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
-          console.log(gltf)
-          gltf.scene.position.set(this.room.positions[i].x * 100, 0, this.room.positions[i].y * 100)
-          this.scene.add(gltf.scene)
-        })
-    }
+
+
       this.animate();
   }
 

@@ -15,10 +15,8 @@ export class CreateExhibitionRoomselectionComponent {
 
   constructor(gs: GalleryService, private cs: CreateExhibitionPageService) {
     gs.getAllRooms().subscribe(res => {
-      console.log("ser")
-
       this.rooms = res
-      this.filteredRoom = this.rooms.filter(value => {return value.position_amount > cs.wizExhibits.value.length})
+      this.filteredRoom = this.rooms.filter(value => {return value.positions.length > cs.wizExhibits.value.length})
     });
     cs.wizRoom.subscribe(value => {
       if (value){
