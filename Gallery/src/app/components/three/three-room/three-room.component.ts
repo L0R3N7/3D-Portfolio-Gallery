@@ -14,7 +14,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {BoxGeometry, Object3D, PerspectiveCamera, Vector3} from "three";
+import {BoxGeometry, Object3D, PerspectiveCamera, Texture, Vector3, VideoTexture} from "three";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
@@ -171,12 +171,30 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
                       })
                       break;
                     }
-                    case 'image': {
+                    default: {
                       console.log("Loading Image")
-                      const texture = new THREE.TextureLoader().load(url, (tex) => {
-                        tex.needsUpdate = true;
-                        cube.scale.set(1.0, tex.image.height / tex.image.width, 1.0);
-                      });
+
+                      let texture: Texture | VideoTexture;
+
+                      if (fileType == 'video'){
+                        const video = () => {
+                          const vid = document.createElement("video");
+                          vid.crossOrigin = "Anonymous"
+                          vid.loop = true
+                          vid.muted = true
+                          vid.autoplay = true
+                          vid.src = url
+                          return vid
+                        }
+
+                        texture = new THREE.VideoTexture(video())
+                      }else{
+                        texture = new THREE.TextureLoader().load(url, (tex) => {
+                          tex.needsUpdate = true;
+                          cube.scale.set(1.0, tex.image.height / tex.image.width, 1.0);
+                        });
+                      }
+
                       texture.wrapS = THREE.RepeatWrapping;
                       texture.wrapT = THREE.RepeatWrapping;
                       texture.repeat.set( 1, 1 );
@@ -187,6 +205,10 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
                       cube.position.set(x, y, z)
                       cube.rotation.set(0, THREE.MathUtils.degToRad(currentPosition?.rotation ?? 0), 0)
                       this.scene.add(cube)
+
+                      if (fileType == 'video'){
+
+                      }
                       break;
                     }
                   }

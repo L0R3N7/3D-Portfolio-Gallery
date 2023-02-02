@@ -16,6 +16,8 @@ import {Router} from "@angular/router";
 })
 export class CreateExhibitionPageService {
 
+  isExhibitionUploadable = false
+
   METADATAKEY = "metadata"
   EXHIBITKEY = "exhibit"
   ROOMIKEY = "room"
