@@ -37,7 +37,7 @@ export class CreateExhibitionMetadataComponent implements OnInit {
   }
 
   thumbnailUploaded(event: FileUploadOutput) {
-    this.thumbnailUrl = "http://localhost:8080/exhibitions/downloadImageFile/" + event.url
+    this.thumbnailUrl = event.url
     this.change()
   }
 }
