@@ -87,7 +87,7 @@ export class FileUploadComponent {
           // src/main/resources/files/exhibits/file5cheese.gltf
           const serverFileName : string = event.body;
           if (serverFileName.length > 0){
-            const fuo = new FileUploadOutput(serverFileName,
+            const fuo = new FileUploadOutput(serverFileName.replace("/", "%2F"),
               (serverFileName.split('.').pop() ?? "") .toLowerCase());
             this.fileOutput.emit(fuo)
           }
