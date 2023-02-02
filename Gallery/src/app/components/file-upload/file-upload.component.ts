@@ -81,13 +81,11 @@ export class FileUploadComponent {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(100 * event.loaded / event.total);
         }else if (event instanceof HttpResponse) {
-          this.message = event.body;
-
           console.log("Uploading Suc; Resp: ", event.body)
 
           // Example URL
           // src/main/resources/files/exhibits/file5cheese.gltf
-          const serverFileName : string = this.message.split("files/").pop()?.replace('/', '%2F') ?? "";
+          const serverFileName : string = event.body;
           if (serverFileName.length > 0){
             const fuo = new FileUploadOutput(serverFileName,
               (serverFileName.split('.').pop() ?? "") .toLowerCase());
