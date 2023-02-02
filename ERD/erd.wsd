@@ -72,8 +72,8 @@ entity Exhibit {
 }
 
 User ||--o{ Exhibition
-Exhibit ||--|{Exhibition
-Exhibit ||--|| Position
+Exhibit }|--|| Exhibition
+Exhibit }|--|| Position
 Exhibition }o--|| Exhibition_Category
 Exhibition_Category ||--o{ Category
 Room ||--o{ Position
