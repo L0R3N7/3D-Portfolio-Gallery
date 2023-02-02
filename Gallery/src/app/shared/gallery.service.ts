@@ -104,6 +104,8 @@ export class GalleryService {
     return this.httpClient.get(`${this.URL}exhibitions/download/${fileName}`, {responseType: 'blob'})
   }
 
+
+
   postExhibition(tempAddExhibition: AddExhibitionDTO): Observable<any>{
     return this.httpClient.post(`${this.URL}exhibitions/new`, tempAddExhibition)
   }

@@ -64,7 +64,7 @@ export class CreateExhibitionArrangeComponent {
   resetPositionConfig(exhibitList: Exhibit[]): PositionConfig[]{
     const tempPositionConfigList: PositionConfig[] = []
     for (let i = 0; i < exhibitList.length; i++){
-      tempPositionConfigList.push(new PositionConfig(-1, 1, exhibitList[i].model_url, exhibitList[i].data_type, "c", 4, undefined, exhibitList[i].desc, exhibitList[i].title))
+      tempPositionConfigList.push(new PositionConfig(-1, 1, exhibitList[i].url, exhibitList[i].data_type, "c", 4, undefined, exhibitList[i].description, exhibitList[i].title))
     }
     return tempPositionConfigList;
   }

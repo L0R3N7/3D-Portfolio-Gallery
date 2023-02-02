@@ -21,7 +21,7 @@
         <ng-container *ngIf="selectedArrayPosition != -1; else NoExhibitionOption">
           <div style="display: flex; flex-direction: column; width: inherit">
             <h3 class="font-gradient m-3 exhibit-name px-0 mx-0">{{this.exhibitList[this.selectedArrayPosition].title}}</h3>
-            <p style="font-size: 1rem">{{this.exhibitList[this.selectedArrayPosition].desc}}</p>
+            <p style="font-size: 1rem">{{this.exhibitList[this.selectedArrayPosition].description}}</p>
             <div>
               <mat-form-field>
                 <mat-select [(value)]="selectedId" (selectionChange)="selectedPosition()">

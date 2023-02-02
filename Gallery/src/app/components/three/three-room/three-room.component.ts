@@ -23,19 +23,24 @@ import {
   CreateExhibitionPageService
 } from "../../../site-components/create-exhibition-page/create-exhibition-page.service";
 import {GalleryService} from "../../../shared/gallery.service";
+import {Exhibition} from "../../../shared/class/exhibition";
+import {PositionConfig} from "../../../shared/class/positionConfig";
 
 @Component({
   selector: 'app-three-room',
   templateUrl: './three-room.component.html',
   styleUrls: ['./three-room.component.scss']
 })
-export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
+export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges, OnInit{
   room ?: Room
   room_uuid: string[] = []
   @Input('mode') mode : String = "create";
-
+  @Input('viewExhibitionId') viewExhibitionId?: number;
+  viewExhibition?: Exhibition
+  exArray: PositionConfig[] = []
   @ViewChild('threeCanvas') threeCanvas!: ElementRef;
   @ViewChild('lookupSize') lookupSize !: ElementRef;
+
 
   scene = new THREE.Scene()
   clock = new THREE.Clock()
@@ -60,163 +65,220 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
   objectDescription?: String
   objectTitle?: String
   objectUrl?: String
+  objectDataType?: String
 
   composer?: EffectComposer;
   selectedObjects: Object3D[] = [];
 
   constructor(private createService: CreateExhibitionPageService, public dialog: MatDialog, private gs: GalleryService) {
-    console.log("loaded 3d scene", this.mode)
 
     createService.wizRoom.subscribe(
       room => {
-        this.room = room
 
-        if (room != undefined){
+          this.room = room
+          this.setupRoom(room!)
+      })
+  }
+  ngOnInit() {
+    console.log(this.mode)
+    console.log(this.viewExhibitionId)
+    if (this.mode == "view") {
+      if (this.viewExhibitionId) {
+        this.gs.getExhibitonById(this.viewExhibitionId).subscribe(value => {
+          this.room = value.room
+          this.viewExhibition = value
+          console.log(this.viewExhibition)
+          this.setupRoom(this.viewExhibition!.room!, this.viewExhibition)
 
-          console.log("Tring to load sockels", room.positions)
-          //Load Sockels
-          for (let i = 0; i < room.positions.length; i++){
-            if (room.positions[i].is_wall) continue;
-            this.loader.load('assets/three-d-objects/podest.gltf', (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
-              console.log(gltf)
-              gltf.scene.position.set(room.positions[i].x, 0, room.positions[i].y)
-              this.room_uuid.push(gltf.scene.uuid)
-              this.scene.add(gltf.scene)
-            })
-          }
+        })
 
-          //Load Room
-          if(this.room_uuid.length > 0){
-            this.room_uuid.forEach(room_uuid => {this.clearScene(room_uuid)})
-            this.room_uuid = []
-          }
+      }
+    }
+  }
 
-          console.log("Loading Room")
-          gs.getFile(room.room_wall_url.replace("/", "%2F")).subscribe(downloadedWall => {
-            const wall_url = URL.createObjectURL(downloadedWall)
-            console.log("loaded wall", room.room_wall_url)
 
-            this.loader.load( wall_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
-              gltf.scene.scale.y = 350
-              this.room_uuid.push(gltf.scene.uuid)
-              this.scene.add( gltf.scene );
-            });
+  setupRoom(room: Room, exhibition?: Exhibition) {
+    if (room != undefined){
+
+      console.log("Tring to load sockels", room.positions)
+      //Load Sockels
+      for (let i = 0; i < room.positions.length; i++){
+        if (room.positions[i].is_wall) continue;
+        this.
+        loader.load('assets/three-d-objects/podest.gltf', (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+          console.log(gltf)
+          gltf.scene.position.set(room.positions[i].x, 0, room.positions[i].y)
+          this.room_uuid.push(gltf.scene.uuid)
+          this.scene.add(gltf.scene)
+        })
+      }
+
+      //Load Room
+      if(this.room_uuid.length > 0){
+        this.room_uuid.forEach(room_uuid => {this.clearScene(room_uuid)})
+        this.room_uuid = []
+      }
+
+      console.log("Loading Room")
+      this.gs.getFile(room.room_wall_url.replace("/", "%2F")).subscribe(downloadedWall => {
+        const wall_url = URL.createObjectURL(downloadedWall)
+        console.log("loaded wall", room.room_wall_url)
+
+        this.loader.load( wall_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+          gltf.scene.scale.y = 350
+          this.room_uuid.push(gltf.scene.uuid)
+          this.scene.add( gltf.scene );
+        });
+      })
+
+      this.gs.getFile(room.room_floor_url.replace("/", "%2F")).subscribe(downloadedFloor => {
+        const floor_url = URL.createObjectURL(downloadedFloor)
+        console.log("loaded floor", room.room_floor_url)
+
+        this.loader.load( floor_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+          this.scene.add( gltf.scene );
+          this.room_uuid.push(gltf.scene.uuid)
+        });
+      })
+
+
+      // Load exhibit based on the positionConfigList
+      if(this.mode == "create"){
+        this.createService.wizPositionConfigList.subscribe(
+          values => {
+            this.loadExhibits(values,room)
           })
+      }else{
+        var posConfigArr: PositionConfig[] = []
+        for(let i = 0; i < exhibition!.exhibits!.length; i++){
+          let posConfig = {} as PositionConfig
+          console.log(exhibition!.exhibits![i])
+          posConfig.exhibit_url = exhibition!.exhibits![i].url
+          posConfig.title = exhibition!.exhibits![i].title
+          posConfig.description = exhibition!.exhibits![i].description
+          posConfig.position_id = exhibition!.exhibits![i].position!.id
+          posConfig.exhibit_type = exhibition!.exhibits![i].data_type
+          posConfig.alignment = exhibition!.exhibits![i].alignment!
+          posConfig.scale_factor = exhibition!.exhibits![i].scale!
+          posConfigArr.push(posConfig)
+        }
+        this.loadExhibits(posConfigArr, room)
+      }
 
-          gs.getFile(room.room_floor_url.replace("/", "%2F")).subscribe(downloadedFloor => {
-            const floor_url = URL.createObjectURL(downloadedFloor)
-            console.log("loaded floor", room.room_floor_url)
+    }
+  }
 
-            this.loader.load( floor_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
-              this.scene.add( gltf.scene );
-              this.room_uuid.push(gltf.scene.uuid)
-            });
-          })
+  loadExhibits(values: PositionConfig[], room: Room){
+    console.log(values)
+    for (let value of values) {
 
+      // If there was an preexisting object delete it
+      if(this.mode == "create"){
+        if (value.uuid) {
+          this.clearScene(value.uuid)
+        }
+      }
 
-          // Load exhibit based on the positionConfigList
-          createService.wizPositionConfigList.subscribe(
-            values => {
-              for (let value of values) {
-                // If there was an preexisting object delete it
-                if (value.uuid) {
-                  this.clearScene(value.uuid)
-                }
-                // If there is no position don't draw the object
-                if (value.position_id == undefined || value.position_id == -1) {
-                  continue;
-                }
-
-                console.log("Loading 3D Data Url: ", value.exhibit_url)
-                // Todo: has to be changed and cashed somewhere so it mustn't allways download new
-                gs.getFile(value.exhibit_url).subscribe(downloadedExhibit => {
-
-                  const fileType = this.gs.getFileTypeCategoryByFileType(value.exhibit_type)
-                  const url = URL.createObjectURL(downloadedExhibit)
-                  const currentPosition = room.positions.find(position => {return position.id == value.position_id})
-
-                  let x = currentPosition?.x ?? 0
-                  let y = this.potests.parameters.height
-                  let z = currentPosition?.y ?? 0
-
-                  console.log("Loading 3d Model: Position #", value.position_id, " ", x, y, z)
+      // If there is no position don't draw the object
+      if (value.position_id == undefined || value.position_id == -1) {
+        continue;
+      }
 
 
-                  switch (fileType) {
-                    case '3d': {
-                      console.log("Loading 3d Data")
-                      this.loader.load(url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
-                        value.uuid = gltf.scene.uuid;
-                        let size = this.getSize(gltf.scene)
-                        gltf.scene.scale.set(1 / size.x * value.scale_factor, 1 / size.y * value.scale_factor, 1 / size.z * value.scale_factor)
-                        // Alignment / Positioning
-                        y += this.getSize(gltf.scene).y
-                        switch (value.alignment) {
-                          case "l":
-                            z += 1 / size.z * value.scale_factor
-                            break
-                          case "r":
-                            z -= 1 / size.z * value.scale_factor
-                            break
-                          case "t":
-                            x += 1 / size.x * value.scale_factor
-                            break
-                          case "b":
-                            x -= 1 / size.x * value.scale_factor
-                        }
-                        gltf.scene.position.set(x, y, z)
-                        console.log(x,y,z)
-                        //gltf.scene
-                        this.scene.add(gltf.scene);
-                      })
-                      break;
-                    }
-                    default: {
-                      console.log("Loading Image")
+      console.log("Loading 3D Data Url: ", value.exhibit_url)
+      // Todo: has to be changed and cashed somewhere so it mustn't allways download new
+      this.gs.getFile(value.exhibit_url).subscribe(downloadedExhibit => {
 
-                      let texture: Texture | VideoTexture;
+        const fileType = this.gs.getFileTypeCategoryByFileType(value.exhibit_type)
+        const url = URL.createObjectURL(downloadedExhibit)
+        const currentPosition = room.positions.find(position => {return position.id == value.position_id})
 
-                      if (fileType == 'video'){
-                        const video = () => {
-                          const vid = document.createElement("video");
-                          vid.crossOrigin = "Anonymous"
-                          vid.loop = true
-                          vid.muted = true
-                          vid.autoplay = true
-                          vid.src = url
-                          return vid
-                        }
+        let x = currentPosition?.x ?? 0
+        let y = this.potests.parameters.height
+        let z = currentPosition?.y ?? 0
 
-                        texture = new THREE.VideoTexture(video())
-                      }else{
-                        texture = new THREE.TextureLoader().load(url, (tex) => {
-                          tex.needsUpdate = true;
-                          cube.scale.set(1.0, tex.image.height / tex.image.width, 1.0);
-                        });
-                      }
+        console.log("Loading 3d Model: Position #", value.position_id, " ", x, y, z)
 
-                      texture.wrapS = THREE.RepeatWrapping;
-                      texture.wrapT = THREE.RepeatWrapping;
-                      texture.repeat.set( 1, 1 );
-                      const geometry = new THREE.BoxGeometry(100, 100, .1)
-                      const material = new THREE.MeshBasicMaterial({map: texture})
-                      const cube = new THREE.Mesh(geometry, material);
-                      value.uuid = cube.uuid
-                      cube.position.set(x, y, z)
-                      cube.rotation.set(0, THREE.MathUtils.degToRad(currentPosition?.rotation ?? 0), 0)
-                      this.scene.add(cube)
 
-                      if (fileType == 'video'){
+        switch (fileType) {
+          case '3d': {
+            console.log("Loading 3d Data")
+            this.loader.load(url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
 
-                      }
-                      break;
-                    }
-                  }
-                })
+              value.uuid = gltf.scene.uuid;
+              if (this.mode == "view"){
+                this.exArray.push(value)
               }
+              let size = this.getSize(gltf.scene)
+              gltf.scene.scale.set(1 / size.x * value.scale_factor, 1 / size.y * value.scale_factor, 1 / size.z * value.scale_factor)
+              // Alignment / Positioning
+              y += this.getSize(gltf.scene).y
+              switch (value.alignment) {
+                case "l":
+                  z += 1 / size.z * value.scale_factor
+                  break
+                case "r":
+                  z -= 1 / size.z * value.scale_factor
+                  break
+                case "t":
+                  x += 1 / size.x * value.scale_factor
+                  break
+                case "b":
+                  x -= 1 / size.x * value.scale_factor
+              }
+              gltf.scene.position.set(x, y, z)
+              console.log(x,y,z)
+              //gltf.scene
+              this.scene.add(gltf.scene);
             })
+            break;
+          }
+          default: {
+            console.log("Loading Image")
+
+            let texture: Texture | VideoTexture;
+
+            if (fileType == 'video'){
+              const video = () => {
+                const vid = document.createElement("video");
+                vid.crossOrigin = "Anonymous"
+                vid.loop = true
+                vid.muted = true
+                vid.autoplay = true
+                vid.src = url
+                return vid
+              }
+
+              texture = new THREE.VideoTexture(video())
+            }else{
+              texture = new THREE.TextureLoader().load(url, (tex) => {
+                tex.needsUpdate = true;
+                cube.scale.set(1.0, tex.image.height / tex.image.width, 1.0);
+              });
+            }
+
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            texture.repeat.set( 1, 1 );
+            const geometry = new THREE.BoxGeometry(100, 100, .1)
+            const material = new THREE.MeshBasicMaterial({map: texture})
+            const cube = new THREE.Mesh(geometry, material);
+            if (this.mode == "view"){
+              this.exArray.push(value)
+            }
+            value.uuid = cube.uuid
+            cube.position.set(x, y, z)
+            cube.rotation.set(0, THREE.MathUtils.degToRad(currentPosition?.rotation ?? 0), 0)
+            this.scene.add(cube)
+
+            if (fileType == 'video'){
+
+            }
+            break;
+          }
         }
       })
+    }
   }
 
   clearScene(uuid: string){
@@ -271,7 +333,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
 
     }else{
       this.controls = new FirstPersonControls(this.camera, this.renderer.domElement)
-      this.controls!.lookSpeed = 0.002;
+      this.controls!.lookSpeed = 0.2;
       this.controls!.movementSpeed = 100;
       this.controls!.lookVertical = false;
       this.controls!.mouseDragOn = false;
@@ -319,7 +381,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges{
       maxHeight: '50vh',
       width: '100%',
       height: '100%',
-      data: {description: this.objectDescription, title: this.objectTitle, objectUrl: this.objectUrl},
+      data: {description: this.objectDescription, title: this.objectTitle, objectUrl: this.objectUrl, dataType: this.objectDataType},
       enterAnimationDuration,
       exitAnimationDuration,
     });
@@ -344,16 +406,18 @@ handleCollision(){
 clickExhibit(){
     this.raycaster.setFromCamera(this.pointer, this.camera! )
     const intersects = this.raycaster.intersectObjects(this.scene.children)
-  console.log(this.pointer.x)
-    const values = this.createService.wizPositionConfigList.getValue();
+    var values = this.exArray
+
+
             for (let value of values) {
-                if (value.uuid == intersects[0].object.parent?.parent?.uuid) {
+              console.log(value)
+                if (value.uuid == intersects[0].object.parent?.parent?.uuid || value.uuid == intersects[0].object.uuid) {
                   if (value.uuid != null) {
                     const object = this.scene.getObjectByProperty('uuid', value.uuid);
-
                     this.objectDescription = value.description
                     this.objectTitle = value.title
                     this.objectUrl = value.exhibit_url
+                    this.objectDataType = value.exhibit_type
                     this.openDialog('1000ms', '300ms')
                   }
               }
@@ -363,12 +427,13 @@ clickExhibit(){
   hoverExhibit(){
     this.raycaster.setFromCamera(this.pointer, this.camera! )
     const intersects = this.raycaster.intersectObjects(this.scene.children)
-    const values = this.createService.wizPositionConfigList.getValue();
+    var values = this.exArray
 
 
     for (let value of values) {
+
       if (value.uuid != null) {
-      if (value.uuid == intersects[0].object.parent?.parent?.uuid) {
+      if (value.uuid == intersects[0].object.parent?.parent?.uuid || value.uuid == intersects[0].object.uuid) {
 
 
           const object = this.scene.getObjectByProperty('uuid', value.uuid);
@@ -451,8 +516,8 @@ clickExhibit(){
   templateUrl: 'exhibit-dialog.html',
   styleUrls: ['./three-room.component.scss']
 })
-  export class ExhibitDialog implements AfterViewInit{
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ExhibitDialog>) {
+  export class ExhibitDialog implements OnInit, AfterViewInit{
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ExhibitDialog>, public gs: GalleryService) {
 
   }
   //DetailView
@@ -461,36 +526,70 @@ clickExhibit(){
   cameraDetail ?: THREE.PerspectiveCamera;
   rendererDetail ?: THREE.WebGLRenderer;
   controlsDetail ?: OrbitControls;
+
+  thumbnail?: String
+  videoSrc?: String
+  fileType?: String
+
   sceneDetail = new THREE.Scene()
-  loaderDetail = new GLTFLoader().setPath( 'assets/three-d-objects/' );
+  loaderDetail = new GLTFLoader();
+
+  ngOnInit() {
+    this.fileType = this.gs.getFileTypeCategoryByFileType(this.data.dataType)
+    if(this.fileType == 'image'){
+      this.thumbnail = this.data.objectUrl
+      this.thumbnail = "http://localhost:8080/api/exhibitions/downloadImageFile/" + this.thumbnail?.replace("/", "%2F")
+    }
+    if (this.fileType == 'video'){
+      this.videoSrc = this.data.objectUrl
+
+      this.videoSrc = "http://localhost:8080/api/exhibitions/download/" + this.videoSrc?.replace("/", "%2F")
+      console.log(this.videoSrc)
+    }
+
+
+  }
 
   ngAfterViewInit() {
+
     this.setup()
     this.animate()
-    this.loadExhibit()
+    if(this.fileType == "3d"){
+      this.loadExhibit()
+    }
   }
 
   setup = () => {
-    this.rendererDetail = new THREE.WebGLRenderer({
-      canvas: this.threeDetailCanvas.nativeElement
-    });
+    if(this.fileType == '3d'){
+      this.rendererDetail = new THREE.WebGLRenderer({
+        canvas: this.threeDetailCanvas.nativeElement
+      });
 
-    this.cameraDetail = new THREE.PerspectiveCamera( 100, this.lookUpSizeDetail.nativeElement.offsetWidth / this.lookUpSizeDetail.nativeElement.offsetWidth, 0.1, 1000);
-    this.cameraDetail?.position.set( - 1.8, 180, 10 );
-    this.controlsDetail = new OrbitControls(this.cameraDetail, this.rendererDetail.domElement)
-    this.sceneDetail.background = new THREE.Color( 0xf7f8fa )
+      this.cameraDetail = new THREE.PerspectiveCamera( 100, this.lookUpSizeDetail.nativeElement.offsetWidth / this.lookUpSizeDetail.nativeElement.offsetWidth, 0.1, 1000);
+      this.cameraDetail?.position.set( - 1.8, 180, 10 );
+      this.controlsDetail = new OrbitControls(this.cameraDetail, this.rendererDetail.domElement)
+      this.sceneDetail.background = new THREE.Color( 0xf7f8fa )
+
+    }
 
   }
 
   animate = () => {
-    requestAnimationFrame( this.animate );
-    this.controlsDetail?.update();
-    this.rendererDetail?.render(this.sceneDetail, this.cameraDetail!)
+    if(this.fileType == '3d') {
+      requestAnimationFrame(this.animate);
+      this.controlsDetail?.update();
+      this.rendererDetail?.render(this.sceneDetail, this.cameraDetail!)
+    }
   }
 
   loadExhibit(){
-    this.loaderDetail.load(this.data.objectUrl,(gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+
+    this.gs.getFile(this.data.objectUrl).subscribe(downloadedExhibit => {
+       const url = URL.createObjectURL(downloadedExhibit)
+
+    this.loaderDetail.load(url,(gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
       this.sceneDetail.add(gltf.scene)
+    })
     })
     //Light
     const bulbGeometry = new THREE.SphereGeometry(.02, 16, 8);

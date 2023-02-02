@@ -40,7 +40,7 @@ export class CreateExhibitionExhibitselectionComponent implements OnInit {
     if (this.exhibitFile){
       // Update Value in Service
       let temp = this.cs.wizExhibits.value
-      temp.push(new Exhibit(this.exhibitCollection.length, this.exhibitFile.url , this.exhibitFile.filetype, this.exhibitForm.value.name ?? "unnamed", this.exhibitForm.value.desc ?? ""))
+      temp.push(new Exhibit(this.exhibitCollection.length, this.exhibitFile.url , this.exhibitFile.filetype, this.exhibitForm.value.name ?? "unnamed", this.exhibitForm.value.desc ?? "", undefined, undefined, undefined))
       this.cs.wizExhibits.next(temp)
       this.cs.saveExhibit()
       this.exhibitForm.controls['name'].setValue("")

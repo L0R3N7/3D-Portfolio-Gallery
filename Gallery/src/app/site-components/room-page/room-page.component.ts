@@ -25,13 +25,10 @@ export class RoomPageComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
     })
-    this.getExhibitionById()
-
 
     this.navbar.white = false;
     this.navbar.hide()
     this.footer.hide()
-    console.log(this.exhibtion)
 
   }
   ngOnDestroy() {
@@ -39,14 +36,8 @@ export class RoomPageComponent implements OnInit {
   }
 
 
-  getExhibitionById(){
-    if(this.id){
-      this.gs.getExhibitonById(this.id).subscribe(value => {
-          this.exhibtion = value
-      })
 
-    }
-  }
+
 
 }
 

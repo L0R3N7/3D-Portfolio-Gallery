@@ -1,10 +1,15 @@
 
 <div #lookUpSizeDetail >
-  <canvas #threeDetailCanvas class="detail"></canvas>
+  <img *ngIf="fileType == 'image'" src="{{thumbnail}}" class="detail">
+  <video class="detail" controls *ngIf="fileType == 'video'">
+    <source src="{{videoSrc}}" type="video/mp4">
+  </video>
+  <canvas *ngIf="fileType== '3d'" #threeDetailCanvas class="detail"></canvas>
 </div>
+
 <div class="detail-exhibit">
 <h3 class="font-gradient">{{data.title}}</h3>
-<div mat-dialog-content>
+<div mat-dialog-content >
   {{data.description}}</div>
 <div mat-dialog-actions>
   <button class="action-button" mat-button mat-dialog-close>Close</button>

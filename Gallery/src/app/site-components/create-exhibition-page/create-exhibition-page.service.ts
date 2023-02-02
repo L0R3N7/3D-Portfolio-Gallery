@@ -109,11 +109,11 @@ export class CreateExhibitionPageService {
         return value.position_id != -1
       }).map(value => {
         const exhibit = tempExhibitits.find(value1 => {
-          return value1.model_url == value.exhibit_url
+          return value1.url == value.exhibit_url
         })
 
         if (exhibit != undefined){
-          return new AddExhibitDTO(exhibit.data_type, exhibit.desc, exhibit.title, exhibit.model_url, value.scale_factor, value.alignment, value.material_id, value.position_id)
+          return new AddExhibitDTO(exhibit.data_type, exhibit.description, exhibit.title, exhibit.url, value.scale_factor, value.alignment, value.material_id, value.position_id)
         }
         return
       })

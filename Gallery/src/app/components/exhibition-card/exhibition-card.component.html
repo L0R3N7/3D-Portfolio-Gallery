@@ -5,7 +5,7 @@
       <span>X</span>
     </button>
     <mat-card class="exhibition-card">
-      <img mat-card-image class="card-thumbnail" src="{{exhibition.exhibition.thumbnail_url}}" alt="card-thumbnail">
+      <img mat-card-image class="card-thumbnail" src="{{thumbnail}}" alt="card-thumbnail">
       <ng-container *ngIf="exhibition.exhibition.categories">
         <mat-chip-list style="position:absolute; transform: translateY(-120%); left: 1%"  class="exhibition-card-custom w-100">
           <mat-chip [style.background-color]="tag.color" *ngFor="let tag of exhibition.exhibition.categories">{{tag.category_title}}</mat-chip>
