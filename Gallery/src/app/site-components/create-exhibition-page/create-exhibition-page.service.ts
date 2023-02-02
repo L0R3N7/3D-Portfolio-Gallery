@@ -125,12 +125,23 @@ export class CreateExhibitionPageService {
       console.log(tempAddExhibition)
       this.galleryService.postExhibition(tempAddExhibition).subscribe({
         next: _ => {
+          this.clear()
           this.route.navigate(["/home"])
         },
         error: err => {
           console.error("Error at Exhibition Post", err)
         }
       })}
+  }
+
+  private clear() {
+    sessionStorage.removeItem(this.ROOMIKEY)
+    sessionStorage.removeItem(this.METADATAKEY)
+    sessionStorage.removeItem(this.EXHIBITKEY)
+    this.wizExhibits.next([])
+    this.wizRoom.next(undefined)
+    this.wizMetadata.next(undefined)
+    this.wizPositionConfigList.next([])
   }
 }
 
