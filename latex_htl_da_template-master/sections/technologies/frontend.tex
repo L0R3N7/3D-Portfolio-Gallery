@@ -1,0 +1,38 @@
+\section{Angular}
+
+\subsection{Allgemeines [M]}
+\setauthor{Fabian Maar}
+Angular ist ein Framework für Webapplikation, das auf der Programmiersprache Typescript basiert. Es ist eines der renommiertesten Frameworks zur Front-End-Entwicklung und wird als Open-Source-Software zur Verfügung gestellt. Besonders bietet sich Angular für Single-Page-Webanwendung an, da es ein komponentenbasiertes Framework ist. Das bedeutet, der Code ist wiederverwendbar und verkapselt. Komplexe Logiken werden auf ihre Grundelemente reduziert und beeinflussen sich nicht gegenseitig. 
+
+\subsection{Abhängigkeiten Technologien [L]}
+\setauthor{Litzlbauer Lorenz}
+Um eine nachvollziehbare Auswahl zu treffen, muss verstanden werden, wie Angular
+funktioniert. In den folgenden Unterabschnitten wird sich mit den Technologien auf die Angular aufgebaut ist, auseinandergesetzt. 
+
+\subsubsection{RxJS}
+\setauthor{Litzlbauer Lorenz}
+ReactiveX ist eine Library für das Erstellen von asynchronen und Event-basierenden Programmen, dafür benutzt es  \emph{observable sequences}.
+Die Library erweitert so, dass \emph{Observer-Design-Pattern} mit verschiedenen neuen Operatoren und händelt dabei "Lowlevel"-Funktionen wie Threading, Synchronisation, Thread-Sicherheit und das nicht-blockieren von I/O vergleiche \cite{ReactiveXIntro}
+
+RxJS ist eine Implementierung von ReactiveX für die Programmiersprache Javascript. Angular verwendet RxJS für reaktive Programmierart.
+\subsubsection{Webpack}
+\setauthor{Litzlbauer Lorenz}
+Die Hauptfunktion von Webpack ist es, viele verschiedenen Daten zu einem Paket für eine JavaScript Applikation zusammenzufassen, dabei optimiert es die Dateigröße, indem es mithilfe von einem selbst generierten \emph{dependency-graph} die Abhängigkeiten der Applikation überprüft und nur notwendige Teile für die JavaScript-Applikation der Daten nimmt. Bei der Zusammenfassung werden Sprachen, die der Webbrowser nicht Interpretieren kann wie Typescript, Sass uvm. in die für den Webbrowser verständlichen Gegenstücke gewandelt. Webpack hat aber auch viele andere Features. Vergleiche \cite{Webpack}
+\setauthor{Litzlbauer Lorenz}
+Angular benutzt Webpack um TypeScript in JavaScript und Sass bzw. Scss in Scss zu wandeln, um beim Bauen des Projektes alle Module in ein einziges zusammenzufassen und um die Applikation bei der Entwicklung zu \emph{Live-Reloading} zu unterstützen. Dabei wird bei einer Änderung im Code die gesamte Applikation geupdatet und neu gestartet. 
+
+\subsection{Vorteile/Auswahlkriterien [M]}
+\setauthor{Fabian Maar}
+Dieses komponentenbasierte Programmieren war eines der vielen Gründe 
+warum Angular die beste Option ist. Im Abschnitt 5 //TODO  wird nochmals deutlich, wie dieser Aspekt genutzt wird. Ein weiterer Grund, ist die einfache Einbindung von 
+Libraries und deren Übersichtlichkeit, die durch ngModules ermöglicht werden. Die ständige Erweiterung und die Unterstützung von Third-Party-Libraries, die unter anderem für die 3D-Darstellung verwendet werden, wird ebenfalls von diesen ngModulen ermöglicht. 
+Beispiele wie wir dieses ngModule aufgesetzt haben befinden sich im Abschnitt Landing-Page aufsetzen //TODO VERLINKEN. Auch aufgrund von persönlichen Erfahrungen im Unterricht und in anderen Projekten war Angular die beste Auswahlmöglichkeit.
+
+
+\section{ThreeJs [L]}
+\setauthor{Litzlbauer Lorenz}
+
+\subsection*{Abhängigkeiten Technologien}
+
+\subsection{Vorteile/Auswahlkriterien}
+

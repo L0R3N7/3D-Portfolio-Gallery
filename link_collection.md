@@ -1,2 +1,10 @@
 # Links: 
 - https://angular-three.netlify.app/docs
+- https://leowiki.htl-leonding.ac.at/lib/exe/fetch.php?media=exams:james.pdf
+- https://leowiki.htl-leonding.ac.at/lib/exe/fetch.php?media=exams:customer_setup_performance_check.pdf
+- https://leowiki.htl-leonding.ac.at/lib/exe/fetch.php?media=exams:kemon_keba_network_monitor.pdf
+- https://leowiki.htl-leonding.ac.at/lib/exe/fetch.php?media=exams:kemon_keba_network_monitor.pdf
+- https://leowiki.htl-leonding.ac.at/lib/exe/fetch.php?media=exams:marco.pdf
+- https://leowiki.htl-leonding.ac.at/lib/exe/fetch.php?media=exams:threed_object_reconstruction.pdf
+- https://leowiki.htl-leonding.ac.at/lib/exe/fetch.php?media=exams:200403_main_final.pdf
+- https://leowiki.htl-leonding.ac.at/lib/exe/fetch.php?media=exams:crowdfit-diploma_thesis.pdf
