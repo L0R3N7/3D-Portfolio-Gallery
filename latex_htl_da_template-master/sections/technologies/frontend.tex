@@ -4,7 +4,7 @@
 \setauthor{Fabian Maar}
 Angular ist ein Framework für Webapplikation, das auf der Programmiersprache Typescript basiert. Es ist eines der renommiertesten Frameworks zur Front-End-Entwicklung und wird als Open-Source-Software zur Verfügung gestellt. Besonders bietet sich Angular für Single-Page-Webanwendung an, da es ein komponentenbasiertes Framework ist. Das bedeutet, der Code ist wiederverwendbar und verkapselt. Komplexe Logiken werden auf ihre Grundelemente reduziert und beeinflussen sich nicht gegenseitig. 
 
-\subsection{Abhängigkeiten Technologien [L]}
+\subsection{Dependency}
 \setauthor{Litzlbauer Lorenz}
 Um eine nachvollziehbare Auswahl zu treffen, muss verstanden werden, wie Angular
 funktioniert. In den folgenden Unterabschnitten wird sich mit den Technologien auf die Angular aufgebaut ist, auseinandergesetzt. 
@@ -34,8 +34,17 @@ Webstorm ist eine Entwicklungsumgebung vom Unternehmen JetBrains, die sich auf d
 
 \section{ThreeJs [L]}
 \setauthor{Litzlbauer Lorenz}
+ThreeJs ist eine JavaScript Library für die Darstellung von 3D-Grafiken im Web. Für die 3D-Darstellung nutzt ThreeJs meistens WebGL (mehr dazu im nächsten Abschnitt \hyperref[ThreeJs Dependency]{ThreeJs Dependency}), ein low-level Framework. WebGl hat eine hohe Komplexität. ThreeJs bietet eine Abstraktion, bei der es viele Sachen wie die 3D-Szene, Lichter, Schatten, Materialien, Texturen und 3D-Mathe händelt, um die 3D-Darstellungen im Web einfacher zu gestalten. In ThreeJs werden Geometrie, Objekte und Materialien verbunden, um ein 3D-Objekt zu erstellen. Dabei kann die Struktur einer Szene der Abbildung \ref{fig:tech:front:threejsstructure} ähneln. Vergleiche \cite{ThreeJsFund}
 
-\subsection*{Abhängigkeiten Technologien}
+\begin{figure} [h t]
+    \centering
+    \includegraphics[scale=0.5]{pics/threejs-structure.png}
+    \caption{Die Struktur von ThreeJs}
+    \label{fig:tech:front:threejsstructure}
+\end{figure}
+
+\subsection{Dependency}
+\label{ThreeJs Dependency}
 
 \subsection{Vorteile/Auswahlkriterien}
 
