@@ -4,8 +4,7 @@
 Um den Benutzern und Benutzerinnen ein möglichst realistisches Gefühl für die Ausstellung zu geben, ist es wichtig, den Ausstellungsraum auch so zu gestalten. Daher ist der Raum durch Wände abgegrenzt, wodurch es nicht mehr möglich ist, sich über den Raum hinaus zu bewegen. 
 Um eine Kollision mit der Wand zu berechnen, gibt es durch die Three.js Bibliothek einige Möglichkeiten.
 \subsection{Erster Ansatz}
-Eine davon ist, eine Bounding Box zu erstellen. Dabei unterscheidet man zwischen zwei verschiedenen Arten. Zum einen verwendet man die Axis Aligned Bounding Box, um eine Box rund um das 3D-Objekt zu erstellen, die sich nicht an die Rotation des Objekts anpasst. Die zweite Variante ist die Oriented Bounding Box, die im Endeffekt gleich funktioniert, sich aber darin unterscheidet, dass sie sich an die Achsen des Objekts anpasst. Da sich die Bounding Boxen jedoch über das ganze 3D-Objekt erstrecken, wird eine Kollision direkt berechnet, nachdem der*die Benutzer*in den Raum betritt. Da sich die Bounding Boxen nicht an jede einzelne Wand anpassen konnten, musste ein anderer Lösungsweg gefunden werden.
-
+Eine davon ist, eine Bounding Box zu erstellen. Dabei kann zwischen zwei verschiedenen Arten unterschieden werden. Zum einen werden Axis Aligned Bounding Box verwendet, um eine Box rund um das 3D-Objekt zu erstellen, die sich nicht an die Rotation des Objekts anpasst. Die zweite Variante ist die Oriented Bounding Box, die im Endeffekt gleich funktioniert, sich aber darin unterscheidet, dass sie sich an die Achsen des Objekts anpasst. Da sich die Bounding Boxen jedoch über das ganze 3D-Objekt erstrecken, wird eine Kollision direkt berechnet, nachdem der*die Benutzer*in den Raum betritt. Da sich die Bounding Boxen nicht an jede einzelne Wand anpassen konnten, musste ein anderer Lösungsweg gefunden werden.
 \begin{figure}
     \centering
     \includegraphics[scale=0.65]{pics/aabb_obb.png}
