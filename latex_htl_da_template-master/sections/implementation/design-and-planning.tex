@@ -14,8 +14,119 @@ Beim Brainstormen findet jede*r Teilnehmer*in zu einem bestimmten Thema so viele
     \item Möglichst viele Ideen
     \item Inspirieren lassen von anderen
 \end{itemize}
-
 \cite{Ideenfindung}
+
+\subsection{User-Stories}
+\setauthor{Litzlbauer Lorenz}
+
+
+\subsubsection{Projekt User Stories}
+\setauthor{Team}
+\begin{compactenum}
+    \item Als Designer möchte ich einen Login, um meine Ausstellungen speichern und im nachhinein immer öffnen zu können.
+    Akzeptanzkriterien: 
+    \begin{compactitem}
+        \item Man kann sich neu registrieren
+        \item Registrierung mittels Username und Passwort
+        \item Das Passwort muss überprüft werden beim Erstellen und mind. 8 Zeichen enthalten
+    \end{compactitem}  
+    \item Als erstmalige*r Besucher*in der Webseite möchte ich die benötigten Informationen über die Funktionen der Applikation verständlich erkennen können. Auswahlkriterien: 
+    \begin{compactitem}
+        \item Auf der Landingpage befinden sich: 
+        \begin{compactitem}
+            \item Textstellen und Grafiken, die unser Projekt und die Funktionalitäten davon erklären
+            \item Einen Call-to-Action(CTA)-Button, der den User*in dazu einlädt, seine eigene Ausstellung zu erstellen. Beim Betätigen wird der Benutzer, falls er schon eingeloggt ist, weitergeleitet zum Editor, sonst zur Login Seite (hier gibt es die Möglichkeit, sich auch einen Account zu erstellen)
+        \end{compactitem}
+    \end{compactitem} 
+    \item Als Besucher*in möchte ich eine Suchseite haben, um Designer*innen und deren Ausstellungen finden zu können. Auswahlkriterien: 
+    \begin{compactitem}
+        \item CTA-Search Field
+        \item Eine Unterseite, welche durch den CTA-Button aufgerufen wird und unterschiedliche Optionen zur Verfügung stellt und das Suchergebnis ansprechend darstellt
+    \end{compactitem} 
+    \item  Als Besucher*in der Webseite, will ich beim Suchen filtern können, um für sich die relevantesten Ergebnisse zu bekommen. Auswahlkriterien: 
+    \begin{compactitem}
+        \item filtern über …
+        \begin{compactitem}
+            \item Tags
+            \item Favoriten
+            \item Erstellungsdatum
+        \end{compactitem}
+    \end{compactitem} 
+    \item Als Benutzer*in möchte ich meinen Ausstellungen Tags zuordnen können, damit diese leichter gefunden werden können. Auswahlkriterien: 
+    \begin{compactitem}
+        \item Tags werden beim erstellen der Ausstellung aus einen vordefinierten Tag-Pool ausgewählt.
+    \end{compactitem} 
+    \item Als User*in möchte ich mich auf verschiedene Arten in der Ausstellung bewegen können. Auswahlkriterien: 
+    \begin{compactitem}
+        \item Per Slideshow (über den Vorwärts/Rückwärts-Pfeil zu nächstem Ausstellungsstück springen)
+        \item Per Touch / Click (Google Maps Street View, NavigationMesh in Three.js https://github.com/donmccurdy/three-pathfinding)
+    \end{compactitem} 
+    \item  Als User*in möchte ich auf das Ausstellungsstück klicken können, um weitere Informationen (z.B.: Titel, Künstler, Jahr, …) zu erhalten. Auswahlkriterien: 
+    \begin{compactitem}
+        \item größere Ansicht des Ausstellungsstücks wird vergrößert angezeigt
+        \item Nähere Details zum Ausstellungsstück, wie Titel, Künstler, Jahr, usw.
+    \end{compactitem} 
+    \item  Als User*in will ich eine Profil-Unterseite haben, auf der ich userrelevante Informationen angezeigt bekomme. Auswahlkriterien: 
+    \begin{compactitem}
+        \item userrelevante Informationen, die angezeigt werden, sind: 
+        \item Name
+        \item Profilfoto
+        \item Erstellte Ausstellungen
+        \item Der*Die User*in kann dort seine Ausstellungen löschen.         
+    \end{compactitem} 
+    \item  Als User*in will ich bei der Erstellung einer Ausstellung zwischen verschiedenen Templates wählen können, um diese auf einfache Weise zu individualisieren. Auswahlkriterien: 
+    \begin{compactitem}
+        \item Es gibt 2 Templates am Anfang, in denen die Wandfarbe, der Boden und die Podeste für die Dateien vorgegeben sind.
+        \item Der*Die User*in kann keine Templates erstellen.
+        \item Der*Die User*in kann manuell die Podeste für jede Datei zwischen 5 vorgefertigten auswählen und für den Boden + Wand ein Pattern hochladen
+        \item Bei den Templates kann man aber manuell einzelne Aspekte verstellen (siehe Punkt oben)
+    \end{compactitem} 
+    \item Als User will ich meine Daten auf den Server laden, um diese jederzeit innerhalb einer Ausstellung platzieren und integrieren zu können. Auswahlkriterien: 
+    \begin{compactitem}
+        \item Unterstützte Dateien (Bilder-, Audio-, Video-, 3D-Dateien) 
+        \item Uploadmöglichkeiten: 
+        \begin{compactitem}
+            \item Drag and Drop
+            \item Im Ordner auswählen.
+        \end{compactitem} 
+        \item Dateigrößenlimit: 50MB
+        \item Dateityp Limit: nur Standardformate (Bilder: JPG, PNG, etc.;        Audio: WAV, MP3, etc.; …)
+        \item Fehlermeldung bei falschem Upload
+    \end{compactitem} 
+    \item  Als User*in will ich, dass meine Daten automatisch als Ausstellungsstücke in der Ausstellung angeordnet werden, damit die Nutzung für persönliche Bereiche unkompliziert möglich ist. Auswahlkriterien: 
+    \begin{compactitem}
+        \item Falls dies nicht möglich ist, soll eine Fehlermeldung angezeigt werden
+    \end{compactitem} 
+    \item Als User*in möchte ich die Reihenfolge und Platzierung meiner Werke innerhalb der Ausstellung adaptieren können. Auswahlkriterien: 
+    \begin{compactitem}
+        \item Die Werke sollen zwischen vordefinierten Plätzen tauschbar sein.
+    \end{compactitem} 
+    \item Als User*in will ich andere Rechte haben, je nachdem ich angemeldet bin oder nicht. Auswahlkriterien: 
+    \begin{compactitem}
+        \item Wenn ein*e User*in angemeldet ist, kann er*sie:
+        \begin{compactitem}
+            \item Ausstellungen ansehen 
+            \item Ausstellungen erstellen/löschen 
+            \item Ausstellungen favorisieren
+        \end{compactitem}  
+        \item Wenn ein ein*e User*in nicht angemeldet ist, kann er*sie: 
+        \begin{compactitem}
+            \item Ausstellungen ansehen 
+            \item keine Ausstellungen erstellen 
+            \item keine Ausstellungen favorisieren
+        \end{compactitem} 
+    \end{compactitem} 
+    \item Als User*in möchte ich meine Ausstellung abspeichern und löschen können. Auswahlkriterien: 
+    \begin{compactitem}
+        \item Die Daten im Bezug auf die Ausstellungen werden auf dem Server gespeichert.
+        \item Bevor die Ausstellung gelöscht wird, soll ein Warnhinweis angezeigt werden, welcher noch bestätigt werden muss. 
+    \end{compactitem} 
+
+
+
+
+
+\end{compactenum}
 
 \subsection{fortlaufendes Prototyping}
 \label{ch::ongoing-prototyping}
