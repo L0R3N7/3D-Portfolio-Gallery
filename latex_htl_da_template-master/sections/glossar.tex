@@ -5,16 +5,19 @@ Ein Framework soll dem*der Programmierer*in helfen neue Applikationen zu schaffe
 
 \subsubsection{Open-Source [L]}
 \setauthor{Lorenz Litzlbauer}
-Open Source bei einer Applikation bedeutet, dass der Code dieser öffentlich zugänglich ist. Der Open Source Status sagt aber nichts über die Lizenzierung der Applikation aus. 
+Bei einer Open Source Applikation ist der Code öffentlich zugänglich. Der Open Source Status sagt aber nichts über die Lizenzierung der Applikation aus. 
 
-\subsubsection{Framework[M]}
+\subsubsection{Single-Page-Application (SPA) [M]}
 \setauthor{Fabian Maar}
 Single-Page-Webanwendung: 
 Eine Single-Page-Webanwendung interagiert mit dem*der User*in, wodurch sich einzelne Komponenten der Website dynamisch verändern.
 
 \subsubsection{Design-Pattern [L]}
 \setauthor{Lorenz Litzlbauer}
-Im Programmieren gibt es Probleme, die immer wieder auftreten. Diese Probleme wurden schon einmal sehr effizient gelöst und es besteht kein Nutzen sie immer wieder zu lösen. Design Patterns sind Strategien, wie man diese Probleme lösen kann. 
+Im Programmieren gibt es Probleme, die immer wieder auftreten. Diese Probleme wurden schon einmal sehr effizient gelöst und es besteht kein Nutzen sie immer wieder zu lösen. Design Patterns sind Strategien und Implementierungsvorgaben für die Lösung dieser Probleme. Design Patterns beschleunigen den Programmierungseffekt und machen ihn sicher, weil die Implementierungsvorgaben schon vorgegeben sind und diese auf eine hohen Grad der Sicherheit getestet wurden. \cite{DesignPatterns}
+
+\paragraph{Observer design pattern}
+Ein konkretes Beispiel für Design Patterns ist das \emph{Observer pattern}. Es wird dafür Verwendet eine Eins-zu-Eins Beziehungen zwischen zwei oder mehrere Objekte zu erstellen. Das Ziel ist es ein Objekte (das Subject) bei allen Veränderungen diese an das andere Objekt (der Observer) weitergeben und das so schnell und leicht wie möglich. Die Idee ist, dass das Subject eine Liste von Observern führt, wenn sich etwas ändert ließt das Subject die Liste aus und informiert alle Eingetragennen Observer, wenn ein Object zu einem Observer werden will, muss es sich in die Liste des zu observierenden Objekt einschreiben. Ohne diese Funktionalität müsste der Observer in einem regelmäßigen Intervall das Subject abfragen, ob es eine Veränderung gab, dass verlängert die Rechenzeit und Leistung. \cite{ObserverPatternExplaination}
 
 \subsubsection{Framework[M]}
 \setauthor{Fabian Maar}
