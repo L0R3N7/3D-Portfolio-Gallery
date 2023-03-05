@@ -18,12 +18,22 @@ Beim Brainstormen findet jede*r Teilnehmer*in zu einem bestimmten Thema so viele
 
 \subsection{User-Stories}
 \setauthor{Litzlbauer Lorenz}
+User Stories stellen Anforderungen an die Software. Sie wird user- und aufgabenorientiert formuliert und erzählt von der ersten Perspektive einer im Projekt involvierten Person, meistens des Users.
 
+Hier ein konkretes Beispiel, wie eine User Story gestaltet werden könnte.
+\emph{Als Designer möchte ich einen Login, um meine Ausstellungen speichern und im Nachhinein immer öffnen zu können.}
+
+Die User Stories wirken als Kommunikationsmittel zwischen Kunde und Entwickler und bieten eine messbare Metrik zum Testen des Projektfortschritts.
+
+User Stories kommen oft in der agilen Softwareentwicklung vor. Dort besprechen der Kunde und der Product Owner eine Zielbestimmung. Anhand dieser Bestimmungen werden Funktionen bestimmt, die das Projekt erfüllen muss und diese mithilfe von User Stories formuliert.
 \cite{AgileVorgehensmodelle}
 
+Auch für dieses Projekt wurden User Stories formuliert. In diesem Kapiteln (Umsetzung) wird darüber geschrieben, wie diese erfüllt worden sind. 
 
 \subsubsection{Projekt User Stories}
 \setauthor{Team}
+\label{ch:umsetzung:projekt-user-stories}
+Die für das Projekt formulierten User Stories sind folgenden: 
 \begin{compactenum}
     \item Als Designer möchte ich einen Login, um meine Ausstellungen speichern und im nachhinein immer öffnen zu können.
     Akzeptanzkriterien: 
@@ -71,9 +81,11 @@ Beim Brainstormen findet jede*r Teilnehmer*in zu einem bestimmten Thema so viele
     \item  Als User*in will ich eine Profil-Unterseite haben, auf der ich userrelevante Informationen angezeigt bekomme. Auswahlkriterien: 
     \begin{compactitem}
         \item userrelevante Informationen, die angezeigt werden, sind: 
-        \item Name
-        \item Profilfoto
-        \item Erstellte Ausstellungen
+        \begin{compactitem}
+            \item Name
+            \item Profilfoto
+            \item Erstellte Ausstellungen        
+        \end{compactitem}
         \item Der*Die User*in kann dort seine Ausstellungen löschen.         
     \end{compactitem} 
     \item  Als User*in will ich bei der Erstellung einer Ausstellung zwischen verschiedenen Templates wählen können, um diese auf einfache Weise zu individualisieren. Auswahlkriterien: 
@@ -123,15 +135,18 @@ Beim Brainstormen findet jede*r Teilnehmer*in zu einem bestimmten Thema so viele
         \item Die Daten im Bezug auf die Ausstellungen werden auf dem Server gespeichert.
         \item Bevor die Ausstellung gelöscht wird, soll ein Warnhinweis angezeigt werden, welcher noch bestätigt werden muss. 
     \end{compactitem} 
-
-
-
-
-
 \end{compactenum}
 
-\subsection{fortlaufendes Prototyping}
+\subsection{Evolutionäres Prototyping}
 \label{ch::ongoing-prototyping}
+Das evolutionäre Prototyping ist eine Art des Prototyping, dabei wird der Prototyp über die Dauer des gesamten Projektes weiterentwickelt, bis daraus das fertige Softwareprojekt wird.
+
+In der Softwareentwicklung kommt es zu großen Problemen. Der Entwicklungsprozess dauert lang und die Kundschaft sieht erst am Ende des Werdegangs das funktionierende Produkt, deshalb kann es dazu kommen, dass Fehler und Missverständnisse aus der Spezifikationsphase erst zu diesem Zeitpunkt erkannt werden. Zu diesem Zeitpunkt ist jede Veränderung am Projekt sehr kostenaufwendig. Eine Lösungsstrategie für dieses Problem ist die Anwendung von Prototypen. Prototypen sind Annäherungen oder funktionelle Modelle von Systemteilen des fertigen Produkts. Sie werden im Vergleich zu dem Produkt mit weniger Aufwand produziert und das Klientel kann sich vorab ein Bild machen.\cite{Prototyping}
+
+\subsubsection{Prototyp im Projekt}
+Im Projekt wurden mehrere Prototypenarten verwendet, primär aber der evolutionäre Prototype.
+
+Anfangs wurde so die Machbarkeit des Projekts mit einer Umsetzbarkeitsanalyse, bei der der Prototyp eine große Rolle spielte, getestet. Im Prototype (siehe Seite \pageref{ch:Technologien:AngularThree} Angular Three) wurde überprüft, ob die Technologien auf die das Projekt aufbaut auch die Anforderungen (siehe Seite \pageref{ch:umsetzung:projekt-user-stories} Projekt User Stories) erfüllen konnten. Dadurch konnten die Erkenntnisse gemacht werden, dass Angular Three nicht geeignete für das Projekt war und eine anderen 3D-Web-Api ThreeJs benutzt werden. Da dieses Resultat schon früh in dem Entwicklungsprozess gemacht wurde, kam mit der Änderung der 3D-Web-Apis im nur wenig Programmieraufwand zusätzlicher Aufwand.
 
 \section{Design}
 \subsection{Userexperience [L]}
@@ -146,7 +161,7 @@ Erstens gibt es den Punkt der Gestaltung der Interaktionen, hierzu gehört der B
 Zweitens gibt es Design als den Designprozess. Im Designprozess muss erkannt werden, was dem*der Benutzer*in wichtig ist und dieses dem Produkt zugewiesen werden, sodass es auch der*die Benutzer*in erkennen kann \cite{UserExperienceDesign}.
 
 \subsubsection{Anwendungen von UX im Projekt}
-Das Projekt wurde schon von Anfang an mit einem Gedanken für den Benutzer gestartet. Userstories waren aus der Sicht eines Benutzers formuliert und das Projekt startete mit der Frage, welchen Nutzen kann das Projekt einem*einer Nutzer*in geben.
+Schon beim Projektstart lagen die Benutzer*innen im Mittelpunkt. User Stories waren aus der Sicht eines Benutzers formuliert und das Projekt startete mit der Frage, welchen Nutzen kann das Projekt einem*einer Nutzer*in geben.
 
 Im Userinterface-Design wurde Figma (siehe Kapitel \hyperref[ch::technologies::figma]{Technologien Figma}) benutzt. Die Oberfläche wurde so designt, damit sie leicht verständlich, nützlich und benutzerfreundlich ist. Dafür wurden viele Prototypen (siehe Abbildung \ref{fig:impl:design:prototypesfigma}) in Figma gestallten und durch Umfragen die besten bestimmt und dementsprechende Anpassungen am Design gemacht.
 
