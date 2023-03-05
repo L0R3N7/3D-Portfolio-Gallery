@@ -141,7 +141,7 @@ Die für das Projekt formulierten User Stories sind folgenden:
 \label{ch::ongoing-prototyping}
 Das evolutionäre Prototyping ist eine Art des Prototyping, dabei wird der Prototyp über die Dauer des gesamten Projektes weiterentwickelt, bis daraus das fertige Softwareprojekt wird.
 
-In der Softwareentwicklung kommt es zu großen Problemen. Der Entwicklungsprozess dauert lang und die Kundschaft sieht erst am Ende des Werdegangs das funktionierende Produkt, deshalb kann es dazu kommen, dass Fehler und Missverständnisse aus der Spezifikationsphase erst zu diesem Zeitpunkt erkannt werden. Zu diesem Zeitpunkt ist jede Veränderung am Projekt sehr kostenaufwendig. Eine Lösungsstrategie für dieses Problem ist die Anwendung von Prototypen. Prototypen sind Annäherungen oder funktionelle Modelle von Systemteilen des fertigen Produkts. Sie werden im Vergleich zu dem Produkt mit weniger Aufwand produziert und das Klientel kann sich vorab ein Bild machen.\cite{Prototyping}
+In der Softwareentwicklung kommt es zu großen Problemen. Der Entwicklungsprozess dauert lang und die Kundschaft sieht erst am Ende des Werdegangs das funktionierende Produkt, deshalb kann es dazu kommen, dass Fehler und Missverständnisse aus der Spezifikationsphase erst zu diesem Zeitpunkt erkannt werden. Zu diesem Zeitpunkt ist jede Veränderung am Projekt sehr kostenaufwendig. Eine Lösungsstrategie für dieses Problem ist die Anwendung von Prototypen. Prototypen sind Annäherungen oder funktionelle Modelle von Systemteilen des fertigen Produkts. Sie werden im Vergleich zu dem Produkt mit weniger Aufwand produziert und das Klientel kann sich vorab ein Bild machen und Missverständnisse kommen durch die vermehrte Absprache mit der Kundschaft weniger auf und kann mit wenig Aufwand gelöst werden. \cite{Prototyping}
 
 \subsubsection{Prototyp im Projekt}
 Im Projekt wurden mehrere Prototypenarten verwendet, primär aber der evolutionäre Prototype.
@@ -167,7 +167,7 @@ Im Userinterface-Design wurde Figma (siehe Kapitel \hyperref[ch::technologies::f
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.3]{pics/ProjektOberflächenDesignPrototypenFigma.png}
+    \includegraphics[scale=0.5]{pics/ProjektOberflächenDesignPrototypenFigma.png}
     \caption{OberflächenDesign: Prototypen in Figma}
     \label{fig:impl:design:prototypesfigma}
 \end{figure}
@@ -193,20 +193,110 @@ Der erste Schritt des Designs war es, zwei unterschiedliche Konzepte der ersten 
     \centering
     \includegraphics[scale=0.3]{pics/DesignKonzept1_1.png}
     \caption{Design Konzpet 1 Page 1}
-    \label{fig:impl:knuth}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[scale=0.3]{pics/DesignKonzept1_2.png}
     \caption{Design Konzpet 1 Page 2}
-    \label{fig:impl:knuth}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[scale=0.3]{pics/DesignKonzept2.png}
     \caption{Design Konzept 2}
-    \label{fig:impl:knuth}
 \end{figure}
+
+\subsection{Webseiten Design - Entwicklung [L]}
+\setauthor{Litzlbauer Lorenz}
+In den vorherigen Kapiteln (Userexperience und Corporate Design) wurde bereits besprochen, wie das Konzept für das Webseiten-Design aussehen sollte und designt wurde. Eine kurze Zusammenfassung: Erst wurde das Corporate Design festgelegt und darauf aufbauend wurden die einzelnen Seiten der Webseite, um die Anforderungen (siehe Seite \pageref{ch:umsetzung:projekt-user-stories} Projekt User Stories) zu erfüllen, designt, dafür wurde das Tool Figma verwendet.
+
+Danach wurde das \emph{Framework} Angular verwendet, um aus den einzelnen Webseiten-Seiten-Angaben eine echte Webseite zu entwickeln. Dabei wurden Userinterface-Frameworks (oder auch Design-Frameworks/Libraries) verwendet, um den Entwicklungsprozess zu beschleunigen.
+
+\subsubsection{UserInterface-Frameworks (UI-Frameworks)}
+Ein UserInterface-Frameworks ist eine Ansammlung von Web Komponenten wie eine Navigationsleiste die sofort Nutzbar sind.  
+
+
+Die Vorteile von UI-Frameworks sind:
+\begin{compactitem}
+    \item vereinfacht und beschleunigt den Entwicklungsprozess;
+    typische Web-Komponenten sind vordefinierte, der Entwickler muss diese nicht mehr implementieren und erspart sich Zeit.
+    \item Cross-Browser Unterstützung;
+    Besonders bei neuen CSS-Feature kann es sein, dass diese noch nicht von allen Browsern unterstützt werden. Ein UI-Framework benutzt in der Regel nur Funktionen, die auch alle Browser anzeigen können.
+    \item Der Code hat eine bessere Lesbarkeit;
+    In einem UI-Framework gibt es gewisse Konventionen wie Klassennamen, die befolgt werden müssen. Dadurch wird der Code besser lesbar.
+\end{compactitem}
+
+
+Die Nachteile von UI-Frameworks sind:
+\begin{compactitem}
+    \item Die Ladezeit der Webseite erhöht sich;
+    Schließlich müssen auch mehr Daten an den Browser geschickt werden.
+    \item Webseiten, die das selbe UI-Framework verwenden, schauen einander ähnlich aus;
+    Da die Web-Komponenten gleich implementiert werden.
+\end{compactitem}
+\cite{CssFrameworkExplaination} \cite{BestCSSFrameworksin2022}
+
+\subsubsection{UI-Frameworks im Projekt}
+Im Projekt wurde sich für zwei UI-Frameworks, Bootstrap und AngularMaterials, entschieden.
+
+
+\paragraph{Angular Material}
+Angular Material ist eine UI Framework und wird seit 2014 von Google entwickelt. Das Framework baut auf Angular auf und erweitert es mit eigenen Komponenten, Styleguides, Typographie und vielem mehr. Die Design-Sprache orientiert sich dabei an der Material Design Spezifikation von Google. Ein großer Fokus des Frameworks ist die Responsiveness, Komponenten werden auf verschiedenen Auflösungen gut aussehen.
+
+
+Angular Material hat folgende Features:
+\begin{compactitem}
+    \item Erweiterbar; Bei der Installation lassen sich viele Designanpassungen machen, zusätzlich lassen sich Styles mit dem globalen Stylesheet überschreiben. 
+    \item Hochwertig; Die Komponenten sind erprobt und wurden auf die Performanz und Verlässlichkeit getestet.
+    \item Reibungslos; Angular Material ist gut mit Angular integriert
+\end{compactitem}
+
+Die Abbildung \ref{fig:impl:angular-material-overview-components} zeigt einen Teil der Komponenten, die Angular Material anbietet. Zu allen diesen Komponenten gibt es eine ausführliche Dokumentation mit Beispiele. 
+\cite{JavaPointAngularMaterial}
+\cite{WhatAngularMaterial}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{pics/AngularMaterialsComponentsOverview.png}
+    \caption{Angular Material: Komponente Überblick}
+    \label{fig:impl:angular-material-overview-components}
+\end{figure}
+
+\subparagraph{Material Design Spezifikation}
+Material Design ist ein Designsystem, welches von Google erstellt wurde, um Teams zu helfen, qualitative hochwertige Digitale-Erfahrungen für Android, iOS, Flutter und das Web zu gestalten.
+
+Material Design hat mehrere Prinzipien, die sie ihr Design beeinflussen lassen.
+
+Material Design soll die reale Weld abbilden.
+Text soll durch Typographie, Raster, Abstände, Farben und Bilder soll eine erkennbare Hierarchie entstehen. Komponenten sind interaktive Bauklötze für ein das User Interface. Komponenten haben alle eine Stati-System welches den Status der Komponente fokussiert, selektiert, aktiviert, fehlerhaft, schwebend, gedrückt und ausgeschalten anzeigt. Durch das Theming ist es möglich einzelne Komponenten zu verändern und das Design so anzupassen, dass es zur Corporate Identity der Benutzer*in passt.
+Material Design befasst sich mit den Design-Fundamenten:
+\begin{compactitem}
+    \item Umgebung
+    \item Layout
+    \item Navigation
+    \item Farbe
+    \item Typographie
+    \item Ton
+    \item Iconography
+    \item Form
+    \item Bewegung
+    \item Interaktion
+    \item Kommunikation
+    \item maschieneles Lehren
+\end{compactitem}
+
+\cite{MaterialDesign-Introduction}
+
+\paragraph{Bootstrap}
+Bootstrap ist ein gratis und open-source UI-Framework. Es ist nicht nur eine Ansammlung von CSS sondern auch von JavaScript und HTML code um schöne, interaktive und responsive Webseiten. 
+
+Bootstrap hat folgenden Features: 
+\begin{compactitem}
+    \item Web-Komponenten, die sofort Anwendbar sind
+    \item Eine gute Dokumentation
+    \item Mobile Centered Design
+    \item Hohe Benutzerfreundlichkeit
+\end{compactitem}
+\cite{BestCSSFrameworksin2022}
 
