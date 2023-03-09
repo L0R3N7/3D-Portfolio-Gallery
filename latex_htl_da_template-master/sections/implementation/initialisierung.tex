@@ -8,12 +8,11 @@ Der erste Entwicklungsschritt für die vollständige Single-Page-Application beg
 \setauthor{Litzlbauer Lorenz}
 Die Entwicklung startete damit, dass die benötigten Technologien Angular, AngularThree, AngularMaterials und Bootstrap heruntergeladen werden mussten.
 
-
-\subsubsection{Vorbereitung}
 Dafür wurde der \emph{npm} Node-Package-Manager verwendet.
 
-Erstmal musste NPMJs installiert werden. Dafür wird aber zuvor noch NPMJs benötigt. NPMJs ist eine JavaScript Laufzeitumgebung. NPMJs kann von der eigenen Webseite nodejs.org mit dem Installer für alle Betriebssysteme installiert werden. Im Projekt wurde sich für eine LTS - Version(long term support) entschieden, weil diese am längsten von den Entwicklern am längsten unterstützt werden und dadurch beständiger sind. Auch NPM kann über die Webseite installiert werden.
 
+\subsubsection{Vorbereitung}
+Erstmal musste NodeJs installiert werden. Dafür wird aber zuvor noch NodeJs benötigt. NodeJs ist eine JavaScript Laufzeitumgebung. NodeJs kann von der eigenen Webseite nodejs.org mit dem Installer für alle Betriebssysteme installiert werden. Im Projekt wurde sich für eine LTS - Version(long term support) entschieden, weil diese am längsten von den Entwicklern am längsten unterstützt werden und dadurch beständiger sind. Während dem Installationsprozess von NodeJs kann durch eine Auswahl auch NPM installiert werden. 
 
 \paragraph{npm - Node Package Manager}
 Der Node Package Manager ist ein Softwareverwaltungstool zum Downloaden, Aktualisieren, Veröffentlichen und Verwalten von OpenSource-Programmen in der NodeJs-Umgebung. \cite{whatNpm} \cite{AboutNpm}
@@ -21,7 +20,7 @@ Der Node Package Manager ist ein Softwareverwaltungstool zum Downloaden, Aktuali
 \subsubsection{Angular installieren}
 Angular hat ein eigenes Tool, die Angular CLI (Command Line Interface), um Projekte zu erstellen, zu bearbeiten, Komponenten, Services und vordefinierte Codemodule hinzuzufügen und das Projekt zu bauen.
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[caption={{Terminalm - Angular aufsetzen, Installation der CLI, Configuration eines neuen Projektes, Starten des Projektes}},language=bash]
 npm install -g @angular/cli 
 ng new Gallery
 ? Would you like to add Angular routing? Yes
@@ -48,6 +47,47 @@ Die Ausnahme von dieser Regel sind bei CLI-Modulen, diese könnten auch lokal in
 
 \subsubsection{Installation der UI-Framework}
 
-\subsubsection{Installation der UI-Framework}
+Nach der Installation von Angular wurden die UI-Frameworks installiert. Angular Material konnte mithilfe des Befehls  \ref{lst:impl:installationAngularMaterials} mittels der Angular CLI in das Angularprojekt eingebunden werden.
+
+\begin{lstlisting}[caption={{Terminal - Angular Material Installation}},language=bash,label=lst:impl:installationAngularMaterials]
+    ng add @angular/material
+\end{lstlisting}
+
+Bootstrap konnte mithilfe des Befehls \ref{lst:impl:installationBootstrap} und von NPM installiert werden. Bootstrap wurde zwar dem Projekt hinzugefügt, Angular weiß aber davon noch nichts. Deswegen musste in der Anuglar-Konfigurationsdatei \emph{angular.json} die Bootstrap Scss-Liberay eingebunden werden. Das wird in diesem Code \ref{lst:impl:BootstraptConfig} veranschaulicht. 
+
+\begin{lstlisting}[caption={{Terminal - Bootstrap Installation}},language=bash,label=lst:impl:installationBootstrap]
+    npm i bootstrap
+\end{lstlisting}
+
+\begin{lstlisting}[caption={{angular.json - Bootstrap Angular Verknüpfung}},label=lst:impl:BootstraptConfig]
+    {
+        ...,
+        "projects": {
+            "Gallery": {
+                ...,
+                "architect": {
+                    "build": {
+                        ...,
+                        "options": {
+                            ...,
+                            "styles": [
+                                ...,
+                                "node_modules/bootstrap/scss/bootstrap.scss"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        ...
+    }
+    
+\end{lstlisting}
+
+
+\subsubsection{Installation von Three Js}
+Nach der Installation der UI-Libraries wurde ThreeJs installiert und in das Angular-Projekt eingebunden. 
+
+TODO: Lorenz ThreeJs Einbindung beschreiben
 
 
