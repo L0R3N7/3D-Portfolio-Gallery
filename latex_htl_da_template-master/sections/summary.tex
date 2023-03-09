@@ -1,3 +1,32 @@
+\setauthor{Litzlbauer Lorenz}
+In diesem Projekt machte das Diplomarbeitsteam große Erfahrungen und Fortschritte im Bereich Team-, Zeitmanagement, Programmierung, Prototyping und wissenschaftliches Arbeiten. In dem Kapitel Zusammenfassung wird das Projekt noch einmal revue passiert, die Probleme und ihre Lösungen beschrieben, die Untersuchung der Anliegen abgeschlossen und mehrere Erweiterungsvorschläge gegeben für die Weiterentwicklung des Projektes.
+
+\section{Probleme und Lösungsstrategie}
+\subsection{Angular und Design Frameworks}
+\setauthor{Litzlbauer Lorenz}
+Das Angular Webframework kapselt eigene Komponenten ab, damit sie sich nicht gegenseitig mit ihren Stylingbefehlen beeinflussen. Angular verwendet für die Einkapselung eine virtuellen Dom oder auch eine, nativen vom Browser unterstützen, ShadowDOM-API.
+\cite{AngularViewencapsulation}
+
+Es gibt Situationen, in denen übergeordnete Komponenten das Styling untergeordneter ändern müssen. Besonders bei Angular Materials, einem UI- und Komponenten-Framework von Angular, kommt es oft dazu, dass die Angular Material-Komponente meistens aus vielen kleinen Komponenten aufgebaut wird, wenn dabei der Style angepasst werden muss, damit die Material Komponente mehr zu der Corporate Identity des Produktes passt, ist das schwierig umsetzen.
+
+Um dieses Problem zu lösen, gibt es zwei Möglichkeiten ::ng-deep und das globale Stylesheet.
+
+\subsubsection{::ng-deep}
+\emph{::ng-deep} durchbricht den virtuellen DOM (oder ShadowDOM) und erlaubt es in Kombination mit weiteren Styleselektoren von der Eltern-Komponente auf alle Kinder-Komponenten zuzugreifen. (siehe im Code Beispiel \ref{lst:sum:ngdeep})
+
+\begin{lstlisting}[caption={{Parent.component.scss - Changing Styling in Child Componentes by using :ngdeep}},language=HTML,label=lst:sum:ngdeep]
+::ng-deep app-child-component{
+    -- change styling of child component
+    background-color: pink;
+}    
+\end{lstlisting}
+
+::ng-deep funktioniert, indem es die Einkapselung der Komponente ausschaltet und jeden Selektor (in Kombination mit ::ng-deep) zu einem globalen Style befördert. Das kann, aber zu unvorhersehbaren Fehlern und Problemen führen. Deswegen wird von Seitens Angular geraten es nicht zu verwenden und die Funktion als veraltet definiert. Viel besser ist es, wenn man einen globalen Wert verändern will, das auch im globalen Stylesheet zu machen.
+Wenn der*die Entwickler*in Zugriff auf die Komponente hat und sie ändern kann, gibt es keinen Grund ::ng-deep zu verwenden, weil Anpassungen direkt in der Komponente gemacht werden können oder durch Input eine Interaktionsmöglichkeit hinzuzufügen. Bei Komponenten von dritten Seiten wie Angular Material muss wohl eine Style-Überschreibung mittels ::ng-deep oder dem globalen Stylesheet erfolgen, weil der*die Entwickler*in keinen Zugriff auf die Komponente hat.
+\cite{AngularComponentsStyleNgDEEP}
+\cite{UnderstandingNgDeep}
+
+
 Aufzählungen:
 
 \begin{compactitem}
@@ -29,3 +58,4 @@ Aufzählungen:
         \end{compactdesc}
     \end{compactdesc}
 \end{compactdesc}
+
