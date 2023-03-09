@@ -143,7 +143,7 @@ Das evolutionäre Prototyping ist eine Art des Prototyping, dabei wird der Proto
 
 In der Softwareentwicklung kommt es zu großen Problemen. Der Entwicklungsprozess dauert lang und die Kundschaft sieht erst am Ende des Werdegangs das funktionierende Produkt, deshalb kann es dazu kommen, dass Fehler und Missverständnisse aus der Spezifikationsphase erst zu diesem Zeitpunkt erkannt werden. Zu diesem Zeitpunkt ist jede Veränderung am Projekt sehr kostenaufwendig. Eine Lösungsstrategie für dieses Problem ist die Anwendung von Prototypen. Prototypen sind Annäherungen oder funktionelle Modelle von Systemteilen des fertigen Produkts. Sie werden im Vergleich zu dem Produkt mit weniger Aufwand produziert und das Klientel kann sich vorab ein Bild machen und Missverständnisse kommen durch die vermehrte Absprache mit der Kundschaft weniger auf und kann mit wenig Aufwand gelöst werden. \cite{Prototyping}
 
-\subsubsection{Prototyp im Projekt}
+\subsection{Prototyp im Projekt}
 Im Projekt wurden mehrere Prototypenarten verwendet, primär aber der evolutionäre Prototyp.
 
 Anfangs wurde so die Machbarkeit des Projekts mit einer Umsetzbarkeitsanalyse, bei der der Prototyp eine große Rolle spielte, getestet. Im Prototyp (siehe Seite \pageref{ch:Technologien:AngularThree} Angular Three) wurde überprüft, ob die Technologien auf die das Projekt aufbaut auch die Anforderungen (siehe Seite \pageref{ch:umsetzung:projekt-user-stories} Projekt User Stories) erfüllen konnten. Dadurch konnten die Erkenntnisse gemacht werden, dass Angular Three nicht geeignete für das Projekt war und eine anderen 3D-Web-Api ThreeJs benutzt werden. Da dieses Resultat schon früh in dem Entwicklungsprozess gemacht wurde, kam mit der Änderung der 3D-Web-Apis im nur wenig Programmieraufwand zusätzlicher Aufwand.
@@ -262,6 +262,7 @@ Die Abbildung \ref{fig:impl:angular-material-overview-components} zeigt einen Te
     \caption{Angular Material: Komponente Überblick}
     \label{fig:impl:angular-material-overview-components}
 \end{figure}
+Abbildung \ref{fig:impl:angular-material-overview-components} \cite{AngularComponents}
 
 \subparagraph{Material Design Spezifikation}
 Material Design ist ein Designsystem, welches von Google erstellt wurde, um Teams zu helfen, qualitative hochwertige Digitale-Erfahrungen für Android, iOS, Flutter und das Web zu gestalten.
@@ -299,3 +300,5 @@ Bootstrap hat folgenden Features:
 \end{compactitem}
 \cite{BestCSSFrameworksin2022}
 
+\subsubsection{Scss}
+Scss ist kein UI-Framework sondern vielmehr eine Syntax und Feature Erweiterungen von CSS, deswegen wurde es schlussendlich auch für dieses Projekt gewählt. Scss hat viele Vorteile wie zum Beispiel Variable, Schleifen, Mixins und Imports gegenüber Css, aber besonders ausschlaggebend war das Prinzip der Verschachtelung. 
