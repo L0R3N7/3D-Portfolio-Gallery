@@ -17,7 +17,7 @@ Erstmal musste NodeJs installiert werden. Dafür wird aber zuvor noch NodeJs ben
 \paragraph{npm - Node Package Manager}
 Der Node Package Manager ist ein Softwareverwaltungstool zum Downloaden, Aktualisieren, Veröffentlichen und Verwalten von OpenSource-Programmen in der NodeJs-Umgebung. \cite{whatNpm} \cite{AboutNpm}
 
-\subsubsection{Angular installieren}
+\subsubsection{Angular installieren}\label{sec:AngularCLI}
 Angular hat ein eigenes Tool, die Angular CLI (Command Line Interface), um Projekte zu erstellen, zu bearbeiten, Komponenten, Services und vordefinierte Codemodule hinzuzufügen und das Projekt zu bauen.
 
 \begin{lstlisting}[caption={{Terminalm - Angular aufsetzen, Installation der CLI, Configuration eines neuen Projektes, Starten des Projektes}},language=bash]
@@ -94,3 +94,61 @@ Mit dem ersten Befehl wird AngularJs eine JavaScript Liberay durch NPM installie
     npm i @types/three
 \end{lstlisting}
 
+\section{Components [M]}
+\setauthor{Fabian Maar}
+Der nächste Schritt der Entwicklung, ist das Erstellen der Komponenten und das Festlegen ihrer Struktur. Eine Komponente kann ebenfalls über die Angular CLI erstellt werden:
+
+\begin{lstlisting}[caption={{Terminal - Component erstellen}},language=bash,label=lst:impl:addComponent]
+    ng generate component home-page
+\end{lstlisting}
+
+\subsection{Allgemein}
+Angular Komponenten sind die Bausteine für eine Angular-Anwendung. Mit ihnen lässt sich eine komplexe Benutzeroberfläche in mehrere unterschiedlich große Elemente unterteilen. Sie lassen sich mit einem eigenen HTML-Selektor (z.B. <my-component>) ansprechen und in die Benutzeroberfläche einbinden. Components besitzen viele Features, die den Entwicklungsprozess, Wartung des Codes und Fehlersuche erleichtern können:
+
+\begin{itemize}
+    \item Trennung von Logik und Design
+    \item Skalierbarkeit der Applikation
+    \item Data-Binding
+    \item Hierarchie
+    \item Lesbarkeit/Übersichtlichkeit
+\end{itemize}
+
+\subsection{Aufbau}
+Um die Logik strikt von der Benutzeroberfläche zu trennen, werden die Dateien und der Code innerhalb einer Komponente strukturiert und separiert. Eine Komponente besteht somit aus: 
+
+\begin{itemize}
+    \item einem HTML-Template, dass die Benutzeroberfläche darstellt
+    \item einer TypeScript-Klasse, die die Logik und Funktionalitäten der Komponente beinhaltet
+    \item ein Stylesheet, dass das Aussehen der Benutzeroberfläche beeinflusst
+    \item eine TypeScript-Testklasse, um individuell Komponenten zu testen 
+\end{itemize}
+
+\cite{AngularComponentOverview}
+
+\subsection{Skalierung}
+Die Skalierung beschreibt, wie gut eine Applikation mit Erweiterungen und ihrem Wachstum umgeht. Dabei wird geschaut, wie leicht sich zusätzliche Änderungen und Features implementieren lassen oder wie sich die Performanz der Anwendung bei zunehmender Größe verhält. Angular hilft beim Skalieren durch einige Features:
+
+TypeScript hilft durch Code-Syntax, wie unter anderem Optionals, auch bei großen Applikationen schnell Fehler zu erkennen. 
+
+Durch die Angular CLI kann durch wenige Zeilen Befehle, zum einen ein Grundgerüst für die Entwicklung erstellt werden. Andererseits können Components, Services und andere Angular Funktionen in jedem Entwicklungsstadium problemlos hinzugefügt werden, ohne dass der bestehende Code beeinflusst wird. siehe Kapitel \ref{sec:AngularCLI}
+
+Angular stellt zudem Libraries wie Angular Materials oder das Component Development Kit (cdk) zur Verfügung. Dadurch können problemlos vorgefertigte Angular Komponenten und Designs zu einer Applikation hinzugefügt werden.
+
+\subsection{Hierarchie}
+Die Hierarchie von Angular Komponenten lässt sich wie folgt in einer Baumstruktur abbilden:
+
+\begin{figure} [h t]
+    \centering
+    \includegraphics[scale=0.6]{pics/hierarchy.PNG}
+    \caption{Component-Hierarchy \cite{AngularBuch}}
+    \label{fig:tech:front:component-hierarchy}
+  \end{figure}
+Die Hauptkomponente ist in jedem Falle der Root-Component. Von ihr aus lassen sich weitere Child-Components ineinander verschachteln. Diese Verschachtelung ist der Grund, warum die Anwendung in viele einzelne Teile ausgelagert werden kann. Außerdem können Komponenten durch das Data-Binding untereinander Daten austauschen.
+
+\subsection{Data-Binding}
+Data-Binding ist eine Methode, Daten zwischen der Logik und der Benutzeroberfläche auszutauschen. Dabei bleibt die Website ohne Refresh immer aktuell. Das Binden von Daten kann direkt am DOM erfolgen, wofür es eine eigene Code-Syntax gibt. Beim Data-Binding unterscheidet man zwischen verschiedenen Kategorien \cite{AngularBuch} \cite{BindingSyntax}:  
+
+\subsubsection{Interpolation}
+\subsubsection{Property-Bindings}
+\subsubsection{Event-Bindings}
+\subsubsection{Two-Way-Bindings}

@@ -1,6 +1,9 @@
 \subsection{Allgemeines [M]}
 \setauthor{Fabian Maar}
-Angular ist ein Framework für Webapplikation, das auf der Programmiersprache Typescript basiert. Es ist eines der renommiertesten Frameworks zur Front-End-Entwicklung und wird als Open-Source-Software zur Verfügung gestellt. Besonders bietet sich Angular für Single-Page-Webanwendung an, da es ein komponentenbasiertes Framework ist. Das bedeutet, der Code ist wiederverwendbar und verkapselt. Komplexe Logiken werden auf ihre Grundelemente reduziert und beeinflussen sich nicht gegenseitig. 
+Angular ist ein Framework für Webapplikation, das auf der Programmiersprache Typescript basiert. Es ist eines der renommiertesten Frameworks zur Front-End-Entwicklung und wird als Open-Source-Software zur Verfügung gestellt. So besitzt Angular eine große Community und wird von vielen Software-Entwicklern benutzt. So zählt es 2022 zu dem zweitbeliebtesten Front-End Framework \cite{AngularEvidence} und wird von Milliardenkonzernen wie zum Beispiel Google oder PayPal verwendet. 
+\cite{AngularEvidence2}
+
+Die große Stärke von Angular ist die Erstellung von Single-Page-Webanwendung, da es eine komponentenbasierte Struktur besitzt. Das bedeutet, der Code ist wiederverwendbar und verkapselt. Komplexe Logiken werden auf ihre Grundelemente reduziert und beeinflussen sich nicht gegenseitig.
 \cite{AngularGeneral}
 
 \subsection{Dependencies [L]}
@@ -19,17 +22,95 @@ Angular benutzt Webpack um TypeScript in JavaScript und Sass bzw. Scss in Scss z
 
 \subsection{Vorteile/Auswahlkriterien [M]}
 \setauthor{Fabian Maar}
-Dieses komponentenbasierte Programmieren war eines der vielen Gründe 
-warum Angular eine geeignete Option ist. Im Abschnitt 5 //TODO  wird nochmals deutlich, wie dieser Aspekt genutzt wird. Ein weiterer Grund, ist die einfache Einbindung von 
-Libraries und deren Übersichtlichkeit, die durch ngModules ermöglicht werden. Die ständige Erweiterung und die Unterstützung von Third-Party-Libraries, die unter anderem für die 3D-Darstellung verwendet werden, wird ebenfalls von diesen ngModulen ermöglicht. Beispiele wie wir dieses ngModule aufgesetzt haben befinden sich im Abschnitt Landing-Page aufsetzen //TODO VERLINKEN. Auch aufgrund von persönlichen Erfahrungen im Unterricht und in anderen Projekten war Angular eine passende Auswahlmöglichkeit. 
-\cite{AngularNgModules}
+Folgende Aspekte sprechen für die Nutzung Angular in diesem Projekt:
 
+\begin{itemize}
+  \item komponentenbasiertes Programmieren
+  Im Abschnitt 5 //TODO wird nochmals deutlich, wie dieser Aspekt genutzt wird.
+  \item einfache und übersichtliche Einbindung von Libraries durch ngModules; wird behandelt in Kapitel NgModules \ref{sec:NgModules} 
+  \item Isolierung der Logik mit der Benutzeroberfläche durch die Model-View-Controller Architektur und die Model-View-Viewmodel Architektur; wird behandelt in Kapitel MVC und MVVM \ref{sec:MVCandMVVM} 
+  \item 
+  Dependency Injection für die Verbindung von Front-End zum Back-End //TODO siehe Kapitel HTTP Services
+\end{itemize}
+
+\subsection{Model-View-Controller und Model-View-ViewModel Architecture [M]}\label{sec:MVCandMVVM}
+\setauthor{Fabian Maar}
+\subsubsection{Allgemein}
+
+Angular basiert auf dem Konzept des Model-View-Controller- (MVC) und Model-View-ViewModel (MVVM) Architecture Patterns. Diese Patterns werden verwendet, um die Logik von der Benutzeroberfläche zu trennen und komplexe Aufgaben einfacher zu bewältigen. Dies wird in der Fachsprache auch oft als "Separation of Concerns” bezeichnet.
+\cite{AngularArchitecturePattern}
+
+Architecture Patterns sind Muster die verwendet werden um:
+\begin{itemize}
+  \item eine Software-Anwendung zu strukturieren
+  \item die Redundanz von wiederholenden Code-Teile zu vermeiden 
+  \item immer wiederkehrende Probleme durch eine einmalige Lösungen zu beheben
+  \item um die Wartung und Testung zu erleichtern
+  \item Änderungen am Umfang und der Größe der Applikation leichter handhaben zu können
+\end{itemize}
+
+\cite{MVCmdn}
+\cite{MVVM}
+\cite{MVC}
+
+\subsubsection{Model-View-Controler (MVC)}
+Die "Separation of Concerns” wird bei diesem Pattern durch die Aufteilung der Applikation in Model, View und Controller realisiert. Dadurch ist es möglich, sich auf einen Aspekt der Implementierung zu fokussieren. 
+
+\begin{figure} [h t]
+  \centering
+  \includegraphics[scale=0.5]{pics/mvc.png}
+  \caption{Die Model-View-Controller Pattern \cite{MVCmdn}}
+  \label{fig:tech:front:mvc-architecture}
+\end{figure}
+
+Welche Daten eine Applikation beinhalten soll, wird über das Model geregelt. Falls sich das Model ändert, werden die Benutzerfläche und manchmal auch der Controller entsprechend geändert. In Angular sind diese Modelle mit den Interfaces //TODO REFERENZIEREN  zu vergleichen.
+
+Die View ist die Benutzeroberfläche des Programms. Der*die Benutzer*in kann mit dieser interagieren und diese verändern. Sie wird aus den Daten des Models erstellt und definiert. In Angular kann diese View mit dem HTML-Template einer Komponente verglichen werden.
+
+In dem Controller werden die Eingaben der Benutzer*innen verarbeitet und die betroffenen Model- und View-Komponenten beeinflusst und verändert. Auch ist es möglich zu bestimmen, welche Views verändert werden sollen und die Daten gegebenenfalls in unterschiedliche Formate anzuzeigen. Die TypeScript-Files in Angular sind vergleichbar mit diesen Controllern.
+\cite{MVC}
+
+\subsubsection{Model-View-ViewModel (MVVM)}
+Diese Architektur basiert auf dem Konzept des MVC-Patterns. Das MVVM realisiert die “Separation of Concerns” durch die View, ViewModel und Model Komponenten.
+
+\begin{figure} [h t]
+  \centering
+  \includegraphics[scale=0.5]{pics/mvvm-pattern.png}
+  \caption{Die Model-View-ViewModel Pattern \cite{MVVM}}
+  \label{fig:tech:front:mvc-architecture}
+\end{figure}
+
+Die View funktioniert hierbei ähnlich wie beim MVC-Pattern, jedoch ist es möglich, dass eine View auch Logik enthält, die Änderungen am Aussehen durchführt. Daher ist das HTML-Template einer Angular-Komponente noch ähnlicher zu dem Konzept einer View aus dem MVVM-Pattern als zu einer View aus dem MVC-Pattern. 
+
+Im ViewModel wird die Funktionalität der Benutzeroberfläche bestimmt. Dabei informiert das ViewModel die View über Änderungen im Model und beliefert es mit Daten. Dieser Vorgang beschreibt das Konzept des Data-Bindings //TODO REFERENZ in Angular.  
+
+Das Model funktioniert im Grunde gleich wie beim MVC-Pattern, nur wird hierbei nicht die View, sondern das ViewModel über Änderungen informiert. Somit ist das ViewModel das Mittelstück zwischen View und Model.
+
+Angular nutzt hierbei eine Mischung aus beiden Architecture-Patterns. Sie wird durch das Konzept von Komponenten realisiert, auf welches im nächsten Abschnitt näher eingegangen wird. Dabei kann man die Parallelen der Patterns erkennen.
+\cite{MVVM}
+
+\subsection{NgModules [M]}\label{sec:NgModules}
+\setauthor{Fabian Maar}
+NgModules erleichtern die Einbindung von Libraries enorm. Da man sich keine externen Files mühsam downloaden, einbinden muss und jeder Import-Prozess fast von selbst geschieht, erspart man sich enorm Zeit beim Entwickeln. Außerdem sind alle Importe in chronologischer Reihenfolge gelistet, wodurch ein guter Gesamtüberblick geliefert wird und schnell überflüssige Imports entfernt werden können. Die ständige Erweiterung und die Unterstützung von Third-Party-Libraries, die unter anderem für die 3D-Darstellung verwendet werden, wird ebenfalls von diesen ngModulen ermöglicht. Die Angular-Applikation wird hierbei organisiert und gestartet in dem die Metadaten wie folgt abgespeichert werden:
+
+\begin{itemize}
+  \item Declarations - In dieser Sektion werden alle zugehörigen Komponenten, Direktiven und Pipes deklariert 
+  \item Providers - Sie initialisieren wie die Werte die bei der Dependency Inection //TODO REFERENZ abgerufen werden \cite{AngularProviders}
+  \item Imports - Hier werden alle Libraries und exportierte Modules importiert
+  \item Exports - Sie beinhalten alle zu exportierenden Module
+  \item Bootstrap - Hierbei wird angegeben welche Komponente beim Anwendungsstart zuerst geladen wird
+\end{itemize}
+
+Wie die ngModules verwendet in der 3D-Gallerie-Applikation wurden, wird im Abschnitt Routing oder Landing Page aufsetzen //TODO Referenz nochmals erklärt.
+\cite{AngularNgModules}
+\cite{AngularNgModulesAPI}
+\cite{AngularBuch}
 
 
 \section{Webstorm [M]}
 \setauthor{Fabian Maar}
 Webstorm ist eine Entwicklungsumgebung vom Unternehmen JetBrains, die sich auf die Programmiersprache JavaScript spezialisiert hat. Sie wurde besonders für das Arbeiten mit Angular optimiert. Dies zeigt sich durch viele Features, die das Entwickeln von Angular-Projekten erleichtern. So macht es Webstorm möglich, mit nur wenigen Mausklicks eine neue Angular-Dependency oder Komponente zu erstellen. Auch wird die Entwicklungszeit durch intelligente Code-Vervollständigung, Code-Formatierung, einfache Navigation und viele weitere hilfreiche Features deutlich verkürzt.
-\cite{Webstorm}
+
 
 \section{ThreeJs [L]}
 \setauthor{Litzlbauer Lorenz}
