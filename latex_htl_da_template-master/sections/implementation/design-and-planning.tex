@@ -301,4 +301,48 @@ Bootstrap hat folgenden Features:
 \cite{BestCSSFrameworksin2022}
 
 \subsubsection{Scss}
-Scss ist kein UI-Framework sondern vielmehr eine Syntax und Feature Erweiterungen von CSS, deswegen wurde es schlussendlich auch für dieses Projekt gewählt. Scss hat viele Vorteile wie zum Beispiel Variable, Schleifen, Mixins und Imports gegenüber Css, aber besonders ausschlaggebend war das Prinzip der Verschachtelung. 
+SCSS ist kein UI-Framework, sondern vielmehr eine Syntax- und Feature-Erweiterung von CSS, deswegen wurde es schlussendlich auch für dieses Projekt gewählt. SCSS hat viele Vorteile wie zum Beispiel Variablen, Schleifen, Mixins und Imports gegenüber CSS, aber besonders ausschlaggebend war das Prinzip der Verschachtelung.
+
+Durch die Verschachtelung kann an redundanten Styles-Selektoren gespart werden, was die Style-Definition besser lesbarer macht. Im den Beispielen (siehe SCSS-Code-Beispiel \ref{lst:imp:design:scss} und natives CSS-Code-Beispiel \ref{lst:imp:design:css}) wird die gleiche Style-Definition von SCSS und CSS ausgedrückt, doch die Schreibweise unterscheidet sich.
+
+\cite[Sass Guide]{SassGuide}
+
+\begin{lstlisting}[caption=SCSS - Code Beispiel,label=lst:imp:design:scss]
+nav {
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    li { display: inline-block; }
+    
+    a {
+        display: block;
+        padding: 6px 12px;
+        text-decoration: none;
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=CSS - Code Beispiel,label=lst:imp:design:css]
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    }
+nav li {
+    display: inline-block;
+    }
+nav a {
+    display: block;
+    padding: 6px 12px;
+    text-decoration: none;
+}
+\end{lstlisting}
+
+Code Beispiele\ref{lst:imp:design:scss} \ref{lst:imp:design:css} \cite[Sass Guide]{SassGuide}
+
+
+
+
