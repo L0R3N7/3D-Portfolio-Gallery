@@ -93,5 +93,65 @@ Beide Speichermethoden benutzen keine Server, um die Daten zu speichern, sondern
 \cite{WebStorageAPI}
 
 \subsubsection{HTTP-Interceptoren}
+HTTP-Interceptoren funktionieren in Angular als Zwischenschicht zwischen den ausgehenden HTTP-Abfragen und den eingehenden HTTP-Antworten und können diese umwandeln.
+Das Einsatzgebiet von HTTP-Interceptoren ist bei globalen Änderungen und Funktionen, die an allen HTTP-Requests durchgeführt werden sollen. Es war somit das perfekte Werkzeug, um in allen HTTP-Requests den JWT in den Header zu verpacken.
+\cite[10.3 Interceptoren: HTTP-Requests abfangen und transformieren]{AngularBuch}
+
+Wenn ein Request an den Server geht, wird dieser unterbrochen. Es wird überprüft, ob der JWT verfügbar ist. Wenn das zutrifft, wird der ursprüngliche Request geklont, in der Authentifizierungsspalte des Headers wird die JWT-Id hinzugefügt, danach wird der Request wieder zum Server weitergeleitet (siehe Code \ref{lst:impl:sign:JWTInterceptor}). 
+
+\begin{lstlisting}[caption=auth.interceptor.ts - add JWT to Request Header,label=lst:impl:sign:JWTInterceptor,language=TypeScript]
+import { Injectable } from '@angular/core';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+
+  constructor() {}
+
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+
+    const idToken = localStorage.getItem('id_token')
+    if (idToken) {
+      const cloned = request.clone(
+        {
+          headers: request.headers.set('Authorization', 'Bearer '.concat(idToken))
+        }
+      )
+
+      return next.handle(cloned)
+    }
+
+    return next.handle(request);
+  }
+}
+\end{lstlisting}
 
 \subsubsection{Routing- und Navigations-Einschränkung}
+Zum Start dieses Entwicklungsschrittes war der Interceptor und die JWT Verwaltung fertig. Doch das Projekt brauchte eine besseres visuelles Feedback System um dem*der Kunden*in zu den Anmeldestatus zu zeigen.
+
+Deswegen und um zu verhindern das Benutzer*in auf Unterseiten sind auf denen sie wegen ihres Requistratonstatus (noch nicht authentifiziert) noch nichts machen können, wurde je nach Anmeldestatus andere Routen und Informationen auf der Navigationsbar gezeigt (siehe Abbildung \ref{fig:impl:navbarvergleich}). Dafür wurde die Navigationsleistenlogik und die Navigationsleistenservice angepasst. Zusätzlich wurde AuthGuard verwendet um Routen zu sperren auf, die der*die Benutzer*in wegen dem Requistratonstatus noch keinen Zugriff hat. 
+
+\begin{figure}[h t]
+  \centering
+  \includegraphics[scale=0.6]{pics/navbarRequistrationsstatusGegenüberstellung.png}
+  \caption{Navbar: authentifiziert vs noch nicht authentifiziert}
+  \label{fig:impl:navbarvergleich}
+\end{figure}
+
+\subsection{Profilepage}
+Auf der Profileseite (siehe Abbildung \ref{fig:impl:sign:profile}) sieht der*die Benutzer*in userspezifische Informationen wie den Profilnamen, das Profilfoto, die erstellten Exhibition. Zusätzlich kann der*die Benutzer*in hier neue Ausstellungen anlegen und bereits erstellte Ausstellungen löschen. 
+
+\begin{figure}[h t]
+  \centering
+  \includegraphics[scale=0.5]{pics/profilepage.png}
+  \caption{Profilepage}
+  \label{fig:impl:sign:profile}
+\end{figure}
+
+
