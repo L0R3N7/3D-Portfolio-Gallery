@@ -145,7 +145,7 @@ Die Hierarchie von Angular Komponenten lässt sich wie folgt in einer Baumstrukt
   \end{figure}
 Die Hauptkomponente ist in jedem Falle der Root-Component. Von ihr aus lassen sich weitere Child-Components ineinander verschachteln. Diese Verschachtelung ist der Grund, warum die Anwendung in viele einzelne Teile ausgelagert werden kann. Außerdem können Komponenten durch das Data-Binding untereinander Daten austauschen.
 
-\subsection{Data-Binding}
+\subsection{Data-Binding }
 Data-Binding ist eine Methode, Daten zwischen der Logik und der Benutzeroberfläche auszutauschen. Dabei bleibt die Website ohne Refresh immer aktuell. Das Binden von Daten kann direkt am DOM erfolgen, wofür es eine eigene Code-Syntax gibt. Beim Data-Binding unterscheidet man zwischen verschiedenen Kategorien \cite{AngularBuch} \cite{BindingSyntax}:  
     
 
@@ -159,25 +159,70 @@ Bei der Interpolation werden Daten innerhalb einer Komponente von der Datenquell
 \end{lstlisting}
 
 \subsubsection{Property-Bindings}
-Beim Property-Binding werden Daten direkt an ein DOM-Element übermittelt und ausgewertet. Somit werden die Attribute, Aussehen und Funktionen der jeweiligen DOM-Elemente dynamisch beeinflusst und automatisch bei Datenänderung aktualisiert. 
+Beim Property-Binding werden Daten direkt an ein DOM-Element übermittelt und ausgewertet. Somit werden die Attribute, Aussehen und Funktionen der jeweiligen DOM-Elemente dynamisch beeinflusst und automatisch bei Datenänderung aktualisiert. \cite{AngularPropertyBinding}
 \begin{lstlisting}[caption={{Beispiel für Property-Bindings in der 3D-Gallery}},language=HTML,label=lst:impl:property-binding]
-    <div>
-    <p class="text-center py-2">{{exhibit.title}}</p>
-    </div>
+    <img [src]="user?.icon_url ?? 'assets/image/profile-photo.jpg'">
 \end{lstlisting}
 
 \subsubsection{Event-Bindings}
-Um auf Eingaben und Interaktionen von Benutzer*innen zu reagieren, verwendet man Event-Bindings. Dabei werden die Daten vom HTML-Template zur TypeScript-Klasse übertragen und können dort genutzt werden. Sie sind also das Gegenstück zu den Property-Bindings. 
+Um auf Eingaben und Interaktionen von Benutzer*innen zu reagieren, verwendet man Event-Bindings. Dabei werden die Daten vom HTML-Template zur TypeScript-Klasse übertragen und können dort genutzt werden. Sie sind also das Gegenstück zu den Property-Bindings. \cite{AngularEventBinding}
 \begin{lstlisting}[caption={{Beispiel für Event-Bindings in der 3D-Gallery}},language=HTML,label=lst:impl:event-binding]
-    <div>
-    <p class="text-center py-2">{{exhibit.title}}</p>
-    </div>
+    <button(click)="delete()">
+      <mat-icon>close</mat-icon>
+    </button>
 \end{lstlisting}
 
 \subsubsection{Two-Way-Bindings}
-Das To-Way-Binding benutzt beide Varianten, Property- und Event-Binding, um Daten auszutauschen. Hierbei ist es möglich, die Daten sowohl von der TypeScript-Klasse zum DOM-Element zu übertragen und umgekehrt. 
-\begin{lstlisting}[caption={{Beispiel für Two-Way-Bindings in der 3D-Gallery}},language=HTML,label=lst:impl:two-way-bindings]
-    <div>
-    <p class="text-center py-2">{{exhibit.title}}</p>
-    </div>
+Das To-Way-Binding benutzt beide Varianten, Property- und Event-Binding, um Daten auszutauschen. Hierbei ist es möglich, die Daten sowohl von der TypeScript-Klasse zum DOM-Element zu übertragen und umgekehrt. \cite{AngularTwoWayBinding}
+\begin{lstlisting}[caption={{Beispiel für Two-Way-Bindings \cite{AngularTwoWayBinding}}},language=HTML,label=lst:impl:two-way-bindings]
+    <app-sizer [(size)]="fontSizePx"></app-sizer>
 \end{lstlisting}
+In den folgenden Kapitel werden die Komponenten und ihre Funktionalitäten näher beschrieben. 
+
+\section{Routing [M]}\label{sec:Routing}
+Beim Routing werden bestimmte Components angezeigt, abhängig von der aktuellen URL. Dabei kann durch die Applikation durch navigiert werden, was durch den sogenannten Router realisiert wird. Routing ist das Konzept einer Single-Page-Applikation, wodurch die Seite niemals neu geladen werden muss und alle Daten beim Navigieren beibehalten werden können. Um das Routing überhaupt verwenden zu können, müssen die Pfade zu den zugehörigen Components initialisiert werden. Dies geschieht in einem ngModule, wo alle initialisierten Routen über das RouterModule importiert werden Um die Funktionalitäten und Routen für alle Components verwenden zu können muss dieses RouterModule ebenfalls exportiert werden. Der Code zeigt dies anhand der 3D-Gallerie-Anwendung:
+\begin{lstlisting}[caption={Routing in der 3D-Gallery},language=TypeScript,label=lst:impl:routing]
+const routes: Routes = [
+  {path: '', component:HomePageComponent},
+  {path: 'home', component:HomePageComponent},
+  {path: 'log-signin', component:LogSigninPageComponent},
+  {path: 'search', component:SearchPageComponent},
+  {path: 'profile', component:ProfilePageComponent},
+  {path: 'create', component:CreateExhibitionPageComponent},
+  {path: 'signup', component:SignupPageComponent},
+  {path: 'room/:id', component:RoomPageComponent},
+  {path: '**', redirectTo: 'home'}
+  ];
+  @NgModule({
+    declarations: [],
+    imports: [ CommonModule, RouterModule.forRoot(routes) ],
+    exports: [ RouterModule ]
+  })
+
+\end{lstlisting}
+Hierbei steht der Pfad ‘**’ für alle ungültigen URLs wodurch der*die Benutzer*in auf die Landingpage geleitet wird.
+
+\subsection{Routingparameter}
+Um Routen dynamisch zu deklarieren, werden sogenannte Routenparameter benötigt. Hierbei beginnt der dynamische Teil einer Route mit einem Doppelpunkt. 
+
+\begin{lstlisting}[caption={Routingparamter in der 3D-Gallery},language=TypeScript,label=lst:impl:routingparameter]
+    const routes: Routes = [
+      {path: 'room/:id', component:RoomPageComponent},
+      ];    
+\end{lstlisting}
+
+Um den aktuellen Zustand der URL auszulesen, muss der Router im Konstruktor injiziert werden. Anschließend kann der Parameter wie folgt ausgelesen und als Wert einer Variable zugewiesen werden:
+
+\begin{itemize}
+    \item Entweder über die Snapshot-Methode, die den momentanen Zustand der URL ausliest 
+    \begin{lstlisting}[caption={Snapshot der URL abfragen},language=TypeScript,label=lst:impl:routingsnapshot]
+        this.id = this.route.snapshot.paramMap.get('id');
+    \end{lstlisting}
+    \item oder wie es in der 3D-Gallerie Anwendung gelöst ist, über das Observable-Pattern auf den Router subscriben um auf ständige Änderungen im Pfad zu reagieren:
+    \begin{lstlisting}[caption={Die URL subscriben},language=TypeScript,label=lst:impl:urlsubscription]
+        this.sub = this.route.params.subscribe(params => {
+            this.id = +params['id'];
+          })
+    \end{lstlisting}
+\end{itemize}
+\cite{AngularBuch}
