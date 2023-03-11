@@ -147,8 +147,37 @@ Die Hauptkomponente ist in jedem Falle der Root-Component. Von ihr aus lassen si
 
 \subsection{Data-Binding}
 Data-Binding ist eine Methode, Daten zwischen der Logik und der Benutzeroberfläche auszutauschen. Dabei bleibt die Website ohne Refresh immer aktuell. Das Binden von Daten kann direkt am DOM erfolgen, wofür es eine eigene Code-Syntax gibt. Beim Data-Binding unterscheidet man zwischen verschiedenen Kategorien \cite{AngularBuch} \cite{BindingSyntax}:  
+    
 
 \subsubsection{Interpolation}
+Bei der Interpolation werden Daten innerhalb einer Komponente von der Datenquelle in das HTML-Template eingefügt. Die Anzeige wird auch automatisch aktualisiert, wenn sich Daten im Hintergrund ändern.
+
+\begin{lstlisting}[caption={{Beispiel für Interpolation in der 3D-Gallery}},language=HTML,label=lst:impl:interpolation]
+    <div>
+    <p class="text-center py-2">{{exhibit.title}}</p>
+    </div>
+\end{lstlisting}
+
 \subsubsection{Property-Bindings}
+Beim Property-Binding werden Daten direkt an ein DOM-Element übermittelt und ausgewertet. Somit werden die Attribute, Aussehen und Funktionen der jeweiligen DOM-Elemente dynamisch beeinflusst und automatisch bei Datenänderung aktualisiert. 
+\begin{lstlisting}[caption={{Beispiel für Property-Bindings in der 3D-Gallery}},language=HTML,label=lst:impl:property-binding]
+    <div>
+    <p class="text-center py-2">{{exhibit.title}}</p>
+    </div>
+\end{lstlisting}
+
 \subsubsection{Event-Bindings}
+Um auf Eingaben und Interaktionen von Benutzer*innen zu reagieren, verwendet man Event-Bindings. Dabei werden die Daten vom HTML-Template zur TypeScript-Klasse übertragen und können dort genutzt werden. Sie sind also das Gegenstück zu den Property-Bindings. 
+\begin{lstlisting}[caption={{Beispiel für Event-Bindings in der 3D-Gallery}},language=HTML,label=lst:impl:event-binding]
+    <div>
+    <p class="text-center py-2">{{exhibit.title}}</p>
+    </div>
+\end{lstlisting}
+
 \subsubsection{Two-Way-Bindings}
+Das To-Way-Binding benutzt beide Varianten, Property- und Event-Binding, um Daten auszutauschen. Hierbei ist es möglich, die Daten sowohl von der TypeScript-Klasse zum DOM-Element zu übertragen und umgekehrt. 
+\begin{lstlisting}[caption={{Beispiel für Two-Way-Bindings in der 3D-Gallery}},language=HTML,label=lst:impl:two-way-bindings]
+    <div>
+    <p class="text-center py-2">{{exhibit.title}}</p>
+    </div>
+\end{lstlisting}
