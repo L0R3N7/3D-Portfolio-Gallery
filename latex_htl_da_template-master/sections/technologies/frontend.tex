@@ -10,15 +10,16 @@ Die große Stärke von Angular ist die Erstellung von Single-Page-Webanwendung, 
 \setauthor{Litzlbauer Lorenz}
 In den folgenden Unterabschnitten wird sich mit den Technologien auf die Angular aufgebaut ist, auseinandergesetzt. 
 \subsubsection{RxJS}
-ReactiveX ist eine Library für das Erstellen von asynchronen und Event-basierenden Programmen, dafür benutzt es  \emph{observable sequences}.
-Die Library erweitert so, dass \emph{Observer-Design-Pattern} mit verschiedenen neuen Operatoren und händelt dabei "Lowlevel"-Funktionen wie Threading, Synchronisation, Thread-Sicherheit und das nicht-blockieren von I/O vergleiche \cite{ReactiveXIntro}
-
 RxJS ist eine Implementierung von ReactiveX für die Programmiersprache Javascript. Angular verwendet RxJS für reaktive Programmierart.
+
+ReactiveX ist eine Library für das Erstellen von asynchronen und Event-basierenden Programmen, dafür benutzt es  \emph{observable sequences} (Ein beobachtetes Subjekt führt eine Liste von den Observern. Bei einer Veränderung im Subjekt werden die Beobachter nach dieser Liste der Reihe nach informiert. Siehe im Glossar \ref{txt:glos:observerDesignPattern} auf Seite \pageref{txt:glos:observerDesignPattern}).
+Die Library arbeitet so mit dem \emph{Observer-Design-Pattern} und fügt verschiedene neue Operatoren hinzu. Zusätzlich werden "Lowlevel"-Funktionen wie Threading, Synchronisation und Thread-Sicherheit verarbeitet und keine Input-/Output-Prozesse blockiert.
+
+\cite{ReactiveXIntro}
 \subsubsection{Webpack}
 \setauthor{Litzlbauer Lorenz}
-Die Hauptfunktion von Webpack ist es, viele verschiedenen Daten zu einem Paket für eine JavaScript Applikation zusammenzufassen, dabei optimiert es die Dateigröße, indem es mithilfe von einem selbst generierten \emph{dependency-graph} die Abhängigkeiten der Applikation überprüft und nur notwendige Teile für die JavaScript-Applikation der Daten nimmt. Bei der Zusammenfassung werden Sprachen, die der Webbrowser nicht Interpretieren kann wie Typescript, Sass uvm. in die für den Webbrowser verständlichen Gegenstücke gewandelt. Webpack hat aber auch viele andere Features. Vergleiche \cite{Webpack}
-\setauthor{Litzlbauer Lorenz}
-Angular benutzt Webpack um TypeScript in JavaScript und Sass bzw. Scss in Scss zu wandeln, um beim Bauen des Projektes alle Module in ein einziges zusammenzufassen und um die Applikation bei der Entwicklung zu \emph{Live-Reloading} zu unterstützen. Dabei wird bei einer Änderung im Code die gesamte Applikation geupdatet und neu gestartet. 
+Die Hauptfunktion von Webpack ist es, viele verschiedene Daten zu einem Paket für eine JavaScript Applikation zusammenzufassen.
+Angular benutzt Webpack, um TypeScript in JavaScript und Sass bzw. Scss in Css umzuwandeln. Beim Bauen des Projektes werden alle Module in ein einziges zusammengefasst. Bei der Entwicklung der Applikation wird durch Webpack \emph{Live-Reloading} unterstützt. Dabei wird bei einer Änderung im Code die gesamte Applikation aktualisiert und neu gestartet.
 
 \subsection{Vorteile/Auswahlkriterien [M]}
 \setauthor{Fabian Maar}
@@ -120,7 +121,11 @@ Webstorm ist eine Entwicklungsumgebung vom Unternehmen JetBrains, die sich auf d
      \caption{ThreeJs Logo}
     \end{center}
 \end{wrapfigure}
-ThreeJs ist eine JavaScript Library für die Darstellung von 3D-Grafiken im Web. Für die 3D-Darstellung nutzt ThreeJs meistens WebGL (mehr dazu im nächsten Abschnitt \hyperref[ch::ThreeJsDependency]{ThreeJs Dependency}), ein low-level Framework. WebGl hat eine hohe Komplexität. ThreeJs bietet eine Abstraktion, bei der es viele Sachen wie die 3D-Szene, Lichter, Schatten, Materialien, Texturen und 3D-Mathe händelt, um die 3D-Darstellungen im Web einfacher zu gestalten. In ThreeJs werden Geometrie, Objekte und Materialien verbunden, um ein 3D-Objekt zu erstellen. Dabei kann die Struktur einer Szene der Abbildung \ref{fig:tech:front:threejsstructure} ähneln. Vergleiche \cite[ThreeJs fundamentals]{ThreeJsFund}
+ThreeJs ist eine JavaScript Library für die Darstellung von 3D-Grafiken im Web. Für die 3D-Darstellung nutzt ThreeJs WebGL (mehr dazu im nächsten Abschnitt \hyperref[ch::ThreeJsDependency]{ThreeJs Dependency}), ein low-level Framework. WebGl hat eine hohe Komplexität. ThreeJs bietet eine Abstraktion zu WebGL, um Anwendungen für 3D-Webanwendungen für Entwickler zugänglicher zu machen. ThreeJs verarbeitet dabei viele Sachen wie die 3D-Szene, Lichter, Schatten, Materialien, Texturen und 3D-Matrix-Rechnungen, die mit WebGl sehr aufwändig wären umzusetzen.
+
+In ThreeJs werden Geometrie, Objekte und Materialien verbunden, um ein 3D-Objekt zu erstellen. Dabei kann die Struktur einer Szene der Abbildung \ref{fig:tech:front:threejsstructure} ähneln. Dort kann beobachtet werden, dass die Scene das Root-Objekt ist. In der Scene werden Objekte wie Meshes, Gruppen, Lichter und 3D-Objekte in einer Baumdatenstruktur gesammelt. Die Daten über die Geometrie, Materialen der 3D-Meshes werden außerhalb der Szene gespeichert und die Meshes referenzieren darauf.
+
+\cite[ThreeJs fundamentals]{ThreeJsFund}
 
 \begin{figure} [h t]
     \centering
@@ -131,7 +136,7 @@ ThreeJs ist eine JavaScript Library für die Darstellung von 3D-Grafiken im Web.
 
 \subsection{Dependency}
 \label{ch::ThreeJsDependency}
-Um einen Großteil der 3D-Darstellungen zu rendern, benutzt ThreeJs WebGL.
+Um 3D-Darstellungen zu rendern, benutzt ThreeJs WebGL.
 
 \subsubsection{WebGL}
 \label{ch::webgl}
@@ -141,18 +146,18 @@ Um einen Großteil der 3D-Darstellungen zu rendern, benutzt ThreeJs WebGL.
      \caption{ThreeJs Logo}
     \end{center}
 \end{wrapfigure}
-WebGl ist eine lizensfreie Api, die dafür benutzt wird 3D-Grafiken im Web darzustellen. Sie basiert auf OpenGL ES 2.0 und benutzt auch dieselbe shading language GLSL. WebGL ist eine Low-Level-API, das bedeutet, dass schon sehr einfache Projekte einen hohen Programmieranteil haben. Vergleiche\cite[WebGl Getting Started]{WebglGettingStarted}
+WebGL ist eine lizenzfreie Low-Level-API, die dafür benutzt wird, 3D-Grafiken im Web darzustellen. Sie basiert auf OpenGL ES 2.0 und benutzt auch dieselbe shading language GLSL wie OpenGL. Eine Low-Level-API hat einen höheren Konfigurierungsgrad und lässt sich für spezielle Anwendungsfälle besser anpassen. Der*Die Programmierer*in muss, aber auch ein viel tieferes Verständnis von dem Material haben (im Fall von WebGL Shader-Programmierung, Matrixrechnungen usw.) und hat in der Regel einen viel größeren Programmieranteil als wenn er eine High-Level-API benutzt. Eine High-Level-API  ist besser für allgemeine Anwendungsfälle geeignet.
+\cite[WebGl Getting Started]{WebglGettingStarted} \cite{HighlowAPI}
 
 
 \subsection{Auswahlkriterien}
-Es gab verschiedene Auswahlkriterien für die 3D-Web-API.
+Es gab verschiedene Auswahlkriterien für die 3D-Web-API, die ausschlaggebend für den Projekterfolg waren:
 \begin{compactitem}
   \item Effizienzen der 3D Engine (Hardware Acceleration, RAM-Auslastung)
   \item Benutzerfreundlichkeit (Programmerexperience)
-  \item Zusätzliche Features
   \item Die Features des Projektes müssen damit umsetzbar sein
   \begin{compactenum}
-    \item Das Laden von 3D-Modellen aus 3D-Dateinen und aus dem Internet
+    \item Das Laden von 3D-Modellen aus 3D-Dateien und aus dem Internet
     \item Video-Texturen support
   \end{compactenum}
 \end{compactitem}
@@ -161,12 +166,12 @@ Es gab verschiedene Auswahlkriterien für die 3D-Web-API.
 Es gibt viele Technologien, die 3D-Grafiken im Web ermöglichen, wie Three.js, Babylon.js, A-Frame, X3DOM und WebGL
 
 \paragraph{A-Frame}
-A-Frame wird von der Morzilla Foundation als OpenSource-Projekt entwickelt. Die 3D-Szene wird durch eine deklarative Sprache mit XML-Syntax definiert. Über die WebVR-API bietet die Libray auch die Möglichkeit, die 3D-Szenen durch eine VR-Brille zu erfahren. Bei der 3D-Darstellung setzt A-Frame auf ThreeJs. \cite[A-Frame Wikipedia]{a-frame-wiki}
+A-Frame wird von der Mozilla Foundation als OpenSource-Projekt entwickelt. Die 3D-Szene wird durch eine deklarative Sprache mit XML-Syntax definiert. Über die WebVR-API bietet die Libray auch die Möglichkeit, 3D-Szenen durch eine VR-Brille zu erfahren. Bei der 3D-Darstellung setzt A-Frame auf ThreeJs. \cite[A-Frame Wikipedia]{a-frame-wiki}
 
 A-Frame hat ähnliche Funktionen und Leistung im Vergleich zu ThreeJs, da es ja schlussendlich darauf aufbaut. A-Frame sticht bei der VR support hervor (ThreeJs hätte auch eine Unterstützung dafür, diese ist aber schwieriger einzubinden), doch ist das kein unbedingt nötiges Feature. ThreeJs ist ja bereits eine Abstraktion von WebGL. Für das Projekt wird keine weiter Abstraktion gebraucht.
 
 \paragraph{WebGL}
-Im Vorherigen Kapitel wurde sich bereits mit WebGL befasst. \ref{ch::webgl}
+Im Vorherigen Kapitel wurde sich bereits mit WebGL im Kontext mit ThreeJs befasst. In ThreeJs wird WebGL für die 3D-Darstellung gewählt. Doch gibt es auch WebGL als eigenständige Library. \ref{ch::webgl}
 Um nur eine einfache 3D-Szene in WebGL darzustellen, muss sehr viel Code geschrieben werden. Denn WebGL übernimmt keine Low-Level-Funktion. Es müssen Matrixrechnungen für die Transformationen von 3D-Objekt Manuel und Vertex buffers, die die Daten der Vertex Positionen, Normaldaten, Farben und Texturen, selbst programmiert werden und das in einer eigenen Programmiersprache. Deshalb war WebGL keine Option für das Projekt.
 
 \subsubsection{Angular Three}
@@ -208,6 +213,6 @@ Ein weiterer Vorteil von Angular Three ist die ausführliche Dokumentation mit C
 
 Wegen der vielen Vorteile hohe Benutzerfreundlichkeit, ähnliche 3D-Leistung zu ThreeJs (Angular Three basiert auf ThreeJs, welches selbst die WebGL-Renderengine benutzt) und wegen der Verbindung von Angular und ThreeJs Features bietet sich die Liberay für das Projekt an.
 
-Mithilfe eines Prototypen ( mehr dazu im Abschnitt \hyperref[ch::ongoing-prototyping]{fortlaufendes Prototyping} ) wurde getestet, ob Angular Three alle Features, die für das Projekt benötigt werden, unterstützen kann, die für das Projekt nötig sind. Dabei wurde festgestellt, dass sich die Liberay Angular für das Projekt nicht eignet. Denn beim Prototyping sind Fehler aufgetreten. Beim erneuten Laden von 3D-Objekten aus derselben Datei haben sich keine Daten mehr im Objekt befunden. ThreeJs Module funktionierten Teilweise nicht, wie die FristPersonControls. 
+Mithilfe eines Prototypen ( mehr dazu im Abschnitt \hyperref[ch::ongoing-prototyping]{fortlaufendes Prototyping} ) wurde getestet, ob Angular Three alle Features, die für das Projekt benötigt werden, unterstützen kann, die für das Projekt nötig sind. Dabei wurde festgestellt, dass sich die Library Angular für das Projekt nicht eignet. Trotz der vielen Features konnten einige Kriterien nicht erfüllt werden. So wurden beispielsweise 3D-Objekte nicht richtig geladen. ThreeJs Module funktionierten Teilweise nicht, wie die FristPersonControls. 
 
-Weil Angular Three nicht die für das Projekt aufgestellten Anforderungen erfüllt hat, wurde der Prototyp zu ThreeJs migriert, weil sich die Syntax ähnelt und dadurch nur wenig Aufwand bei der Migrierung entstand. Diese 3D-Library wurde schlussendlich auch im Projekt verwendet.
+Weil Angular Three nicht die für das Projekt aufgestellten Anforderungen erfüllt hat, wurde sich dafür entschieden, ThreeJs zu benutzen. ThreeJs hat ähnliche Konzepte und Logik wie Angular Three deswegen fiel dem Team der Umstieg darauf leicht. Diese 3D-Library wurde schlussendlich auch im Projekt verwendet.
