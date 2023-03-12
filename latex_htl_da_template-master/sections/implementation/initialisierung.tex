@@ -96,7 +96,7 @@ Mit dem ersten Befehl wird AngularJs eine JavaScript Liberay durch NPM installie
 
 \section{Components [M]}
 \setauthor{Fabian Maar}
-Der nächste Schritt der Entwicklung, ist das Erstellen der Komponenten und das Festlegen ihrer Struktur. Eine Komponente kann ebenfalls über die Angular CLI erstellt werden:
+Der nächste Schritt der Entwicklung ist das Erstellen der Komponenten und das Festlegen ihrer Struktur. Eine Komponente kann ebenfalls über die Angular CLI erstellt werden:
 
 \begin{lstlisting}[caption={{Terminal - Component erstellen}},language=bash,label=lst:impl:addComponent]
     ng generate component home-page
@@ -180,7 +180,7 @@ Das To-Way-Binding benutzt beide Varianten, Property- und Event-Binding, um Date
 In den folgenden Kapitel werden die Komponenten und ihre Funktionalitäten näher beschrieben. 
 
 \section{Routing [M]}\label{sec:Routing}
-Beim Routing werden bestimmte Components angezeigt, abhängig von der aktuellen URL. Dabei kann durch die Applikation durch navigiert werden, was durch den sogenannten Router realisiert wird. Routing ist das Konzept einer Single-Page-Applikation, wodurch die Seite niemals neu geladen werden muss und alle Daten beim Navigieren beibehalten werden können. Um das Routing überhaupt verwenden zu können, müssen die Pfade zu den zugehörigen Components initialisiert werden. Dies geschieht in einem ngModule, wo alle initialisierten Routen über das RouterModule importiert werden Um die Funktionalitäten und Routen für alle Components verwenden zu können muss dieses RouterModule ebenfalls exportiert werden. Der Code zeigt dies anhand der 3D-Gallerie-Anwendung:
+Beim Routing werden bestimmte Components angezeigt, abhängig von der aktuellen URL. Dabei kann durch die Applikation durch navigiert werden, was durch den sogenannten Router realisiert wird. Routing ist das Konzept einer Single-Page-Applikation, wodurch die Seite niemals neu geladen werden muss und alle Daten beim Navigieren beibehalten werden können. Um das Routing überhaupt verwenden zu können, müssen die Pfade zu den zugehörigen Components initialisiert werden. Dies geschieht in einem ngModule, wo alle initialisierten Routen über das RouterModule importiert werden. Um die Funktionalitäten und Routen für alle Components verwenden zu können, muss dieses RouterModule ebenfalls exportiert werden. Der Code zeigt dies anhand der 3D-Gallerie-Anwendung:
 \begin{lstlisting}[caption={Routing in der 3D-Gallery},language=TypeScript,label=lst:impl:routing]
 const routes: Routes = [
   {path: '', component:HomePageComponent},
@@ -218,7 +218,7 @@ Um den aktuellen Zustand der URL auszulesen, muss der Router im Konstruktor inji
     \begin{lstlisting}[caption={Snapshot der URL abfragen},language=TypeScript,label=lst:impl:routingsnapshot]
         this.id = this.route.snapshot.paramMap.get('id');
     \end{lstlisting}
-    \item oder wie es in der 3D-Gallerie Anwendung gelöst ist, über das Observable-Pattern auf den Router subscriben um auf ständige Änderungen im Pfad zu reagieren:
+    \item oder wie es in der 3D-Gallerie Anwendung gelöst ist, über das Observable-Pattern auf den Router subscriben, um auf ständige Änderungen im Pfad zu reagieren:
     \begin{lstlisting}[caption={Die URL subscriben},language=TypeScript,label=lst:impl:urlsubscription]
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id'];

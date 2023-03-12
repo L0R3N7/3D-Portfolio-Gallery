@@ -25,8 +25,8 @@ Angular benutzt Webpack um TypeScript in JavaScript und Sass bzw. Scss in Scss z
 Folgende Aspekte sprechen für die Nutzung Angular in diesem Projekt:
 
 \begin{itemize}
-  \item komponentenbasiertes Programmieren
-  Im Abschnitt 5 //TODO wird nochmals deutlich, wie dieser Aspekt genutzt wird.
+  \item komponentenbasiertes Programmieren;
+  im Abschnitt 5 //TODO wird nochmals deutlich, wie dieser Aspekt genutzt wird.
   \item einfache und übersichtliche Einbindung von Libraries durch ngModules; wird behandelt in Kapitel NgModules \ref{sec:NgModules} 
   \item Isolierung der Logik mit der Benutzeroberfläche durch die Model-View-Controller Architektur und die Model-View-Viewmodel Architektur; wird behandelt in Kapitel MVC und MVVM \ref{sec:MVCandMVVM} 
   \item 
@@ -40,7 +40,7 @@ Folgende Aspekte sprechen für die Nutzung Angular in diesem Projekt:
 Angular basiert auf dem Konzept des Model-View-Controller- (MVC) und Model-View-ViewModel (MVVM) Architecture Patterns. Diese Patterns werden verwendet, um die Logik von der Benutzeroberfläche zu trennen und komplexe Aufgaben einfacher zu bewältigen. Dies wird in der Fachsprache auch oft als "Separation of Concerns” bezeichnet.
 \cite{AngularArchitecturePattern}
 
-Architecture Patterns sind Muster die verwendet werden um:
+Architecture Patterns sind Muster, die verwendet werden um:
 \begin{itemize}
   \item eine Software-Anwendung zu strukturieren
   \item die Redundanz von wiederholenden Code-Teile zu vermeiden 
@@ -54,7 +54,7 @@ Architecture Patterns sind Muster die verwendet werden um:
 \cite{MVC}
 
 \subsubsection{Model-View-Controler (MVC)}
-Die "Separation of Concerns” wird bei diesem Pattern durch die Aufteilung der Applikation in Model, View und Controller realisiert. Dadurch ist es möglich, sich auf einen Aspekt der Implementierung zu fokussieren. 
+Die ”Separation of Concerns” wird bei diesem Pattern durch die Aufteilung der Applikation in Model, View und Controller realisiert. Dadurch ist es möglich, sich auf einen Aspekt der Implementierung zu fokussieren. 
 
 \begin{figure} [h t]
   \centering
@@ -91,11 +91,11 @@ Angular nutzt hierbei eine Mischung aus beiden Architecture-Patterns. Sie wird d
 
 \subsection{NgModules [M]}\label{sec:NgModules}
 \setauthor{Fabian Maar}
-NgModules erleichtern die Einbindung von Libraries enorm. Da man sich keine externen Files mühsam downloaden, einbinden muss und jeder Import-Prozess fast von selbst geschieht, erspart man sich enorm Zeit beim Entwickeln. Außerdem sind alle Importe in chronologischer Reihenfolge gelistet, wodurch ein guter Gesamtüberblick geliefert wird und schnell überflüssige Imports entfernt werden können. Die ständige Erweiterung und die Unterstützung von Third-Party-Libraries, die unter anderem für die 3D-Darstellung verwendet werden, wird ebenfalls von diesen ngModulen ermöglicht. Die Angular-Applikation wird hierbei organisiert und gestartet in dem die Metadaten wie folgt abgespeichert werden:
+NgModules erleichtern die Einbindung von Libraries enorm. Da man sich keine externen Files mühsam downloaden, einbinden muss und jeder Import-Prozess fast von selbst geschieht, erspart man sich enorm Zeit beim Entwickeln. Außerdem sind alle Importe in chronologischer Reihenfolge gelistet, wodurch ein guter Gesamtüberblick geliefert wird und schnell überflüssige Imports entfernt werden können. Die ständige Erweiterung und die Unterstützung von Third-Party-Libraries, die unter anderem für die 3D-Darstellung verwendet werden, wird ebenfalls von diesen ngModulen ermöglicht. Die Angular-Applikation wird hierbei organisiert und gestartet, in dem die Metadaten wie folgt abgespeichert werden:
 
 \begin{itemize}
   \item Declarations - In dieser Sektion werden alle zugehörigen Komponenten, Direktiven und Pipes deklariert 
-  \item Providers - Sie initialisieren wie die Werte die bei der Dependency Inection //TODO REFERENZ abgerufen werden \cite{AngularProviders}
+  \item Providers - Sie initialisieren wie die Werte bei der Dependency Inection //TODO REFERENZ abgerufen werden \cite{AngularProviders}
   \item Imports - Hier werden alle Libraries und exportierte Modules importiert
   \item Exports - Sie beinhalten alle zu exportierenden Module
   \item Bootstrap - Hierbei wird angegeben welche Komponente beim Anwendungsstart zuerst geladen wird
