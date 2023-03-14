@@ -146,7 +146,7 @@ Die Hierarchie von Angular Komponenten lässt sich wie folgt in einer Baumstrukt
 Die Hauptkomponente ist in jedem Falle der Root-Component. Von ihr aus lassen sich weitere Child-Components ineinander verschachteln. Diese Verschachtelung ist der Grund, warum die Anwendung in viele einzelne Teile ausgelagert werden kann. Außerdem können Komponenten durch das Data-Binding untereinander Daten austauschen.
 
 \subsection{Data-Binding }
-Data-Binding ist eine Methode, Daten zwischen der Logik und der Benutzeroberfläche auszutauschen. Dabei bleibt die Website ohne Refresh immer aktuell. Das Binden von Daten kann direkt am DOM erfolgen, wofür es eine eigene Code-Syntax gibt. Beim Data-Binding unterscheidet man zwischen verschiedenen Kategorien \cite{AngularBuch} \cite{BindingSyntax}:  
+Data-Binding ist eine Methode, Daten zwischen der Logik und der Benutzeroberfläche auszutauschen. Dabei bleibt die Website ohne Refresh immer aktuell. Das Binden von Daten kann direkt am DOM erfolgen, wofür es eine eigene Code-Syntax gibt. Beim Data-Binding wird zwischen  verschiedenen Kategorien unterschieden \cite{AngularBuch} \cite{BindingSyntax}:  
     
 
 \subsubsection{Interpolation}
@@ -165,7 +165,7 @@ Beim Property-Binding werden Daten direkt an ein DOM-Element übermittelt und au
 \end{lstlisting}
 
 \subsubsection{Event-Bindings}
-Um auf Eingaben und Interaktionen von Benutzer*innen zu reagieren, verwendet man Event-Bindings. Dabei werden die Daten vom HTML-Template zur TypeScript-Klasse übertragen und können dort genutzt werden. Sie sind also das Gegenstück zu den Property-Bindings. \cite{AngularEventBinding}
+Um auf Eingaben und Interaktionen von Benutzer*innen zu reagieren, werden Event-Bindings verwendet. Dabei werden die Daten vom HTML-Template zur TypeScript-Klasse übertragen und können dort genutzt werden. Sie sind also das Gegenstück zu den Property-Bindings. \cite{AngularEventBinding}
 \begin{lstlisting}[caption={{Beispiel für Event-Bindings in der 3D-Gallery}},language=HTML,label=lst:impl:event-binding]
     <button(click)="delete()">
       <mat-icon>close</mat-icon>
