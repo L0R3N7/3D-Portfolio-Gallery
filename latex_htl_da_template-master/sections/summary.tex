@@ -21,7 +21,7 @@ Um dieses Problem zu lösen, gibt es zwei Möglichkeiten ::ng-deep und das globa
 }    
 \end{lstlisting}
 
-::ng-deep funktioniert, indem es die Einkapselung der Komponente ausschaltet und jeden Selektor (in Kombination mit ::ng-deep) zu einem globalen Style befördert. Das kann, aber zu unvorhersehbaren Fehlern und Problemen führen. Deswegen wird von Seitens Angular geraten es nicht zu verwenden und die Funktion als veraltet definiert. Viel besser ist es, wenn man einen globalen Wert verändern will, das auch im globalen Stylesheet zu machen.
+::ng-deep funktioniert, indem es die Einkapselung der Komponente ausschaltet und jeden Selektor (in Kombination mit ::ng-deep) zu einem globalen Style befördert. Das kann, aber zu unvorhersehbaren Fehlern und Problemen führen. Deswegen wird von Seitens Angular geraten es nicht zu verwenden und die Funktion als veraltet definiert. Viel besser ist es, wenn ein globaler Wert verändern werden muss, das im globalen Stylesheet zu machen.
 Wenn der*die Entwickler*in Zugriff auf die Komponente hat und sie ändern kann, gibt es keinen Grund ::ng-deep zu verwenden, weil Anpassungen direkt in der Komponente gemacht werden können oder durch Input eine Interaktionsmöglichkeit hinzuzufügen. Bei Komponenten von dritten Seiten wie Angular Material muss wohl eine Style-Überschreibung mittels ::ng-deep oder dem globalen Stylesheet erfolgen, weil der*die Entwickler*in keinen Zugriff auf die Komponente hat.
 \cite{AngularComponentsStyleNgDEEP}
 \cite{UnderstandingNgDeep}
