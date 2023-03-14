@@ -68,12 +68,12 @@ Bei einem Wire-Frame wird ein 3D-Modell erstellt, in dem der Algorithmus versuch
 Dieser Vorgang funktioniert ähnlich wie ein Wire-Frame, nur dass hierbei nur Linien gerendert werden, die tatsächlich von der Kamera sichtbar sind. Dieser sichtbare Bereich wird auch Visible Surface genannt. 
 \cite{Rendering3DModels} 
 
-\subsubsection{Ray-Casting}
-Beim Ray-Casting wird ermittelt, welches 3D-Objekt zuerst von einem Ray getroffen wird. Ein Ray ist ein Strahl, der von der Position der Kamera ausgeht. Für jedes Pixel wird ein Ray durch den dreidimensionalen Raum geschickt. Dadurch können die Schnittpunkte der Objekte und der Rays ermittelt werden. Dabei werden alle Objekte mit einem sichtbaren Schnittpunkt angezeigt und die Fläche normal dazu bestimmt die Schattierung. Dieser Prozess wird im Kapitel //TODO-Referenz näher erklärt und angewandt.
+\subsubsection{Raycasting}
+Beim Raycasting wird ermittelt, welches 3D-Objekt zuerst von einem Ray getroffen wird. Ein Ray ist ein Strahl, der von der Position der Kamera ausgeht. Für jedes Pixel wird ein Ray durch den dreidimensionalen Raum geschickt. Dadurch können die Schnittpunkte der Objekte und der Rays ermittelt werden. Dabei werden alle Objekte mit einem sichtbaren Schnittpunkt angezeigt und die Fläche normal dazu bestimmt die Schattierung. Dieser Prozess wird im Kapitel //TODO-Referenz näher erklärt und angewandt.
 \cite{Rendering3DModels} 
 
 \subsubsection{Ray-Tracing}
-Der Ray-Tracing Prozess funktioniert ähnlich wie der Prozess des Ray-Castings. Beim Ray-Tracing werden jedoch auch verschiedene Oberflächen und Lichtquellen berücksichtigt. Dies funktioniert, indem ein Ray vom Algorithmus mitverfolgt wird. Dabei ist es möglich, zu erkennen ob ein Ray:
+Der Ray-Tracing Prozess funktioniert ähnlich wie der Prozess des Raycastings. Beim Ray-Tracing werden jedoch auch verschiedene Oberflächen und Lichtquellen berücksichtigt. Dies funktioniert, indem ein Ray vom Algorithmus mitverfolgt wird. Dabei ist es möglich, zu erkennen ob ein Ray:
 \begin{itemize}
     \item durch eine lichtdurchlässige Oberfläche durchdringt
     \item von einem reflektierenden Objekt reflektiert wird
