@@ -1,0 +1,15 @@
+\section{Konfigurationstool der 3D-Portfolios (Content Creation)}
+\setauthor{Litzlbauer Lorenz}
+
+Die Content-Creation-Funktion war eine der Kernfunktionen des Projekts. Mit der Content-Creation konnten die 3D-Portfolios erst entstehen. Es galt einen einfachen und intuitiven Konfigurationsprozess für 3D-Portfolios zu gestalten. Im Entwicklungsprozess wurden viele Entscheidungen getroffen, die auf das ganze Projekt Einfluss hatten. Z.B. wurde eine Art der Datenrepräsentation der 3D-Portfolios und die Darstellungsweise der Daten in der 3D-View entwickelt.
+
+In diesem Kapitel wird die Entwicklung und das System der Content Creation erklärt.
+
+\subsection{Überblick}
+Das Konfigurationstool besteht aus insgesamt vier Unterseiten und vielen Untersysteme (Komponenten, Klassen und Services). Benutzer*innen im Erstellungs- oder Konfigurationsprozess nicht zu überfordern. Die Kategorien sind:
+\begin{compactitem}
+\item Metadaten - Die Metadaten sind Daten, die das Portfolio beschreiben, dazu gehören Name, zugehörige Kategorien, eine Beschreibung und ein Thumbnail.
+\item Ausstellungsstück - Die Daten des Ausstellungsstücks bestehen aus den vom User auf den Server geladenen Kunstwerken und Zusatzinformation wie Namen und Beschreibung.
+\item Raumdaten - Raumdaten bestehen aus den virtuellen 3D-Daten des Raumes und weiteren Konfigurationsdaten wie den Positionen, an denen Ausstellungsstücke im Raum platziert werden können.
+\item Ausstellungsplatzierungsdaten- Mit diesen Daten werden die Daten zu den Ausstellungsstücken und dem virtuellen Raum logisch verbunden. 
+\end{compactitem}
