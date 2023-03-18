@@ -95,6 +95,7 @@ Mit dem ersten Befehl wird AngularJs eine JavaScript Liberay durch NPM installie
 \end{lstlisting}
 
 \section{Components [M]}
+\label{components}
 \setauthor{Fabian Maar}
 Der nächste Schritt der Entwicklung ist das Erstellen der Komponenten und das Festlegen ihrer Struktur. Eine Komponente kann ebenfalls über die Angular CLI erstellt werden:
 
@@ -146,6 +147,7 @@ Die Hierarchie von Angular Komponenten lässt sich wie folgt in einer Baumstrukt
 Die Hauptkomponente ist in jedem Falle der Root-Component. Von ihr aus lassen sich weitere Child-Components ineinander verschachteln. Diese Verschachtelung ist der Grund, warum die Anwendung in viele einzelne Teile ausgelagert werden kann. Außerdem können Komponenten durch das Data-Binding untereinander Daten austauschen.
 
 \subsection{Data-Binding }
+
 Data-Binding ist eine Methode, Daten zwischen der Logik und der Benutzeroberfläche auszutauschen. Dabei bleibt die Website ohne Refresh immer aktuell. Das Binden von Daten kann direkt am DOM erfolgen, wofür es eine eigene Code-Syntax gibt. Beim Data-Binding wird zwischen  verschiedenen Kategorien unterschieden \cite{AngularBuch} \cite{BindingSyntax}:  
     
 
@@ -203,7 +205,9 @@ const routes: Routes = [
 Hierbei steht der Pfad ‘**’ für alle ungültigen URLs wodurch der*die Benutzer*in auf die Landingpage geleitet wird.
 
 \subsection{Routingparameter}
+\label{Routingparameter}
 Um Routen dynamisch zu deklarieren, werden sogenannte Routenparameter benötigt. Hierbei beginnt der dynamische Teil einer Route mit einem Doppelpunkt. 
+
 
 \begin{lstlisting}[caption={Routingparamter in der 3D-Gallery},language=TypeScript,label=lst:impl:routingparameter]
     const routes: Routes = [

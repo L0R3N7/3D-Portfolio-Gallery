@@ -5,6 +5,7 @@ Um eine Schnittstelle zwischen dem Backend und dem Frontend herzustellen, werden
 Ein Service in Angular ist eine TypeScript-Klasse, die verwendet wird, um Logik auszulagern, die von der gesamten Applikation verwendet werden kann. Services werden meist dann erstellt, wenn eine einfache Logik oft von verschiedenen Komponenten benötigt wird. Um die globale Verwendung zu realisieren, wird das Konzept der Dependency Injection verwendet. \cite{AngularBuch} \cite{AngularArchitectureService}
 
 \subsection{Dependency Injection}
+\label{DPI}
 In Angular ist es möglich, einen Service in eine beliebige Komponente zu injizieren. Das bedeutet, ein Service wird anhand von @Injectable() definiert und dadurch kann dieser von anderen Komponenten verwendet werden \cite{AngularBuch}:
 
 \begin{lstlisting}[caption={Eine Klasse Injectable machen},  language=TypeScript,label=lst:impl:injectable]   
@@ -28,7 +29,7 @@ Ein Service wird zur Verwendung im Konstruktor einer Komponente initialisiert (C
 Anschließend können die Methoden und Daten eines Service ganz normal verwendet werden
 
 \subsection{HTTP Module}
-Um mit dem Backend über das HTTP-Protokoll kommunizieren zu können, wird eine HTTP-API //TODO REFERENZ API namens HttpClient verwendet. Zunächst muss das HttpClientModule im ngModule importiert werden, um den HttpClient als Dependency zu injizieren. Injiziert wird er über den Konstruktor in einem Service. Um eine Transaktion am Frontend durchzuführen, werden Observables verwendet. Dies ermöglicht den einzelnen Komponenten, die einen Service mit HTTP-Abfragen injiziert haben, diese Abfragen mittels einem Subscribe zu nutzen. Eine HTTP-Abfrage mit dem HTTP-Client wird wie folgt aufgerufen \cite{AngularBuch} \cite{AngularHTTPClient}:
+Um mit dem Backend über das HTTP-Protokoll kommunizieren zu können, wird eine HTTP-API (siehe API \ref{txt:glos:API}) namens HttpClient verwendet. Zunächst muss das HttpClientModule im ngModule importiert werden, um den HttpClient als Dependency zu injizieren. Injiziert wird er über den Konstruktor in einem Service. Um eine Transaktion am Frontend durchzuführen, werden Observables verwendet. Dies ermöglicht den einzelnen Komponenten, die einen Service mit HTTP-Abfragen injiziert haben, diese Abfragen mittels einem Subscribe zu nutzen. Eine HTTP-Abfrage mit dem HTTP-Client wird wie folgt aufgerufen \cite{AngularBuch} \cite{AngularHTTPClient}:
 
 \begin{lstlisting}[caption={HttpClient Abfragen},  language=TypeScript,label=lst:impl:httpclientrequests]   
     URL = "http://localhost:8080/api/"
@@ -42,7 +43,7 @@ Um mit dem Backend über das HTTP-Protokoll kommunizieren zu können, wird eine 
 Wie anhand des oberen Code-Beispiels erkennbar ist wird hier das Room-Interface benutzt.
 
 \subsection{Interface [M]}
-
+\label{interface}
 Interfaces werden verwendet, um typsicher ein Objekt zu strukturieren. Dabei wird, um Daten des Servers korrekt erhalten zu können, eine bestimmte Entität der Datenbank verglichen und durch die richtige Benennung und Datentyp im Frontend abgebildet. Üblicherweise wird ein solches Datenobjekt exportiert, um es in der ganzen Anwendung zu verwenden. Folgendes Beispiel demonstriert dieses Konzept anhand des Exhibit-Interfaces \cite{AngularBuch}: 
 
 \begin{lstlisting}[caption={Das Datenmodell eines Ausstelungsstückes},  language=TypeScript,label=lst:impl:httpclientrequests]   

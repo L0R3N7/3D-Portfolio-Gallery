@@ -1,7 +1,7 @@
 \section{Web Gallery Prototype}
 \subsection{Zusammenfassung [M]} 
 \setauthor{Fabian Maar}
-In diesem Abschnitt wird erklärt, auf welche Weise die 3D-Ausstellung in der Webapplikation realisiert wurde. Dabei wurde das Konzept des evolutionären Prototypings für die Entwicklung verwendet.  //TODO Referenzieren 
+In diesem Abschnitt wird erklärt, auf welche Weise die 3D-Ausstellung in der Webapplikation realisiert wurde. Dabei wurde das Konzept des evolutionären Prototypings (siehe Prototyping \ref{ch::ongoing-prototyping}) für die Entwicklung verwendet. 
 
 \subsection{Rendering [M]} 
 Um 3D-Modelle, wie den Ausstellungsraum anzeigen zu können, wird der hochkomplexe Prozess des Renderings benötigt. Dabei wird das 3D-Modell zu einem realistischen 2D-Bild gerendert. 
@@ -13,7 +13,7 @@ Hinter dem Rendering stecken verschiedene Algorithmen, die ein solches 3D Modell
 \begin{itemize}
     \item das 3D-Objekt und wie realistisch es dargestellt werden soll
     \item die Art des Renderns
-    \item die Lichtquellen und die entstehenden Schatten //TODO Referenz 
+    \item die Lichtquellen und die entstehenden Schatten; wird Behandel im Kapitel Lichtsetzung \ref{lichtsetzung}
     \item die Kameraposition und Renderbereich (Clipping)
     \item der Anti-aliasing Prozess
     \item die Art des Render-Algorithmuses
@@ -36,6 +36,7 @@ Beim Rendern wird zwischen folgenden Arten unterscheiden:
 \cite{RenderArten}
 
 \subsubsection{Clipping}
+\label{clipping}
 Beim Clipping werden Ebenen zur Begrenzung des Bereichs, den es zu rendern gilt, erstellt. Diese Ebenen werden durch die Weltkoordinaten positioniert. Die seitlichen sowie die unteren und oberen Clipping-Ebenen werden durch die Kameraposition und die Fensterposition definiert. Auch gibt es das Far- und Near-Clipping, wodurch zum einen die Tiefe des 3D-Modells begrenzt wird. Zum anderen werden unerwünschte Objekte, die im Hintergrund liegen, ebenfalls nicht gerendert. \cite{Rendering3DModels}
 
 
@@ -48,13 +49,12 @@ Beim Anti-Aliasing Prozess wird versucht, den auftretenden Aliasing-Effekt zu re
     \label{fig:impl:MoireEffekt}
 \end{figure}
 
-\begin{figure}
+\begin{figure} [h]
     \centering
     \includegraphics[scale=0.7]{pics/anti-aliasing.png}
     \caption{Rendering mit und ohne Anti-Aliasing \cite{AntiAliasing}}
     \label{fig:impl:anti-aliasing}
 \end{figure}
-//TODO Bild wird oben angezeigt
 
 \subsubsection{Verschiedene Render-Algorithmen [M]}
 \subsubsection{Rasterization}
@@ -69,7 +69,8 @@ Dieser Vorgang funktioniert ähnlich wie ein Wire-Frame, nur dass hierbei nur Li
 \cite{Rendering3DModels} 
 
 \subsubsection{Raycasting}
-Beim Raycasting wird ermittelt, welches 3D-Objekt zuerst von einem Ray getroffen wird. Ein Ray ist ein Strahl, der von der Position der Kamera ausgeht. Für jedes Pixel wird ein Ray durch den dreidimensionalen Raum geschickt. Dadurch können die Schnittpunkte der Objekte und der Rays ermittelt werden. Dabei werden alle Objekte mit einem sichtbaren Schnittpunkt angezeigt und die Fläche normal dazu bestimmt die Schattierung. Dieser Prozess wird im Kapitel //TODO-Referenz näher erklärt und angewandt.
+\label{impl:rend:raycasting}
+Beim Raycasting wird ermittelt, welches 3D-Objekt zuerst von einem Ray getroffen wird. Ein Ray ist ein Strahl, der von der Position der Kamera ausgeht. Für jedes Pixel wird ein Ray durch den dreidimensionalen Raum geschickt. Dadurch können die Schnittpunkte der Objekte und der Rays ermittelt werden. Dabei werden alle Objekte mit einem sichtbaren Schnittpunkt angezeigt und die Fläche normal dazu bestimmt die Schattierung. Dieser Prozess wird im Kapitel \ref{impl:int:raycasting} näher erklärt und angewandt.
 \cite{Rendering3DModels} 
 
 \subsubsection{Ray-Tracing}
@@ -81,17 +82,16 @@ Der Ray-Tracing Prozess funktioniert ähnlich wie der Prozess des Raycastings. B
 \end{itemize}
 \cite{RayTracingRasterization}
 
-\begin{figure}
+\begin{figure} [h]
     \centering
     \includegraphics[scale=0.3]{pics/ray-tracing.jpg}
     \caption{Vorgang des Ray-Tracing \cite{RayTracingRasterization}}
     \label{fig:impl:ray-tracing}
 \end{figure}
-//TODO Bild wird oben angezeigt
 
 
 \subsubsection{Rendering in Three.js}
-Für das Rendern der 3D-Gallery wird der in Three.js inkludierte Renderer von WebGL //TODO Referenz verwendet. Um das gerenderte 3D-Objekt in das DOM //TODO Referenz zu integrieren, wird das HTML-Element <canvas> verwendet. \cite{ThreejsWebGLRenderer}
+Für das Rendern der 3D-Gallery wird der in Three.js inkludierte Renderer von WebGL (siehe ThreeJS \ref{ch::webgl}) Referenz verwendet. Um das gerenderte 3D-Objekt in das DOM (siehe DOM \ref{txt:glos:API}) zu integrieren, wird das HTML-Element <canvas> verwendet. \cite{ThreejsWebGLRenderer}
 
 \begin{lstlisting}[caption={Canvas-Element in HTML},language=HTML,label=lst:impl:canvas]
     <canvas #threeCanvas style="width: 100%;  height: 100%" (window:resize)="onResize($event)"></canvas>
@@ -119,6 +119,7 @@ https://www.omnicalculator.com/other/resolution-scale
 https://discourse.threejs.org/t/render-half-size-then-upscale/13228
 
 \subsection{Lichtsetzung}
+\label{lichtsetzung}
 Das Licht ist das 2. Wichtig, denn ohne würden die gerenderten Objekte im Dunklen stehen. Um dies zu ändern, wird eine Lichtquelle installiert, um einen bestimmten Bereich der Szene zu erhellen. Dabei können ebenfalls unterschiedliche Optionen konfiguriert werden, um die Szene so realistisch wie möglich aussehen zu lassen. Das Licht wird jedoch nicht nur von der Lichtquelle beeinflusst, sondern auch von dem Objekt, das beleuchtet wird. Material und Oberfläche eines Objektes reagieren unterschiedlich auf den Einfall des Lichtes, wodurch zum Beispiel die Lichtreflektion stärker ausfällt. Dieses Konzept wird auch Global Illumination genannt. Three.js bietet eine Vielzahl von Lichtarten und Quellen:
 
 \begin{itemize}
