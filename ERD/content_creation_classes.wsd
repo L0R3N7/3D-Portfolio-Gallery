@@ -1,0 +1,53 @@
+@startuml
+class Metadata{
+    String title
+    String desc [0..1]
+    Number tagIds
+    String thumbnailUrl
+}
+
+class Exhibit{
+    Number id
+    String title
+    String description
+    String url
+    String dataType
+    Char alignment [0..1]
+    Position position [0..1]
+    Number scale [0..1]
+}
+
+class Room{
+    Number id
+    String name
+    String room_wall_url
+    String wall_mat_url
+    String room_floor_url
+    String floor_mat_url
+    String room_img_url
+    Position positions
+    Number floorRepeatTexture
+}
+
+class PositionConfig{
+    Number position_id
+    Number material_id
+    String exhibit_url
+    String exhibit_type
+    Char alignment
+    Number scale_factor
+    Number uuid [0..1]
+    String description
+    String title
+}
+
+class Position{
+    Number id
+    Number room_id
+    Number x
+    Number y
+    Boolean is_wall
+    Number rotation [0..1]
+}
+
+@enduml

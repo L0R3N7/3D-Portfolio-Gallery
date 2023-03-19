@@ -13,7 +13,7 @@ Nachdem der JWT im Backend implementiert wurde, galt es diesen auch auf dem Fron
 \subsubsection{Sign- und Log-In}
 Da der JWT als Beweis dafür dient, dass der*die User*in Authentifiziert ist, muss sich der*die Benutzer vor dem Erhalten des Token dafür erst auf der Weboberfläche Registrieren oder Anmelden. 
 
-\begin{figure}[h t]
+\begin{figure}
     \centering
     \includegraphics[scale=0.25]{pics/GalleryLogIn.png}
     \caption{Projekt: Login Page}
@@ -30,15 +30,10 @@ Nun gibt es aber mehrere Unbequemlichkeiten, die aus diesem Prozess resultieren.
 \label{par:impl:usermanagment:reactiveForms}
 In Webanwendungen gibt es viele Formulare, weil sie dort als eine der primären Kommunikationsschnittstellen zum Besucher*in dienen. Natürlich gibt es dafür den nativen Inputelement von HTML, aber zu einem Formular mit guter Usererfahrung gehört auch ein visuelles Feedback für den*die Benuzter*in, zusätzlich wächst der Entwicklungsaufwand exponentiell mit der Featureanzahl des Formulars.
 
-Angular bietet verschiedene Implementierungsarten, um die visuelle Komponente umzusetzen und den Entwicklungsaufwand zu minimieren. Bei diesen Ansätzen können mehrere Eingabedaten zentral ausgewertet und weiterverarbeitet werden und der Status des Formulars bei Änderungen und Fehlern visuell dargestellt werden.
+Angular bietet verschiedene Implementierungsarten, um die visuelle Komponente umzusetzen und den Entwicklungsaufwand zu minimieren. Bei diesen Ansätzen können mehrere Eingabedaten zentral ausgewertet und weiterverarbeitet werden und der Status des Formulars bei Änderungen und Fehlern visuell dargestellt werden. \cite[Bookmonkey - 12 Formularverarbeitung und
+Validierung: Iteration IV]{AngularBuch}
 
 Bei den Ansätzen unterscheidet man zwischen den reactive Forms und den Template-Driven-Forms.
-
-\subparagraph{Template-Driven-Forms}
-Bei den Template-Driven-Forms 
-TODO template und reactive forms erklären
-\cite[Bookmonkey - 12 Formularverarbeitung und
-Validierung: Iteration IV]{AngularBuch}
 
 \subsubsection{Token-Verwaltung}
 Um das Problem der Anmeldung zu lösen, wurde der JWT im LocalStorage des Browsers gespeichert. Im Codeausschnitt (siehe \ref{lst:impl:sign:jwtLocalstorage}) ist ein Teil des Authentifizierungsdienstes des Projektes zu sehen. Mit der Funktion \emph{setSaveJWT} wird der ausgestellte JWT ausgelesen und die darin enthaltenen Informationen, der Name und die Id des Benutzers, die Id des Tokens und das Ablaufdatum des Tokens im LokalenStorage (siehe im Absatz WebStorage API \ref{par:impl:usermanagment:WebStorage}) gespeichert, damit die Daten auch nach dem Neuladen der Webseite erhalten bleiben. Die Funktion \emph{isLoggedIn} gibt nach dem Aufruf den Status mit, ob eine Person angemeldet ist oder nicht, dafür benutzt die Funktion das im JWT enthaltene Ablaufdatum und vergleicht es mit dem aktuellen Datum. Zuletzt gibt es noch die \emph{logout} Funktion, diese löscht die im LocalStorage enthaltenen JWT-spezifischen Daten.
@@ -137,9 +132,9 @@ Zum Start dieses Entwicklungsschrittes war der Interceptor und die JWT Verwaltun
 
 Deswegen und um zu verhindern das Benutzer*in auf Unterseiten sind auf denen sie wegen ihres Requistratonstatus (noch nicht authentifiziert) noch nichts machen können, wurde je nach Anmeldestatus andere Routen und Informationen auf der Navigationsbar gezeigt (siehe Abbildung \ref{fig:impl:navbarvergleich}). Dafür wurde die Navigationsleistenlogik und die Navigationsleistenservice angepasst. Zusätzlich wurde AuthGuard verwendet um Routen zu sperren auf, die der*die Benutzer*in wegen dem Requistratonstatus noch keinen Zugriff hat. 
 
-\begin{figure}[h t]
+\begin{figure}
   \centering
-  \includegraphics[scale=0.6]{pics/navbarRequistrationsstatusGegenüberstellung.png}
+  \includegraphics[scale=0.5]{pics/navbarRequistrationsstatusGegenüberstellung.png}
   \caption{Navbar: authentifiziert vs noch nicht authentifiziert}
   \label{fig:impl:navbarvergleich}
 \end{figure}
@@ -147,11 +142,9 @@ Deswegen und um zu verhindern das Benutzer*in auf Unterseiten sind auf denen sie
 \subsection{Profilepage}
 Auf der Profileseite (siehe Abbildung \ref{fig:impl:sign:profile}) sieht der*die Benutzer*in userspezifische Informationen wie den Profilnamen, das Profilfoto, die erstellten Exhibition. Zusätzlich kann der*die Benutzer*in hier neue Ausstellungen anlegen und bereits erstellte Ausstellungen löschen. 
 
-\begin{figure}[h t]
+\begin{figure}
   \centering
   \includegraphics[scale=0.5]{pics/profilepage.png}
   \caption{Profilepage}
   \label{fig:impl:sign:profile}
 \end{figure}
-
-
