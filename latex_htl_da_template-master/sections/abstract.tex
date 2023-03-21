@@ -24,9 +24,10 @@ The following applications were used for the implementation: Angular is used in 
     \end{center}
 \end{wrapfigure}
 \setauthor{Litzlbauer Lorenz}
-3D Portfolio Gallery ist eine Webapplikation, die von Ema Halilovic, Lorenz Litzlbauer und Fabian Maar im Rahmen der Diplomarbeit entwickelt wurde. 3D Portfolio Gallery will Designer*innen ermöglichen, ihr Design-Portfolio auf eine innovative Art und Weise mit der Welt zu teilen und das alles in einem virtuellen dreidimensionalen Raum. 
+3D Portfolio Gallery ist eine Webapplikation, Lorenz Litzlbauer und Fabian Maar im Rahmen der Diplomarbeit entwickelt wurde. 3D Portfolio Gallery will Designer*innen ermöglichen, ihr Design-Portfolio auf eine innovative Art und Weise mit der Welt zu teilen und das alles in einem virtuellen dreidimensionalen Raum. Die Designer*innen können mithilfe von 3D Portfolio Gallery aus eigenen Medien (Film, Foto oder 3D-Daten) ein dreidimensionales Portfolio erstellen.
+3D Portfolio Gallery wird als eine SPA im Web angeboten und ist über einen Web-Link erreichbar.
+3D Portfolio Gallery bietet dafür einen einfachen Konfigurationsprozess, indem aus mehreren vordefinierten Grundrissen eine Gallery ausgewählt wird. In einem weiteren Schritt werden die Ausstellungsstücke entweder automatisch oder manuell platziert und mit Zusatzinformationen versehen.
 
-Die Designer*innen können mithilfe von 3D Portfolio Gallery aus eigenen Medien (Film, Foto oder 3D-Daten) ein dreidimensionales Portfolio erstellen. 3D Portfolio Gallery bietet dafür einen einfachen Konfigurationsprozess, indem aus verschiedenen Ausstellungsräumen ausgewählt wird. Dann können die Ausstellungsstücke dort manuell oder automatisch platziert und mit Zusatzinformation versehen werden.
 
-Interessierte können sich in der dreidimensionalen Webausstellung frei bewegen und die Ausstellungsstücke mit verschiedenen Interaktionsarten anschauen.
-Für die Umsetzung wurden folgende Applikationen verwendet: Im Frontend wird Angular für die SPA (Single-Page-Applikation)-Logik und für die 3D-Darstellung, ThreeJs benutzt. Für den Server werden Technologien wie Quarkus, Maven, JPA, Panach und  Hibernate ORM verwendet. Um die Sicherheit der User zu gewährleisten, verwenden wir JWT (JsonWebToken)
+Für die Umsetzung im Frontend werden folgende Frameworks verwendet: Angular für die SPA (Single-Page-Applikation) und ThreeJs für die 3D-Darstellung. . In der Frontend-Zugriffkontrolle und -Useridentifikation im Browser wird JWT (JsonWebToken) verwendet. Das JWT ist Teil eines Standards, der durch die III https://www.rfc-editor.org/rfc/rfc7519 IETF beschrieben wird.
+Das Backend verwendet als Serverplattform Quarks, als Buildsystem Maven und in der Datenbankzugriffschicht JPA (Java Persistence Architecture), Panach und Hibernate ORM
