@@ -231,3 +231,69 @@ addSelectedObjects( object: Object3D ){
   }
     
 \end{lstlisting}
+
+\subsubsection{Postprocessing}
+Post-Processing ist eine Render-Methode, die zum Beispiel für Anti-Aliasing, Tiefenschärfe und andere 3D-Effekte benutzt wird. Dabei wird zuerst die Szene mit den gewünschten 3D-Objekten gerendert und im Speicher der Grafikkarte zwischengespeichert. Anschließend werden beim Post-Processing verschiedene Filter angewandt, diese gerendert und dem*der Benutzer*in angezeigt. In Three.js wird dafür ein EffectComposer verwendet. Dieser enthält ein Array von allen Effekten, die angewandt werden und dann mittels WebGL-Renderer in einer bestimmten Reihenfolge gerendert werden. Für die visuelle Anzeige sind Post-Processing-Passes zuständig. Zu Beginn wird ein RenderPass angelegt, der die zugehörige Kamera und Szene rendert. Anschließend können verschiedene Effekt-Passes, wie zum Beispiel der OutlinePass oder der GlitchPass, hinzugefügt werden. \cite{PostProcessing}
+
+\subsubsection{Detailansicht}
+
+Um beim Klicken auf ein Ausstellungsstück zur gewünschten Detailansicht zu kommen, wird ebenfalls ein Raycaster benutzt. Die Logik funktioniert fast gleich wie beim Hover-Effekt. Jedoch werden die Koordinaten des Mauszeigers nur bei jedem Mausklick aktualisiert. Gleich wie beim Hover-Effekt, wird das Array der Ausstellungsstücke mit einer For-Schleife durchiteriert. Dadurch kann identifiziert werden welches Ausstellungsstück von dem*der Benutzer*in angeklickt wurde. Dabei werden die Informationen des Ausstellungsstückes an ein Dialogfenster geschickt, welches als Detailansicht fungiert.  
+
+\begin{lstlisting}[caption={identifizieren des geklickten Ausstellungsstückes},language=TypeScript]
+    
+  for (let value of values) {
+    if (value.uuid == intersects[0].object.parent?.parent?.uuid) {
+      if (value.uuid != null) {
+        const object = this.scene.getObjectByProperty('uuid', value.uuid);
+        this.objectDescription = value.description
+        this.objectTitle = value.title
+        this.objectUrl = value.exhibit_url
+        this.openDialog('1000ms', '300ms')
+      }
+  }
+}
+
+\end{lstlisting}
+
+Geöffnet wird das Dialogfenster über eine eigene openDialog-Funktion. Dabei wird eine neue Instanz von einem Dialogfenster angelegt, welches Angular-Material verwendet. Dabei wird angegeben, welche Größe und Breite das Fenster haben soll. Auch wird festgelegt, wie schnell die Animation zum Öffnen und Schließen abläuft. Um die Daten des Ausstellungsstücks auch im Dialogfenster zur Verfügung zu stellen, werden diese beim initialisieren angegeben.
+
+\begin{lstlisting}[caption={initialisieren des Dialogfensters},language=TypeScript]
+    
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    const dialogRef = this.dialog.open(ExhibitDialog, {
+       maxWidth: '100vw',
+       maxHeight: '50vh',
+       width: '100%',
+       height: '100%',
+       data: {description: this.objectDescription, title: this.objectTitle, objectUrl: this.objectUrl},
+       enterAnimationDuration,
+       exitAnimationDuration,
+     });
+//..
+}
+\end{lstlisting}
+
+Wenn sich der*die Benutzer*in in der Detailansicht befindet, soll die Animation im Hintergrund gestoppt werden. Dies erfolgt durch die Methode cancelAnimationFrame //TODO kursiv, wodurch die Animations-Schleife angehalten wird. Um den aktuellen Zeitpunkt zu erhalten, zu dem die Animation gestoppt wird, wird die requestAnimationFrame-Methode verwendet. Diese wird in der Animations-Schleife aufgerufen und dabei wird der aktuelle Frame der Animation zurück geliefert. Um sich nicht mehr weiter in der Ausstellung fortbewegen zu können, wird die Clock (siehe //TODO Referenz) gestoppt, die für die Three.js Controls benötigt wird. Nachdem der*die Benutzer*in das Dialogfenster wieder schließt, wird die Animations-Schleife und die Clock wieder fortgesetzt. 
+
+\begin{lstlisting}[caption={Öffnen und Schließen des Dialogfensters},language=TypeScript]
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+      //..
+      this.dialogOpen = true
+      cancelAnimationFrame(this.animationid!)
+      this.clock.stop()
+  
+  
+      dialogRef.afterClosed().subscribe(r => {
+        this.dialogOpen = false
+        this.animate()
+        this.clock.start()
+      })
+    }
+\end{lstlisting}
+
+Das Dialogfenster ist eine eigene Angular-Komponente. Im Konstruktor der Komponente werden die Daten des Ausstellungsstückes injiziert, um es anschließend in einer detaillierten Ansicht zu rendern. Dabei werden eigens für die Detailansicht ein neuer Canvas angelegt, eine neue 3D-Szene gerendert und mittels Animations-Schleife neue Orbit-Controls (siehe Controls //TODO Referenz) initialisiert. Dadurch kann das 3D-Objekt frei betrachtet werden. Falls beim Konfigurieren der Ausstellung, dem Ausstellungsstück, eine Beschreibung mitgegeben wurde, wird diese in diesem Dialogfenster angezeigt. .
+
+  \begin{lstlisting}[caption={Constructor-Injection in der Dialog Komponente},language=TypeScript]
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ExhibitDialog>) {}
+
+  \end{lstlisting}
