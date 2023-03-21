@@ -1,31 +1,4 @@
-\section{Angular [L]}
-\setauthor{Litzlbauer Lorenz}
-Um eine nachvollziehbare Auswahl zu treffen, muss verstanden werden, wie Angular funktioniert. 
-
-\subsection{Allgemeines [M]}
-\setauthor{Fabian Maar}
-Angular ist ein Framework für Webapplikation, das auf der Programmiersprache Typescript basiert. Es ist eines der renommiertesten Frameworks zur Front-End-Entwicklung und wird als Open-Source-Software zur Verfügung gestellt. So besitzt Angular eine große Community und wird von vielen Software-Entwicklern benutzt. So zählt es 2022 zu dem zweitbeliebtesten Front-End Framework \cite{AngularEvidence} und wird von Milliardenkonzernen wie zum Beispiel Google oder PayPal verwendet. 
-\cite{AngularEvidence2}
-
-Die große Stärke von Angular ist die Erstellung von Single-Page-Webanwendung, da es eine komponentenbasierte Struktur besitzt. Das bedeutet, der Code ist wiederverwendbar und verkapselt. Komplexe Logiken werden auf ihre Grundelemente reduziert und beeinflussen sich nicht gegenseitig.
-\cite{AngularGeneral}
-
-\subsection{Dependencies [L]}
-\setauthor{Litzlbauer Lorenz}
-In den folgenden Unterabschnitten wird sich mit den Technologien auf die Angular aufgebaut ist, auseinandergesetzt. 
-\subsubsection{RxJS}
-RxJS ist eine Implementierung von ReactiveX für die Programmiersprache Javascript. Angular verwendet RxJS für reaktive Programmierart.
-
-ReactiveX ist eine Library für das Erstellen von asynchronen und Event-basierenden Programmen, dafür benutzt es  \emph{observable sequences} (Ein beobachtetes Subjekt führt eine Liste von den Observern. Bei einer Veränderung im Subjekt werden die Beobachter nach dieser Liste der Reihe nach informiert. Siehe im Glossar \ref{txt:glos:observerDesignPattern} auf Seite \pageref{txt:glos:observerDesignPattern}).
-Die Library arbeitet so mit dem \emph{Observer-Design-Pattern} und fügt verschiedene neue Operatoren hinzu. Zusätzlich werden "Lowlevel"-Funktionen wie Threading, Synchronisation und Thread-Sicherheit verarbeitet und keine Input-/Output-Prozesse blockiert.
-
-\cite{ReactiveXIntro}
-\subsubsection{Webpack}
-\setauthor{Litzlbauer Lorenz}
-Die Hauptfunktion von Webpack ist es, viele verschiedene Daten zu einem Paket für eine JavaScript Applikation zusammenzufassen.
-Angular benutzt Webpack, um TypeScript in JavaScript und Sass bzw. Scss in Css umzuwandeln. Beim Bauen des Projektes werden alle Module in ein einziges zusammengefasst. Bei der Entwicklung der Applikation wird durch Webpack \emph{Live-Reloading} unterstützt. Dabei wird bei einer Änderung im Code die gesamte Applikation aktualisiert und neu gestartet.
-
-\subsection{Vorteile/Auswahlkriterien [M]}
+\subsection{GUI}
 \setauthor{Fabian Maar}
 Folgende Aspekte sprechen für die Nutzung Angular in diesem Projekt:
 
@@ -38,9 +11,12 @@ Folgende Aspekte sprechen für die Nutzung Angular in diesem Projekt:
   Dependency Injection für die Verbindung von Front-End zum Back-End; siehe Kapitel HTTP Services \ref{DPI}
 \end{itemize}
 
-\subsection{Model-View-Controller und Model-View-ViewModel Architecture [M]}\label{sec:MVCandMVVM}
+\subsubsection{Angular [M]}
 \setauthor{Fabian Maar}
-\subsubsection{Allgemein}
+Angular ist ein Framework für Webapplikation, das auf der Programmiersprache Typescript basiert. Es ist eines der renommiertesten Frameworks zur Front-End-Entwicklung und wird als Open-Source-Software zur Verfügung gestellt. So besitzt Angular eine große Community und wird von vielen Software-Entwicklern benutzt. So zählt es 2022 zu dem zweitbeliebtesten Front-End Framework \cite{AngularEvidence} und wird von Milliardenkonzernen wie zum Beispiel Google oder PayPal verwendet. 
+\cite{AngularEvidence2}
+
+Die große Stärke von Angular ist die Erstellung von Single-Page-Webanwendung, da es eine komponentenbasierte Struktur besitzt. Das bedeutet, der Code ist wiederverwendbar und verkapselt. Komplexe Logiken werden auf ihre Grundelemente reduziert und beeinflussen sich nicht gegenseitig. \cite{AngularGeneral}
 
 Angular basiert auf dem Konzept des Model-View-Controller- (MVC) und Model-View-ViewModel (MVVM) Architecture Patterns. Diese Patterns werden verwendet, um die Logik von der Benutzeroberfläche zu trennen und komplexe Aufgaben einfacher zu bewältigen. Dies wird in der Fachsprache auch oft als "Separation of Concerns” bezeichnet.
 \cite{AngularArchitecturePattern}
@@ -52,13 +28,9 @@ Architecture Patterns sind Muster, die verwendet werden um:
   \item immer wiederkehrende Probleme durch eine einmalige Lösungen zu beheben
   \item um die Wartung und Testung zu erleichtern
   \item Änderungen am Umfang und der Größe der Applikation leichter handhaben zu können
-\end{itemize}
+\end{itemize} \cite{MVCmdn, MVVM, MVC}
 
-\cite{MVCmdn}
-\cite{MVVM}
-\cite{MVC}
-
-\subsubsection{Model-View-Controler (MVC)}
+\paragraph{Model-View-Controler (MVC)}
 Die ”Separation of Concerns” wird bei diesem Pattern durch die Aufteilung der Applikation in Model, View und Controller realisiert. Dadurch ist es möglich, sich auf einen Aspekt der Implementierung zu fokussieren. 
 
 \begin{figure} [h t]
@@ -75,7 +47,7 @@ Die View ist die Benutzeroberfläche des Programms. Der*die Benutzer*in kann mit
 In dem Controller werden die Eingaben der Benutzer*innen verarbeitet und die betroffenen Model- und View-Komponenten beeinflusst und verändert. Auch ist es möglich zu bestimmen, welche Views verändert werden sollen und die Daten gegebenenfalls in unterschiedliche Formate anzuzeigen. Die TypeScript-Files in Angular sind vergleichbar mit diesen Controllern.
 \cite{MVC}
 
-\subsubsection{Model-View-ViewModel (MVVM)}
+\paragraph{Model-View-ViewModel (MVVM)}
 Diese Architektur basiert auf dem Konzept des MVC-Patterns. Das MVVM realisiert die “Separation of Concerns” durch die View, ViewModel und Model Komponenten.
 
 \begin{figure} [h t]
@@ -94,7 +66,7 @@ Das Model funktioniert im Grunde gleich wie beim MVC-Pattern, nur wird hierbei n
 Angular nutzt hierbei eine Mischung aus beiden Architecture-Patterns. Sie wird durch das Konzept von Komponenten realisiert, auf welches im nächsten Abschnitt näher eingegangen wird. Dabei werden die Parallelen der Patterns erkennbar.
 \cite{MVVM}
 
-\subsection{NgModules [M]}\label{sec:NgModules}
+\paragraph{NgModules [M]}\label{sec:NgModules}
 \setauthor{Fabian Maar}
 NgModules erleichtern die Einbindung von Libraries enorm. Da sich keine externen Files mühsam gedownloadet und eingebunden werden müssen und jeder Import-Prozess fast von selbst geschieht, wird enorm Zeit beim Entwickeln gespart. Außerdem sind alle Importe in chronologischer Reihenfolge gelistet, wodurch ein guter Gesamtüberblick geliefert wird und schnell überflüssige Imports entfernt werden können. Die ständige Erweiterung und die Unterstützung von Third-Party-Libraries, die unter anderem für die 3D-Darstellung verwendet werden, wird ebenfalls von diesen ngModulen ermöglicht. Die Angular-Applikation wird hierbei organisiert und gestartet, in dem die Metadaten wie folgt abgespeichert werden:
 
@@ -112,12 +84,141 @@ Wie die ngModules verwendet in der 3D-Gallerie-Applikation wurden, wird im Absch
 \cite{AngularBuch}
 
 
-\section{Webstorm [M]}
-\setauthor{Fabian Maar}
-Webstorm ist eine Entwicklungsumgebung vom Unternehmen JetBrains, die sich auf die Programmiersprache JavaScript spezialisiert hat. Sie wurde besonders für das Arbeiten mit Angular optimiert. Dies zeigt sich durch viele Features, die das Entwickeln von Angular-Projekten erleichtern. So macht es Webstorm möglich, mit nur wenigen Mausklicks eine neue Angular-Dependency oder Komponente zu erstellen. Auch wird die Entwicklungszeit durch intelligente Code-Vervollständigung, Code-Formatierung, einfache Navigation und viele weitere hilfreiche Features deutlich verkürzt.
+\subsubsection{Angular Schlüsseltechnologien [L]}
+\paragraph{RxJS [L]}
+RxJS ist eine Implementierung von ReactiveX für die Programmiersprache Javascript. Angular verwendet RxJS für reaktive Programmierart.
+
+ReactiveX ist eine Library für das Erstellen von asynchronen und Event-basierenden Programmen, dafür benutzt es  \emph{observable sequences} (Ein beobachtetes Subjekt führt eine Liste von den Observern. Bei einer Veränderung im Subjekt werden die Beobachter nach dieser Liste der Reihe nach informiert. Siehe im Glossar \ref{txt:glos:observerDesignPattern} auf Seite \pageref{txt:glos:observerDesignPattern}).
+Die Library arbeitet so mit dem \emph{Observer-Design-Pattern} und fügt verschiedene neue Operatoren hinzu. Zusätzlich werden "Lowlevel"-Funktionen wie Threading, Synchronisation und Thread-Sicherheit verarbeitet und keine Input-/Output-Prozesse blockiert.
+
+\cite{ReactiveXIntro}
+\paragraph{Webpack [L]}
+\setauthor{Litzlbauer Lorenz}
+Die Hauptfunktion von Webpack ist es, viele verschiedene Daten zu einem Paket für eine JavaScript Applikation zusammenzufassen.
+Angular benutzt Webpack, um TypeScript in JavaScript und Sass bzw. Scss in Css umzuwandeln. Beim Bauen des Projektes werden alle Module in ein einziges zusammengefasst. Bei der Entwicklung der Applikation wird durch Webpack \emph{Live-Reloading} unterstützt. Dabei wird bei einer Änderung im Code die gesamte Applikation aktualisiert und neu gestartet.
+
+\subsection*{UserInterface-Frameworks (UI-Frameworks)}
+Ein UserInterface-Frameworks ist eine Ansammlung von Web Komponenten wie eine Navigationsleiste die sofort Nutzbar sind.  
 
 
-\section{ThreeJs [L]}
+Die Vorteile von UI-Frameworks sind:
+\begin{compactitem}
+    \item vereinfacht und beschleunigt den Entwicklungsprozess;
+    typische Web-Komponenten sind vordefinierte, der Entwickler muss diese nicht mehr implementieren und erspart sich Zeit.
+    \item Cross-Browser Unterstützung;
+    Besonders bei neuen CSS-Feature kann es sein, dass diese noch nicht von allen Browsern unterstützt werden. Ein UI-Framework benutzt in der Regel nur Funktionen, die auch alle Browser anzeigen können.
+    \item Der Code hat eine bessere Lesbarkeit;
+    In einem UI-Framework gibt es gewisse Konventionen wie Klassennamen, die befolgt werden müssen. Dadurch wird der Code besser lesbar.
+\end{compactitem}
+
+
+Die Nachteile von UI-Frameworks sind:
+\begin{compactitem}
+    \item Die Ladezeit der Webseite erhöht sich;
+    Schließlich müssen auch mehr Daten an den Browser geschickt werden.
+    \item Webseiten, die das selbe UI-Framework verwenden, schauen einander ähnlich aus;
+    Da die Web-Komponenten gleich implementiert werden.
+\end{compactitem}
+\cite{CssFrameworkExplaination} \cite{BestCSSFrameworksin2022}
+
+\subsection{UI-Frameworks im Projekt}
+Im Projekt wurde sich für zwei UI-Frameworks, Bootstrap und AngularMaterials, entschieden.
+
+
+\subsubsection{Angular Material}
+Angular Material ist eine UI Framework und wird seit 2014 von Google entwickelt. Das Framework baut auf Angular auf und erweitert es mit eigenen Komponenten, Styleguides, Typographie und vielem mehr. Die Design-Sprache orientiert sich dabei an der Material Design Spezifikation von Google. Ein großer Fokus des Frameworks ist die Responsiveness, Komponenten werden auf verschiedenen Auflösungen gut aussehen. \cite{JavaPointAngularMaterial, WhatAngularMaterial}
+
+
+Angular Material hat folgende Features: \cite{JavaPointAngularMaterial, WhatAngularMaterial}
+\begin{compactitem}
+    \item Erweiterbar; Bei der Installation lassen sich viele Designanpassungen machen, zusätzlich lassen sich Styles mit dem globalen Stylesheet überschreiben. 
+    \item Hochwertig; Die Komponenten sind erprobt und wurden auf die Performanz und Verlässlichkeit getestet.
+    \item Reibungslos; Angular Material ist gut mit Angular integriert
+\end{compactitem}
+
+Die Abbildung \ref{fig:impl:angular-material-overview-components} zeigt einen Teil der Komponenten, die Angular Material anbietet. Zu allen diesen Komponenten gibt es eine ausführliche Dokumentation mit Beispiele. \cite{JavaPointAngularMaterial, WhatAngularMaterial}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{pics/AngularMaterialsComponentsOverview.png}
+    \caption{Angular Material: Komponente Überblick \cite{AngularComponents}}
+    \label{fig:impl:angular-material-overview-components}
+\end{figure}
+
+\paragraph*{Material Design Spezifikation}
+Material Design ist ein Designsystem, welches von Google erstellt wurde, um Teams zu helfen, qualitative hochwertige Digitale-Erfahrungen für Android, iOS, Flutter und das Web zu gestalten.
+
+Material Design hat mehrere Prinzipien, die sie ihr Design beeinflussen lassen.
+
+Material Design soll die reale Weld abbilden.
+Text soll durch Typographie, Raster, Abstände, Farben und Bilder soll eine erkennbare Hierarchie entstehen. Komponenten sind interaktive Bauklötze für ein das User Interface. Komponenten haben alle eine Stati-System welches den Status der Komponente fokussiert, selektiert, aktiviert, fehlerhaft, schwebend, gedrückt und ausgeschalten anzeigt. Durch das Theming ist es möglich einzelne Komponenten zu verändern und das Design so anzupassen, dass es zur Corporate Identity der Benutzer*in passt.\cite{MaterialDesign-Introduction}
+
+\subsubsection{Bootstrap}
+Bootstrap ist ein kostenloses Open-Source-UI-Framework. Es ist nicht nur eine Ansammlung von CSS sondern auch von JavaScript und HTML code um schöne, interaktive und responsive Webseiten.  \cite{BestCSSFrameworksin2022}
+
+Bootstrap hat folgenden Features:  \cite{BestCSSFrameworksin2022}
+\begin{compactitem}
+    \item Web-Komponenten, die sofort Anwendbar sind
+    \item Eine gute Dokumentation
+    \item Mobile Centered Design
+    \item Hohe Benutzerfreundlichkeit
+\end{compactitem}
+
+\subsubsection{Scss}
+SCSS ist kein UI-Framework, sondern vielmehr eine Syntax- und Feature-Erweiterung von CSS, deswegen wurde es schlussendlich auch für dieses Projekt gewählt. SCSS hat viele Vorteile wie zum Beispiel Variablen, Schleifen, Mixins und Imports gegenüber CSS, aber besonders ausschlaggebend war das Prinzip der Verschachtelung. \cite[Sass Guide]{SassGuide}
+
+Durch die Verschachtelung kann an redundanten Styles-Selektoren gespart werden, was die Style-Definition besser lesbarer macht. Im den Beispielen (siehe SCSS-Code-Beispiel \ref{lst:imp:design:scss} und natives CSS-Code-Beispiel \ref{lst:imp:design:css}) wird die gleiche Style-Definition von SCSS und CSS ausgedrückt, doch die Schreibweise unterscheidet sich. \cite[Sass Guide]{SassGuide}
+
+\cite[Sass Guide]{SassGuide}
+
+
+\begin{lstlisting}[caption=SCSS - Code Beispiel,label=lst:imp:design:scss]
+nav {
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    li { display: inline-block; }
+    
+    a {
+        display: block;
+        padding: 6px 12px;
+        text-decoration: none;
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=CSS - Code Beispiel,label=lst:imp:design:css]
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    }
+nav li {
+    display: inline-block;
+    }
+nav a {
+    display: block;
+    padding: 6px 12px;
+    text-decoration: none;
+}
+\end{lstlisting}
+
+Code Beispiele\ref{lst:imp:design:scss} \ref{lst:imp:design:css} \cite[Sass Guide]{SassGuide}
+
+
+\subsection{3D Rendering [L]}
+Es gab verschiedene Auswahlkriterien für die 3D-Web-API, die ausschlaggebend für den Projekterfolg waren:
+\begin{compactitem}
+  \item Effizienzen der 3D Engine (Hardware Acceleration, RAM-Auslastung)
+  \item Benutzerfreundlichkeit (Programmerexperience)
+  \item Das Laden von 3D-Modellen aus 3D-Dateien und aus dem Internet
+  \item Video-Texturen support
+\end{compactitem}
+
+\subsubsection{ThreeJs [L]}
 \setauthor{Litzlbauer Lorenz}
 \begin{wrapfigure}{r}{0.3\textwidth}
     \begin{center}
@@ -138,33 +239,20 @@ In ThreeJs werden Geometrie, Objekte und Materialien verbunden, um ein 3D-Objekt
     \label{fig:tech:front:threejsstructure}
 \end{figure}
 
-\subsection{Dependency}
+\subsubsection{Dependency}
 \label{ch::ThreeJsDependency}
 Um 3D-Darstellungen zu rendern, benutzt ThreeJs WebGL.
 
-\subsubsection{WebGL}
+\paragraph{WebGL}
 \label{ch::webgl}
 \begin{wrapfigure}{h  r}{0.3\textwidth}
     \begin{center}
       \includegraphics[width=0.2\textwidth]{pics/WebGL_Logo.png}
-     \caption{ThreeJs Logo}
+     \caption{WebGL Logo}
     \end{center}
 \end{wrapfigure}
 WebGL ist eine lizenzfreie Low-Level-API, die dafür benutzt wird, 3D-Grafiken im Web darzustellen. Sie basiert auf OpenGL ES 2.0 und benutzt auch dieselbe shading language GLSL wie OpenGL. Eine Low-Level-API hat einen höheren Konfigurierungsgrad und lässt sich für spezielle Anwendungsfälle besser anpassen. Der*Die Programmierer*in muss, aber auch ein viel tieferes Verständnis von dem Material haben (im Fall von WebGL Shader-Programmierung, Matrixrechnungen usw.) und hat in der Regel einen viel größeren Programmieranteil als wenn er eine High-Level-API benutzt. Eine High-Level-API  ist besser für allgemeine Anwendungsfälle geeignet.
 \cite[WebGl Getting Started]{WebglGettingStarted} \cite{HighlowAPI}
-
-
-\subsection{Auswahlkriterien}
-Es gab verschiedene Auswahlkriterien für die 3D-Web-API, die ausschlaggebend für den Projekterfolg waren:
-\begin{compactitem}
-  \item Effizienzen der 3D Engine (Hardware Acceleration, RAM-Auslastung)
-  \item Benutzerfreundlichkeit (Programmerexperience)
-  \item Die Features des Projektes müssen damit umsetzbar sein
-  \begin{compactenum}
-    \item Das Laden von 3D-Modellen aus 3D-Dateien und aus dem Internet
-    \item Video-Texturen support
-  \end{compactenum}
-\end{compactitem}
 
 \subsubsection{Alternativen 3D Web Apis}
 Es gibt viele Technologien, die 3D-Grafiken im Web ermöglichen, wie Three.js, Babylon.js, A-Frame, X3DOM und WebGL
@@ -173,10 +261,6 @@ Es gibt viele Technologien, die 3D-Grafiken im Web ermöglichen, wie Three.js, B
 A-Frame wird von der Mozilla Foundation als OpenSource-Projekt entwickelt. Die 3D-Szene wird durch eine deklarative Sprache mit XML-Syntax definiert. Über die WebVR-API bietet die Libray auch die Möglichkeit, 3D-Szenen durch eine VR-Brille zu erfahren. Bei der 3D-Darstellung setzt A-Frame auf ThreeJs. \cite[A-Frame Wikipedia]{a-frame-wiki}
 
 A-Frame hat ähnliche Funktionen und Leistung im Vergleich zu ThreeJs, da es ja schlussendlich darauf aufbaut. A-Frame sticht bei der VR support hervor (ThreeJs hätte auch eine Unterstützung dafür, diese ist aber schwieriger einzubinden), doch ist das kein unbedingt nötiges Feature. ThreeJs ist ja bereits eine Abstraktion von WebGL. Für das Projekt wird keine weiter Abstraktion gebraucht.
-
-\paragraph{WebGL}
-Im Vorherigen Kapitel wurde sich bereits mit WebGL im Kontext mit ThreeJs befasst. In ThreeJs wird WebGL für die 3D-Darstellung gewählt. Doch gibt es auch WebGL als eigenständige Library. \ref{ch::webgl}
-Um nur eine einfache 3D-Szene in WebGL darzustellen, muss sehr viel Code geschrieben werden. Denn WebGL übernimmt keine Low-Level-Funktion. Es müssen Matrixrechnungen für die Transformationen von 3D-Objekt Manuel und Vertex buffers, die die Daten der Vertex Positionen, Normaldaten, Farben und Texturen, selbst programmiert werden und das in einer eigenen Programmiersprache. Deshalb war WebGL keine Option für das Projekt.
 
 \subsubsection{Angular Three}
 \label{ch:Technologien:AngularThree}

@@ -1,5 +1,3 @@
-\section{Initialisierung des Server}
-\section{Initialisierung der Datenbank }
 \section{Initialisierung der Landingpage [L]}
 \setauthor{Litzlbauer Lorenz}
 Der erste Entwicklungsschritt für die vollständige Single-Page-Application beginnt mit der Initialisierung der Landingpage. Die Landingpage ist die Startseite der Webseite. Es ist das Erste, was der*die neue Nutzer*in sieht. Daher muss die Webseite alle benötigten Informationen über die Funktionen der Applikation verständlich erkennbar machen.
@@ -14,8 +12,8 @@ Dafür wurde der \emph{npm} Node-Package-Manager verwendet.
 \subsubsection{Vorbereitung}
 Erstmal musste NodeJs installiert werden. Dafür wird aber zuvor noch NodeJs benötigt. NodeJs ist eine JavaScript Laufzeitumgebung. NodeJs kann von der eigenen Webseite nodejs.org mit dem Installer für alle Betriebssysteme installiert werden. Im Projekt wurde sich für eine LTS - Version(long term support) entschieden, weil diese am längsten von den Entwicklern am längsten unterstützt werden und dadurch beständiger sind. Während dem Installationsprozess von NodeJs kann durch eine Auswahl auch NPM installiert werden. 
 
-\paragraph{npm - Node Package Manager}
-Der Node Package Manager ist ein Softwareverwaltungstool zum Downloaden, Aktualisieren, Veröffentlichen und Verwalten von OpenSource-Programmen in der NodeJs-Umgebung. \cite{whatNpm} \cite{AboutNpm}
+%%\paragraph{npm - Node Package Manager}
+%%Der Node Package Manager ist ein Softwareverwaltungstool zum Downloaden, Aktualisieren, Veröffentlichen und Verwalten von OpenSource-Programmen in der NodeJs-Umgebung. \cite{whatNpm} \cite{AboutNpm}
 
 \subsubsection{Angular installieren}\label{sec:AngularCLI}
 Angular hat ein eigenes Tool, die Angular CLI (Command Line Interface), um Projekte zu erstellen, zu bearbeiten, Komponenten, Services und vordefinierte Codemodule hinzuzufügen und das Projekt zu bauen.
@@ -94,7 +92,7 @@ Mit dem ersten Befehl wird AngularJs eine JavaScript Liberay durch NPM installie
     npm i @types/three
 \end{lstlisting}
 
-\section{Components [M]}
+\subsection{Components [M]}
 \label{components}
 \setauthor{Fabian Maar}
 Der nächste Schritt der Entwicklung ist das Erstellen der Komponenten und das Festlegen ihrer Struktur. Eine Komponente kann ebenfalls über die Angular CLI erstellt werden:
@@ -103,7 +101,7 @@ Der nächste Schritt der Entwicklung ist das Erstellen der Komponenten und das F
     ng generate component home-page
 \end{lstlisting}
 
-\subsection{Allgemein}
+\subsubsection{Allgemein}
 Angular Komponenten sind die Bausteine für eine Angular-Anwendung. Mit ihnen lässt sich eine komplexe Benutzeroberfläche in mehrere unterschiedlich große Elemente unterteilen. Sie lassen sich mit einem eigenen HTML-Selektor (z.B. <my-component>) ansprechen und in die Benutzeroberfläche einbinden. Components besitzen viele Features, die den Entwicklungsprozess, Wartung des Codes und Fehlersuche erleichtern können:
 
 \begin{itemize}
@@ -114,7 +112,7 @@ Angular Komponenten sind die Bausteine für eine Angular-Anwendung. Mit ihnen l�
     \item Lesbarkeit/Übersichtlichkeit
 \end{itemize}
 
-\subsection{Aufbau}
+\subsubsection{Aufbau}
 Um die Logik strikt von der Benutzeroberfläche zu trennen, werden die Dateien und der Code innerhalb einer Komponente strukturiert und separiert. Eine Komponente besteht somit aus: 
 
 \begin{itemize}
@@ -126,7 +124,7 @@ Um die Logik strikt von der Benutzeroberfläche zu trennen, werden die Dateien u
 
 \cite{AngularComponentOverview}
 
-\subsection{Skalierung}
+\subsubsection{Skalierung}
 Die Skalierung beschreibt, wie gut eine Applikation mit Erweiterungen und ihrem Wachstum umgeht. Dabei wird geschaut, wie leicht sich zusätzliche Änderungen und Features implementieren lassen oder wie sich die Performanz der Anwendung bei zunehmender Größe verhält. Angular hilft beim Skalieren durch einige Features:
 
 TypeScript hilft durch Code-Syntax, wie unter anderem Optionals, auch bei großen Applikationen schnell Fehler zu erkennen. 
@@ -135,7 +133,7 @@ Durch die Angular CLI kann durch wenige Zeilen Befehle, zum einen ein Grundgerü
 
 Angular stellt zudem Libraries wie Angular Materials oder das Component Development Kit (cdk) zur Verfügung. Dadurch können problemlos vorgefertigte Angular Komponenten und Designs zu einer Applikation hinzugefügt werden.
 
-\subsection{Hierarchie}
+\subsubsection{Hierarchie}
 Die Hierarchie von Angular Komponenten lässt sich wie folgt in einer Baumstruktur abbilden:
 
 \begin{figure}
@@ -146,12 +144,12 @@ Die Hierarchie von Angular Komponenten lässt sich wie folgt in einer Baumstrukt
   \end{figure}
 Die Hauptkomponente ist in jedem Falle der Root-Component. Von ihr aus lassen sich weitere Child-Components ineinander verschachteln. Diese Verschachtelung ist der Grund, warum die Anwendung in viele einzelne Teile ausgelagert werden kann. Außerdem können Komponenten durch das Data-Binding untereinander Daten austauschen.
 
-\subsection{Data-Binding }
+\subsubsection{Data-Binding }
 
 Data-Binding ist eine Methode, Daten zwischen der Logik und der Benutzeroberfläche auszutauschen. Dabei bleibt die Website ohne Refresh immer aktuell. Das Binden von Daten kann direkt am DOM erfolgen, wofür es eine eigene Code-Syntax gibt. Beim Data-Binding wird zwischen  verschiedenen Kategorien unterschieden \cite{AngularBuch} \cite{BindingSyntax}:  
     
 
-\subsubsection{Interpolation}
+\paragraph{Interpolation}
 Bei der Interpolation werden Daten innerhalb einer Komponente von der Datenquelle in das HTML-Template eingefügt. Die Anzeige wird auch automatisch aktualisiert, wenn sich Daten im Hintergrund ändern.
 
 \begin{lstlisting}[caption={{Beispiel für Interpolation in der 3D-Gallery}},language=HTML,label=lst:impl:interpolation]
@@ -160,13 +158,13 @@ Bei der Interpolation werden Daten innerhalb einer Komponente von der Datenquell
     </div>
 \end{lstlisting}
 
-\subsubsection{Property-Bindings}
+\paragraph{Property-Bindings}
 Beim Property-Binding werden Daten direkt an ein DOM-Element übermittelt und ausgewertet. Somit werden die Attribute, Aussehen und Funktionen der jeweiligen DOM-Elemente dynamisch beeinflusst und automatisch bei Datenänderung aktualisiert. \cite{AngularPropertyBinding}
 \begin{lstlisting}[caption={{Beispiel für Property-Bindings in der 3D-Gallery}},language=HTML,label=lst:impl:property-binding]
     <img [src]="user?.icon_url ?? 'assets/image/profile-photo.jpg'">
 \end{lstlisting}
 
-\subsubsection{Event-Bindings}
+\paragraph{Event-Bindings}
 Um auf Eingaben und Interaktionen von Benutzer*innen zu reagieren, werden Event-Bindings verwendet. Dabei werden die Daten vom HTML-Template zur TypeScript-Klasse übertragen und können dort genutzt werden. Sie sind also das Gegenstück zu den Property-Bindings. \cite{AngularEventBinding}
 \begin{lstlisting}[caption={{Beispiel für Event-Bindings in der 3D-Gallery}},language=HTML,label=lst:impl:event-binding]
     <button(click)="delete()">
@@ -174,14 +172,14 @@ Um auf Eingaben und Interaktionen von Benutzer*innen zu reagieren, werden Event-
     </button>
 \end{lstlisting}
 
-\subsubsection{Two-Way-Bindings}
+\paragraph{Two-Way-Bindings}
 Das To-Way-Binding benutzt beide Varianten, Property- und Event-Binding, um Daten auszutauschen. Hierbei ist es möglich, die Daten sowohl von der TypeScript-Klasse zum DOM-Element zu übertragen und umgekehrt. \cite{AngularTwoWayBinding}
 \begin{lstlisting}[caption={{Beispiel für Two-Way-Bindings \cite{AngularTwoWayBinding}}},language=HTML,label=lst:impl:two-way-bindings]
     <app-sizer [(size)]="fontSizePx"></app-sizer>
 \end{lstlisting}
 In den folgenden Kapitel werden die Komponenten und ihre Funktionalitäten näher beschrieben. 
 
-\section{Routing [M]}\label{sec:Routing}
+\subsection{Routing [M]}\label{sec:Routing}
 Beim Routing werden bestimmte Components angezeigt, abhängig von der aktuellen URL. Dabei kann durch die Applikation durch navigiert werden, was durch den sogenannten Router realisiert wird. Routing ist das Konzept einer Single-Page-Applikation, wodurch die Seite niemals neu geladen werden muss und alle Daten beim Navigieren beibehalten werden können. Um das Routing überhaupt verwenden zu können, müssen die Pfade zu den zugehörigen Components initialisiert werden. Dies geschieht in einem ngModule, wo alle initialisierten Routen über das RouterModule importiert werden. Um die Funktionalitäten und Routen für alle Components verwenden zu können, muss dieses RouterModule ebenfalls exportiert werden. Der Code zeigt dies anhand der 3D-Gallerie-Anwendung:
 \begin{lstlisting}[caption={Routing in der 3D-Gallery},language=TypeScript,label=lst:impl:routing]
 const routes: Routes = [
@@ -204,7 +202,7 @@ const routes: Routes = [
 \end{lstlisting}
 Hierbei steht der Pfad ‘**’ für alle ungültigen URLs wodurch der*die Benutzer*in auf die Landingpage geleitet wird.
 
-\subsection{Routingparameter}
+\subsubsection{Routingparameter}
 \label{Routingparameter}
 Um Routen dynamisch zu deklarieren, werden sogenannte Routenparameter benötigt. Hierbei beginnt der dynamische Teil einer Route mit einem Doppelpunkt. 
 

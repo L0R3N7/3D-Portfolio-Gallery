@@ -76,119 +76,120 @@ In den vorherigen Kapiteln (Userexperience und Corporate Design) wurde bereits b
 
 Danach wurde das \emph{Framework} Angular verwendet, um aus den einzelnen Webseiten-Seiten-Angaben eine echte Webseite zu entwickeln. Dabei wurden Userinterface-Frameworks (oder auch Design-Frameworks/Libraries) verwendet, um den Entwicklungsprozess zu beschleunigen.
 
-\subsubsection{UserInterface-Frameworks (UI-Frameworks)}
-Ein UserInterface-Frameworks ist eine Ansammlung von Web Komponenten wie eine Navigationsleiste die sofort Nutzbar sind.  
-
-
-Die Vorteile von UI-Frameworks sind:
-\begin{compactitem}
-    \item vereinfacht und beschleunigt den Entwicklungsprozess;
-    typische Web-Komponenten sind vordefinierte, der Entwickler muss diese nicht mehr implementieren und erspart sich Zeit.
-    \item Cross-Browser Unterstützung;
-    Besonders bei neuen CSS-Feature kann es sein, dass diese noch nicht von allen Browsern unterstützt werden. Ein UI-Framework benutzt in der Regel nur Funktionen, die auch alle Browser anzeigen können.
-    \item Der Code hat eine bessere Lesbarkeit;
-    In einem UI-Framework gibt es gewisse Konventionen wie Klassennamen, die befolgt werden müssen. Dadurch wird der Code besser lesbar.
-\end{compactitem}
-
-
-Die Nachteile von UI-Frameworks sind:
-\begin{compactitem}
-    \item Die Ladezeit der Webseite erhöht sich;
-    Schließlich müssen auch mehr Daten an den Browser geschickt werden.
-    \item Webseiten, die das selbe UI-Framework verwenden, schauen einander ähnlich aus;
-    Da die Web-Komponenten gleich implementiert werden.
-\end{compactitem}
-\cite{CssFrameworkExplaination} \cite{BestCSSFrameworksin2022}
-
-\subsubsection{UI-Frameworks im Projekt}
-Im Projekt wurde sich für zwei UI-Frameworks, Bootstrap und AngularMaterials, entschieden.
-
-
-\paragraph{Angular Material}
-Angular Material ist eine UI Framework und wird seit 2014 von Google entwickelt. Das Framework baut auf Angular auf und erweitert es mit eigenen Komponenten, Styleguides, Typographie und vielem mehr. Die Design-Sprache orientiert sich dabei an der Material Design Spezifikation von Google. Ein großer Fokus des Frameworks ist die Responsiveness, Komponenten werden auf verschiedenen Auflösungen gut aussehen.
-
-
-Angular Material hat folgende Features:
-\begin{compactitem}
-    \item Erweiterbar; Bei der Installation lassen sich viele Designanpassungen machen, zusätzlich lassen sich Styles mit dem globalen Stylesheet überschreiben. 
-    \item Hochwertig; Die Komponenten sind erprobt und wurden auf die Performanz und Verlässlichkeit getestet.
-    \item Reibungslos; Angular Material ist gut mit Angular integriert
-\end{compactitem}
-
-Die Abbildung \ref{fig:impl:angular-material-overview-components} zeigt einen Teil der Komponenten, die Angular Material anbietet. Zu allen diesen Komponenten gibt es eine ausführliche Dokumentation mit Beispiele. 
-\cite{JavaPointAngularMaterial}
-\cite{WhatAngularMaterial}
-
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.5]{pics/AngularMaterialsComponentsOverview.png}
-    \caption{Angular Material: Komponente Überblick \cite{AngularComponents}}
-    \label{fig:impl:angular-material-overview-components}
-\end{figure}
-
-\subparagraph{Material Design Spezifikation}
-Material Design ist ein Designsystem, welches von Google erstellt wurde, um Teams zu helfen, qualitative hochwertige Digitale-Erfahrungen für Android, iOS, Flutter und das Web zu gestalten.
-
-Material Design hat mehrere Prinzipien, die sie ihr Design beeinflussen lassen.
-
-Material Design soll die reale Weld abbilden.
-Text soll durch Typographie, Raster, Abstände, Farben und Bilder soll eine erkennbare Hierarchie entstehen. Komponenten sind interaktive Bauklötze für ein das User Interface. Komponenten haben alle eine Stati-System welches den Status der Komponente fokussiert, selektiert, aktiviert, fehlerhaft, schwebend, gedrückt und ausgeschalten anzeigt. Durch das Theming ist es möglich einzelne Komponenten zu verändern und das Design so anzupassen, dass es zur Corporate Identity der Benutzer*in passt.\cite{MaterialDesign-Introduction}
-
-\paragraph{Bootstrap}
-Bootstrap ist ein kostenloses Open-Source-UI-Framework. Es ist nicht nur eine Ansammlung von CSS sondern auch von JavaScript und HTML code um schöne, interaktive und responsive Webseiten. 
-
-Bootstrap hat folgenden Features: 
-\begin{compactitem}
-    \item Web-Komponenten, die sofort Anwendbar sind
-    \item Eine gute Dokumentation
-    \item Mobile Centered Design
-    \item Hohe Benutzerfreundlichkeit
-\end{compactitem}
-\cite{BestCSSFrameworksin2022}
-
-\subsubsection{Scss}
-SCSS ist kein UI-Framework, sondern vielmehr eine Syntax- und Feature-Erweiterung von CSS, deswegen wurde es schlussendlich auch für dieses Projekt gewählt. SCSS hat viele Vorteile wie zum Beispiel Variablen, Schleifen, Mixins und Imports gegenüber CSS, aber besonders ausschlaggebend war das Prinzip der Verschachtelung.
-
-Durch die Verschachtelung kann an redundanten Styles-Selektoren gespart werden, was die Style-Definition besser lesbarer macht. Im den Beispielen (siehe SCSS-Code-Beispiel \ref{lst:imp:design:scss} und natives CSS-Code-Beispiel \ref{lst:imp:design:css}) wird die gleiche Style-Definition von SCSS und CSS ausgedrückt, doch die Schreibweise unterscheidet sich.
-
-\cite[Sass Guide]{SassGuide}
-
-\begin{lstlisting}[caption=SCSS - Code Beispiel,label=lst:imp:design:scss]
-nav {
-    ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-    
-    li { display: inline-block; }
-    
-    a {
-        display: block;
-        padding: 6px 12px;
-        text-decoration: none;
-    }
-}
-\end{lstlisting}
-
-\begin{lstlisting}[caption=CSS - Code Beispiel,label=lst:imp:design:css]
-nav ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    }
-nav li {
-    display: inline-block;
-    }
-nav a {
-    display: block;
-    padding: 6px 12px;
-    text-decoration: none;
-}
-\end{lstlisting}
-
-Code Beispiele\ref{lst:imp:design:scss} \ref{lst:imp:design:css} \cite[Sass Guide]{SassGuide}
-
-
-
-
+%%\subsubsection{UserInterface-Frameworks (UI-Frameworks)}
+%%Ein UserInterface-Frameworks ist eine Ansammlung von Web Komponenten wie eine Navigationsleiste die sofort Nutzbar sind.  
+%%
+%%
+%%Die Vorteile von UI-Frameworks sind:
+%%\begin{compactitem}
+%%    \item vereinfacht und beschleunigt den Entwicklungsprozess;
+%%    typische Web-Komponenten sind vordefinierte, der Entwickler muss diese nicht mehr implementieren und erspart sich Zeit.
+%%    \item Cross-Browser Unterstützung;
+%%    Besonders bei neuen CSS-Feature kann es sein, dass diese noch nicht von allen Browsern unterstützt werden. Ein UI-Framework benutzt in der Regel nur Funktionen, die auch alle Browser anzeigen können.
+%%    \item Der Code hat eine bessere Lesbarkeit;
+%%    In einem UI-Framework gibt es gewisse Konventionen wie Klassennamen, die befolgt werden müssen. Dadurch wird der Code besser lesbar.
+%%\end{compactitem}
+%%
+%%
+%%Die Nachteile von UI-Frameworks sind:
+%%\begin{compactitem}
+%%    \item Die Ladezeit der Webseite erhöht sich;
+%%    Schließlich müssen auch mehr Daten an den Browser geschickt werden.
+%%    \item Webseiten, die das selbe UI-Framework verwenden, schauen einander ähnlich aus;
+%%    Da die Web-Komponenten gleich implementiert werden.
+%%\end{compactitem}
+%%\cite{CssFrameworkExplaination} \cite{BestCSSFrameworksin2022}
+%%
+%%\subsubsection{UI-Frameworks im Projekt}
+%%Im Projekt wurde sich für zwei UI-Frameworks, Bootstrap und AngularMaterials, entschieden.
+%%
+%%
+%%\paragraph{Angular Material}
+%%Angular Material ist eine UI Framework und wird seit 2014 von Google entwickelt. Das Framework baut auf Angular auf und erweitert es mit eigenen Komponenten, Styleguides, Typographie und vielem mehr. Die Design-Sprache orientiert sich dabei an der Material Design Spezifikation von Google. Ein großer Fokus des Frameworks ist die Responsiveness, Komponenten werden auf verschiedenen Auflösungen gut aussehen.
+%%
+%%
+%%Angular Material hat folgende Features:
+%%\begin{compactitem}
+%%    \item Erweiterbar; Bei der Installation lassen sich viele Designanpassungen machen, zusätzlich lassen sich Styles mit dem globalen Stylesheet überschreiben. 
+%%    \item Hochwertig; Die Komponenten sind erprobt und wurden auf die Performanz und Verlässlichkeit getestet.
+%%    \item Reibungslos; Angular Material ist gut mit Angular integriert
+%%\end{compactitem}
+%%
+%%Die Abbildung \ref{fig:impl:angular-material-overview-components} zeigt einen Teil der Komponenten, die Angular Material anbietet. Zu allen diesen Komponenten gibt es eine ausführliche Dokumentation mit Beispiele. 
+%%\cite{JavaPointAngularMaterial}
+%%\cite{WhatAngularMaterial}
+%%
+%%\begin{figure}
+%%    \centering
+%%    \includegraphics[scale=0.5]{pics/AngularMaterialsComponentsOverview.png}
+%%    \caption{Angular Material: Komponente Überblick \cite{AngularComponents}}
+%%    \label{fig:impl:angular-material-overview-components}
+%%\end{figure}
+%%
+%%\subparagraph{Material Design Spezifikation}
+%%Material Design ist ein Designsystem, welches von Google erstellt wurde, um Teams zu helfen, qualitative hochwertige Digitale-Erfahrungen für Android, iOS, Flutter und das Web zu gestalten.
+%%
+%%Material Design hat mehrere Prinzipien, die sie ihr Design beeinflussen lassen.
+%%
+%%Material Design soll die reale Weld abbilden.
+%%Text soll durch Typographie, Raster, Abstände, Farben und Bilder soll eine erkennbare Hierarchie entstehen. Komponenten sind interaktive Bauklötze für ein das User Interface. Komponenten haben alle eine Stati-System welches den Status der Komponente fokussiert, selektiert, aktiviert, fehlerhaft, schwebend, gedrückt und ausgeschalten anzeigt. Durch das Theming ist es möglich einzelne Komponenten zu verändern und das Design so anzupassen, dass es zur Corporate Identity der Benutzer*in passt.\cite{MaterialDesign-Introduction}
+%%
+%%\paragraph{Bootstrap}
+%%Bootstrap ist ein kostenloses Open-Source-UI-Framework. Es ist nicht nur eine Ansammlung von CSS sondern auch von JavaScript und HTML code um schöne, interaktive und responsive Webseiten. 
+%%
+%%Bootstrap hat folgenden Features: 
+%%\begin{compactitem}
+%%    \item Web-Komponenten, die sofort Anwendbar sind
+%%    \item Eine gute Dokumentation
+%%    \item Mobile Centered Design
+%%    \item Hohe Benutzerfreundlichkeit
+%%\end{compactitem}
+%%\cite{BestCSSFrameworksin2022}
+%%
+%%\subsubsection{Scss}
+%%SCSS ist kein UI-Framework, sondern vielmehr eine Syntax- und Feature-Erweiterung von CSS, deswegen wurde es schlussendlich auch für dieses Projekt gewählt. SCSS hat viele Vorteile wie zum Beispiel Variablen, Schleifen, Mixins und Imports gegenüber CSS, aber besonders ausschlaggebend war das Prinzip der Verschachtelung.
+%%
+%%Durch die Verschachtelung kann an redundanten Styles-Selektoren gespart werden, was die Style-Definition besser lesbarer macht. Im den Beispielen (siehe SCSS-Code-Beispiel \ref{lst:imp:design:scss} und natives CSS-Code-Beispiel \ref{lst:imp:design:css}) wird die gleiche Style-Definition von SCSS und CSS ausgedrückt, doch die Schreibweise unterscheidet sich.
+%%
+%%\cite[Sass Guide]{SassGuide}
+%%
+%%\begin{lstlisting}[caption=SCSS - Code Beispiel,label=lst:imp:design:scss]
+%%nav {
+%%    ul {
+%%        margin: 0;
+%%        padding: 0;
+%%        list-style: none;
+%%    }
+%%    
+%%    li { display: inline-block; }
+%%    
+%%    a {
+%%        display: block;
+%%        padding: 6px 12px;
+%%        text-decoration: none;
+%%    }
+%%}
+%%\end{lstlisting}
+%%
+%%\begin{lstlisting}[caption=CSS - Code Beispiel,label=lst:imp:design:css]
+%%nav ul {
+%%    margin: 0;
+%%    padding: 0;
+%%    list-style: none;
+%%    }
+%%nav li {
+%%    display: inline-block;
+%%    }
+%%nav a {
+%%    display: block;
+%%    padding: 6px 12px;
+%%    text-decoration: none;
+%%}
+%%\end{lstlisting}
+%%
+%%Code Beispiele\ref{lst:imp:design:scss} \ref{lst:imp:design:css} \cite[Sass Guide]{SassGuide}
+%%
+%%
+%%
+%%
+%%
