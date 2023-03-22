@@ -4,6 +4,13 @@ Die Inhaltserstellungs-Funktion ist die Kernfunktion des Projekts. Die Content C
 \subsection{Datenstruktur}
 Das 3D-Gallery-Portfolio lässt sich durch Daten definieren. Die Daten werden bei der Content Creation vom*n Benutzer*in konfiguriert. 
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[scale=0.4]{pics/CreateCreation4Categories.png}
+    \caption{Inhaltserstellungstool}
+    \label{fig:impl:creation:fourCategoires}
+\end{figure}
+
 \subsubsection{Kategorie}
 Die Datenstruktur des Protfolios lässt sich logisch in vier Kategorien (siehe Abbildung \ref{fig:impl:creation:fourCategoires}) teilen. 
 Die Kategorien sind:
@@ -14,17 +21,10 @@ Die Kategorien sind:
 \item Ausstellungsplatzierungsdaten - Mit diesen Daten werden die Ausstellungsstücke mit dem virtuellen Raum verbunden. Außerdem ist in den Ausstellungsplatzierungsdaten die Dimension eines Ausstellungsstückes enthalten. Jedes Position besitzt eine definierbare Sockelart. 
 \end{compactitem}
 
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.5]{pics/CreateCreation4Categories.png}
-    \caption{Inhaltserstellungstool}
-    \label{fig:impl:creation:fourCategoires}
-\end{figure}
-
 \paragraph{Ausprägungen}
 In der SPA werden die vier Kategorien durch Klassen (siehe Abbildung \ref{fig:impl:creation:dataclasses}) definiert. 
 
-\begin{figure}
+\begin{figure}[ht]
     \centering
     \includegraphics[scale=0.9]{pics/content_creation_classes.png}
     \caption{Inhaltserstellung Datenklassen}
@@ -32,16 +32,78 @@ In der SPA werden die vier Kategorien durch Klassen (siehe Abbildung \ref{fig:im
 \end{figure}
 
 \subsection{GUI}
-yyy Auf der Weboberfläche beginnt der Prozess der Content Creation damit, dass auf der Profileseite der der 3D-Gallery-Portfolio Hinzufügen Knopf (siehe Abbildung \ref{fig:impl:creation:add3dPorftolio})
+\subsubsection{Profilepage}
+Auf der Profileseite (siehe Abbildung \ref{fig:impl:sign:profile}) sieht der*die Benutzer*in userspezifische Informationen wie den Profilnamen, das Profilfoto, die erstellten Exhibition. Zusätzlich kann der*die Benutzer*in hier neue Ausstellungen anlegen und bereits erstellte Ausstellungen löschen. 
 
 \begin{figure}
-    \centering
-    \includegraphics[scale=0.32]{pics/profilepage_addButton.png}
-    \caption{Profileseite: 3D-Gallery-Portfolio Hinzufügen Knopf}
-    \label{fig:impl:creation:add3dPorftolio}
+  \centering
+  \includegraphics[scale=0.5]{pics/profilepage.png}
+  \caption{Profilepage}
+  \label{fig:impl:sign:profile}
 \end{figure}
 
+\paragraph*{Add Button}
 
+\subsubsection{Formulare}
+Aufteilung nach den Kategorien, Wizard system warum 
+
+\subsection{Upload}
+
+\subsection{Platzierungslogik}
+
+
+yyy Auf der Weboberfläche beginnt der Prozess der Content Creation damit, dass auf der Profileseite der der 3D-Gallery-Portfolio Hinzufügen Knopf (siehe Abbildung \ref{fig:impl:creation:add3dPorftolio})
+
+
+
+
+\subsection{Erledigte Userstories [L]}
+In dem Entwicklungsprozess der Content-Creation-Tool wurden folgende Userstories vollendet:
+\begin{compactenum}
+    \item  Als User*in will ich eine Profil-Unterseite haben, auf der ich userrelevante Informationen angezeigt bekomme. Auswahlkriterien:
+    \begin{compactitem}
+        \item userrelevante Informationen, die angezeigt werden, sind:
+        \begin{compactitem}
+            \item Name
+            \item Profilfoto
+            \item Erstellte Ausstellungen        
+        \end{compactitem}
+        \item Der*Die User*in kann dort seine Ausstellungen löschen.        
+    \end{compactitem}
+    \item Als User*in will ich bei der Erstellung einer Ausstellung zwischen verschiedenen Templates wählen können, um diese auf einfache Weise zu individualisieren. Auswahlkriterien:
+    \begin{compactitem}
+        \item Der*Die User*in kann keine Templates erstellen.
+        \item Der*Die User*in kann manuell die Podeste für jede Datei zwischen mehrere vorgefertigten auswählen und für den Boden + Wand ein Pattern hochladen
+    \end{compactitem}
+    \item Als User*in will ich meine Daten auf den Server laden, um diese jederzeit innerhalb einer Ausstellung platzieren und integrieren zu können. Auswahlkriterien:
+    \begin{compactitem}
+        \item Unterstützte Dateien (Bilder-, Audio-, Video-, 3D-Dateien)
+        \item Uploadmöglichkeiten:
+        \begin{compactitem}
+            \item Im Ordner auswählen.
+        \end{compactitem}
+        \item Dateigrößenlimit: 50MB
+        \item Dateityp Limit: nur Standardformate (Bilder: JPG, PNG, etc.;        Audio: WAV, MP3, etc.; …)
+        \item Fehlermeldung bei falschem Upload
+    \end{compactitem}
+    \item  Als User*in will ich, dass meine Daten automatisch als Ausstellungsstücke in der Ausstellung angeordnet werden, damit die Nutzung für persönliche Bereiche unkompliziert möglich ist. Auswahlkriterien:
+    \begin{compactitem}
+        \item Falls dies nicht möglich ist, soll eine Fehlermeldung angezeigt werden
+    \end{compactitem}
+    \item Als User*in möchte ich die Reihenfolge und Platzierung meiner Werke innerhalb der Ausstellung adaptieren können. Auswahlkriterien:
+    \begin{compactitem}
+        \item Die Werke sollen zwischen vordefinierten Plätzen tauschbar sein.
+    \end{compactitem}
+    \item Als User*in möchte ich meine Ausstellung abspeichern und löschen können. Auswahlkriterien:
+    \begin{compactitem}
+        \item Die Daten im Bezug auf die Ausstellungen werden auf dem Server gespeichert.
+        \item Bevor die Ausstellung gelöscht wird, soll ein Warnhinweis angezeigt werden, welcher noch bestätigt werden muss.
+    \end{compactitem}
+    \item Als Benutzer*in möchte ich meinen Ausstellungen Tags zuordnen können, damit diese leichter gefunden werden können. Auswahlkriterien:
+    \begin{compactitem}
+        \item Tags werden beim erstellen der Ausstellung aus einen vordefinierten Tag-Pool ausgewählt.
+    \end{compactitem}
+\end{compactenum}
  
 
 
