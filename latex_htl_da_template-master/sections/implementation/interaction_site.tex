@@ -297,3 +297,19 @@ Das Dialogfenster ist eine eigene Angular-Komponente. Im Konstruktor der Kompone
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ExhibitDialog>) {}
 
   \end{lstlisting}
+  
+\subsection{Erledigte Userstories [L]}
+In dem Entwicklungsprozess der Interatkionsmethoden wurden folgende Userstories vollendet:
+
+\begin{compactenum}       
+  \item Als User*in möchte ich mich auf verschiedene Arten in der Ausstellung bewegen können. Auswahlkriterien:
+  \begin{compactitem}
+      \item Per Slideshow (über den Vorwärts/Rückwärts-Pfeil zu nächstem Ausstellungsstück springen)
+      \item Per Touch / Click (Google Maps Street View, NavigationMesh in Three.js https://github.com/donmccurdy/three-pathfinding)
+  \end{compactitem}
+  \item  Als User*in möchte ich auf das Ausstellungsstück klicken können, um weitere Informationen (z.B.: Titel, Künstler, Jahr, …) zu erhalten. Auswahlkriterien:
+  \begin{compactitem}
+      \item größere Ansicht des Ausstellungsstücks wird vergrößert angezeigt
+      \item Nähere Details zum Ausstellungsstück, wie Titel, Künstler, Jahr, usw.
+  \end{compactitem}
+\end{compactenum}
