@@ -1,4 +1,5 @@
 \section{Umsetzung der Landingpage [L]}
+\label{landingpage implentation}
 \setauthor{Litzlbauer Lorenz}
 
 Der erste Entwicklungsschritt für die vollständige Single-Page-Application beginnt mit der Initialisierung der Landingpage. Aus Sicht der User-Experience war es uns wichtig, dass der*die neue Nutzer*in sofort den Verwendungszweck des Applikation begreift und er*sie dazu animiert bei der Applikation mitzumachen. 
@@ -193,7 +194,7 @@ const routes: Routes = [
 \end{lstlisting}
 Hierbei steht der Pfad ‘**’ für alle ungültigen URLs wodurch der*die Benutzer*in auf die Landingpage geleitet wird.
 
-Ebenfalls wird das Routing genutzt um das Navigieren durch die Navbar (siehe Fertige Landingpage //TODO Referenz) zu ermöglichen. Hierbei wird ein deklarierter Pfad direkt mit einem HTML-Element, über das Attribut \emph{routerLink}, verbunden. Falls sich der*die Benutzer*in auf auf dem Momentanen Pfad des \emph{routerLinks} befindet, wird das Attribut \emph{routerLinkActive} aktiv. Dadurch kann dem*der Benutzer*in ein bestimmtes visuelles Feedback geliefert werden.  (siehe Code \ref{lst:impl:routerLink})
+Ebenfalls wird das Routing genutzt um das Navigieren durch die Navbar (siehe Fertige Landingpage \ref{Finished Landingpage}) zu ermöglichen. Hierbei wird ein deklarierter Pfad direkt mit einem HTML-Element, über das Attribut \emph{routerLink}, verbunden. Falls sich der*die Benutzer*in auf auf dem Momentanen Pfad des \emph{routerLinks} befindet, wird das Attribut \emph{routerLinkActive} aktiv. Dadurch kann dem*der Benutzer*in ein bestimmtes visuelles Feedback geliefert werden.  (siehe Code \ref{lst:impl:routerLink})
 
 \begin{lstlisting}[caption={Routing über einen routerLink},language=HTML,label=lst:impl:routerLink]
     

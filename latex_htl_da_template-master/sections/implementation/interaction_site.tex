@@ -7,7 +7,8 @@ Bei der Implementierung der Interaktions-Seite, ist es darum gegangen, eine mög
 }
 Vorerst muss darauf geachtet werden, dass wenn der*die Benutzer*in eine Ausstellung, die er*sie besuchen möchte, auswählt, auch auf die richtige weitergeleitet wird. Dabei hilft das Routing mit Parametern (siehe Routingparameter \ref{Routingparameter}). Jede Ausstellung besitzt eine eigene ID. Diese ID wird beim auswählen einer Ausstellung in die URL geschrieben, um zu identifizieren zu können, welche Ausstellung im Moment besucht wird. Anhand dieser Informationen werden die Ausstellungsstücke vom Server abgefragt und mit der Logik, die im Kapitel Konfiguration der Ausstellung \ref{Konfigurationstool} beschrieben wird, richtig in den Raum geladen und platziert.
 
-\subsection{Bewegung}
+\subsection{Bewegung im dreidimensionalen Raum}
+\label{controls}
 Um sich im Ausstellungsraum bewegen zu können, ist es nötig, den Besuchern*innen eine entsprechende Fortbewegungsmöglichkeit zu bieten. Three.js implementiert diese Funktion mittels Controls. Im Endeffekt ändert sich die Position und Rotation der Kamera durch Benutzereingaben. Die wesentlichsten Controls in Three.js sind
 
 \begin{itemize}
@@ -101,6 +102,7 @@ Da die FirstPersonControls mehr Konfigurations und Interaktionsmöglichkeiten mi
 \cite{PointerLockControls}
 
 \subsection{ThreeJS Clock}
+\label{Clock}
 
 Um die im vorherigen Kapitel erwähnten Controls zu updaten, werden sie in der Animations-Schleife (siehe Rendering in ThreeJs \ref{lst:impl:animationloop}) wie folgt aufgerufen: 
 
@@ -259,7 +261,7 @@ Geöffnet wird das Dialogfenster über eine eigene openDialog-Funktion. Dabei wi
 
 \begin{lstlisting}[caption={initialisieren des Dialogfensters},language=TypeScript]
     
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openDialog(enterAnimationDuration: string, Fertige Fertige LandingLandingexitAnimationDuration: string): void {
     const dialogRef = this.dialog.open(ExhibitDialog, {
        maxWidth: '100vw',
        maxHeight: '50vh',
@@ -273,7 +275,7 @@ Geöffnet wird das Dialogfenster über eine eigene openDialog-Funktion. Dabei wi
 }
 \end{lstlisting}
 
-Wenn sich der*die Benutzer*in in der Detailansicht befindet, soll die Animation im Hintergrund gestoppt werden. Dies erfolgt durch die Methode cancelAnimationFrame //TODO kursiv, wodurch die Animations-Schleife angehalten wird. Um den aktuellen Zeitpunkt zu erhalten, zu dem die Animation gestoppt wird, wird die requestAnimationFrame-Methode verwendet. Diese wird in der Animations-Schleife aufgerufen und dabei wird der aktuelle Frame der Animation zurück geliefert. Um sich nicht mehr weiter in der Ausstellung fortbewegen zu können, wird die Clock (siehe //TODO Referenz) gestoppt, die für die Three.js Controls benötigt wird. Nachdem der*die Benutzer*in das Dialogfenster wieder schließt, wird die Animations-Schleife und die Clock wieder fortgesetzt. 
+Wenn sich der*die Benutzer*in in der Detailansicht befindet, soll die Animation im Hintergrund gestoppt werden. Dies erfolgt durch die Methode \emph{cancelAnimationFrame}, wodurch die Animations-Schleife angehalten wird. Um den aktuellen Zeitpunkt zu erhalten, zu dem die Animation gestoppt wird, wird die \emph{requestAnimationFrame} Methode verwendet. Diese wird in der Animations-Schleife aufgerufen und dabei wird der aktuelle Frame der Animation zurück geliefert. Um sich nicht mehr weiter in der Ausstellung fortbewegen zu können, wird die Clock (siehe Clock \ref{Clock}) gestoppt, die für die Three.js Controls benötigt wird. Nachdem der*die Benutzer*in das Dialogfenster wieder schließt, wird die Animations-Schleife und die Clock wieder fortgesetzt. 
 
 \begin{lstlisting}[caption={Öffnen und Schließen des Dialogfensters},language=TypeScript]
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -291,7 +293,7 @@ Wenn sich der*die Benutzer*in in der Detailansicht befindet, soll die Animation 
     }
 \end{lstlisting}
 
-Das Dialogfenster ist eine eigene Angular-Komponente. Im Konstruktor der Komponente werden die Daten des Ausstellungsstückes injiziert, um es anschließend in einer detaillierten Ansicht zu rendern. Dabei werden eigens für die Detailansicht ein neuer Canvas angelegt, eine neue 3D-Szene gerendert und mittels Animations-Schleife neue Orbit-Controls (siehe Controls //TODO Referenz) initialisiert. Dadurch kann das 3D-Objekt frei betrachtet werden. Falls beim Konfigurieren der Ausstellung, dem Ausstellungsstück, eine Beschreibung mitgegeben wurde, wird diese in diesem Dialogfenster angezeigt. .
+Das Dialogfenster ist eine eigene Angular-Komponente. Im Konstruktor der Komponente werden die Daten des Ausstellungsstückes injiziert, um es anschließend in einer detaillierten Ansicht zu rendern. Dabei werden eigens für die Detailansicht ein neuer Canvas angelegt, eine neue 3D-Szene gerendert und mittels Animations-Schleife neue Orbit-Controls (siehe Controls \ref{controls}) initialisiert. Dadurch kann das 3D-Objekt frei betrachtet werden. Falls beim Konfigurieren der Ausstellung, dem Ausstellungsstück, eine Beschreibung mitgegeben wurde, wird diese in diesem Dialogfenster angezeigt. .
 
   \begin{lstlisting}[caption={Constructor-Injection in der Dialog Komponente},language=TypeScript]
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ExhibitDialog>) {}
