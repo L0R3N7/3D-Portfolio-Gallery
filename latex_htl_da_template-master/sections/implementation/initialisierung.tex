@@ -202,6 +202,19 @@ const routes: Routes = [
 \end{lstlisting}
 Hierbei steht der Pfad ‘**’ für alle ungültigen URLs wodurch der*die Benutzer*in auf die Landingpage geleitet wird.
 
+Ebenfalls wird das Routing genutzt um das Navigieren durch die Navbar (siehe Fertige Landingpage //TODO Referenz) zu ermöglichen. Hierbei wird ein deklarierter Pfad direkt mit einem HTML-Element, über das Attribut \emph{routerLink}, verbunden. Falls sich der*die Benutzer*in auf auf dem Momentanen Pfad des \emph{routerLinks} befindet, wird das Attribut \emph{routerLinkActive} aktiv. Dadurch kann dem*der Benutzer*in ein bestimmtes visuelles Feedback geliefert werden.  (siehe Code \ref{lst:impl:routerLink})
+
+\begin{lstlisting}[caption={Routing über einen routerLink},language=HTML,label=lst:impl:routerLink]
+    
+          <a class="navbar-brand"
+             routerLink="/home" routerLinkActive="link-activated"><mat-icon>home</mat-icon>Home</a>
+          <a class="navbar-brand"
+             routerLink="/search" routerLinkActive="link-activated"><mat-icon>search</mat-icon>Search</a>
+          <a class="navbar-brand" *ngIf="this.auth.isLoggedIn()"
+             routerLink="/profile" routerLinkActive="link-activated"><mat-icon>person</mat-icon>Profile</a>
+       
+\end{lstlisting}
+
 \subsubsection{Routingparameter}
 \label{Routingparameter}
 Um Routen dynamisch zu deklarieren, werden sogenannte Routenparameter benötigt. Hierbei beginnt der dynamische Teil einer Route mit einem Doppelpunkt. 
