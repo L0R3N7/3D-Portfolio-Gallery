@@ -29,6 +29,7 @@ Ein Service wird zur Verwendung im Konstruktor einer Komponente initialisiert (C
 Anschließend können die Methoden und Daten eines Service ganz normal verwendet werden
 
 \subsubsection{HTTP Module}
+\label{sec:HTTPModule}
 Um mit dem Backend über das HTTP-Protokoll kommunizieren zu können, wird eine HTTP-API (siehe API \ref{txt:glos:API}) namens HttpClient verwendet. Zunächst muss das HttpClientModule im ngModule importiert werden, um den HttpClient als Dependency zu injizieren. Injiziert wird er über den Konstruktor in einem Service. Um eine Transaktion am Frontend durchzuführen, werden Observables verwendet. Dies ermöglicht den einzelnen Komponenten, die einen Service mit HTTP-Abfragen injiziert haben, diese Abfragen mittels einem Subscribe zu nutzen. Eine HTTP-Abfrage mit dem HTTP-Client wird wie folgt aufgerufen \cite{AngularBuch} \cite{AngularHTTPClient}:
 
 \begin{lstlisting}[caption={HttpClient Abfragen},  language=TypeScript,label=lst:impl:httpclientrequests]   
