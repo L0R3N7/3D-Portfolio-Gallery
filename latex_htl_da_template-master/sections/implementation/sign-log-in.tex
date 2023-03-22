@@ -18,11 +18,16 @@ Da der JWT als Beweis dafür dient, dass der*die User*in Authentifiziert ist, mu
     \label{fig:impl:login}
 \end{figure}
 
-Für das Userinterface wurden Anmelde- und Registrierungs-Funktionalitäten implementiert (siehe Abbildung der Anmeldeseite \ref{fig:impl:login}). Die Anmelde- und Registrationsformulare wurden mithilfe von reaktiven Formularen und Validatoren (siehe Absatz \ref{par:impl:usermanagment:reactiveForms}) umgesetzt. Nachdem eine valide Eingabe von dem*der User*in gemacht wurde, aktiviert sich der Anmelde- bzw. Registrierungsknopf und lässt sich drücken. Die Aktivierung des Knopfes wird durch die Farbveränderung von Grau auf Bunt sichtbar gemacht.  Nachdem der*die User*in die Eingabe bestätigt hatte, indem sie*er den Knopf drückte, werden die Anmeldedaten über das HTTPS-Protokoll mithilfe des HTTP-Moduls (siehe Abschnitt TODO referzieren fabians http-module is not net commitet) an den Server gesendet. Nach einer erfolgreichen Anmeldung / Registration wird an die Weboberfläche eine Antwort geschickt, in der der JWT Token enthalten ist. Danach wird der*die User*in auf die Profilseite weitergeleitet. Bei einer gescheiterten Anmelde- / Registrierungsversuch wird der*die User*in durch eine Fehlermeldung darüber informiert.
+Für das Userinterface wurden Anmelde- und Registrierungs-Funktionalitäten implementiert (siehe Abbildung der Anmeldeseite \ref{fig:impl:login}). Die Anmelde- und Registrationsformulare wurden mithilfe von reaktiven Formularen und Validatoren (siehe Absatz \ref{par:impl:usermanagment:reactiveForms}) umgesetzt.
+Durch die Validatoren wurde konfiguriert, dass ein Passwort mindestens 8 Zeichen besitzen muss, um akzeptiert zu werden.
+
+Nachdem eine valide Eingabe von dem*der User*in gemacht wurde, aktiviert sich der Anmelde- bzw. Registrierungsknopf und lässt sich drücken.
+
+Bei der Aktivierung ändert sich die Farbe des Knopfes von Grau auf Bunt, um ein visuelles Feedback an den*die Benutzer*in zu senden. Nachdem der*die User*in die Eingabe bestätigt hatte, indem sie*er den Knopf drückte, werden die Anmeldedaten über das HTTPS-Protokoll mithilfe des HTTP-Moduls (siehe Abschnitt \ref{sec:HTTPModule} auf Seite \pageref{sec:HTTPModule}) an den Server gesendet. Nach einer erfolgreichen Anmeldung / Registration wird an die Weboberfläche eine Antwort geschickt, in der der JWT Token enthalten ist. Danach wird der*die User*in auf die Profilseite weitergeleitet. Bei einem gescheiterten Anmelde- / Registrierungsversuch wird der*die User*in durch eine Fehlermeldung darüber informiert.
 
 Nach der erfolgreichen Anmeldung / Registration wird vom Server ein JWT ausgestellt. Bei einem HTTP-Request vom Client zum Server kann der JWT im Header des Requests platziert werden, der Server kann diesen auslesen und so feststellen, ob ein*e Benutzer*in auch wirklich authentifiziert ist.
 
-Nun gibt es aber mehrere Unbequemlichkeiten, die aus diesem Prozess resultieren. Der*Die User*in muss sich jedes Mal, bei jedem neuen Webseitbesuch und beim neuen Laden der Webseite, neu anmelden und der*die Entwickler*innen müssen bei jedem HTTP-Request (also jeder Kommunikation mit dem Server) manuell den JWT in den Header platzieren.
+Nun gibt es aber mehrere Unbequemlichkeiten, die aus diesem Prozess entstehen. Der*Die User*in muss jedes Mal, bei einem neuen Webseitbesuch und beim neuen Laden der Webseite sich neu anmelden. Im Code muss bei jedem HTTP-Request (also jeder Kommunikation mit dem Server) der JWT manuell in den Header platziert werden. Dadurch entsteht im Code eine hohe Redundanz. Im folgenden Kapitel Token-Verwaltung und HTTP-Interceptoren wird beschrieben, wie mit diesen Problemen umgegangen wurde.
 
 \paragraph{Formulare und Validation}
 \label{par:impl:usermanagment:reactiveForms}
@@ -34,7 +39,7 @@ Validierung: Iteration IV]{AngularBuch}
 Bei den Ansätzen unterscheidet man zwischen den reactive Forms und den Template-Driven-Forms.
 
 \subsubsection{Token-Verwaltung}
-Um das Problem der Anmeldung zu lösen, wurde der JWT im LocalStorage des Browsers gespeichert. Im Codeausschnitt (siehe \ref{lst:impl:sign:jwtLocalstorage}) ist ein Teil des Authentifizierungsdienstes des Projektes zu sehen. Mit der Funktion \emph{setSaveJWT} wird der ausgestellte JWT ausgelesen und die darin enthaltenen Informationen, der Name und die Id des Benutzers, die Id des Tokens und das Ablaufdatum des Tokens im LokalenStorage (siehe im Absatz WebStorage API \ref{par:impl:usermanagment:WebStorage}) gespeichert, damit die Daten auch nach dem Neuladen der Webseite erhalten bleiben. Die Funktion \emph{isLoggedIn} gibt nach dem Aufruf den Status mit, ob eine Person angemeldet ist oder nicht, dafür benutzt die Funktion das im JWT enthaltene Ablaufdatum und vergleicht es mit dem aktuellen Datum. Zuletzt gibt es noch die \emph{logout} Funktion, diese löscht die im LocalStorage enthaltenen JWT-spezifischen Daten.
+Um das Problem, dass beim Neuladen der Webseite der Anmeldestatus bzw. der JWT verloren geht, zu lösen, wurde der JWT im LocalStorage des Browsers gespeichert. Im Codeausschnitt (siehe \ref{lst:impl:sign:jwtLocalstorage}) ist ein Teil des Authentifizierungsdienstes des Projektes zu sehen. Mit der Funktion \emph{setSaveJWT} wird der ausgestellte JWT ausgelesen und die darin enthaltenen Informationen, der Name und die Id des Benutzers, die Id des Tokens und das Ablaufdatum des Tokens im LokalenStorage (siehe im Absatz WebStorage API \ref{par:impl:usermanagment:WebStorage}) gespeichert, damit die Daten auch nach dem Neuladen der Webseite erhalten bleiben. Die Funktion \emph{isLoggedIn} gibt nach dem Aufruf den Status mit, ob eine Person angemeldet ist oder nicht, dafür benutzt die Funktion das im JWT enthaltene Ablaufdatum und vergleicht es mit dem aktuellen Datum. Zuletzt gibt es noch die \emph{logout} Funktion, diese löscht die im LocalStorage enthaltenen JWT-spezifischen Daten.
 
 \begin{lstlisting}[caption=auth.service.ts - JWT und Localstorage,label=lst:impl:sign:jwtLocalstorage,language=TypeScript ]
 export class AuthService {
@@ -126,7 +131,7 @@ export class AuthInterceptor implements HttpInterceptor {
 \end{lstlisting}
 
 \subsubsection{Routing- und Navigations-Einschränkung}
-Zum Start dieses Entwicklungsschrittes war der Interceptor und die JWT Verwaltung fertig. Doch das Projekt brauchte eine besseres visuelles Feedback System um dem*der Kunden*in zu den Anmeldestatus zu zeigen.
+Zum Start dieses Entwicklungsschrittes war der Interceptor und die JWT Verwaltung fertig. Doch das Projekt brauchte eine besseres visuelles Feedback System um dem*der Kunden*in den Anmeldestatus zu zeigen.
 
 Deswegen und um zu verhindern das Benutzer*in auf Unterseiten sind auf denen sie wegen ihres Requistratonstatus (noch nicht authentifiziert) noch nichts machen können, wurde je nach Anmeldestatus andere Routen und Informationen auf der Navigationsbar gezeigt (siehe Abbildung \ref{fig:impl:navbarvergleich}). Dafür wurde die Navigationsleistenlogik und die Navigationsleistenservice angepasst. Zusätzlich wurde AuthGuard verwendet um Routen zu sperren auf, die der*die Benutzer*in wegen dem Requistratonstatus noch keinen Zugriff hat. 
 

@@ -102,8 +102,8 @@ Angular ist ein hochanpassbares Framework. Bei der Verarbeitung von asynchronen 
 \end{wrapfigure}
 RxJS ist eine Implementierung von ReactiveX für die Programmiersprache Javascript.
 
-ReactiveX ist eine Library für das Erstellen von asynchronen und Event-basierten Programmen, dafür benutzt es \emph{observable sequences}. Ein beobachtetes Subjekt führt eine Liste von den Observern. Bei einer Veränderung im Subjekt werden die Beobachter nach dieser Liste der Reihe nach informiert. (Siehe im Glossar \ref{txt:glos:observerDesignPattern} auf Seite \pageref{txt:glos:observerDesignPattern}).
-Die Library arbeitet so mit dem \emph{Observer-Design-Pattern} und fügt verschiedene neue Operatoren hinzu. Zusätzlich werden "Lowlevel"-Funktionen wie Threading, Synchronisation und Thread-Sicherheit verarbeitet und keine Input-/Output-Prozesse blockiert. \cite{ReactiveXIntro}
+ReactiveX ist eine Library für das Erstellen von asynchronen und Event-basierten Programmen, dafür benutzt es \emph{observable sequences}. Ein beobachtetes Subjekt führt eine Liste von den Observern. Bei einer Veränderung im Subjekt werden die Beobachter nach der Reihenfolge der Liste über die Veränderung informiert. (Siehe im Glossar \ref{txt:glos:observerDesignPattern} auf Seite \pageref{txt:glos:observerDesignPattern}).
+Die Library arbeitet so mit dem \emph{Observer-Design-Pattern} und fügt verschiedene neue Operatoren hinzu. Zusätzlich werden Low-Level-Funktionen wie Threading, Synchronisation und Thread-Sicherheit verarbeitet und keine Input-/Output-Prozesse blockiert. \cite{ReactiveXIntro}
 
 \paragraph{Webpack [L]}
 \begin{wrapfigure}{r}{0.3\textwidth}
@@ -360,13 +360,6 @@ Weil Angular Three nicht die für das Projekt aufgestellten Anforderungen erfül
    \caption{JWT Logo}
   \end{center}
 \end{wrapfigure}
-Der Json Web Token (JWT) ist ein offenere Standard. Er wird durch RFC7519 definiert. JWT wird zur sicheren Übertragung von Informationen benutzt, indem er die Benützer authentifiziert. 
-
-\paragraph{Struktur [L]}
-Der JWT besteht aus einem Header, einer Payload und der Signatur. 
-
-\paragraph{Im Projekt [L]}
-Der JW
+Der Json Web Token (JWT) ist ein offenerer Standard. Er wird durch RFC 7519 definiert. JWT wird zur sicheren Übertragung von Informationen über ein JSON-Objekt benutzt, indem er den*die Benutzer*in authentifiziert. Die Authentifizierung passiert meist am Server. Dort wird nach einer Validierung der Token digital unterschrieben, entweder durch ein Passwort und eine Hashfunktion wie HMAC oder durch ein asymmetrisches Kryptosystem wie RSA. \cite{jwtAuth0}
 
 
-https://auth0.com/learn/json-web-tokens
