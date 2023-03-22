@@ -24,6 +24,22 @@ Um dieses Problem zu lösen, gibt es zwei Möglichkeiten ::ng-deep und das globa
 ::ng-deep funktioniert, indem es die Einkapselung der Komponente ausschaltet und jeden Selektor (in Kombination mit ::ng-deep) zu einem globalen Style befördert. Das kann, aber zu unvorhersehbaren Fehlern und Problemen führen. Deswegen wird von Seitens Angular geraten es nicht zu verwenden und die Funktion als veraltet definiert. Viel besser ist es, wenn man einen globalen Wert verändern will, das auch im globalen Stylesheet zu machen.
 Wenn der*die Entwickler*in Zugriff auf die Komponente hat und sie ändern kann, gibt es keinen Grund ::ng-deep zu verwenden, weil Anpassungen direkt in der Komponente gemacht werden können oder durch Input eine Interaktionsmöglichkeit hinzuzufügen. Bei Komponenten von dritten Seiten wie Angular Material muss wohl eine Style-Überschreibung mittels ::ng-deep oder dem globalen Stylesheet erfolgen, weil der*die Entwickler*in keinen Zugriff auf die Komponente hat. \cite{AngularComponentsStyleNgDEEP, UnderstandingNgDeep}
 
-\section{Zielerreichung}
+\subsubsection{Schnittstellen [Team]}
+Ein großes Problem bei der Entwicklung war die späte Fertigstellung des Servers.
+Dadurch konnten Funktionen der SPA nicht mit realen Daten getestet werden. Der Lösungsversuch war es, Mockup-Daten zu verwenden und damit die Daten des Servers zu simulieren.  
+
+Zusammenfassend kann gesagt werden, dass dies keine gute Lösung darstellte. Arbeitsschritte mussten mehrere Male erledigt werden, wodurch sich der Aufwand erhöhte. Besser wäre, eine bessere Kommunikation mit der Backend-Entwicklung aufrechtzuerhalten und das Backend und Frontend schnellstmöglich zu verbinden. 
+
+\section{Zielerreichung [Team]}
+Die im Projekt angestrebten Ziele, Untersuchungskriterien, User Stories und Meilensteine wurden erfüllt.
+
+Das Endergebnis bietet Besucher*innen der Webseite eine Plattform, auf der sie sich und ihre Kunst präsentieren und sich informativ weiterbilden können. Das Produkt besteht aus insgesamt drei Kernbereichen: Die Webseite, die Ausstellung und das Content Creation Tool.
+
+Auf der Webseite wird dem*der Benutzer*in das Projekt vorgestellt und zum Mitmachen angeregt. Des Weiteren wurde ein User Management System erstellt. Bei dem sich Benutzer*innen registrieren und anmelden können. Dabei wurde auf die Sicherheit der Benutzer*innen geachtet. Außerdem ist es möglich, nach beliebigen Ausstellungen und Kategorien zu suchen, wobei ebenfalls die neuesten Ausstellungen empfohlen werden.
+
+In der Ausstellung werden Ausstellungsobjekte vom Server dynamisch geladen und aufgebaut. Für den*die Benutzer*in wurden verschiedene Bewegungsarten und Interaktionsmethoden mit den Ausstellungsstücken implementiert.
+
+Das Content-Creation Tool ermöglicht es dem*der Benutzer*in einfach eine Ausstellung zu kreieren. Der*Die Benutzer*in lädt seine*ihre Ausstellungsobjekte einfach hoch, wählt einen vordefinierten virtuellen Raum aus und konfiguriert diesen. Danach kann die Ausstellung auf der Webseite veröffentlicht werden.
+
 \section{Erweiterungsvorschläge} 
 
