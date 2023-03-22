@@ -1,4 +1,4 @@
-\subsection{GUI}
+\subsection{GUI [M]}
 \setauthor{Fabian Maar}
 Folgende Aspekte sprechen für die Nutzung Angular in diesem Projekt:
 
@@ -13,6 +13,12 @@ Folgende Aspekte sprechen für die Nutzung Angular in diesem Projekt:
 
 \subsubsection{Angular [M]}
 \setauthor{Fabian Maar}
+\begin{wrapfigure}{r}{0.3\textwidth}
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{pics/AngularLogo.png}
+   \caption{Angular Logo}
+  \end{center}
+\end{wrapfigure}
 Angular ist ein Framework für Webapplikation, das auf der Programmiersprache Typescript basiert. Es ist eines der renommiertesten Frameworks zur Front-End-Entwicklung und wird als Open-Source-Software zur Verfügung gestellt. So besitzt Angular eine große Community und wird von vielen Software-Entwicklern benutzt. So zählt es 2022 zu dem zweitbeliebtesten Front-End Framework \cite{AngularEvidence} und wird von Milliardenkonzernen wie zum Beispiel Google oder PayPal verwendet. 
 \cite{AngularEvidence2}
 
@@ -85,22 +91,35 @@ Wie die ngModules verwendet in der 3D-Gallerie-Applikation wurden, wird im Absch
 
 
 \subsubsection{Angular Schlüsseltechnologien [L]}
+Angular ist ein hochanpassbares Framework. Bei der Verarbeitung von asynchronen Prozessen und Events kann Angular um die Library RxJS erweitert werden. Bei der Paketierung und beim Update von geändertem Code wird der Entwickler von der Libary Webpack unterstützt. Das Framework besitzt eine umfassende und äußerst umfangreiche Dokumentation im Web.
+\setauthor{Litzlbauer Lorenz}
 \paragraph{RxJS [L]}
-RxJS ist eine Implementierung von ReactiveX für die Programmiersprache Javascript. Angular verwendet RxJS für reaktive Programmierart.
+\begin{wrapfigure}{r}{0.3\textwidth}
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{pics/RxJs_logo.png}
+   \caption{RxJS Logo}
+  \end{center}
+\end{wrapfigure}
+RxJS ist eine Implementierung von ReactiveX für die Programmiersprache Javascript.
 
-ReactiveX ist eine Library für das Erstellen von asynchronen und Event-basierenden Programmen, dafür benutzt es  \emph{observable sequences} (Ein beobachtetes Subjekt führt eine Liste von den Observern. Bei einer Veränderung im Subjekt werden die Beobachter nach dieser Liste der Reihe nach informiert. Siehe im Glossar \ref{txt:glos:observerDesignPattern} auf Seite \pageref{txt:glos:observerDesignPattern}).
+ReactiveX ist eine Library für das Erstellen von asynchronen und Event-basierten Programmen, dafür benutzt es \emph{observable sequences}. Ein beobachtetes Subjekt führt eine Liste von den Observern. Bei einer Veränderung im Subjekt werden die Beobachter nach dieser Liste der Reihe nach informiert. (Siehe im Glossar \ref{txt:glos:observerDesignPattern} auf Seite \pageref{txt:glos:observerDesignPattern}).
 Die Library arbeitet so mit dem \emph{Observer-Design-Pattern} und fügt verschiedene neue Operatoren hinzu. Zusätzlich werden "Lowlevel"-Funktionen wie Threading, Synchronisation und Thread-Sicherheit verarbeitet und keine Input-/Output-Prozesse blockiert. \cite{ReactiveXIntro}
 
 \paragraph{Webpack [L]}
-\setauthor{Litzlbauer Lorenz}
+\begin{wrapfigure}{r}{0.3\textwidth}
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{pics/webpack-logo.png}
+   \caption{Webpack Logo}
+  \end{center}
+\end{wrapfigure}
 Die Hauptfunktion von Webpack ist es, viele verschiedene Daten zu einem Paket für eine JavaScript Applikation zusammenzufassen.
-Angular benutzt Webpack, um TypeScript in JavaScript und Sass bzw. Scss in Css umzuwandeln. Beim Bauen des Projektes werden alle Module in ein einziges zusammengefasst. Bei der Entwicklung der Applikation wird durch Webpack \emph{Live-Reloading} unterstützt. Dabei wird bei einer Änderung im Code die gesamte Applikation aktualisiert und neu gestartet.
+Angular benutzt Webpack, um TypeScript in JavaScript und Sass bzw. Scss in Css umzuwandeln. Beim Bauen des Projektes werden alle Module in ein einziges zusammengefasst. Bei der Entwicklung der Applikation wird durch Webpack \emph{Live-Reloading} unterstützt. Dabei wird bei einer Änderung im Code die gesamte Applikation aktualisiert und neu gestartet. \cite{Webpack}
 
-\subsection*{UserInterface-Frameworks (UI-Frameworks)}
-Ein UserInterface-Frameworks ist eine Ansammlung von Web Komponenten wie eine Navigationsleiste die sofort Nutzbar sind.  
+\subsection{User-Interface-Frameworks (UI-Frameworks) [L]}
+Ein User-Interface-Framework ist eine Ansammlung von Web Komponenten wie z.B. eine Navigationsleiste die sofort im Projekt nutzbar ist.
 
 
-Die Vorteile von UI-Frameworks sind:
+Die Vorteile von UI-Frameworks sind:\cite{CssFrameworkExplaination, BestCSSFrameworksin2022}
 \begin{compactitem}
     \item vereinfacht und beschleunigt den Entwicklungsprozess;
     typische Web-Komponenten sind vordefinierte, der Entwickler muss diese nicht mehr implementieren und erspart sich Zeit.
@@ -111,21 +130,27 @@ Die Vorteile von UI-Frameworks sind:
 \end{compactitem}
 
 
-Die Nachteile von UI-Frameworks sind:
+Die Nachteile von UI-Frameworks sind: \cite{CssFrameworkExplaination, BestCSSFrameworksin2022}
 \begin{compactitem}
     \item Die Ladezeit der Webseite erhöht sich;
     Schließlich müssen auch mehr Daten an den Browser geschickt werden.
     \item Webseiten, die das selbe UI-Framework verwenden, schauen einander ähnlich aus;
     Da die Web-Komponenten gleich implementiert werden.
 \end{compactitem}
-\cite{CssFrameworkExplaination} \cite{BestCSSFrameworksin2022}
 
-\subsection{UI-Frameworks im Projekt}
+
+\subsection{UI-Frameworks im Projekt [L]}
 Im Projekt wurde sich für zwei UI-Frameworks, Bootstrap und AngularMaterials, entschieden.
 
 
-\subsubsection{Angular Material}
-Angular Material ist eine UI Framework und wird seit 2014 von Google entwickelt. Das Framework baut auf Angular auf und erweitert es mit eigenen Komponenten, Styleguides, Typographie und vielem mehr. Die Design-Sprache orientiert sich dabei an der Material Design Spezifikation von Google. Ein großer Fokus des Frameworks ist die Responsiveness, Komponenten werden auf verschiedenen Auflösungen gut aussehen. \cite{JavaPointAngularMaterial, WhatAngularMaterial}
+\subsubsection{Angular Material [L]}
+\begin{wrapfigure}{r}{0.3\textwidth}
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{pics/Angular_Material_UI_Logo.png}
+   \caption{Angular Material UI Logo}
+  \end{center}
+\end{wrapfigure}
+Angular Material ist eine UI Framework und wird seit 2014 von Google entwickelt. Das Framework baut auf Angular auf und erweitert es mit eigenen Komponenten, Styleguides, Typographie und vielem mehr. Die Design-Sprache orientiert sich dabei an der \emph{Material Design Spezifikation} von Google. Ein großer Fokus des Frameworks ist die Responsiveness, Komponenten werden auf verschiedenen Auflösungen gut aussehen. \cite{JavaPointAngularMaterial, WhatAngularMaterial}
 
 
 Angular Material hat folgende Features: \cite{JavaPointAngularMaterial, WhatAngularMaterial}
@@ -135,24 +160,42 @@ Angular Material hat folgende Features: \cite{JavaPointAngularMaterial, WhatAngu
     \item Reibungslos; Angular Material ist gut mit Angular integriert
 \end{compactitem}
 
-Die Abbildung \ref{fig:impl:angular-material-overview-components} zeigt einen Teil der Komponenten, die Angular Material anbietet. Zu allen diesen Komponenten gibt es eine ausführliche Dokumentation mit Beispiele. \cite{JavaPointAngularMaterial, WhatAngularMaterial}
+Angular Material bietet eine hohe Anzahl an sofort einsetzbaren Komponente. Zu allen diesen Komponenten gibt es auf der offizielle Webseite eine ausführliche Dokumentation mit Beispiele. \cite{JavaPointAngularMaterial, WhatAngularMaterial}
 
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.5]{pics/AngularMaterialsComponentsOverview.png}
-    \caption{Angular Material: Komponente Überblick \cite{AngularComponents}}
-    \label{fig:impl:angular-material-overview-components}
-\end{figure}
-
-\paragraph*{Material Design Spezifikation}
-Material Design ist ein Designsystem, welches von Google erstellt wurde, um Teams zu helfen, qualitative hochwertige Digitale-Erfahrungen für Android, iOS, Flutter und das Web zu gestalten.
+\paragraph{Material Design Spezifikation [L]}
+Material Design ist ein Styleguide der von der Firma Google entwickelt wurde. Er soll dabei helfen qualitative hochwertige digitale Produkte für Android, iOS, Flutter und das Web zu gestalten.
 
 Material Design hat mehrere Prinzipien, die sie ihr Design beeinflussen lassen.
 
 Material Design soll die reale Weld abbilden.
 Text soll durch Typographie, Raster, Abstände, Farben und Bilder soll eine erkennbare Hierarchie entstehen. Komponenten sind interaktive Bauklötze für ein das User Interface. Komponenten haben alle eine Stati-System welches den Status der Komponente fokussiert, selektiert, aktiviert, fehlerhaft, schwebend, gedrückt und ausgeschalten anzeigt. Durch das Theming ist es möglich einzelne Komponenten zu verändern und das Design so anzupassen, dass es zur Corporate Identity der Benutzer*in passt.\cite{MaterialDesign-Introduction}
 
-\subsubsection{Bootstrap}
+\paragraph{Angular Material Komponente im Projekt [L]}
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.5]{pics/AngularMaterialKomponent.png}
+  \caption{Angular Material: Komponenten die im Projekt verwendet wurden \cite{AngularComponents}}
+  \label{architecture:frontend:angular-material-project-components}
+\end{figure}
+
+Im Projekt wurden hauptsächlich die Angular Material Komponenten mat-icon, mat-chips, mat-stepper und mat-chard verwendet (siehe Abbildung \ref{architecture:frontend:angular-material-project-components}).
+
+mat-icon wird dafür verwendet, die Icons auf der SPA anzuzeigen. Die Icons werden durch den Inhalt, den Namen des Icons im mat-icon ausgewählt.
+
+mat-chips werden für das Design der Ausstellungskriterien benützt. Sie kommen in der Content-Creation und der Suchseite hauptsächlich vor.
+
+mat-stepper wird bei der Content-Creation verwendet, um die Wizard-Funktion umzusetzen.
+
+mat-chard wird für die Ausstellungsstückkarten auf der SPA verwendet. Diese kommen auf der Profile-, Such- und Landing-Page vor.
+
+\subsubsection{Bootstrap [L]}
+\begin{wrapfigure}{r}{0.3\textwidth}
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{pics/Bootstrap_logo.png}
+   \caption{Bootstrap Logo}
+  \end{center}
+\end{wrapfigure}
 Bootstrap ist ein kostenloses Open-Source-UI-Framework. Es ist nicht nur eine Ansammlung von CSS sondern auch von JavaScript und HTML code um schöne, interaktive und responsive Webseiten.  \cite{BestCSSFrameworksin2022}
 
 Bootstrap hat folgenden Features:  \cite{BestCSSFrameworksin2022}
@@ -163,7 +206,13 @@ Bootstrap hat folgenden Features:  \cite{BestCSSFrameworksin2022}
     \item Hohe Benutzerfreundlichkeit
 \end{compactitem}
 
-\subsubsection{Scss}
+\subsubsection{SCSS [L]}
+\begin{wrapfigure}{r}{0.3\textwidth}
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{pics/Sass_Logo.png}
+   \caption{Sass Logo}
+  \end{center}
+\end{wrapfigure}
 SCSS ist kein UI-Framework, sondern vielmehr eine Syntax- und Feature-Erweiterung von CSS, deswegen wurde es schlussendlich auch für dieses Projekt gewählt. SCSS hat viele Vorteile wie zum Beispiel Variablen, Schleifen, Mixins und Imports gegenüber CSS, aber besonders ausschlaggebend war das Prinzip der Verschachtelung. \cite[Sass Guide]{SassGuide}
 
 Durch die Verschachtelung kann an redundanten Styles-Selektoren gespart werden, was die Style-Definition besser lesbarer macht. Im den Beispielen (siehe SCSS-Code-Beispiel \ref{lst:imp:design:scss} und natives CSS-Code-Beispiel \ref{lst:imp:design:css}) wird die gleiche Style-Definition von SCSS und CSS ausgedrückt, doch die Schreibweise unterscheidet sich. \cite[Sass Guide]{SassGuide}
@@ -207,7 +256,6 @@ nav a {
 
 Code Beispiele\ref{lst:imp:design:scss} \ref{lst:imp:design:css} \cite[Sass Guide]{SassGuide}
 
-
 \subsection{3D Rendering [L]}
 Es gab verschiedene Auswahlkriterien für die 3D-Web-API, die ausschlaggebend für den Projekterfolg waren:
 \begin{compactitem}
@@ -225,24 +273,23 @@ Es gab verschiedene Auswahlkriterien für die 3D-Web-API, die ausschlaggebend f�
      \caption{ThreeJs Logo}
     \end{center}
 \end{wrapfigure}
-ThreeJs ist eine JavaScript Library für die Darstellung von 3D-Grafiken im Web. Für die 3D-Darstellung nutzt ThreeJs WebGL (mehr dazu im nächsten Abschnitt \hyperref[ch::ThreeJsDependency]{ThreeJs Dependency}), ein low-level Framework. WebGl hat eine hohe Komplexität. ThreeJs bietet eine Abstraktion zu WebGL, um Anwendungen für 3D-Webanwendungen für Entwickler zugänglicher zu machen. ThreeJs verarbeitet dabei viele Sachen wie die 3D-Szene, Lichter, Schatten, Materialien, Texturen und 3D-Matrix-Rechnungen, die mit WebGl sehr aufwändig wären umzusetzen.
-
-In ThreeJs werden Geometrie, Objekte und Materialien verbunden, um ein 3D-Objekt zu erstellen. Dabei kann die Struktur einer Szene der Abbildung \ref{fig:tech:front:threejsstructure} ähneln. Dort kann beobachtet werden, dass die Scene das Root-Objekt ist. In der Scene werden Objekte wie Meshes, Gruppen, Lichter und 3D-Objekte in einer Baumdatenstruktur gesammelt. Die Daten über die Geometrie, Materialen der 3D-Meshes werden außerhalb der Szene gespeichert und die Meshes referenzieren darauf.
-
-\cite[ThreeJs fundamentals]{ThreeJsFund}
+ThreeJs ist eine JavaScript Library für die Darstellung von 3D-Grafiken im Web. Für die 3D-Darstellung nutzt ThreeJs WebGL (mehr dazu im nächsten Abschnitt \hyperref[ch::webgl]{WebGL}), ein Low-Level-Framework. WebGL hat eine hohe Komplexität. ThreeJs bietet eine Abstraktion von WebGL, um Anwendungen für 3D-Webanwendungen für Entwickler zugänglicher zu machen.
+ThreeJs regelt Systeme wie die 3D-Szene, Lichter, Schatten, Materialien, Texturen und 3D-Matrix-Rechnungen, deren Umsetzung mittels WebGL sehr aufwändig wäre. \cite[ThreeJs fundamentals]{ThreeJsFund}
 
 \begin{figure} [h t]
-    \centering
-    \includegraphics[scale=0.5]{pics/threejs-structure.png}
-    \caption{Die Struktur von ThreeJs \cite{ThreeJsFund}}
-    \label{fig:tech:front:threejsstructure}
+  \centering
+  \includegraphics[scale=0.5]{pics/threejs-structure.png}
+  \caption{Die Struktur von ThreeJs \cite{ThreeJsFund}}
+  \label{fig:tech:front:threejsstructure}
 \end{figure}
 
-\subsubsection{Dependency}
+In ThreeJs werden Geometrie, Objekte und Materialien verbunden, um ein 3D-Objekt zu erstellen. 
+Die Abbildung \ref{fig:tech:front:threejsstructure} veranschaulicht den beispielhaften Aufbau eines solchen Objektes. In diesem Objekt werden Meshes, Gruppen, Lichter und 3D-Objekte in einer Baumdatenstruktur gesammelt. Die Daten über die Geometrie, Materialen der Meshes werden außerhalb der Szene gespeichert und die Meshes referenzieren im Renderprozess darauf. \cite[ThreeJs fundamentals]{ThreeJsFund}
+
 \label{ch::ThreeJsDependency}
 Um 3D-Darstellungen zu rendern, benutzt ThreeJs WebGL.
 
-\paragraph{WebGL}
+\paragraph{WebGL [L]}
 \label{ch::webgl}
 \begin{wrapfigure}{h  r}{0.3\textwidth}
     \begin{center}
@@ -250,18 +297,17 @@ Um 3D-Darstellungen zu rendern, benutzt ThreeJs WebGL.
      \caption{WebGL Logo}
     \end{center}
 \end{wrapfigure}
-WebGL ist eine lizenzfreie Low-Level-API, die dafür benutzt wird, 3D-Grafiken im Web darzustellen. Sie basiert auf OpenGL ES 2.0 und benutzt auch dieselbe shading language GLSL wie OpenGL. Eine Low-Level-API hat einen höheren Konfigurierungsgrad und lässt sich für spezielle Anwendungsfälle besser anpassen. Der*Die Programmierer*in muss, aber auch ein viel tieferes Verständnis von dem Material haben (im Fall von WebGL Shader-Programmierung, Matrixrechnungen usw.) und hat in der Regel einen viel größeren Programmieranteil als wenn er eine High-Level-API benutzt. Eine High-Level-API  ist besser für allgemeine Anwendungsfälle geeignet.
-\cite[WebGl Getting Started]{WebglGettingStarted} \cite{HighlowAPI}
+WebGL ist eine lizenzfreie Low-Level-API, die dafür benutzt wird, 3D-Grafiken im Web darzustellen. Sie basiert auf OpenGL ES 2.0 und benutzt auch dieselbe Grafik-Programmiersprache, wie Open GLSL (OpenGL Shading Language). Eine Low-Level-API hat einen höheren Konfigurierungsgrad und lässt sich für spezielle Anwendungsfälle besser anpassen. Die API setzt ein viel tieferes Verständnis von dem Material (WebGL Shader-Programmierung, Matrixrechnungen usw.) voraus und bringt somit einen höheren Programmieraufwand mit sich. \cite{WebglGettingStarted, HighlowAPI}
 
-\subsubsection{Alternativen 3D Web Apis}
-Es gibt viele Technologien, die 3D-Grafiken im Web ermöglichen, wie Three.js, Babylon.js, A-Frame, X3DOM und WebGL
+\subsubsection{Alternative 3D Web APIs [L]}
+Es gibt viele Technologien, die 3D-Grafiken im Web ermöglichen, wie Three.js, Babylon.js, A-Frame, X3DOM und WebGL.
 
-\paragraph{A-Frame}
+\paragraph{A-Frame [L]}
 A-Frame wird von der Mozilla Foundation als OpenSource-Projekt entwickelt. Die 3D-Szene wird durch eine deklarative Sprache mit XML-Syntax definiert. Über die WebVR-API bietet die Libray auch die Möglichkeit, 3D-Szenen durch eine VR-Brille zu erfahren. Bei der 3D-Darstellung setzt A-Frame auf ThreeJs. \cite[A-Frame Wikipedia]{a-frame-wiki}
 
 A-Frame hat ähnliche Funktionen und Leistung im Vergleich zu ThreeJs, da es ja schlussendlich darauf aufbaut. A-Frame sticht bei der VR support hervor (ThreeJs hätte auch eine Unterstützung dafür, diese ist aber schwieriger einzubinden), doch ist das kein unbedingt nötiges Feature. ThreeJs ist ja bereits eine Abstraktion von WebGL. Für das Projekt wird keine weiter Abstraktion gebraucht.
 
-\subsubsection{Angular Three}
+\subsubsection{Angular Three [L]}
 \label{ch:Technologien:AngularThree}
 Angular Three ist ein Open Source Projekt von Matt DesLauriers. Es zielt darauf ab die Vorteile von Angular und ThreeJs zu kombinieren. Dabei verbindet es das Prinzip der Komponenten von Angular mit der 3D Darstellung von ThreeJs. 
 
@@ -303,3 +349,24 @@ Wegen der vielen Vorteile hohe Benutzerfreundlichkeit, ähnliche 3D-Leistung zu 
 Mithilfe eines Prototypen ( mehr dazu im Abschnitt \hyperref[ch::ongoing-prototyping]{fortlaufendes Prototyping} ) wurde getestet, ob Angular Three alle Features, die für das Projekt benötigt werden, unterstützen kann, die für das Projekt nötig sind. Dabei wurde festgestellt, dass sich die Library Angular Three für das Projekt nicht eignet. Trotz der vielen Features konnten einige Kriterien nicht erfüllt werden. So wurden beispielsweise 3D-Objekte nicht richtig geladen. ThreeJs Module funktionierten Teilweise nicht, wie die FristPersonControls. 
 
 Weil Angular Three nicht die für das Projekt aufgestellten Anforderungen erfüllt hat, wurde sich dafür entschieden, ThreeJs zu benutzen. ThreeJs hat ähnliche Konzepte und Logik wie Angular Three deswegen fiel dem Team der Umstieg darauf leicht. Diese 3D-Library wurde schlussendlich auch im Projekt verwendet.
+
+\subsection{Sicherheit [L]}
+\setauthor{Litzlbauer Lorenz}
+
+\subsection{JWT - Json Web Token [L]}
+\begin{wrapfigure}{r}{0.3\textwidth}
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{pics/jwt_logo.png}
+   \caption{JWT Logo}
+  \end{center}
+\end{wrapfigure}
+Der Json Web Token (JWT) ist ein offenere Standard. Er wird durch RFC7519 definiert. JWT wird zur sicheren Übertragung von Informationen benutzt, indem er die Benützer authentifiziert. 
+
+\paragraph{Struktur [L]}
+Der JWT besteht aus einem Header, einer Payload und der Signatur. 
+
+\paragraph{Im Projekt [L]}
+Der JW
+
+
+https://auth0.com/learn/json-web-tokens

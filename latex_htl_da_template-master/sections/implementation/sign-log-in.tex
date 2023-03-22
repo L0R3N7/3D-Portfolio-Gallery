@@ -1,10 +1,9 @@
 \section{Userverwaltung [L]}
 \setauthor{Litzlbauer Lorenz}
-Im Projekt wurde eine Userverwaltung eingebaut. Die User können sich auf der Weboberfläche anmelden und registrieren. Je nach Registrationsstatus (auf der Webseiten angemeldet oder nicht) stehen ihnen mehr Funktionalitäten zu Verfügung. Ein*e Besucher*in, die nicht angemeldet ist, kann alle Ausstellungen ansehen und auf der Suchunterseite nach Ausstellungen suchen. Ein*e requistriert*er User*in könnte das auch, zusätzlich können sie auch ihre Profileseite sehen und Ausstellungen selbst erstellen und veröffentlichen. Die Navigationsleiste wurde so programmiert, dass sie dem*der User*in nur die Unterseiten zeigt, die diese durch ihrem Registrationsstatus auch besuchen kann. 
+Im Projekt wurde eine Userverwaltung eingebaut. Die User können sich auf der Weboberfläche anmelden und registrieren. Je nach Registrationsstatus (auf der Webseiten angemeldet oder nicht) stehen ihnen mehr Funktionalitäten zu Verfügung. Ein*e Besucher*in, die nicht angemeldet ist, kann alle Ausstellungen ansehen und auf der Suchunterseite nach Ausstellungen suchen. Ein*e registriert*er User*in könnte das auch, zusätzlich können sie auch ihre Profileseite sehen und Ausstellungen selbst erstellen und veröffentlichen. Die Navigationsleiste wurde so programmiert, dass sie dem*der User*in nur die Unterseiten zeigt, die diese durch ihrem Registrationsstatus auch besuchen kann. 
 
-Im folgendem Abschnitt "Sign-, Log-In Funktionalitäten" wird die Implementation des Userverwaltung und die damit verbundenen Features erklärt. 
+Im folgendem Abschnitt 'Sign-, Log-In Funktionalitäten' wird die Implementation des Userverwaltung und die damit verbundenen Features erklärt. 
 
-\subsection{JWT - Json Web Token [H]}
 \subsection{Implementation im Frontend [L]}
 \setauthor{Litzlbauer Lorenz}
 Nachdem der JWT im Backend implementiert wurde, galt es diesen auch auf dem Frontend einzubauen. Der JWT dient zur Authentifizierung des*der User*in und zum rollenbasierenden Schutz der API. 
@@ -138,12 +137,27 @@ Deswegen und um zu verhindern das Benutzer*in auf Unterseiten sind auf denen sie
   \label{fig:impl:navbarvergleich}
 \end{figure}
 
-\subsection{Profilepage}
-Auf der Profileseite (siehe Abbildung \ref{fig:impl:sign:profile}) sieht der*die Benutzer*in userspezifische Informationen wie den Profilnamen, das Profilfoto, die erstellten Exhibition. Zusätzlich kann der*die Benutzer*in hier neue Ausstellungen anlegen und bereits erstellte Ausstellungen löschen. 
 
-\begin{figure}
-  \centering
-  \includegraphics[scale=0.5]{pics/profilepage.png}
-  \caption{Profilepage}
-  \label{fig:impl:sign:profile}
-\end{figure}
+\subsection{Erledigte Userstories [L]}
+Im Entwicklungsprozess des Usermanagment-System wurden folgende Userstories vollendet: 
+\begin{compactenum}
+  \item Als Designer möchte ich einen Login, um meine Ausstellungen speichern und im Nachhinein immer öffnen zu können.
+  Akzeptanzkriterien:
+  \begin{compactitem}
+      \item Man kann sich neu registrieren
+      \item Registrierung mittels Username und Passwort
+      \item Das Passwort muss überprüft werden beim Erstellen und mind. 8 Zeichen enthalten
+  \end{compactitem}
+  \item Als User*in will ich andere Rechte haben, je nachdem ob ich angemeldet bin oder nicht. Akzeptanzkriterien:
+  Wenn ein*e User*in angemeldet ist, kann er*sie:
+      \begin{compactitem}
+          \item Ausstellungen ansehen
+          \item Ausstellungen erstellen/löschen
+      \end{compactitem}  
+  Wenn ein ein*e User*in nicht angemeldet ist, kann er*sie:
+      \begin{compactitem}
+          \item Ausstellungen ansehen
+          \item keine Ausstellungen erstellen
+          \item keine Ausstellungen favorisieren
+      \end{compactitem} 
+\end{compactenum}

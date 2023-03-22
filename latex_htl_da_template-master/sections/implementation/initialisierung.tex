@@ -1,19 +1,11 @@
-\section{Initialisierung der Landingpage [L]}
+\section{Umsetzung der Landingpage [L]}
 \setauthor{Litzlbauer Lorenz}
-Der erste Entwicklungsschritt für die vollständige Single-Page-Application beginnt mit der Initialisierung der Landingpage. Die Landingpage ist die Startseite der Webseite. Es ist das Erste, was der*die neue Nutzer*in sieht. Daher muss die Webseite alle benötigten Informationen über die Funktionen der Applikation verständlich erkennbar machen.
 
-\subsection{Aufsetzen der Landingpage [L]}
-\setauthor{Litzlbauer Lorenz}
+Der erste Entwicklungsschritt für die vollständige Single-Page-Application beginnt mit der Initialisierung der Landingpage. Aus Sicht der User-Experience war es uns wichtig, dass der*die neue Nutzer*in sofort den Verwendungszweck des Applikation begreift und er*sie dazu animiert bei der Applikation mitzumachen. 
+
 Die Entwicklung startete damit, dass die benötigten Technologien Angular, AngularThree, AngularMaterials und Bootstrap heruntergeladen werden mussten.
 
 Dafür wurde der \emph{npm} Node-Package-Manager verwendet.
-
-
-\subsubsection{Vorbereitung}
-Erstmal musste NodeJs installiert werden. Dafür wird aber zuvor noch NodeJs benötigt. NodeJs ist eine JavaScript Laufzeitumgebung. NodeJs kann von der eigenen Webseite nodejs.org mit dem Installer für alle Betriebssysteme installiert werden. Im Projekt wurde sich für eine LTS - Version(long term support) entschieden, weil diese am längsten von den Entwicklern am längsten unterstützt werden und dadurch beständiger sind. Während dem Installationsprozess von NodeJs kann durch eine Auswahl auch NPM installiert werden. 
-
-%%\paragraph{npm - Node Package Manager}
-%%Der Node Package Manager ist ein Softwareverwaltungstool zum Downloaden, Aktualisieren, Veröffentlichen und Verwalten von OpenSource-Programmen in der NodeJs-Umgebung. \cite{whatNpm} \cite{AboutNpm}
 
 \subsubsection{Angular installieren}\label{sec:AngularCLI}
 Angular hat ein eigenes Tool, die Angular CLI (Command Line Interface), um Projekte zu erstellen, zu bearbeiten, Komponenten, Services und vordefinierte Codemodule hinzuzufügen und das Projekt zu bauen.
@@ -28,7 +20,7 @@ ng serve -o
 \end{lstlisting}
 
 In der ersten Codezeile wird das Angular-CLI-Tool global von NPM installiert.
-Danach wird mit dem Befehl ng new mit dem CLI-Tool ein neues Angular Projekt erstellt. Danach wird es mehrere Konfigurationsauswahlmöglichkeiten geben. Für dieses Projekt wurden Routing aktiviert und  als Stylesheet-Formatierung Scss ausgewählt. Danach wurde in das (Projekt-) Verzeichnis Gallery gewechselt und dort mit dem Befehl serve der ein Webpack-Server gestartet, welcher den vorgenerierten Code von dem neu erstellen Angular-Projekt zeigt (siehe in Abbildung \ref{fig:impl:angular-starting-page}). 
+Danach wird mit dem Befehl \emph{ng new} mit dem CLI-Tool ein neues Angular Projekt erstellt. Anschließend gibt es mehrere Konfigurationsauswahlmöglichkeiten. Für dieses Projekt wurden Routing aktiviert und  als Stylesheet-Formatierung SCSS ausgewählt. Daraufhin wurde in das (Projekt-) Verzeichnis Gallery gewechselt und dort mit dem Befehl \emph{ng serve} der ein Webpack-Server gestartet, welcher den vorgenerierten Code von dem neu erstellen Angular-Projekt zeigt (siehe in Abbildung \ref{fig:impl:angular-starting-page}). 
 
 \begin{figure}
     \centering
@@ -51,7 +43,7 @@ Nach der Installation von Angular wurden die UI-Frameworks installiert. Angular 
     ng add @angular/material
 \end{lstlisting}
 
-Bootstrap konnte mithilfe des Befehls \ref{lst:impl:installationBootstrap} und von NPM installiert werden. Bootstrap wurde zwar dem Projekt hinzugefügt, Angular weiß aber davon noch nichts. Deswegen musste in der Anuglar-Konfigurationsdatei \emph{angular.json} die Bootstrap Scss-Liberay eingebunden werden. Das wird in diesem Code \ref{lst:impl:BootstraptConfig} veranschaulicht. 
+Bootstrap konnte mithilfe des Befehls \ref{lst:impl:installationBootstrap} und von NPM installiert werden. Bootstrap wurde zwar dem Projekt hinzugefügt. Doch besteht noch keine Verbindung zwischen Angular und Bootstrap. Deswegen musste in der Angular-Konfigurationsdatei \emph{angular.json} die Bootstrap Scss-Liberay eingebunden werden. Das wird in diesem Code Beispiel \ref{lst:impl:BootstraptConfig} veranschaulicht.
 
 \begin{lstlisting}[caption={{Terminal - Bootstrap Installation}},language=bash,label=lst:impl:installationBootstrap]
     npm i bootstrap
@@ -86,7 +78,6 @@ Bootstrap konnte mithilfe des Befehls \ref{lst:impl:installationBootstrap} und v
 \subsubsection{Installation von Three Js}
 Nach der Installation der UI-Libraries wurde ThreeJs installiert. 
 
-Mit dem ersten Befehl wird AngularJs eine JavaScript Liberay durch NPM installiert und durch den zweiten Befehl wurde ein Typelibary für ThreeJs installiert um mit Typescript ThreeJs bearbeiten zu können.
 \begin{lstlisting}
     npm install three
     npm i @types/three
