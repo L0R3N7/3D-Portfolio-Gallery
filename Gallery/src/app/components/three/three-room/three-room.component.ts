@@ -25,6 +25,7 @@ import {
 import {GalleryService} from "../../../shared/gallery.service";
 import {Exhibition} from "../../../shared/class/exhibition";
 import {PositionConfig} from "../../../shared/class/positionConfig";
+import {Theme} from "../../../shared/class/theme";
 
 @Component({
   selector: 'app-three-room',
@@ -72,7 +73,10 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
 
   object_uuid_holder:  string[] = [];
 
+  theme_list: Theme[] = []
+
   constructor(private createService: CreateExhibitionPageService, public dialog: MatDialog, private gs: GalleryService) {
+    this.theme_list = gs.getThemeList()
     createService.wizRoom.subscribe(
       room => {
           this.room = room
@@ -95,18 +99,6 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
 
   setupRoom(room: Room, exhibition?: Exhibition) {
     if (room != undefined){
-
-      //Load Sockels
-      for (let i = 0; i < room.positions.length; i++){
-        if (room.positions[i].is_wall) continue;
-        this.
-        loader.load('assets/three-d-objects/podest.gltf', (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
-          console.log(gltf)
-          gltf.scene.position.set(room.positions[i].x, 0, room.positions[i].y)
-          this.room_uuid.push(gltf.scene.uuid)
-          this.scene.add(gltf.scene)
-        })
-      }
 
       //Load Room
       if(this.room_uuid.length > 0){
@@ -191,43 +183,62 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
         const currentPosition = room.positions.find(position => {return position.id == value.position_id})
 
         let x = currentPosition?.x ?? 0
-        let y = this.potests.parameters.height
+        //let y = this.potests.parameters.height
         let z = currentPosition?.y ?? 0
 
-        console.log("Loading 3d Model: Position #", value.position_id, " ", x, y, z)
+        //console.log("Loading 3d Model: Position #", value.position_id, " ", x, y, z)
 
 
         switch (fileType) {
           case '3d':
-            console.log("Loading 3d Data")
-            this.loader.load(url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
 
-              this.object_uuid_holder.push(gltf.scene.uuid);
-              if (this.mode == "view"){
-                this.exArray.push(value)
-              }
-              let size = this.getSize(gltf.scene)
-              gltf.scene.scale.set(1 / size.x * value.scale_factor, 1 / size.y * value.scale_factor, 1 / size.z * value.scale_factor)
-              // Alignment / Positioning
-              y += this.getSize(gltf.scene).y
-              switch (value.alignment) {
-                case "l":
-                  z += 1 / size.z * value.scale_factor
-                  break
-                case "r":
-                  z -= 1 / size.z * value.scale_factor
-                  break
-                case "t":
-                  x += 1 / size.x * value.scale_factor
-                  break
-                case "b":
-                  x -= 1 / size.x * value.scale_factor
-              }
-              gltf.scene.position.set(x, y, z)
-              console.log(x,y,z)
-              //gltf.scene
-              this.scene.add(gltf.scene);
+            let theme = this.theme_list.find(theme => {return theme.id == value.material_id})
+            let sockelSize : Vector3 = new Vector3(0, 0, 0)
+            let podestUrl = 'assets/three-d-objects/podest.gltf'
+            if (theme != null){
+              console.log(theme)
+              podestUrl = `assets/three-d-objects/${theme.mat_wall_or_object}`;
+            }
+
+            //Load Sockels
+            this.loader.load(podestUrl, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+              sockelSize = this.getSize(gltf.scene)
+              gltf.scene.position.set(x, 0, z)
+              this.room_uuid.push(gltf.scene.uuid)
+              this.object_uuid_holder.push(gltf.scene.uuid)
+              this.scene.add(gltf.scene)
+
+              console.log("Loading 3d Data")
+              this.loader.load(url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+
+                this.object_uuid_holder.push(gltf.scene.uuid);
+                if (this.mode == "view"){
+                  this.exArray.push(value)
+                }
+                let size = this.getSize(gltf.scene)
+                gltf.scene.scale.set(1 / size.x * value.scale_factor, 1 / size.y * value.scale_factor, 1 / size.z * value.scale_factor)
+                // Alignment / Positioning
+                let y = sockelSize.y //this.getSize(gltf.scene).y
+                switch (value.alignment) {
+                  case "l":
+                    z += 1 / size.z * value.scale_factor
+                    break
+                  case "r":
+                    z -= 1 / size.z * value.scale_factor
+                    break
+                  case "t":
+                    x += 1 / size.x * value.scale_factor
+                    break
+                  case "b":
+                    x -= 1 / size.x * value.scale_factor
+                }
+                gltf.scene.position.set(x, y, z)
+                console.log(x,y,z)
+                //gltf.scene
+                this.scene.add(gltf.scene);
+              })
             })
+
             break;
           default:
             console.log("Loading Image")
@@ -265,7 +276,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
               this.exArray.push(value)
             }
             this.object_uuid_holder.push(cube.uuid)
-            cube.position.set(x, y, z)
+            cube.position.set(x, 50, z)
             cube.rotation.set(0, THREE.MathUtils.degToRad(currentPosition?.rotation ?? 0), 0)
             this.scene.add(cube)
 

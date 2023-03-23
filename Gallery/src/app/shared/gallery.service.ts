@@ -107,8 +107,9 @@ export class GalleryService {
 
   getThemeList(): Theme[]{
     return [
-      new Theme(1, "https://cdn.shopify.com/s/files/1/0561/2168/8256/products/trumerholz-gehackte-larche-wohnwand_695x695.jpg?v=1660934418", "", 0, true, "",""),
-      new Theme(2, "https://cdn.shopify.com/s/files/1/0561/2168/8256/products/trumerholz-gehackte-larche-wohnwand_695x695.jpg?v=1660934418", "", 0, true, "","")
+      new Theme(1, "./assets/image/podest.png", "podest.gltf", 0, true, "",""),
+      new Theme(2, "./assets/image/podest_01.png", "podest_01.gltf", 0, true, "",""),
+      new Theme(3, "./assets/image/small_podest.png", "small_podest.gltf", 0, true, "","")
     ];
   }
 
