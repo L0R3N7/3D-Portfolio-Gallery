@@ -14,7 +14,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {BoxGeometry, Object3D, PerspectiveCamera, Texture, Vector3, VideoTexture} from "three";
+import {AmbientLight, BoxGeometry, Object3D, PerspectiveCamera, Texture, Vector3, VideoTexture} from "three";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
@@ -71,17 +71,13 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges, 
   selectedObjects: Object3D[] = [];
 
   constructor(private createService: CreateExhibitionPageService, public dialog: MatDialog, private gs: GalleryService) {
-
     createService.wizRoom.subscribe(
       room => {
-
           this.room = room
           this.setupRoom(room!)
       })
   }
   ngOnInit() {
-    console.log(this.mode)
-    console.log(this.viewExhibitionId)
     if (this.mode == "view") {
       if (this.viewExhibitionId) {
         this.gs.getExhibitonById(this.viewExhibitionId).subscribe(value => {
@@ -89,9 +85,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges, 
           this.viewExhibition = value
           console.log(this.viewExhibition)
           this.setupRoom(this.viewExhibition!.room!, this.viewExhibition)
-
         })
-
       }
     }
   }
@@ -183,7 +177,6 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges, 
       if (value.position_id == undefined || value.position_id == -1) {
         continue;
       }
-
 
       console.log("Loading 3D Data Url: ", value.exhibit_url)
       // Todo: has to be changed and cashed somewhere so it mustn't allways download new
@@ -299,17 +292,20 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges, 
     this.setup()
 
     //Light
-    const bulbGeometry = new THREE.SphereGeometry(.02, 16, 8);
-    const bulbLight = new THREE.PointLight( 0xffffff, 3, 1000, 2);
+
+    const bulbGeometry = new THREE.BoxGeometry(10000, 1, 10000);
+    const bulbLight = new THREE.PointLight( 0xffffff, 5, 2000, 3);
     const bulbMat = new THREE.MeshStandardMaterial( {
       emissive: 0xffffff,
       emissiveIntensity: 1,
       color: 0x000000
     } );
     bulbLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
-    bulbLight.position.set( 0, 100, 0 );
+    bulbLight.position.set( 0, 600, 0 );
     bulbLight.castShadow = true;
     this.scene.add( bulbLight );
+
+    //const ambientLight = new AmbientLight('white', 1000);
 
 
 
