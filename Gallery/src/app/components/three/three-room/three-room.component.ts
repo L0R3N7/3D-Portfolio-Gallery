@@ -237,15 +237,17 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
             if (fileType == 'video'){
               const video = () => {
                 const vid = document.createElement("video");
-                vid.crossOrigin = "Anonymous"
+                vid.crossOrigin = "anonymous"
+                vid.controls = false
                 vid.loop = true
                 vid.muted = true
                 vid.autoplay = true
                 vid.src = url
+                vid.load()
+                vid.play()
                 return vid
               }
-
-              texture = new THREE.VideoTexture(video())
+              texture = new THREE.VideoTexture(video());
             }else{
               texture = new THREE.TextureLoader().load(url, (tex) => {
                 tex.needsUpdate = true;
