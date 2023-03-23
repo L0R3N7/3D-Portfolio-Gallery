@@ -8,6 +8,7 @@ import {Exhibition} from "./class/exhibition";
 import {Category} from "./class/category";
 import {ExhibitionUser} from "./class/exhibition-user";
 import {AddExhibitionDTO} from "./class/dto/addExhibitionDTO";
+import {Theme} from "./class/theme";
 
 @Injectable({
   providedIn: 'root'
@@ -104,13 +105,24 @@ export class GalleryService {
     return this.httpClient.get(`${this.URL}exhibitions/download/${fileName}`, {responseType: 'blob'})
   }
 
-
+  getThemeList(): Theme[]{
+    return [
+      new Theme(1, "./assets/image/podest.png", "podest.gltf", 0, true, "",""),
+      new Theme(2, "./assets/image/podest_01.png", "podest_01.gltf", 0, true, "",""),
+      new Theme(3, "./assets/image/small_podest.png", "small_podest.gltf", 0, true, "","")
+    ];
+  }
 
   postExhibition(tempAddExhibition: AddExhibitionDTO): Observable<any>{
     return this.httpClient.post(`${this.URL}exhibitions/new`, tempAddExhibition)
   }
   deleteExhibition(id: number): Observable<any>{
     return this.httpClient.delete(`${this.URL}exhibitions/deleteById/${id}`)
+  }
+
+  getValidImageString(url: String){
+    url = url.replace('/', '%2F');
+    return `${this.URL}exhibitions/downloadImageFile/${url}`
   }
 }
 
