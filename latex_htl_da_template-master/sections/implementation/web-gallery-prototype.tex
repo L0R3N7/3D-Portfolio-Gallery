@@ -17,6 +17,17 @@ Da dieses Erkenntnis schon früh in dem Entwicklungsprozess gemacht wurde, ensta
 
 In diesem Abschnitt wird erklärt, auf welche Weise die 3D-Ausstellung in der Webapplikation realisiert wurde.
 
+\subsubsection{Modellierung der 3D-Räume in Cinema 4D [M]}
+\setauthor{Fabian Maar}
+Bevor mit der Implementierung des Ausstellungsraumes in der Webapplikation begonnen werden kann, muss das 3 D-Modell des Raumes zunächst in Cinema4D modelliert werden. Zu Beginn wird der Grundriss des Raumes gezeichnet. Dies erfolgt durch das Spline-Werkzeug. Hierbei werden 2D-Linien im dreidimensionalen Raum erstellt. Anschließend wird ein Würfel erstellt, der die Höhe und Breite der Wand besitzt. Da Cinema 4D die Modelle in Zentimeter misst, können diese in realitätsnahen Proportionen modelliert werden. Um den 2D-Grundriss nun als dreidimensionale Wände abzubilden, werden die gezeichneten Splines mit der Form des Würfels als Sweep extrudiert. Das bedeutet, eine 2D-Form wird als schlauchförmiges 3D-Objekt mit den Werten des Würfels erstellt. Nach diesem Vorgang kann schlussendlich der Boden des Raumes hinzugefügt werden. Dazu wird eine Platte in Form des Grundrisses erstellt. 
+
+\begin{figure} [h t]
+    \centering
+    \includegraphics[scale=0.2]{pics/Room-model.png}
+    \caption{Modellierung des Raumes in Cinema4D}
+    \label{fig:tech:front:room-model}
+  \end{figure}
+
 \subsection{Rendering [M]} 
 Um 3D-Modelle, wie den Ausstellungsraum anzeigen zu können, wird der hochkomplexe Prozess des Renderings benötigt. Dabei wird das 3D-Modell zu einem realistischen 2D-Bild gerendert. 
 \cite{AdobeRendering} \cite{Rendering3DModels}
