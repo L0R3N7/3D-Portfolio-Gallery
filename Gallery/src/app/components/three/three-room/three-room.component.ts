@@ -31,7 +31,7 @@ import {PositionConfig} from "../../../shared/class/positionConfig";
   templateUrl: './three-room.component.html',
   styleUrls: ['./three-room.component.scss']
 })
-export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges, OnInit{
+export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
   room ?: Room
   room_uuid: string[] = []
   @Input('mode') mode : String = "create";
@@ -70,6 +70,8 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges, 
   composer?: EffectComposer;
   selectedObjects: Object3D[] = [];
 
+  object_uuid_holder:  string[] = [];
+
   constructor(private createService: CreateExhibitionPageService, public dialog: MatDialog, private gs: GalleryService) {
     createService.wizRoom.subscribe(
       room => {
@@ -94,7 +96,6 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges, 
   setupRoom(room: Room, exhibition?: Exhibition) {
     if (room != undefined){
 
-      console.log("Tring to load sockels", room.positions)
       //Load Sockels
       for (let i = 0; i < room.positions.length; i++){
         if (room.positions[i].is_wall) continue;
@@ -138,6 +139,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges, 
 
       // Load exhibit based on the positionConfigList
       if(this.mode == "create"){
+
         this.createService.wizPositionConfigList.subscribe(
           values => {
             this.loadExhibits(values,room)
@@ -163,15 +165,17 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges, 
   }
 
   loadExhibits(values: PositionConfig[], room: Room){
+    console.log("UUid in the Scene that sould be cleared", this.object_uuid_holder)
+
+    // reverts changes from previews configuration
+    for (let uuid of this.object_uuid_holder){
+      this.clearScene(uuid);
+    }
+    this.object_uuid_holder = []
+
+
     console.log(values)
     for (let value of values) {
-
-      // If there was an preexisting object delete it
-      if(this.mode == "create"){
-        if (value.uuid) {
-          this.clearScene(value.uuid)
-        }
-      }
 
       // If there is no position don't draw the object
       if (value.position_id == undefined || value.position_id == -1) {
@@ -179,7 +183,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges, 
       }
 
       console.log("Loading 3D Data Url: ", value.exhibit_url)
-      // Todo: has to be changed and cashed somewhere so it mustn't allways download new
+      // Todo: has to be changed and cashed somewhere so it mustn't always download new
       this.gs.getFile(value.exhibit_url).subscribe(downloadedExhibit => {
 
         const fileType = this.gs.getFileTypeCategoryByFileType(value.exhibit_type)
@@ -194,11 +198,11 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges, 
 
 
         switch (fileType) {
-          case '3d': {
+          case '3d':
             console.log("Loading 3d Data")
             this.loader.load(url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
 
-              value.uuid = gltf.scene.uuid;
+              this.object_uuid_holder.push(gltf.scene.uuid);
               if (this.mode == "view"){
                 this.exArray.push(value)
               }
@@ -225,8 +229,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges, 
               this.scene.add(gltf.scene);
             })
             break;
-          }
-          default: {
+          default:
             console.log("Loading Image")
 
             let texture: Texture | VideoTexture;
@@ -259,16 +262,12 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges, 
             if (this.mode == "view"){
               this.exArray.push(value)
             }
-            value.uuid = cube.uuid
+            this.object_uuid_holder.push(cube.uuid)
             cube.position.set(x, y, z)
             cube.rotation.set(0, THREE.MathUtils.degToRad(currentPosition?.rotation ?? 0), 0)
             this.scene.add(cube)
 
-            if (fileType == 'video'){
-
-            }
             break;
-          }
         }
       })
     }
@@ -282,10 +281,6 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges, 
         object.clear()
       }
     }
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
   }
 
   ngAfterViewInit(): void {
@@ -306,10 +301,6 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnChanges, 
     this.scene.add( bulbLight );
 
     //const ambientLight = new AmbientLight('white', 1000);
-
-
-
-
       this.animate();
   }
 

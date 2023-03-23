@@ -87,20 +87,20 @@ export class CreateExhibitionArrangeComponent {
   selectedPosition() {
     const numSelected = Number(this.selectedId);
 
-    if (numSelected != -1){
       let temp_SelectedPosition = this.createService.wizPositionConfigList.getValue();
 
-      // Position swap if something had position_id already
-      let temp_positionId = temp_SelectedPosition[this.selectedArrayPosition].position_id
-      let temp_id = temp_SelectedPosition.map(value => value.position_id).indexOf(numSelected)
-      if (temp_id != -1){
-        temp_SelectedPosition[temp_id].position_id = temp_positionId
+      if (numSelected != -1) {
+        // Position swap if something had position_id already
+        let temp_positionId = temp_SelectedPosition[this.selectedArrayPosition].position_id
+        let temp_id = temp_SelectedPosition.map(value => value.position_id).indexOf(numSelected)
+        if (temp_id != -1) {
+          temp_SelectedPosition[temp_id].position_id = temp_positionId
+        }
       }
 
       temp_SelectedPosition[this.selectedArrayPosition].position_id = numSelected;
 
       this.createService.wizPositionConfigList.next(temp_SelectedPosition)
-    }
   }
 
   automaticallyPlacement() {
