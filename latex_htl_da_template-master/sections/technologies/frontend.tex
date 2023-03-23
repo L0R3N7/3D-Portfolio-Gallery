@@ -19,20 +19,20 @@ Folgende Aspekte sprechen für die Nutzung von Angular in diesem Projekt:
    \caption{Angular Logo}
   \end{center}
 \end{wrapfigure}
-Angular ist ein Framework für Webapplikation, das auf der Programmiersprache Typescript basiert. Es ist eines der renommiertesten Frameworks zur Front-End-Entwicklung, wird als Open-Source-Software zur Verfügung gestellt und besitzt somit eine große Community. So zählt es 2022 zu dem zweitbeliebtesten Front-End Framework \cite{AngularEvidence} und wird von Milliardenkonzernen wie zum Beispiel Google oder PayPal verwendet. 
+Angular ist ein Framework für Webapplikationen, das auf der Programmiersprache Typescript basiert. Es ist eines der renommiertesten Frameworks zur Front-End-Entwicklung, wird als Open-Source-Software zur Verfügung gestellt und besitzt somit eine große Community. So zählt es 2022 zu dem zweitbeliebtesten Front-End Framework \cite{AngularEvidence} und wird von Milliardenkonzernen wie zum Beispiel Google oder PayPal verwendet. 
 \cite{AngularEvidence2}
 
-Die große Stärke von Angular ist die Erstellung von Single-Page-Webanwendung, da es eine komponentenbasierte Struktur besitzt. Das bedeutet, der Code ist wiederverwendbar und verkapselt. Komplexe Logiken werden auf ihre Grundelemente reduziert und beeinflussen sich nicht gegenseitig. \cite{AngularGeneral}
+Die große Stärke von Angular ist die Erstellung von Single-Page-Applications, da es eine komponentenbasierte Struktur besitzt. Das bedeutet, der Code ist wiederverwendbar und verkapselt. Komplexe Logiken werden auf ihre Grundelemente reduziert und beeinflussen sich nicht gegenseitig. \cite{AngularGeneral}
 
 Angular basiert auf dem Konzept des Model-View-Controller- (MVC) und Model-View-ViewModel (MVVM) Architecture Patterns. Diese Patterns werden verwendet, um die Logik von der Benutzeroberfläche zu trennen und komplexe Aufgaben einfacher zu bewältigen. Dies wird in der Fachsprache auch oft als \emph{Seperation of Concerns} bezeichnet.
 \cite{AngularArchitecturePattern} 
 
-Architecture Patterns sind Muster, die verwendet werden,
+Architecture Patterns sind Muster, die verwendet werden, um
 \begin{itemize}
   \item eine Software-Anwendung zu strukturieren.
   \item die Redundanz von wiederholenden Code-Teile zu vermeiden.
   \item immer wiederkehrende Probleme durch eine einmalige Lösungen zu beheben.
-  \item um die Wartung und Testung zu erleichtern.
+  \item die Wartung und Testung zu erleichtern.
   \item Änderungen am Umfang und der Größe der Applikation leichter handhaben zu können.
 \end{itemize} \cite{MVCmdn, MVVM, MVC}
 
@@ -50,7 +50,7 @@ Welche Daten eine Applikation beinhalten soll, wird über das Model geregelt. Fa
 
 \emph{View} ist die Benutzeroberfläche des Programms. Der*die Benutzer*in kann mit dieser interagieren und diese verändern. Sie wird aus den Daten des Models erstellt und definiert. In Angular kann diese View mit dem HTML-Template einer Komponente verglichen werden.
 
-In dem Controller werden die Eingaben der Benutzer*innen verarbeitet und die betroffenen Model- und View-Komponenten beeinflusst und verändert. Auch ist es möglich zu bestimmen, welche Views verändert werden sollen und die Daten gegebenenfalls in unterschiedliche Formate anzuzeigen. Die TypeScript-Files in Angular sind vergleichbar mit diesen Controllern.
+Im Controller werden die Eingaben der Benutzer*innen verarbeitet und die betroffenen Model- und View-Komponenten beeinflusst und verändert. Auch ist es möglich zu bestimmen, welche Views verändert werden sollen und die Daten gegebenenfalls in unterschiedlichen Formate anzuzeigen. Die TypeScript-Files in Angular sind vergleichbar mit diesen Controllern.
 \cite{MVC}
 
 \paragraph{Model-View-ViewModel (MVVM)}
@@ -69,7 +69,7 @@ Im ViewModel wird die Funktionalität der Benutzeroberfläche bestimmt. Dabei in
 
 Das Model funktioniert im Grunde gleich wie beim MVC-Pattern, nur wird hierbei nicht die View, sondern das ViewModel über Änderungen informiert. Somit ist das ViewModel das Mittelstück zwischen View und Model.
 
-Angular nutzt hierbei eine Mischung aus beiden Architecture-Patterns. Diese Architektur wird durch das Konzept von Komponenten realisiert, in den nächsten Kapiteln, besonders im Kapitel Umsetzung der Landingpage \ref{landingpage implentation} näher eingegangen. Dabei werden die Parallelen der Patterns erkennbar.
+Angular nutzt hierbei eine Mischung aus beiden Architecture-Patterns. Diese Architektur wird durch das Konzept von Komponenten realisiert. In den nächsten Kapiteln, besonders im Kapitel Umsetzung der Landingpage \ref{landingpage implentation} wird näher darauf eingegangen. Dabei werden die Parallelen der Patterns erkennbar.
 \cite{MVVM}
 
 \paragraph{NgModules [M]}\label{sec:NgModules}
@@ -78,13 +78,13 @@ NgModules erleichtern die Einbindung von Libraries. Da keine externen Dateien m�
 
 \begin{itemize}
   \item Declarations - In dieser Sektion werden alle zugehörigen Komponenten, Direktiven und Pipes deklariert 
-  \item Providers - Sie initialisieren wie die Werte bei der Dependency Inection (siehe Dependency Injection \ref{DPI})abgerufen werden \cite{AngularProviders}
+  \item Providers - Sie initialisieren wie die Werte bei der Dependency Inection (siehe Dependency Injection \ref{DPI}) abgerufen werden \cite{AngularProviders}
   \item Imports - Hier werden alle Libraries und exportierte Modules importiert
   \item Exports - Sie beinhalten alle zu exportierenden Module
   \item Bootstrap - Hierbei wird angegeben welche Komponente beim Anwendungsstart zuerst geladen wird
 \end{itemize}
 
-Wie die ngModules in der 3D-Gallerie-Applikation verwendet wurden, wird im Abschnitt Routing (siehe Routing \ref{lst:impl:routing}) nochmals erklärt.
+Die Verwendung von ngModules in der 3D-Gallerie-Applikation wird im Abschnitt Routing (siehe Routing \ref{lst:impl:routing}) nochmals erklärt.
 \cite{AngularNgModules}
 \cite{AngularNgModulesAPI}
 \cite{AngularBuch}
@@ -113,7 +113,7 @@ Die Library arbeitet so mit dem \emph{Observer-Design-Pattern} und fügt verschi
   \end{center}
 \end{wrapfigure}
 Die Hauptfunktion von Webpack ist es, viele verschiedene Daten zu einem Paket für eine JavaScript Applikation zusammenzufassen.
-Angular benutzt Webpack, um TypeScript in JavaScript und Sass bzw. Scss in Css umzuwandeln. Beim Bauen des Projektes werden alle Module in ein einziges zusammengefasst. Bei der Entwicklung der Applikation wird durch Webpack \emph{Live-Reloading} unterstützt. Dabei wird bei einer Änderung im Code die gesamte Applikation aktualisiert und neu gestartet. \cite{Webpack}
+Angular benutzt Webpack, um TypeScript in JavaScript und SASS bzw. SCSS in CSS umzuwandeln. Beim Bauen des Projektes werden alle Module in ein einziges zusammengefasst. Bei der Entwicklung der Applikation wird durch Webpack \emph{Live-Reloading} unterstützt. Dabei wird bei einer Änderung im Code die gesamte Applikation aktualisiert und neu gestartet. \cite{Webpack}
 
 \subsection{User-Interface-Frameworks (UI-Frameworks) [L]}
 Ein User-Interface-Framework ist eine Ansammlung von Web Komponenten wie z.B. eine Navigationsleiste die sofort im Projekt nutzbar ist.
@@ -140,7 +140,7 @@ Die Nachteile von UI-Frameworks sind: \cite{CssFrameworkExplaination, BestCSSFra
 
 
 \subsection{UI-Frameworks im Projekt [L]}
-Im Projekt wurde sich für zwei UI-Frameworks, Bootstrap und AngularMaterials, entschieden.
+Im Projekt werden die beiden UI-Frameworks, Bootstrap und AngularMaterials verwendet.
 
 
 \subsubsection{Angular Material [L]}
@@ -200,7 +200,7 @@ Bootstrap ist ein kostenloses Open-Source-UI-Framework. Es ist nicht nur eine An
 
 Bootstrap hat folgenden Features:  \cite{BestCSSFrameworksin2022}
 \begin{compactitem}
-    \item Web-Komponenten, die sofort Anwendbar sind
+    \item Web-Komponenten, die sofort anwendbar sind
     \item Eine gute Dokumentation
     \item Mobile Centered Design
     \item Hohe Benutzerfreundlichkeit

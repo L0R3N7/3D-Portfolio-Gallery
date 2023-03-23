@@ -1,6 +1,6 @@
 \section{Userverwaltung [L]}
 \setauthor{Litzlbauer Lorenz}
-Im Projekt wurde eine Userverwaltung eingebaut. Die User können sich auf der Weboberfläche anmelden und registrieren. Je nach Registrationsstatus (auf der Webseiten angemeldet oder nicht) stehen ihnen mehr Funktionalitäten zu Verfügung. Ein*e Besucher*in, die nicht angemeldet ist, kann alle Ausstellungen ansehen und auf der Suchunterseite nach Ausstellungen suchen. Ein*e registriert*er User*in könnte das auch, zusätzlich können sie auch ihre Profileseite sehen und Ausstellungen selbst erstellen und veröffentlichen. Die Navigationsleiste wurde so programmiert, dass sie dem*der User*in nur die Unterseiten zeigt, die diese durch ihrem Registrationsstatus auch besuchen kann. 
+Im Projekt wurde eine Userverwaltung eingebaut. Der*die User*in kann sich auf der Weboberfläche anmelden und registrieren. Je nach Registrationsstatus (auf der Webseiten angemeldet oder nicht) stehen ihm*ihr mehr oder weniger Funktionalitäten zur Verfügung. Ein*e Besucher*in, die nicht angemeldet ist, kann alle Ausstellungen ansehen und auf der Suchunterseite nach Ausstellungen suchen. Ein*e registriert*er User*in kann das auch, zusätzlich kann sie auch ihre Profileseite sehen und Ausstellungen selbst erstellen und veröffentlichen. Die Navigationsleiste wurde so programmiert, dass sie dem*der User*in nur die Unterseiten zeigt, die diese durch ihrem Registrationsstatus auch besuchen kann. 
 
 Im folgendem Abschnitt 'Sign-, Log-In Funktionalitäten' wird die Implementation des Userverwaltung und die damit verbundenen Features erklärt. 
 
@@ -9,7 +9,7 @@ Im folgendem Abschnitt 'Sign-, Log-In Funktionalitäten' wird die Implementation
 Nachdem der JWT im Backend implementiert wurde, galt es diesen auch auf dem Frontend einzubauen. Der JWT dient zur Authentifizierung des*der User*in und zum rollenbasierenden Schutz der API. 
 
 \subsubsection{Sign- und Log-In}
-Da der JWT als Beweis dafür dient, dass der*die User*in Authentifiziert ist, muss sich der*die Benutzer vor dem Erhalten des Token dafür erst auf der Weboberfläche Registrieren oder Anmelden. 
+Da der JWT als Beweis dafür dient, dass der*die User*in authentifiziert ist, muss sich der*die Benutzer vor dem Erhalten des Token dafür erst auf der Weboberfläche registrieren oder anmelden. 
 
 \begin{figure}
     \centering
@@ -18,28 +18,29 @@ Da der JWT als Beweis dafür dient, dass der*die User*in Authentifiziert ist, mu
     \label{fig:impl:login}
 \end{figure}
 
-Für das Userinterface wurden Anmelde- und Registrierungs-Funktionalitäten implementiert (siehe Abbildung der Anmeldeseite \ref{fig:impl:login}). Die Anmelde- und Registrationsformulare wurden mithilfe von reaktiven Formularen und Validatoren (siehe Absatz \ref{par:impl:usermanagment:reactiveForms}) umgesetzt.
-Durch die Validatoren wurde konfiguriert, dass ein Passwort mindestens 8 Zeichen besitzen muss, um akzeptiert zu werden.
+Für das Userinterface ist eine Anmelde- und Registrierungs-Funktionalität implementiert (siehe Abbildung der Anmeldeseite \ref{fig:impl:login}). Die Anmelde- und Registrationsformulare werden mithilfe von reaktiven Formularen und Validatoren (siehe Absatz \ref{par:impl:usermanagment:reactiveForms}) umgesetzt.
+Durch die Validatoren ist bestimmt, dass ein Passwort mindestens 8 Zeichen besitzen muss, um akzeptiert zu werden.
 
-Nachdem eine valide Eingabe von dem*der User*in gemacht wurde, aktiviert sich der Anmelde- bzw. Registrierungsknopf und lässt sich drücken.
+Nachdem vom User eine valide Eingabe wurde, aktiviert sich der Anmelde- bzw. Registrierungsknopf und lässt sich drücken.
 
-Bei der Aktivierung ändert sich die Farbe des Knopfes von Grau auf Bunt, um ein visuelles Feedback an den*die Benutzer*in zu senden. Nachdem der*die User*in die Eingabe bestätigt hatte, indem sie*er den Knopf drückte, werden die Anmeldedaten über das HTTPS-Protokoll mithilfe des HTTP-Moduls (siehe Abschnitt \ref{sec:HTTPModule} auf Seite \pageref{sec:HTTPModule}) an den Server gesendet. Nach einer erfolgreichen Anmeldung / Registration wird an die Weboberfläche eine Antwort geschickt, in der der JWT Token enthalten ist. Danach wird der*die User*in auf die Profilseite weitergeleitet. Bei einem gescheiterten Anmelde- / Registrierungsversuch wird der*die User*in durch eine Fehlermeldung darüber informiert.
+Bei der Aktivierung ändert sich die Farbe des Knopfes von Grau auf bunt, um ein visuelles Feedback an den*die Benutzer*in zu senden. Nachdem der*die User*in die Eingabe bestätigt hat, indem sie*er den Knopf drückt, werden die Anmeldedaten über das HTTPS-Protokoll mithilfe des HTTP-Moduls (siehe Abschnitt \ref{sec:HTTPModule} auf Seite \pageref{sec:HTTPModule}) an den Server gesendet. Nach einer erfolgreichen Anmeldung/Registration wird an die Weboberfläche eine Antwort geschickt, in der der JWT Token enthalten ist. Danach wird der*die User*in auf die Profilseite weitergeleitet. Bei einem gescheiterten Anmelde- / Registrierungsversuch wird der*die User*in durch eine Fehlermeldung informiert.
 
-Nach der erfolgreichen Anmeldung / Registration wird vom Server ein JWT ausgestellt. Bei einem HTTP-Request vom Client zum Server kann der JWT im Header des Requests platziert werden, der Server kann diesen auslesen und so feststellen, ob ein*e Benutzer*in auch wirklich authentifiziert ist.
+Nach der erfolgreichen Anmeldung/Registration wird vom Server ein JWT ausgestellt. Bei einem HTTP-Request vom Client zum Server kann der JWT im Header des Requests platziert werden, der Server kann diesen auslesen und so feststellen, ob ein*e Benutzer*in auch wirklich authentifiziert ist.
 
-Nun gibt es aber mehrere Unbequemlichkeiten, die aus diesem Prozess entstehen. Der*Die User*in muss jedes Mal, bei einem neuen Webseitbesuch und beim neuen Laden der Webseite sich neu anmelden. Im Code muss bei jedem HTTP-Request (also jeder Kommunikation mit dem Server) der JWT manuell in den Header platziert werden. Dadurch entsteht im Code eine hohe Redundanz. Im folgenden Kapitel Token-Verwaltung und HTTP-Interceptoren wird beschrieben, wie mit diesen Problemen umgegangen wurde.
+Nun gibt es aber mehrere Nachteile, die aus diesem Prozess entstehen. Der*Die User*in muss sich jedes Mal bei einem neuen Webseitbesuch und neuem Laden der Webseite neu anmelden. Im Code muss bei jedem HTTP-Request (also jeder Kommunikation mit dem Server) der JWT manuell in den Header platziert werden. Dadurch entsteht im Code eine hohe Redundanz. Im folgenden Kapitel Token-Verwaltung und HTTP-Interceptoren wird beschrieben, wie mit diesen Problemen umgegangen wurde.
 
 \paragraph{Formulare und Validation}
 \label{par:impl:usermanagment:reactiveForms}
-In Webanwendungen gibt es viele Formulare, weil sie dort als eine der primären Kommunikationsschnittstellen zum Besucher*in dienen. Natürlich gibt es dafür den nativen Inputelement von HTML, aber zu einem Formular mit guter Usererfahrung gehört auch ein visuelles Feedback für den*die Benuzter*in, zusätzlich wächst der Entwicklungsaufwand exponentiell mit der Featureanzahl des Formulars.
+In Webanwendungen gibt es viele Formulare, weil sie dort als eine der primären Kommunikationsschnittstellen zum Besucher*in dienen. Natürlich gibt es dafür die nativen HTML-Inputelemente, aber zu einer guter Usererfahrung gehört auch ein visuelles Feedback für den*die Benutzer*in bei Bearbeitung eines Formulars. Der Entwicklungsaufwand wächst allerdings mit der Anzahl der im Formular eingefügten Features.
 
-Angular bietet verschiedene Implementierungsarten, um die visuelle Komponente umzusetzen und den Entwicklungsaufwand zu minimieren. Bei diesen Ansätzen können mehrere Eingabedaten zentral ausgewertet und weiterverarbeitet werden und der Status des Formulars bei Änderungen und Fehlern visuell dargestellt werden. \cite[Bookmonkey - 12 Formularverarbeitung und
+Angular bietet verschiedene Implementierungsarten, um die visuelle Komponenten umzusetzen und den Entwicklungsaufwand zu minimieren. Bei diesen Ansätzen können mehrere Eingabedaten zentral ausgewertet und weiterverarbeitet werden und der Status des Formulars bei Änderungen und Fehlern visuell dargestellt werden. \cite[Bookmonkey - 12 Formularverarbeitung und
 Validierung: Iteration IV]{AngularBuch}
 
-Bei den Ansätzen unterscheidet man zwischen den reactive Forms und den Template-Driven-Forms.
+Bei den Ansätzen unterscheidet man zwischen den reactiven Forms und den Template-Driven-Forms.
 
 \subsubsection{Token-Verwaltung}
-Um das Problem, dass beim Neuladen der Webseite der Anmeldestatus bzw. der JWT verloren geht, zu lösen, wurde der JWT im LocalStorage des Browsers gespeichert. Im Codeausschnitt (siehe \ref{lst:impl:sign:jwtLocalstorage}) ist ein Teil des Authentifizierungsdienstes des Projektes zu sehen. Mit der Funktion \emph{setSaveJWT} wird der ausgestellte JWT ausgelesen und die darin enthaltenen Informationen, der Name und die Id des Benutzers, die Id des Tokens und das Ablaufdatum des Tokens im LokalenStorage (siehe im Absatz WebStorage API \ref{par:impl:usermanagment:WebStorage}) gespeichert, damit die Daten auch nach dem Neuladen der Webseite erhalten bleiben. Die Funktion \emph{isLoggedIn} gibt nach dem Aufruf den Status mit, ob eine Person angemeldet ist oder nicht, dafür benutzt die Funktion das im JWT enthaltene Ablaufdatum und vergleicht es mit dem aktuellen Datum. Zuletzt gibt es noch die \emph{logout} Funktion, diese löscht die im LocalStorage enthaltenen JWT-spezifischen Daten.
+Um das Problem, dass beim neu Laden der Webseite der Anmeldestatus bzw. der JWT verloren geht, zu lösen, wird der JWT im Locale-Storage des Browsers gespeichert. 
+Im Codeausschnitt (siehe \ref{lst:impl:sign:jwtLocalstorage}) ist ein Teil des Authentifizierungsdienstes des Projektes zu sehen. Mit der Funktion \emph{setSaveJWT} wird der ausgestellte JWT ausgelesen und die darin enthaltenen Informationen, der Name und die Id des Benutzers, die Id des Tokens und das Ablaufdatum des Tokens im Locale-Storage (siehe im Absatz WebStorage API \ref{par:impl:usermanagment:WebStorage}) gespeichert, damit die Daten auch nach dem neu Laden der Webseite erhalten bleiben. Die Funktion \emph{isLoggedIn} gibt nach dem Aufruf den Status mit, ob eine Person angemeldet ist oder nicht. Dafür benutzt die Funktion das im JWT enthaltene Ablaufdatum und vergleicht es mit dem aktuellen Datum. Zuletzt gibt es noch die \emph{logout} Funktion, diese löscht die im Locale-Storage enthaltenen JWT-spezifischen Daten.
 
 \begin{lstlisting}[caption=auth.service.ts - JWT und Localstorage,label=lst:impl:sign:jwtLocalstorage,language=TypeScript ]
 export class AuthService {
@@ -74,28 +75,28 @@ export class AuthService {
 
 \paragraph{WebStorage API}
 \label{par:impl:usermanagment:WebStorage}
-Die WebSotrage API bietet verschiedene Möglichkeiten, Daten per Schlüssel-Werte-Paare im Web zu persistieren. Persistenz ist die Fähigkeit, Daten in einem nicht flüchtigen Speicher zu speichern, um so den Datenverlust beim Neustart des Systems zu verhindern. Die WebStorage API ist nicht Teil des DOM, sondern der globalen Web-Variable window. Die zwei Arten, Daten mittels der WebStorage API zu persistieren, sind der LocalStorage und der SessionStorage.
+Das WebStorage API bietet verschiedene Möglichkeiten, Daten per Schlüssel-Werte-Paare im Web zu persistieren. Persistenz ist die Fähigkeit, Daten in einem nicht flüchtigen Speicher zu speichern, um so den Datenverlust beim Neustart des Systems zu verhindern. Das WebStorage API ist nicht Teil des DOM, sondern der globalen Web-Variable window. Die zwei Arten, Daten mittels der WebStorage API zu persistieren, sind der Locale-Storage und der Session-Storage.
 \cite{WikiPersistenzDefinition} \cite{WebStorageAPI}
 
 
-\subparagraph{SessionStorage}
-Daten im SessionStorage werden je nach ihrem Ursprung getrennt aufbewahrt. Sie werden für die Zeit der Webseitensession gespeichert, wenn der Browser oder der Tab geschlossen wird, sind die Informationen auch fort.
+\subparagraph{Session-Storage}
+Daten im Session-Storage werden je nach ihrem Ursprung getrennt aufbewahrt. Sie werden für die Zeit der Webseitensession gespeichert, wenn der Browser oder der Tab geschlossen wird, werden die Information gelöscht.
 \cite{WebStorageAPI}
 
-\subparagraph{LocalStorage}
-Daten werden wie im SessionStorage auch persistiert, doch auch wenn der Browser geschlossen wird bleiben die Daten erhalten. Daten können nur durch JavaScript oder das Löschen des Webbrowser-Caches gelöscht werden.
+\subparagraph{Local-Storage}
+Daten werden wie im Session-Storage persistiert, die Daten bleiben nach den Schließen des Browsers oder Tabs erhalten. Die Daten können nur durch JavaScript oder das Löschen des Webbrowser-Caches gelöscht werden.
 \cite{WebStorageAPI}
 
 \subparagraph{Allgemeine Informationen}
-Beide Speichermethoden benutzen keine Server, um die Daten zu speichern, sondern den Cache des Webbrowsers. Das Speicherlimit hängt vom Webbrowser ab, doch beträgt es meistens 5 MB und es können nur Zeichenketten gespeichert werden.
+Beide Speichermethoden benutzen keine Server, um die Daten zu speichern, sondern den Cache des Webbrowsers. Das Speicherlimit hängt vom Webbrowser ab, doch beträgt es mndesten 5 MB und es können nur Zeichenketten gespeichert werden.
 \cite{WebStorageAPI}
 
 \subsubsection{HTTP-Interceptoren}
-HTTP-Interceptoren funktionieren in Angular als Zwischenschicht zwischen den ausgehenden HTTP-Abfragen und den eingehenden HTTP-Antworten und können diese umwandeln.
-Das Einsatzgebiet von HTTP-Interceptoren ist bei globalen Änderungen und Funktionen, die an allen HTTP-Requests durchgeführt werden sollen. Es war somit das perfekte Werkzeug, um in allen HTTP-Requests den JWT in den Header zu verpacken.
+HTTP-Interceptoren funktionieren in Angular als Zwischenschicht zwischen ausgehenden HTTP-Abfragen und eingehenden HTTP-Antworten und können diese manipulieren.
+ HTTP-Interceptoren werden auf jeden Request angewendet. Es ist somit das perfekte Werkzeug, um in allen HTTP-Requests den JWT in den Header zu verpacken.
 \cite[10.3 Interceptoren: HTTP-Requests abfangen und transformieren]{AngularBuch}
 
-Wenn ein Request an den Server geht, wird dieser unterbrochen. Es wird überprüft, ob der JWT verfügbar ist. Wenn das zutrifft, wird der ursprüngliche Request geklont, in der Authentifizierungsspalte des Headers wird die JWT-Id hinzugefügt, danach wird der Request wieder zum Server weitergeleitet (siehe Code \ref{lst:impl:sign:JWTInterceptor}). 
+Wird ein Request an den Server gesendet, wird die Verarbeitung vom Interceptor unterbrochen. Es wird überprüft, ob der JWT verfügbar ist. Wenn das zutrifft, wird der ursprüngliche Request geklont und in der Authentifizierungsspalte des Headers wird die JWT-Id hinzugefügt. Danach wird der Request wieder zum Server weitergeleitet (siehe Code \ref{lst:impl:sign:JWTInterceptor}). 
 
 \begin{lstlisting}[caption=auth.interceptor.ts - add JWT to Request Header,label=lst:impl:sign:JWTInterceptor,language=TypeScript]
 import { Injectable } from '@angular/core';
@@ -133,7 +134,7 @@ export class AuthInterceptor implements HttpInterceptor {
 \subsubsection{Routing- und Navigations-Einschränkung}
 Zum Start dieses Entwicklungsschrittes war der Interceptor und die JWT Verwaltung fertig. Doch das Projekt brauchte eine besseres visuelles Feedback System um dem*der Kunden*in den Anmeldestatus zu zeigen.
 
-Deswegen und um zu verhindern das Benutzer*in auf Unterseiten sind auf denen sie wegen ihres Requistratonstatus (noch nicht authentifiziert) noch nichts machen können, wurde je nach Anmeldestatus andere Routen und Informationen auf der Navigationsbar gezeigt (siehe Abbildung \ref{fig:impl:navbarvergleich}). Dafür wurde die Navigationsleistenlogik und die Navigationsleistenservice angepasst. Zusätzlich wurde AuthGuard verwendet um Routen zu sperren auf, die der*die Benutzer*in wegen dem Requistratonstatus noch keinen Zugriff hat. 
+Deswegen und um zu verhindern das Benutzer*in auf Unterseiten sind auf denen sie wegen ihres Registrationsstatus (noch nicht authentifiziert) noch nichts machen können, wurde je nach Anmeldestatus andere Routen und Informationen auf der Navigationsbar gezeigt (siehe Abbildung \ref{fig:impl:navbarvergleich}). Dafür wurde die Navigationsleistenlogik und die Navigationsleistenservice angepasst. Zusätzlich wurde AuthGuard verwendet um Routen zu sperren auf, die der*die Benutzer*in wegen dem Registrationsstatus noch keinen Zugriff hat. 
 
 \begin{figure}
   \centering
