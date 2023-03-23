@@ -109,6 +109,9 @@ export class GalleryService {
   postExhibition(tempAddExhibition: AddExhibitionDTO): Observable<any>{
     return this.httpClient.post(`${this.URL}exhibitions/new`, tempAddExhibition)
   }
+  deleteExhibition(id: number): Observable<any>{
+    return this.httpClient.delete(`${this.URL}exhibitions/deleteById/${id}`)
+  }
 }
 
 

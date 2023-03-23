@@ -1,7 +1,7 @@
 
 <ng-container *ngIf="exhibition">
-  <div style="position:relative;">
-    <button style="background-color: red; color: white; position: absolute; right: 0; z-index: 2" *ngIf="isDeleteMode" (click)="onDelete()">
+  <div class="close-wrapper" style="position:relative;">
+    <button id="close-button" class="shadow" style="background-color: red; color: white; position: absolute; right: 0; z-index: 2" *ngIf="isDeleteMode" (click)="onDelete()">
       <span>X</span>
     </button>
     <mat-card class="exhibition-card">

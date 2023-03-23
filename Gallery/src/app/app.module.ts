@@ -17,7 +17,7 @@ import {
 } from "@angular-three/soba/controls";
 import { HomePageComponent } from './site-components/home-page/home-page.component';
 import { LogSigninPageComponent } from './site-components/auth/log-signin-page/log-signin-page.component';
-import { ProfilePageComponent } from './site-components/profile-page/profile-page.component';
+import {DeleteDialogComponent, ProfilePageComponent} from './site-components/profile-page/profile-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {MatIconModule} from "@angular/material/icon";
@@ -95,7 +95,8 @@ const routes: Routes = []
     FileUploadComponent,
     SearchTagsComponent,
     RoomCardComponent,
-    ExhibitDialog
+    ExhibitDialog,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,

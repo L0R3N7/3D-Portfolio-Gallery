@@ -2,7 +2,7 @@
 
 .exhibition-card {
   min-width: 250px;
-  width: 25%;
+  width: 15vw;
   background-color: $bc-secondary;
   color: $c-secondary-font;
   border-radius: $s-round;
@@ -33,4 +33,24 @@ mat-card-content{
 .outer-scroll-container{
   position: absolute;
   width: 200%;
+}
+
+.close-wrapper {
+  position: relative;
+
+  & > #close-button{
+    width: 2.5vw;
+    height: 2.5vw;
+    border-radius: 100px;
+    background-color: red; color: white;
+    position: absolute;
+    right: 0px;
+    z-index: 2;
+    transform: translate(50%, -50%);
+    border: 0 solid; 
+
+    & > span{
+      font-size: 2rem;
+    }
+  }
 }

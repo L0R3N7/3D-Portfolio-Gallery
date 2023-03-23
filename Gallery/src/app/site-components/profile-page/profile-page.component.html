@@ -7,16 +7,14 @@
     <div class="d-flex justify-content-between">
       <h3>Your Exhibitions</h3>
       <div class="align-bottom">
-        <a routerLink="/create">
-          <button class="action-button p-2 me-3">Add</button>
-        </a>
-        <button class="action-button p-2" (click)="onDelete()">Delete</button>
+        <button class="action-button p-3 me-3" routerLink="/create">Add</button>
+        <button class="action-button p-3" (click)="onDelete()">Delete</button>
       </div>
     </div>
     <ng-container *ngIf="exhibition_list?.length ?? 0 !== 0; else elseExhibitionList">
       <div class="d-flex">
         <div *ngFor="let exhbition of exhibition_list" class="mx-2">
-          <app-exhibition-card  *ngIf="exhbition" [exhibtion]="exhbition"> <!--[delete]="this.isDeleteMode" (delete)="deleteExhibtionEvent($event)"--></app-exhibition-card>
+          <app-exhibition-card [delete]="this.isDeleteMode" (delete)="deleteExhibtionEvent($event)" *ngIf="exhbition" [exhibtion]="exhbition"></app-exhibition-card>
         </div>
       </div>
     </ng-container>
