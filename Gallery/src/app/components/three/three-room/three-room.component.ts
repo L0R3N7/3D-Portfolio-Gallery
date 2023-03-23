@@ -6,7 +6,7 @@ import {
   ElementRef,
   OnDestroy,
   OnChanges,
-  SimpleChanges, Inject, createComponent, OnInit
+  SimpleChanges, Inject, createComponent, OnInit, AfterViewChecked, NgZone
 } from '@angular/core';
 import { Room } from 'src/app/shared/class/room';
 import { Position } from 'src/app/shared/class/position';
@@ -50,6 +50,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
   collisionRaycaster = new THREE.Raycaster()
 
   pointer = new THREE.Vector2()
+
 
   camera ?: THREE.PerspectiveCamera;
   camera2 ?: THREE.PerspectiveCamera;
@@ -121,6 +122,14 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
 
         this.loader.load( wall_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
           gltf.scene.scale.y = 350
+
+          var material = new THREE.MeshBasicMaterial({ color: 0xceb8cf})
+          gltf.scene.traverse(function (node) {
+            if ( node instanceof THREE.Mesh ) {
+              node.material = material
+            }
+          })
+
           this.room_uuid.push(gltf.scene.uuid)
           this.scene.add( gltf.scene );
         });
@@ -201,7 +210,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
           case '3d':
             console.log("Loading 3d Data")
             this.loader.load(url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
-
+              value.uuid = gltf.scene.uuid
               this.object_uuid_holder.push(gltf.scene.uuid);
               if (this.mode == "view"){
                 this.exArray.push(value)
@@ -264,6 +273,8 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
             if (this.mode == "view"){
               this.exArray.push(value)
             }
+
+            value.uuid = cube.uuid
             this.object_uuid_holder.push(cube.uuid)
             cube.position.set(x, y, z)
             cube.rotation.set(0, THREE.MathUtils.degToRad(currentPosition?.rotation ?? 0), 0)
@@ -341,7 +352,9 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
         // (-1 to +1) for both components
         this.pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1
         this.pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1
-        this.hoverExhibit()
+
+          this.hoverExhibit()
+
       });
 
       this.camera2 = this.camera.clone()
@@ -370,7 +383,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
       maxHeight: '50vh',
       width: '100%',
       height: '100%',
-      data: {description: this.objectDescription, title: this.objectTitle, objectUrl: this.objectUrl, dataType: this.objectDataType},
+      data: {description: this.objectDescription, title: this.objectTitle, objectUrl: this.objectUrl, dataType: this.objectDataType, allExhbits: this.exArray},
       enterAnimationDuration,
       exitAnimationDuration,
     });
@@ -379,6 +392,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
     console.log(this.animationid)
     cancelAnimationFrame(this.animationid!)
     this.clock.stop()
+
 
     dialogRef.afterClosed().subscribe(r => {
       this.dialogOpen = false
@@ -397,7 +411,6 @@ clickExhibit(){
     const intersects = this.raycaster.intersectObjects(this.scene.children)
     var values = this.exArray
 
-
             for (let value of values) {
               console.log(value)
                 if (value.uuid == intersects[0].object.parent?.parent?.uuid || value.uuid == intersects[0].object.uuid) {
@@ -407,7 +420,11 @@ clickExhibit(){
                     this.objectTitle = value.title
                     this.objectUrl = value.exhibit_url
                     this.objectDataType = value.exhibit_type
+
+                    if (!this.dialogOpen)
                     this.openDialog('1000ms', '300ms')
+
+
                   }
               }
             }
@@ -506,7 +523,7 @@ clickExhibit(){
   styleUrls: ['./three-room.component.scss']
 })
   export class ExhibitDialog implements OnInit, AfterViewInit{
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ExhibitDialog>, public gs: GalleryService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ExhibitDialog>, public gs: GalleryService, private zone: NgZone) {
 
   }
   //DetailView
@@ -519,39 +536,106 @@ clickExhibit(){
   thumbnail?: String
   videoSrc?: String
   fileType?: String
+  title?: String
+  desc?: String
+  objectUrl?: String
+
+
+  index?: number
 
   sceneDetail = new THREE.Scene()
   loaderDetail = new GLTFLoader();
 
   ngOnInit() {
-    this.fileType = this.gs.getFileTypeCategoryByFileType(this.data.dataType)
-    if(this.fileType == 'image'){
-      this.thumbnail = this.data.objectUrl
-      this.thumbnail = "http://localhost:8080/api/exhibitions/downloadImageFile/" + this.thumbnail?.replace("/", "%2F")
-    }
-    if (this.fileType == 'video'){
-      this.videoSrc = this.data.objectUrl
+    this.title = this.data.title
+    this.desc = this.data.description
 
-      this.videoSrc = "http://localhost:8080/api/exhibitions/download/" + this.videoSrc?.replace("/", "%2F")
-      console.log(this.videoSrc)
-    }
+    this.checkDataType(this.data.dataType, this.data.objectUrl)
+
 
 
   }
 
   ngAfterViewInit() {
 
-    this.setup()
-    this.animate()
     if(this.fileType == "3d"){
-      this.loadExhibit()
+      this.setup()
+      this.animate()
+      this.loadExhibit(this.objectUrl)
+    }
+  }
+
+  checkDataType(dataType?: any, objectUrl?: any){
+    this.fileType = this.gs.getFileTypeCategoryByFileType(dataType)
+    console.log(this.fileType)
+    this.objectUrl = objectUrl
+
+    if(this.fileType == "3d"){
+     this.ngAfterViewInit()
+
+    }
+    if(this.fileType == 'image'){
+      this.thumbnail = objectUrl
+      this.thumbnail = "http://localhost:8080/api/exhibitions/downloadImageFile/" + this.thumbnail?.replace("/", "%2F")
+    }
+    if (this.fileType == 'video'){
+      this.videoSrc = objectUrl
+      this.videoSrc = "http://localhost:8080/api/exhibitions/download/" + this.videoSrc?.replace("/", "%2F")
+    }
+
+  }
+
+  prevEx(){
+    if(this.data.allExhbits.length > 1) {
+      for (let i = 0; i < this.data.allExhbits.length; i++) {
+
+        if(this.title == this.data.allExhbits[i].title ){
+          if (i != 0) {
+            console.log(this.data.allExhbits[i].title)
+            this.title = this.data.allExhbits[i-1].title
+            this.desc = this.data.allExhbits[i-1].description
+            this.checkDataType(this.data.allExhbits[i-1].exhibit_type, this.data.allExhbits[i-1].exhibit_url)
+          } else {
+            this.title = this.data.allExhbits[this.data.allExhbits.length-1].title
+            this.desc = this.data.allExhbits[this.data.allExhbits.length-1].description
+            this.checkDataType(this.data.allExhbits[this.data.allExhbits.length-1].exhibit_type, this.data.allExhbits[this.data.allExhbits.length-1].exhibit_url)
+          }
+          break;
+        }
+
+      }
+    }
+  }
+
+  nextEx(){
+    if(this.data.allExhbits.length > 1) {
+      for (let i = 0; i < this.data.allExhbits.length; i++) {
+
+        if(this.title == this.data.allExhbits[i].title ){
+          if (i != this.data.allExhbits.length-1) {
+            console.log(this.data.allExhbits[i].title)
+            this.title = this.data.allExhbits[i+1].title
+            this.desc = this.data.allExhbits[i+1].description
+            this.checkDataType(this.data.allExhbits[i+1].exhibit_type, this.data.allExhbits[i+1].exhibit_url)
+          } else {
+            this.title = this.data.allExhbits[0].title
+            this.desc = this.data.allExhbits[0].description
+            this.checkDataType(this.data.allExhbits[0].exhibit_type, this.data.allExhbits[this.data.allExhbits.length-1].exhibit_url)
+          }
+          break;
+        }
+
+      }
     }
   }
 
   setup = () => {
+
+
     if(this.fileType == '3d'){
       this.rendererDetail = new THREE.WebGLRenderer({
-        canvas: this.threeDetailCanvas.nativeElement
+        canvas: this.threeDetailCanvas.nativeElement,
+        antialias: true
       });
 
       this.cameraDetail = new THREE.PerspectiveCamera( 100, this.lookUpSizeDetail.nativeElement.offsetWidth / this.lookUpSizeDetail.nativeElement.offsetWidth, 0.1, 1000);
@@ -564,6 +648,8 @@ clickExhibit(){
   }
 
   animate = () => {
+    console.log(this.fileType)
+
     if(this.fileType == '3d') {
       requestAnimationFrame(this.animate);
       this.controlsDetail?.update();
@@ -571,27 +657,29 @@ clickExhibit(){
     }
   }
 
-  loadExhibit(){
+  loadExhibit(objectUrl?: any){
 
-    this.gs.getFile(this.data.objectUrl).subscribe(downloadedExhibit => {
-       const url = URL.createObjectURL(downloadedExhibit)
 
-    this.loaderDetail.load(url,(gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
-      this.sceneDetail.add(gltf.scene)
+      console.log(objectUrl)
+      this.gs.getFile(objectUrl).subscribe(downloadedExhibit => {
+        const url = URL.createObjectURL(downloadedExhibit)
+
+        this.loaderDetail.load(url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
+          this.sceneDetail.add(gltf.scene)
+        })
+
+      //Light
+      const bulbGeometry = new THREE.SphereGeometry(.02, 16, 8);
+      const bulbLight = new THREE.PointLight(0xffee88, 3, 1000, 2);
+      const bulbMat = new THREE.MeshStandardMaterial({
+        emissive: 0xffffee,
+        emissiveIntensity: 1,
+        color: 0x000000
+      });
+      bulbLight.add(new THREE.Mesh(bulbGeometry, bulbMat));
+      bulbLight.position.set(0, 100, 0);
+      bulbLight.castShadow = true;
+      this.sceneDetail.add(bulbLight);
     })
-    })
-    //Light
-    const bulbGeometry = new THREE.SphereGeometry(.02, 16, 8);
-    const bulbLight = new THREE.PointLight( 0xffee88, 3, 1000, 2);
-    const bulbMat = new THREE.MeshStandardMaterial( {
-      emissive: 0xffffee,
-      emissiveIntensity: 1,
-      color: 0x000000
-    } );
-    bulbLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
-    bulbLight.position.set( 0, 100, 0 );
-    bulbLight.castShadow = true;
-    this.sceneDetail.add( bulbLight );
-  }
-
+}
 }
