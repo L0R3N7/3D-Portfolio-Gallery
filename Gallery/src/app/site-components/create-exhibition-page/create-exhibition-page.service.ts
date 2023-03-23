@@ -112,6 +112,8 @@ export class CreateExhibitionPageService {
           return value1.url == value.exhibit_url
         })
 
+        value.material_id = 1
+
         if (exhibit != undefined){
           return new AddExhibitDTO(exhibit.data_type, exhibit.description, exhibit.title, exhibit.url, value.scale_factor, value.alignment, value.material_id, value.position_id)
         }
