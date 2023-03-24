@@ -621,8 +621,9 @@ clickExhibit(){
     this.objectUrl = objectUrl
 
     if(this.fileType == "3d"){
-     this.ngAfterViewInit()
-
+      this.setup()
+      this.animate()
+      this.loadExhibit(this.objectUrl)
     }
     if(this.fileType == 'image'){
       this.thumbnail = objectUrl
@@ -660,7 +661,6 @@ clickExhibit(){
   nextEx(){
     if(this.data.allExhbits.length > 1) {
       for (let i = 0; i < this.data.allExhbits.length; i++) {
-
         if(this.title == this.data.allExhbits[i].title ){
           if (i != this.data.allExhbits.length-1) {
             console.log(this.data.allExhbits[i].title)
@@ -680,8 +680,6 @@ clickExhibit(){
   }
 
   setup = () => {
-
-
     if(this.fileType == '3d'){
       this.rendererDetail = new THREE.WebGLRenderer({
         canvas: this.threeDetailCanvas.nativeElement,

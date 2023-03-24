@@ -7,7 +7,7 @@
   <video class="detail" controls *ngIf="fileType == 'video'">
     <source src="{{videoSrc}}" type="video/mp4">
   </video>
-  <canvas *ngIf="fileType== '3d'" #threeDetailCanvas class="detail"></canvas>
+  <canvas [style.display]="fileType == '3d' ? 'block' : 'none'" #threeDetailCanvas class="detail"></canvas>
 </div>
 
 <div class="detail-exhibit">
