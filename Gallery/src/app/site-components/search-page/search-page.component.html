@@ -25,7 +25,8 @@
       <div class="row">
         <app-exhibition-card class="col-3"
              *ngFor="let e of searchResults"
-             [exhibtion]="e"></app-exhibition-card>
+             [exhibtion]="e"  [routerLink]="['/room', e.exhibition.id]"
+        ></app-exhibition-card>
       </div>
     </div>
 

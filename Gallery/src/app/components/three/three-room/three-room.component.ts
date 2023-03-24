@@ -598,7 +598,7 @@ clickExhibit(){
   ngOnInit() {
     this.title = this.data.title
     this.desc = this.data.description
-
+    console.log(this.data.allExhbits)
     this.checkDataType(this.data.dataType, this.data.objectUrl)
   }
 
