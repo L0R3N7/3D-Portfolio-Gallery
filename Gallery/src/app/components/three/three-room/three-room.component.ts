@@ -607,7 +607,6 @@ clickExhibit(){
     this.sceneDetail.clear()
   }
   ngAfterViewInit() {
-
     if(this.fileType == "3d"){
       this.setup()
       this.animate()
@@ -709,7 +708,7 @@ clickExhibit(){
 
   loadExhibit(objectUrl?: any){
 
-
+      this.sceneDetail.clear()
       console.log(objectUrl)
       this.gs.getFile(objectUrl).subscribe(downloadedExhibit => {
         const url = URL.createObjectURL(downloadedExhibit)
