@@ -14,7 +14,17 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {AmbientLight, BoxGeometry, Object3D, PerspectiveCamera, Texture, Vector3, VideoTexture} from "three";
+import {
+  AmbientLight,
+  BoxGeometry,
+  Object3D,
+  PerspectiveCamera,
+  Texture,
+  Vector2,
+  Vector3,
+  VideoTexture,
+  Wrapping
+} from "three";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
@@ -139,6 +149,25 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
         this.loader.load( floor_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
           this.scene.add( gltf.scene );
           this.room_uuid.push(gltf.scene.uuid)
+
+          let texture = new THREE.TextureLoader().load("assets/three-d-objects/textures/woodfloor/Wood_Floor_007_COLOR.jpg", (tex) => {
+            //tex.repeat = new Vector2(2, 2);
+            tex.wrapS = THREE.RepeatWrapping;
+            tex.wrapT = THREE.RepeatWrapping;
+            tex.repeat.set(6, 6);
+            //tex.needsUpdate = true;
+            //cube.scale.set(1.0, tex.image.height / tex.image.width, 1.0);
+          });
+          var material = new  THREE.MeshLambertMaterial({
+            map: texture,
+            emissiveIntensity: 0.15,
+            side: THREE.DoubleSide
+          });
+          gltf.scene.traverse(function (node) {
+            if ( node instanceof THREE.Mesh ) {
+              node.material = material
+            }
+          })
         });
       })
 
