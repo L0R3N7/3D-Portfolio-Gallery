@@ -363,7 +363,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
   }
 
   setup = () => {
-    this.camera = new THREE.PerspectiveCamera( 80, this.lookupSize.nativeElement.offsetWidth / this.lookupSize.nativeElement.offsetHeight, 0.1, 1500);
+    this.camera = new THREE.PerspectiveCamera( 50, this.lookupSize.nativeElement.offsetWidth / this.lookupSize.nativeElement.offsetHeight, 0.1, 1500);
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.threeCanvas.nativeElement
     });
