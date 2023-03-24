@@ -670,7 +670,7 @@ clickExhibit(){
           } else {
             this.title = this.data.allExhbits[0].title
             this.desc = this.data.allExhbits[0].description
-            this.checkDataType(this.data.allExhbits[0].exhibit_type, this.data.allExhbits[this.data.allExhbits.length-1].exhibit_url)
+            this.checkDataType(this.data.allExhbits[0].exhibit_type, this.data.allExhbits[0].exhibit_url)
           }
           break;
         }
