@@ -14,7 +14,9 @@
     <ng-container *ngIf="exhibition_list?.length ?? 0 !== 0; else elseExhibitionList">
       <div class="d-flex">
         <div *ngFor="let exhbition of exhibition_list" class="mx-2">
-          <app-exhibition-card [delete]="this.isDeleteMode" (delete)="deleteExhibtionEvent($event)" *ngIf="exhbition" [exhibtion]="exhbition"></app-exhibition-card>
+
+          <app-exhibition-card [delete]="this.isDeleteMode" (delete)="deleteExhibtionEvent($event)" *ngIf="exhbition" [exhibtion]="exhbition" ></app-exhibition-card>
+
         </div>
       </div>
     </ng-container>

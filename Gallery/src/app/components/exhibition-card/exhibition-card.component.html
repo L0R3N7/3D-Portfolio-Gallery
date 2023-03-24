@@ -1,10 +1,10 @@
 
-<ng-container *ngIf="exhibition">
+<ng-container *ngIf="exhibition" >
   <div class="close-wrapper" style="position:relative;">
     <button id="close-button" class="shadow" style="background-color: red; color: white; position: absolute; right: 0; z-index: 2" *ngIf="isDeleteMode" (click)="onDelete()">
       <span>X</span>
     </button>
-    <mat-card class="exhibition-card">
+    <mat-card class="exhibition-card" >
       <img mat-card-image class="card-thumbnail" src="{{thumbnail}}" alt="card-thumbnail">
       <ng-container *ngIf="exhibition.exhibition.categories">
         <mat-chip-list style="position:absolute; transform: translateY(-120%); left: 1%"  class="exhibition-card-custom w-100">
