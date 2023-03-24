@@ -223,8 +223,9 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
 
               console.log("Loading 3d Data")
               this.loader.load(url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
-
+                value.uuid = gltf.scene.uuid; 
                 this.object_uuid_holder.push(gltf.scene.uuid);
+
                 if (this.mode == "view"){
                   this.exArray.push(value)
                 }
