@@ -223,7 +223,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
 
               console.log("Loading 3d Data")
               this.loader.load(url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
-                value.uuid = gltf.scene.uuid; 
+                value.uuid = gltf.scene.uuid;
                 this.object_uuid_holder.push(gltf.scene.uuid);
 
                 if (this.mode == "view"){
@@ -538,10 +538,12 @@ clickExhibit(){
   templateUrl: 'exhibit-dialog.html',
   styleUrls: ['./three-room.component.scss']
 })
-  export class ExhibitDialog implements OnInit, AfterViewInit{
+  export class ExhibitDialog implements OnInit, AfterViewInit, OnDestroy{
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ExhibitDialog>, public gs: GalleryService, private zone: NgZone) {
 
   }
+
+
   //DetailView
   @ViewChild('threeDetailCanvas') threeDetailCanvas!: ElementRef;
   @ViewChild('lookUpSizeDetail') lookUpSizeDetail!: ElementRef;
@@ -556,6 +558,8 @@ clickExhibit(){
   desc?: String
   objectUrl?: String
 
+  isAboutToDestroy = false;
+
 
   index?: number
 
@@ -567,11 +571,12 @@ clickExhibit(){
     this.desc = this.data.description
 
     this.checkDataType(this.data.dataType, this.data.objectUrl)
-
-
-
   }
 
+  ngOnDestroy(): void {
+    this.isAboutToDestroy = true;
+    this.sceneDetail.clear()
+  }
   ngAfterViewInit() {
 
     if(this.fileType == "3d"){
@@ -667,7 +672,9 @@ clickExhibit(){
     console.log(this.fileType)
 
     if(this.fileType == '3d') {
-      requestAnimationFrame(this.animate);
+      if (!this.isAboutToDestroy) {
+        requestAnimationFrame(this.animate);
+      }
       this.controlsDetail?.update();
       this.rendererDetail?.render(this.sceneDetail, this.cameraDetail!)
     }
