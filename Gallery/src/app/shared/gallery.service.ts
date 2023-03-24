@@ -37,7 +37,7 @@ export class GalleryService {
   }
 
   getAllTags(): Observable<Tag[]>{
-    return this.httpClient.get<Tag[]>("assets/fakeendpoints/getAllTags.json");
+    return this.httpClient.get<Tag[]>(`${this.URL}category/all`);
   }
 
   getAllExhibitions(): Observable<ExhibitionUser[]>{

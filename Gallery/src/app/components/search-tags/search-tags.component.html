@@ -11,9 +11,9 @@
   <mat-chip
     class="font-secondary-c"
     *ngFor="let tag of tags"
-    [style.background-color]="'#'.concat(tag.color)"
-    (removed)="remove(tag.title)">
-    {{tag.title}}
+    [style.background-color]="tag.color"
+    (removed)="remove(tag.category_title)">
+    {{tag.category_title}}
     <button matChipRemove>
       <mat-icon>cancel</mat-icon>
     </button>

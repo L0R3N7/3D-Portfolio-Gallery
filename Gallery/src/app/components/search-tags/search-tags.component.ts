@@ -27,7 +27,9 @@ export class SearchTagsComponent implements OnInit {
 
   constructor(public galleryService : GalleryService) {
     galleryService.getAllTags().subscribe((res:Tag[]) => {
-      this.allTagsTitle = res.map(value => {return value.title})
+      console.log("Loaded Tags: ", res)
+
+      this.allTagsTitle = res.map(value => {return value.category_title})
       this.allTags = res;
       if(this.alreadySelectedTagIds){
         console.log("Already went through")
@@ -74,7 +76,7 @@ export class SearchTagsComponent implements OnInit {
   }
 
   remove(fruit: string): void {
-    const index = this.tags.map((value)=>{return value.title}).indexOf(fruit);
+    const index = this.tags.map((value)=>{return value.category_title}).indexOf(fruit);
 
     if (index >= 0) {
       this.tags.splice(index, 1);
@@ -95,9 +97,12 @@ export class SearchTagsComponent implements OnInit {
   }
 
   private _filter(value: string): string[] {
+    console.log("Tag Filter", value)
+
     const filterValue = value.toLowerCase();
 
-    return this.allTags.map(function (value){return value.title}).filter(fruit => fruit.toLowerCase().includes(filterValue));
+    console.log(this.allTags)
+    return this.allTags.map(function (tag){return tag.category_title}).filter(tagTitle => tagTitle.toLowerCase().includes(filterValue));
   }
 
 }

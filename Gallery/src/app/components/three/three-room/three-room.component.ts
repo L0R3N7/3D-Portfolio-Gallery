@@ -115,7 +115,12 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
         this.loader.load( wall_url, (gltf: { scene: THREE.Object3D<THREE.Event>; }) => {
           gltf.scene.scale.y = 350
 
-          var material = new THREE.MeshBasicMaterial({ color: 0xceb8cf})
+          var material = new  THREE.MeshLambertMaterial({
+            color: 0xceb8cf,
+            emissive: 0xceb8cf,
+            emissiveIntensity: 0.15,
+            side: THREE.DoubleSide
+          });
           gltf.scene.traverse(function (node) {
             if ( node instanceof THREE.Mesh ) {
               node.material = material
@@ -184,7 +189,6 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
       }
 
       console.log("Loading 3D Data Url: ", value.exhibit_url)
-      // Todo: has to be changed and cashed somewhere so it mustn't always download new
       this.gs.getFile(value.exhibit_url).subscribe(downloadedExhibit => {
 
         const fileType = this.gs.getFileTypeCategoryByFileType(value.exhibit_type)
@@ -329,7 +333,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
   }
 
   setup = () => {
-    this.camera = new THREE.PerspectiveCamera( 80, this.lookupSize.nativeElement.offsetWidth / this.lookupSize.nativeElement.offsetHeight, 0.1, 1000);
+    this.camera = new THREE.PerspectiveCamera( 80, this.lookupSize.nativeElement.offsetWidth / this.lookupSize.nativeElement.offsetHeight, 0.1, 1500);
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.threeCanvas.nativeElement
     });

@@ -1,11 +1,11 @@
 export class Tag{
   id : number;
-  title : string;
+  category_title : string;
   color : string;
 
-  constructor(id: number, title: string, color: string) {
+  constructor(id: number, category_title: string, color: string) {
     this.id = id;
-    this.title = title;
+    this.category_title = category_title;
     this.color = color;
   }
 }
