@@ -33,7 +33,7 @@ export class GalleryService {
   }
 
   getAllRooms(): Observable<Room[]>{
-    return this.httpClient.get<Room[]>(`${this.URL}rooms/allRoomPositions`);
+    return this.httpClient.get<Room[]>(`${this.URL}rooms/all`);
   }
 
   getAllTags(): Observable<Tag[]>{
