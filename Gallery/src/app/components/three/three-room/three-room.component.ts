@@ -324,7 +324,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
             value.uuid = cube.uuid
             this.object_uuid_holder.push(cube.uuid)
             let cube_size = this.getSize(cube)
-            cube.position.set(x, cube_size.y / 2 + this.camera_height, z)
+            cube.position.set(x, cube_size.y / 2 + this.camera_height / 2, z)
             cube.rotation.set(0, THREE.MathUtils.degToRad(currentPosition?.rotation ?? 0), 0)
             this.scene.add(cube)
 
