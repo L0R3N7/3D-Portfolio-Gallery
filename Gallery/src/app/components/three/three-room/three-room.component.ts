@@ -86,6 +86,8 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
 
   theme_list: Theme[] = []
 
+  camera_height = 100;
+
   constructor(private createService: CreateExhibitionPageService, public dialog: MatDialog, private gs: GalleryService) {
     this.theme_list = gs.getThemeList()
     createService.wizRoom.subscribe(
@@ -321,7 +323,8 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
 
             value.uuid = cube.uuid
             this.object_uuid_holder.push(cube.uuid)
-            cube.position.set(x, 50, z)
+            let cube_size = this.getSize(cube)
+            cube.position.set(x, cube_size.y / 2 + this.camera_height, z)
             cube.rotation.set(0, THREE.MathUtils.degToRad(currentPosition?.rotation ?? 0), 0)
             this.scene.add(cube)
 
@@ -369,7 +372,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
     });
     this.renderer?.setSize( this.lookupSize.nativeElement.offsetWidth, this.lookupSize.nativeElement.offsetHeight );
     this.scene.background = new THREE.Color( 0xf7f8fa )
-    this.camera?.position.set( - 1.8, 100, 2.7 );
+    this.camera?.position.set( - 1.8, this.camera_height, 2.7 );
 
 
     if (this.mode == "create"){
@@ -384,7 +387,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
       this.controls!.mouseDragOn = false;
       this.controls!.autoForward = false
 
-      window.addEventListener( 'pointerdown', (event: PointerEvent) => {
+      this.threeCanvas.nativeElement.addEventListener( 'pointerdown', (event: PointerEvent) => {
         // calculate pointer position in normalized device coordinates
         // (-1 to +1) for both components
         this.pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1
@@ -392,7 +395,7 @@ export class ThreeRoomComponent implements AfterViewInit, OnDestroy, OnInit{
         this.clickExhibit()
       });
 
-      window.addEventListener( 'pointermove', (event: PointerEvent) => {
+      this.threeCanvas.nativeElement.addEventListener( 'pointermove', (event: PointerEvent) => {
         // calculate pointer position in normalized device coordinates
         // (-1 to +1) for both components
         this.pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1
@@ -682,7 +685,7 @@ clickExhibit(){
     if(this.fileType == '3d'){
       this.rendererDetail = new THREE.WebGLRenderer({
         canvas: this.threeDetailCanvas.nativeElement,
-        antialias: true
+        //antialias: true
       });
 
       this.cameraDetail = new THREE.PerspectiveCamera( 100, this.lookUpSizeDetail.nativeElement.offsetWidth / this.lookUpSizeDetail.nativeElement.offsetWidth, 0.1, 1000);
