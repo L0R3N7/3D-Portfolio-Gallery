@@ -52,4 +52,11 @@
   z-index: 2;
 }
 
-
+.mat-checkbox.mat-accent {
+  .mat-checkbox-inner-container {
+    margin: 2px 8px auto 0;
+  }
+}
+.inner-title{
+  padding-right: 10px;
+}

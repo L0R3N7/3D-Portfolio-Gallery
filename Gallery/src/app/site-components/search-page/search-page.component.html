@@ -8,7 +8,7 @@
         <mat-menu #menu="matMenu">
           <ul *ngFor="let c of categories">
           <mat-checkbox #menuItems (click)="$event.stopPropagation(); addCategory(c.id)"  [ngStyle]="{'color': c.color}"
-          ><p>{{c.category_title}}</p></mat-checkbox>
+          ><p class="inner-title">{{c.category_title}}</p></mat-checkbox>
         </ul>
         </mat-menu>
       </span>
