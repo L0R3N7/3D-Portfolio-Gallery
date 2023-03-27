@@ -46,3 +46,9 @@ nav{
 content-wrapper{
   text-align: center;
 }
+
+.font-secondary-c-navbar{
+  color: $c-secondary-font !important;
+  z-index: 999999;
+  position: absolute;
+}

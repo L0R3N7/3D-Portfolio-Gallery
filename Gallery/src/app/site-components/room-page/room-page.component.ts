@@ -14,7 +14,8 @@ import {Exhibition} from "../../shared/class/exhibition";
 
 })
 export class RoomPageComponent implements OnInit {
-  constructor(public navbar: NavbarServiceService, public footer: FooterService, private route: ActivatedRoute, private gs: GalleryService) {}
+  constructor(public navbar: NavbarServiceService, public footer: FooterService, private route: ActivatedRoute, private gs: GalleryService) {
+  }
 
   id?: number;
   private sub: any;
@@ -26,7 +27,7 @@ export class RoomPageComponent implements OnInit {
       this.id = +params['id'];
     })
 
-    this.navbar.white = false;
+    this.navbar.white = true;
     this.navbar.hide()
     this.footer.hide()
 
