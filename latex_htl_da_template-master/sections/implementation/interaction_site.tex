@@ -277,6 +277,8 @@ Geöffnet wird das Dialogfenster über eine eigene openDialog-Funktion. Dabei wi
 
 Wenn sich der*die Benutzer*in in der Detailansicht befindet, soll die Animation im Hintergrund gestoppt werden. Dies erfolgt durch die Methode \emph{cancelAnimationFrame}, wodurch die Animations-Schleife angehalten wird. Um den aktuellen Zeitpunkt zu erhalten, zu dem die Animation gestoppt wird, wird die \emph{requestAnimationFrame} Methode verwendet. Diese wird in der Animations-Schleife aufgerufen und dabei wird der aktuelle Frame der Animation zurück geliefert. Um sich nicht mehr weiter in der Ausstellung fortbewegen zu können, wird die Clock (siehe Clock \ref{Clock}) gestoppt, die für die Three.js Controls benötigt wird. Nachdem der*die Benutzer*in das Dialogfenster wieder schließt, wird die Animations-Schleife und die Clock wieder fortgesetzt. 
 
+Ein Problem ist, dass der Raycast nicht automatisch deaktiviert wird, wenn man sich in der Detailansicht befindet. Das bedeutet, dass es dem*der Benutzer*in weiterhin möglich ist, im Hintergrund weitere Instanzen des Dialogfensters zu öffnen. Dies führt zu einer Duplizierung der Detailansicht. Daher wird anhand einer Boolean-Variable festgestellt, ob das Dialogfenster bereits geöffnet ist, um den Raycast zu deaktivieren. 
+
 \begin{lstlisting}[caption={Öffnen und Schließen des Dialogfensters},language=TypeScript]
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
       //..
