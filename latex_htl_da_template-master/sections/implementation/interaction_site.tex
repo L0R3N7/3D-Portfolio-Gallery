@@ -286,7 +286,6 @@ Ein Problem ist, dass der Raycast nicht automatisch deaktiviert wird, wenn man s
       cancelAnimationFrame(this.animationid!)
       this.clock.stop()
   
-  
       dialogRef.afterClosed().subscribe(r => {
         this.dialogOpen = false
         this.animate()
@@ -295,13 +294,18 @@ Ein Problem ist, dass der Raycast nicht automatisch deaktiviert wird, wenn man s
     }
 \end{lstlisting}
 
-Das Dialogfenster ist eine eigene Angular-Komponente. Im Konstruktor der Komponente werden die Daten des Ausstellungsstückes injiziert, um es anschließend in einer detaillierten Ansicht zu rendern. Dabei werden eigens für die Detailansicht ein neuer Canvas angelegt, eine neue 3D-Szene gerendert und mittels Animations-Schleife neue Orbit-Controls (siehe Controls \ref{controls}) initialisiert. Dadurch kann das 3D-Objekt frei betrachtet werden. Falls beim Konfigurieren der Ausstellung, dem Ausstellungsstück, eine Beschreibung mitgegeben wurde, wird diese in diesem Dialogfenster angezeigt. .
+Das Dialogfenster ist eine eigene Angular-Komponente. Im Konstruktor der Komponente werden die Daten des Ausstellungsstückes injiziert, um es anschließend in einer detaillierten Ansicht zu rendern. Dabei werden eigens für die Detailansicht ein neuer Canvas angelegt, eine neue 3D-Szene gerendert und mittels Animations-Schleife neue Orbit-Controls (siehe Controls \ref{controls}) initialisiert. Dadurch kann das 3D-Objekt frei betrachtet werden. Falls beim Konfigurieren der Ausstellung, dem Ausstellungsstück, eine Beschreibung mitgegeben wurde, wird diese in diesem Dialogfenster angezeigt.
 
   \begin{lstlisting}[caption={Constructor-Injection in der Dialog Komponente},language=TypeScript]
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ExhibitDialog>) {}
 
   \end{lstlisting}
-  
+
+\subsubsection{Navigation}
+Benutzer*innen können ebenfalls direkt in der Detailansicht zwischen den einzelnen Ausstellungsstücken wechseln. Dadurch müssen Benutzer*innen die Detailansicht nicht ständig verlassen, wodurch sich Zeit und Benutzereingaben gespart werden können. Außerdem kann dadurch eine Ausstellung, ähnlich wie bei dem Programm PowerPoint, gut für präsentierende Zwecke genutzt werden. 
+
+
+
 \subsection{Erledigte Userstories [L]}
 In dem Entwicklungsprozess der Interatkionsmethoden wurden folgende Userstories vollendet:
 
