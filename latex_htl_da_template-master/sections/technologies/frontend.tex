@@ -91,7 +91,8 @@ Die Verwendung von ngModules in der 3D-Gallerie-Applikation wird im Abschnitt Ro
 
 
 \subsubsection{Angular Schlüsseltechnologien [L]}
-Angular ist ein hochanpassbares Framework. Bei der Verarbeitung von asynchronen Prozessen und Events kann Angular um die Library RxJS erweitert werden. Bei der Paketierung und beim Update von geändertem Code wird der Entwickler von der Libary Webpack unterstützt. Das Framework besitzt eine umfassende und äußerst umfangreiche Dokumentation im Web.
+Angular ist ein hoch anpassbares Framework. Bei der Verarbeitung von asynchronen Prozessen und Events kann Angular um die Library RxJS erweitert werden. Bei der Paketierung und beim Update von geändertem Code wird der Entwickler von der Libary Webpack unterstützt. 
+
 \setauthor{Litzlbauer Lorenz}
 \paragraph{RxJS [L]}
 \begin{wrapfigure}{r}{0.3\textwidth}
@@ -102,8 +103,8 @@ Angular ist ein hochanpassbares Framework. Bei der Verarbeitung von asynchronen 
 \end{wrapfigure}
 RxJS ist eine Implementierung von ReactiveX für die Programmiersprache Javascript.
 
-ReactiveX ist eine Library für das Erstellen von asynchronen und Event-basierten Programmen, dafür benutzt es \emph{observable sequences}. Ein beobachtetes Subjekt führt eine Liste von den Observern. Bei einer Veränderung im Subjekt werden die Beobachter nach der Reihenfolge der Liste über die Veränderung informiert. (Siehe im Glossar \ref{txt:glos:observerDesignPattern} auf Seite \pageref{txt:glos:observerDesignPattern}).
-Die Library arbeitet so mit dem \emph{Observer-Design-Pattern} und fügt verschiedene neue Operatoren hinzu. Zusätzlich werden Low-Level-Funktionen wie Threading, Synchronisation und Thread-Sicherheit verarbeitet und keine Input-/Output-Prozesse blockiert. \cite{ReactiveXIntro}
+ReactiveX ist eine Library für das Erstellen von asynchronen und eventbasierten Programmen, dafür benutzt es \emph{observable sequences}. Ein beobachtetes Subjekt führt eine Liste von den Observern. Bei einer Veränderung im Subjekt werden die Beobachter nach der Reihenfolge der Liste über die Veränderung informiert. (siehe \ref{txt:glos:observerDesignPattern}).
+Die Library arbeitet mit dem \emph{Observer-Design-Pattern} und fügt verschiedene neue Operatoren hinzu. Zusätzlich werden Low-Level-Funktionen wie Threading, Synchronisation und Thread-Sicherheit verarbeitet und keine Input-/Output-Prozesse blockiert. \cite{ReactiveXIntro}
 
 \paragraph{Webpack [L]}
 \begin{wrapfigure}{r}{0.3\textwidth}
@@ -116,31 +117,29 @@ Die Hauptfunktion von Webpack ist es, viele verschiedene Daten zu einem Paket f�
 Angular benutzt Webpack, um TypeScript in JavaScript und SASS bzw. SCSS in CSS umzuwandeln. Beim Bauen des Projektes werden alle Module in ein einziges zusammengefasst. Bei der Entwicklung der Applikation wird durch Webpack \emph{Live-Reloading} unterstützt. Dabei wird bei einer Änderung im Code die gesamte Applikation aktualisiert und neu gestartet. \cite{Webpack}
 
 \subsection{User-Interface-Frameworks (UI-Frameworks) [L]}
-Ein User-Interface-Framework ist eine Ansammlung von Web Komponenten wie z.B. eine Navigationsleiste die sofort im Projekt nutzbar ist.
+Ein User-Interface-Framework ist eine Ansammlung von Web Komponenten wie beispielsweise einer Navigationsleiste, die sofort im Projekt nutzbar ist. \cite{CssFrameworkExplaination}
 
 
-Die Vorteile von UI-Frameworks sind:\cite{CssFrameworkExplaination, BestCSSFrameworksin2022}
+Die Vorteile von UI-Frameworks sind:
 \begin{compactitem}
-    \item vereinfacht und beschleunigt den Entwicklungsprozess;
-    typische Web-Komponenten sind vordefinierte, der Entwickler muss diese nicht mehr implementieren und erspart sich Zeit.
-    \item Cross-Browser Unterstützung;
-    Besonders bei neuen CSS-Feature kann es sein, dass diese noch nicht von allen Browsern unterstützt werden. Ein UI-Framework benutzt in der Regel nur Funktionen, die auch alle Browser anzeigen können.
-    \item Der Code hat eine bessere Lesbarkeit;
-    In einem UI-Framework gibt es gewisse Konventionen wie Klassennamen, die befolgt werden müssen. Dadurch wird der Code besser lesbar.
+    \item Sie vereinfachen und beschleunigen den Entwicklungsprozess. Typische Web-Komponenten Web-Komponenten sind vordefinierte, der Entwickler muss diese nicht mehr implementieren und erspart sich Zeit. \cite{BestCSSFrameworksin2022}
+    \item Sie achten bei den Komponenten und Styling-Features darauf, dass diese auch auf allen Internet-Browser angezeigt werden können.
+    Besonders bei neuen CSS-Feature kann es sein, dass diese noch nicht von allen Browsern unterstützt werden. Ein UI-Framework benutzt in der Regel nur Funktionen, die auch alle Browser anzeigen können. \cite{CssFrameworkExplaination}
+    \item Der Code hat eine bessere Lesbarkeit.
+    In einem UI-Framework gibt es gewisse Konventionen wie Klassennamen, die befolgt werden müssen. Dadurch wird der Code besser lesbar. \cite{CssFrameworkExplaination}
 \end{compactitem}
 
 
-Die Nachteile von UI-Frameworks sind: \cite{CssFrameworkExplaination, BestCSSFrameworksin2022}
+Die Nachteile von UI-Frameworks sind: 
 \begin{compactitem}
     \item Die Ladezeit der Webseite erhöht sich;
     Schließlich müssen auch mehr Daten an den Browser geschickt werden.
-    \item Webseiten, die das selbe UI-Framework verwenden, schauen einander ähnlich aus;
-    Da die Web-Komponenten gleich implementiert werden.
+    \item Webseiten, die das selbe UI-Framework verwenden, weisen visuelle Ähnlichkeiten auf, da die Web-Komponenten gleich nach einem Style-Guide implementiert wurden
 \end{compactitem}
 
 
 \subsection{UI-Frameworks im Projekt [L]}
-Im Projekt werden die beiden UI-Frameworks, Bootstrap und AngularMaterials verwendet.
+Im Projekt werden die beiden UI-Frameworks, \emph{Bootstrap} und \emph{AngularMaterials} verwendet.
 
 
 \subsubsection{Angular Material [L]}
@@ -150,17 +149,17 @@ Im Projekt werden die beiden UI-Frameworks, Bootstrap und AngularMaterials verwe
    \caption{Angular Material UI Logo}
   \end{center}
 \end{wrapfigure}
-Angular Material ist eine UI Framework und wird seit 2014 von Google entwickelt. Das Framework baut auf Angular auf und erweitert es mit eigenen Komponenten, Styleguides, Typographie und vielem mehr. Die Design-Sprache orientiert sich dabei an der \emph{Material Design Spezifikation} von Google. Ein großer Fokus des Frameworks ist die Responsiveness, Komponenten werden auf verschiedenen Auflösungen gut aussehen. \cite{JavaPointAngularMaterial, WhatAngularMaterial}
+\emph{Angular Material} ist eine UI Framework und wird seit 2014 von Google entwickelt. Das Framework baut auf Angular auf und erweitert es mit eigenen Komponenten, Styleguides, Typographie und vielem mehr. Die Design-Sprache orientiert sich dabei an der \emph{Material Design Spezifikation} von Google. Ein großer Fokus des Frameworks liegt in der Responsivität. \cite{JavaPointAngularMaterial, WhatAngularMaterial}
 
 
-Angular Material hat folgende Features: \cite{JavaPointAngularMaterial, WhatAngularMaterial}
+\emph{Angular Material} bietet folgende Features: \cite{JavaPointAngularMaterial, WhatAngularMaterial}
 \begin{compactitem}
     \item Erweiterbar; Bei der Installation lassen sich viele Designanpassungen machen, zusätzlich lassen sich Styles mit dem globalen Stylesheet überschreiben. 
     \item Hochwertig; Die Komponenten sind erprobt und wurden auf die Performanz und Verlässlichkeit getestet.
     \item Reibungslos; Angular Material ist gut mit Angular integriert
 \end{compactitem}
 
-Angular Material bietet eine hohe Anzahl an sofort einsetzbaren Komponente. Zu allen diesen Komponenten gibt es auf der offizielle Webseite eine ausführliche Dokumentation mit Beispiele. \cite{JavaPointAngularMaterial, WhatAngularMaterial}
+Angular Material bietet eine hohe Anzahl an sofort einsetzbaren Komponenten. Zu allen diesen Komponenten gibt es auf der offiziellen Webseite eine ausführliche Dokumentation mit Beispielen. \cite{JavaPointAngularMaterial, WhatAngularMaterial}
 
 \paragraph{Material Design Spezifikation [L]}
 Material Design ist ein Styleguide der von der Firma Google entwickelt wurde. Er soll dabei helfen qualitative hochwertige digitale Produkte für Android, iOS, Flutter und das Web zu gestalten.
