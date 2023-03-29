@@ -1,7 +1,7 @@
 \section{Fertige Landingpage [L][M]}
-Die Landingpage (siehe Abbildung \ref{fig:impl:finishedLandingpage}) repräsentiert das Projekt, denn es ist das erste, was ein neuer Benutzer*in von der Webanwendung zu sehen bekommt. Es war wichtig, ein modernes Design dafür zu entwickeln.
+Die Landingpage (siehe Abbildung \ref{fig:impl:finishedLandingpage}) repräsentiert das Projekt, denn es ist das erste, was die jeweiligen Benutzer*innen von der Webanwendung zu sehen bekommt. Es war wichtig, ein modernes Design dafür zu entwickeln.
 
-Wichtige Punkte, die bei der Landingpage beachtet werden, ist die Hierarchie der Elemente. Zuerst gibt es eine Einleitung, um das Projekt zu erklären, danach erscheint ein großer Button, der dazu einlädt, das Produkt zu verwenden. Er verlinkt zu der Anmeldung. Danach kommt eine Auswahl aus den neuesten erstellten Ausstellungen. Damit kann sich der User gleich ein Bild vom Projekt machen.
+Durch eine logische Hierarchie soll der*die Benutzer*in gezielt durch die Anwendung geleitet werden. Zuerst gibt es eine Einleitung, um das Projekt zu erklären, danach erscheint ein großer Button, der dazu einlädt, das Produkt zu verwenden. Er verlinkt zu der Anmeldung. Danach kommt eine Auswahl aus den neuesten erstellten Ausstellungen. Damit kann sich der*die Benutzer*in einen Eindruck der möglichen Endergebnis machen.
 
 \begin{figure}[h t]
     \centering
@@ -10,7 +10,7 @@ Wichtige Punkte, die bei der Landingpage beachtet werden, ist die Hierarchie der
     \label{fig:impl:finishedLandingpage}
 \end{figure}
 
-Um zwischen den verschiedenen Unterseiten der Webseite zu wechseln, wurde am oberen Bildschirmrand zusätzlich eine Navigationsleiste implementiert. Diese sogenannte Navbar besitzt je nach Unterseite verschiedene Designs. Diese ermöglicht ein angenehmes Navigieren auf jeder Seite (Siehe Routing \ref{lst:impl:routing}). Ebenfalls muss auch der Footer auf jeder Unterseite passend angezeigt werden. Um das Design der Navbar und Footer auf jeder Seite individuell zu gestalten, wird ein Service jeweils in die entsprechende Komponente injiziert. Dadurch kann die Konfiguration am Design mit wenig Programmcode und Redundanz vorgenommen werden.
+Um zwischen den verschiedenen Unterseiten der Webseite zu wechseln, wurde am oberen Bildschirmrand zusätzlich eine Navigationsleiste implementiert. Diese sogenannte Navbar besitzt je nach Unterseite verschiedene Designs. Diese ermöglicht ein angenehmes Navigieren auf jeder Seite (siehe \ref{lst:impl:routing}). Auch der Footer muss auf jeder Unterseite passend angezeigt werden. Um das Design von Navbar und Footer auf jeder Seite individuell zu gestalten, wird jeweils ein Service  in die entsprechende Komponente injiziert. Dadurch kann die Konfiguration am Design mit wenig Programmcode und Redundanz vorgenommen werden.
 
 \subsection{Erledigte Userstories [L]}
 \label{Finished Landingpage}

@@ -1,18 +1,18 @@
 \subsection{Angular Services [M]}
 
-Um eine Schnittstelle zwischen dem Backend und dem Frontend herzustellen, werden Angular Services verwendet.
+Um eine Schnittstelle zwischen dem Backend und dem Frontend herzustellen, werden \emph{Angular Services} verwendet.
 
 \subsubsection{Allgemein}
-Ein Service in Angular ist eine TypeScript-Klasse, die verwendet wird, um Logik auszulagern, die von der gesamten Applikation verwendet werden kann. Services werden meist dann erstellt, wenn eine einfache Logik oft von verschiedenen Komponenten benötigt wird. Um die globale Verwendung zu realisieren, wird das Konzept der Dependency Injection verwendet. \cite{AngularBuch} \cite{AngularArchitectureService}
+In Angular entspricht ein Service einer TypeScript-Klasse, die verwendet wird, um Logik auszulagern, die von der gesamten Applikation verwendet werden kann. Services werden meist dann erstellt, wenn eine einfache Logik oft von verschiedenen Komponenten benötigt wird. Um die globale Verwendung zu realisieren, wird das Konzept der \emph{Dependency Injection} verwendet. \cite{AngularBuch} \cite{AngularArchitectureService}
 
 \subsubsection{Dependency Injection}
 \label{DPI}
-In Angular ist es möglich, einen Service in eine beliebige Komponente zu injizieren. Das bedeutet, ein Service wird anhand von @Injectable() definiert und dadurch kann dieser von anderen Komponenten verwendet werden \cite{AngularBuch}:
+In Angular ist es möglich, einen Service in eine beliebige Komponente zu injizieren. Das bedeutet, ein Service wird anhand von @Injectable() definiert und kann dadurch von anderen Komponenten verwendet werden \cite{AngularBuch}:
 
 \begin{lstlisting}[caption={Eine Klasse Injectable machen},  language=TypeScript,label=lst:impl:injectable]   
     
  @Injectable({
- providedIn: 'root'
+  providedIn: 'root'
  })
   export class GalleryService{
     ..
@@ -20,20 +20,19 @@ In Angular ist es möglich, einen Service in eine beliebige Komponente zu injizi
    
 \end{lstlisting}
 
-Auch wird ein Provider mit angegeben. Dieser sorgt dafür, dass sich Services entweder nur in spezifische Komponenten injizieren lassen oder sich wie hier auf root-level, also überall injizieren lassen. \cite{AngularBuch}
+Die Codezeile "providedIn: 'root'" sorgt dafür, dass sich Services entweder nur in spezifische Komponenten injizieren lassen oder sich wie hier auf root-level, also überall, injizieren lassen. \cite{AngularBuch}
 
 Ein Service wird zur Verwendung im Konstruktor einer Komponente initialisiert (Constructor Injection): 
 
 \begin{lstlisting}[caption={Constructor Injection},  language=TypeScript,label=lst:impl:concstructorinjection]   
     constructor(private gs: GalleryService) { }
 \end{lstlisting}
-Anschließend können die Methoden und Daten eines Service ganz normal verwendet werden
+Anschließend können die Methoden und Daten eines Service ganz normal verwendet werden.
 
 \subsubsection{HTTP Module}
-//TODO clear
 \label{httpService}
 \label{sec:HTTPModule}
-Um mit dem Backend über das HTTP-Protokoll kommunizieren zu können, wird eine HTTP-API (siehe API \ref{txt:glos:API}) namens HttpClient verwendet. Zunächst muss das HttpClientModule im ngModule importiert werden, um den HttpClient als Dependency zu injizieren. Injiziert wird er über den Konstruktor in einem Service. Um eine Transaktion am Frontend durchzuführen, werden Observables verwendet. Dies ermöglicht den einzelnen Komponenten, die einen Service mit HTTP-Abfragen injiziert haben, diese Abfragen mittels einem Subscribe zu nutzen. Eine HTTP-Abfrage mit dem HTTP-Client wird wie folgt aufgerufen \cite{AngularBuch} \cite{AngularHTTPClient}:
+Um mit dem Backend über das HTTP-Protokoll kommunizieren zu können, wird eine HTTP-API (siehe \ref{txt:glos:API}) namens \emph{HttpClient} verwendet. Zunächst muss das \emph{HttpClientModule} im \emph{ngModule} importiert werden, um den \emph{HttpClient}  als Dependency zu injizieren. Injiziert wird er über den Konstruktor in einem Service. Um eine Transaktion am Frontend durchzuführen, werden Observables verwendet. Dies ermöglicht den einzelnen Komponenten, die einen Service mit HTTP-Abfragen injiziert haben, diese Abfragen mittels einem \emph{Subscribe} zu nutzen. Ein \emph{Subscribe} ist ein Operator von \emph{RxJS} (siehe \ref{RxJS}). Eine HTTP-Abfrage mit dem \emph{HttpClient} wird wie folgt aufgerufen \cite{AngularBuch} \cite{AngularHTTPClient}:
 
 \begin{lstlisting}[caption={HttpClient Abfragen},  language=TypeScript,label=lst:impl:httpclientrequests]   
     URL = "http://localhost:8080/api/"
@@ -44,11 +43,11 @@ Um mit dem Backend über das HTTP-Protokoll kommunizieren zu können, wird eine 
     
 \end{lstlisting}
 
-Wie anhand des oberen Code-Beispiels erkennbar ist wird hier das Room-Interface benutzt.
+Wie anhand des oberen Code-Beispiels erkennbar ist, wird hier das von uns erstellte Room-Interface benutzt.
 
 \subsubsection{Interface [M]}
 \label{interface}
-Interfaces werden verwendet, um typsicher ein Objekt zu strukturieren. Dabei wird, um Daten des Servers korrekt erhalten zu können, eine bestimmte Entität der Datenbank verglichen und durch die richtige Benennung und Datentyp im Frontend abgebildet. Üblicherweise wird ein solches Datenobjekt exportiert, um es in der ganzen Anwendung zu verwenden. Folgendes Beispiel demonstriert dieses Konzept anhand des Exhibit-Interfaces \cite{AngularBuch}: 
+Interfaces werden verwendet, um ein Objekt typsicher zu strukturieren. Dabei wird, um Daten des Servers korrekt erhalten zu können, eine bestimmte Entität der Datenbank verglichen und durch die richtige Benennung und der korrekte Datentyp im Frontend abgebildet. Üblicherweise wird ein solches Datenobjekt exportiert, um es in der ganzen Anwendung zu verwenden. Folgendes Beispiel demonstriert dieses Konzept anhand des Exhibit-Interfaces \cite{AngularBuch}: 
 
 \begin{lstlisting}[caption={Das Datenmodell eines Ausstelungsstückes},  language=TypeScript,label=lst:impl:httpclientrequests]   
   

@@ -9,7 +9,7 @@ Durch die vielen Prototypen war es möglich schnell Ideen auszutesten, von den u
 Der Web-Gallery-Prototyp ist mithilfe eines evolutionären Prototypen (siehe im Glossar \ref{ch::ongoing-prototyping} Seite \pageref{ch::ongoing-prototyping}) entwickelt worden.
 
 
-Anfangs wurde so die Machbarkeit des Projekts mit einer Umsetzbarkeitsanalyse, bei der der Prototyp eine große Rolle spielte, getestet. Im Prototyp wurde überprüft, ob die Technologien, auf die der Prototyp aufbaute, auch die Anforderungen erfüllen konnten. Dabei wurde herausgefunden, dass die Technologie AngularThree nicht für die Verwendung im Projekt geeignet war. Es wurde sich für eine andere 3D-Web-API ThreeJs entschieden. (siehe Seite \pageref{ch:Technologien:AngularThree} Angular Three)
+Anfangs wurde so die Machbarkeit des Projekts mit einer Umsetzbarkeitsanalyse, bei der der Prototyp eine große Rolle spielte, getestet. Im Prototyp wurde überprüft, ob die Technologien, auf die der Prototyp aufbaute, auch die Anforderungen erfüllen konnten. Dabei wurde herausgefunden, dass die Technologie AngularThree nicht für die Verwendung im Projekt geeignet war. Es wurde sich für eine andere 3D-Web-API ThreeJS entschieden. (siehe Seite \pageref{ch:Technologien:AngularThree} Angular Three)
 
 
 Da dieses Erkenntnis schon früh in dem Entwicklungsprozess gemacht wurde, enstand mit der Änderung der 3D-Web-API im Prototypen nur wenig zusätzlicher Programmieraufwand.
@@ -19,7 +19,7 @@ In diesem Abschnitt wird erklärt, auf welche Weise die 3D-Ausstellung in der We
 
 \subsubsection{Modellierung der 3D-Räume in Cinema 4D [M]}
 \setauthor{Fabian Maar}
-Bevor mit der Implementierung des Ausstellungsraumes in der Webapplikation begonnen werden kann, muss das 3 D-Modell des Raumes zunächst in Cinema4D modelliert werden. Zu Beginn wird der Grundriss des Raumes gezeichnet. Dies erfolgt durch das Spline-Werkzeug. Hierbei werden 2D-Linien im dreidimensionalen Raum erstellt. Anschließend wird ein Würfel erstellt, der die Höhe und Breite der Wand besitzt. Da Cinema 4D die Modelle in Zentimeter misst, können diese in realitätsnahen Proportionen modelliert werden. Um den 2D-Grundriss nun als dreidimensionale Wände abzubilden, werden die gezeichneten Splines mit der Form des Würfels als Sweep extrudiert. Das bedeutet, eine 2D-Form wird als schlauchförmiges 3D-Objekt mit den Werten des Würfels erstellt. Nach diesem Vorgang kann schlussendlich der Boden des Raumes hinzugefügt werden. Dazu wird eine Platte in Form des Grundrisses erstellt. 
+Bevor mit der Implementierung des Ausstellungsraumes in der Webapplikation begonnen werden kann, muss das 3D-Modell des Raumes zunächst in Cinema4D modelliert werden. Zu Beginn wird der Grundriss des Raumes gezeichnet. Dies erfolgt durch das Spline-Werkzeug. Hierbei werden 2D-Linien im dreidimensionalen Raum erstellt. Anschließend wird ein Würfel generiert, der die Höhe und Breite der Wand besitzt. Da Cinema 4D die Modelle in Zentimeter misst, können diese in realitätsnahen Proportionen modelliert werden. Um den 2D-Grundriss nun als dreidimensionale Wände darzustellen, werden die gezeichneten Splines mit der Form des Würfels als Sweep extrudiert. Das bedeutet, eine 2D-Form wird als schlauchförmiges 3D-Objekt mit den Werten des Würfels erstellt. Nach diesem Vorgang kann schlussendlich der Boden des Raumes hinzugefügt werden. Dazu wird eine Platte in Form des Grundrisses erstellt. 
 
 \begin{figure} [h t]
     \centering
@@ -32,15 +32,15 @@ Bevor mit der Implementierung des Ausstellungsraumes in der Webapplikation begon
 Um 3D-Modelle, wie den Ausstellungsraum anzeigen zu können, wird der hochkomplexe Prozess des Renderings benötigt. Dabei wird das 3D-Modell zu einem realistischen 2D-Bild gerendert. 
 \cite{AdobeRendering} \cite{Rendering3DModels}
 
-\subsubsection{Der Prozess des Renderings}
-Hinter dem Rendering stecken verschiedene Algorithmen, die ein solches 3D Modell anzeigen lassen. Verschiedene Werte und Daten werden zur Berechnung benötigt, welche die Qualität und die Geschwindigkeit des Prozesses unterschiedlich beeinflussen:
+\subsubsection{Der Prozess des Renderns}
+Hinter dem Renderprozess stecken verschiedene automatische Prozesse die aus vorliegenden Werten und Daten ein fertiges 3D-Bild berechnen. Die dahinterstehenden Render-Vorgaben beeinflussen die Qualität und die Geschwindigkeit des Prozesses unterschiedlich - beispielsweise:
 
 \begin{itemize}
-    \item das 3D-Objekt und wie realistisch es dargestellt werden soll
+    \item die Komplexität des 3D-Objektes und die gewünschte Realitätsnähe
     \item die Art des Renderns
-    \item die Lichtquellen und die entstehenden Schatten; wird Behandel im Kapitel Lichtsetzung \ref{lichtsetzung}
-    \item die Kameraposition und Renderbereich (Clipping)
-    \item der Anti-aliasing Prozess
+    \item die Lichtquellen und die entstehenden Schatten (siehe \ref{lichtsetzung})
+    \item die Kameraposition und der Renderbereich (Clipping)
+    \item der Anti-Aliasing Prozess
     \item die Art des Render-Algorithmuses
     \item weitere atmosphärische Effekte 
     
@@ -49,24 +49,25 @@ Hinter dem Rendering stecken verschiedene Algorithmen, die ein solches 3D Modell
 \cite{Rendering3DModels}
 
 \subsubsection{3D-Modelle}
-3D-Modelle besitzen verschiedene Eigenschaften, wie zum Beispiel ihre Textur, Farbe oder ihre Fähigkeit Licht zu reflektieren, die beim Rendern berücksichtigt werden müssen. Die 3D-Daten des Modells werden ermittelt und dabei in Pixelinformationen umgewandelt. Diese werden durch die Ermittlung der Koordinaten des Objektes an bestimmten Positionen abgebildet. \cite{Rendering3DModels}
+3D-Modelle besitzen verschiedene Eigenschaften, wie zum Beispiel Textur, Farbe oder die Fähigkeit Licht zu reflektieren. All dies muss beim Rendern berücksichtigt werden. Die 3D-Daten des Modells werden ermittelt und dabei in Pixelinformationen umgewandelt und durch die Ermittlung der Positionierungskoordinaten korrekt platziert.\cite{Rendering3DModels}
 
 \subsubsection{Arten des Renderns}
 Beim Rendern wird zwischen folgenden Arten unterscheiden:
 
 \begin{itemize}
-    \item Offline-Rendering - Das Offline-Rendering rendert über einen längeren Zeitraum in hoher und realistischer Qualität. Diese Art kommt zum Beispiel bei Filmen zum Einsatz. 
-    \item Echtzeit-Rendering - Beim Echtzeit-Rendering wird ein 3D-Modell in kürzester Zeit gerendert. Diese Art kommt zum Beispiel bei Videospielen oder im 3D-Gallery zum Einsatz. Hierbei werden meist 24 Bilder pro Sekunde gerendert, um Bewegungen flüssig wahrzunehmen. 
+    \item Offline-Rendering - Das Offline-Rendering rendert über einen längeren Zeitraum in hoher und realistischer Qualität. Diese Art kommt zum Beispiel bei Filmen zum Einsatz. \cite{RenderArten}
+    \item Echtzeit-Rendering - Beim Echtzeit-Rendering wird ein 3D-Modell in kürzester Zeit gerendert. Diese Art kommt zum Beispiel bei Videospielen oder in der aktuellen 3D-Gallery zum Einsatz. Hierbei werden meist 25-30 Bilder pro Sekunde gerendert, um Bewegungen flüssig wahrzunehmen. \cite{RenderArten}
 \end{itemize}
-\cite{RenderArten}
+
 
 \subsubsection{Clipping}
 \label{clipping}
-Beim Clipping werden Ebenen zur Begrenzung des Bereichs, den es zu rendern gilt, erstellt. Diese Ebenen werden durch die Weltkoordinaten positioniert. Die seitlichen sowie die unteren und oberen Clipping-Ebenen werden durch die Kameraposition und die Fensterposition definiert. Auch gibt es das Far- und Near-Clipping, wodurch zum einen die Tiefe des 3D-Modells begrenzt wird. Zum anderen werden unerwünschte Objekte, die im Hintergrund liegen, ebenfalls nicht gerendert. \cite{Rendering3DModels}
+Beim Clipping werden Ebenen zur Begrenzung des Bereichs, den es zu rendern gilt, erstellt. Diese Ebenen werden durch die Weltkoordinaten positioniert. Die seitlichen sowie unteren und oberen Clipping-Ebenen werden durch die Kameraposition und die Fensterposition definiert. Auch gibt es das Far- und Near-Clipping, wodurch die Tiefe des 3D-Modells begrenzt wird. Gleichzeitig werden unerwünschte Objekte, die im Hintergrund liegen, nicht gerendert. \cite{Rendering3DModels}
 
 
 \subsubsection{Anti-Aliasing}
-Beim Anti-Aliasing Prozess wird versucht, den auftretenden Aliasing-Effekt zu reduzieren und zu entfernen. Der Aliasing-Effekt tritt auf, wenn die Pixel zu grob für feine Strukturen und Muster sind. Der Effekt ist besonders stark, wenn diese Muster nicht senkrecht sind. Dieser Aliasing-Effekt wirkt sich auf das 3-Modell aus, in dem Zacken an Polygon-Kanten entstehen, ein Moiré-Effekt auftritt ( siehe Abbildung \ref{fig:impl:MoireEffekt}) Verweis oder generell unerwünschte Muster auftreten.\cite{Rendering3DModels} 
+Beim Anti-Aliasing Prozess wird versucht, den auftretenden Aliasing-Effekt zu reduzieren und zu entfernen. Dieser tritt auf, wenn die Pixel zu grob für feine Strukturen und Muster sind. Der Effekt ist besonders stark, wenn diese Muster nicht senkrecht sind. Dies wirkt sich unmittelbar auf das 3D-Modell aus: es entstehen Zacken an den Polygon-Kanten, oder es treten unerwünschte Effekte wie beispielsweise der Moiré Effekt (siehe Abbildung \ref{fig:impl:MoireEffekt}) auf. 
+\cite{Rendering3DModels} 
 \begin{figure}
     \centering
     \includegraphics[scale=0.3]{pics/moire-effekt.jpg}
@@ -83,10 +84,10 @@ Beim Anti-Aliasing Prozess wird versucht, den auftretenden Aliasing-Effekt zu re
 
 \subsubsection{Verschiedene Render-Algorithmen [M]}
 \subsubsection{Rasterization}
-Über den Bildschirm wird ein Raster aus meistens Dreiecken gespannt, da diese am einfachsten zu berechnen sind. In den Ecken der Dreiecke, auch genannt Scheitelpunkte, sind die Informationen enthalten, die zur Darstellung eines 3D-Objektes in 2D benötigt werden. Dieser Prozess wird für Echtzeit-Rendering genutzt. Er ist zwar rechenintensiv, jedoch nicht so intensiv wie beim Ray-Tracing. \cite{RayTracingRasterization}
+Über den Bildschirm wird ein Raster aus Polygon-Formen gespannt. Dabei werden meistens Dreiecke verwendet, da diese am einfachsten zu berechnen sind. In den Ecken der Dreiecke, den sogenannt Scheitelpunkte, sind die Informationen enthalten, die zur Darstellung eines 3D-Objektes in 2D benötigt werden. Dieser Prozess wird für das Echtzeit-Rendering genutzt. \cite{RayTracingRasterization}
 
 \subsubsection{Wire-Frame}
-Bei einem Wire-Frame wird ein 3D-Modell erstellt, in dem der Algorithmus versucht, lineare Merkmale wie Kanten oder Konturlinien zu verfolgen. Dabei werden auch verdeckte oder nicht-sichtbare Teile inkludiert. 
+Bei einem Wire-Frame wird ein 3D-Modell erstellt, in dem der Algorithmus versucht, lineare Merkmale wie Kanten oder Konturlinien zu verfolgen. Dabei werden auch verdeckte oder nicht sichtbare Teile inkludiert. 
 \cite{Rendering3DModels} 
 
 \subsubsection{Visible Line}
@@ -95,11 +96,11 @@ Dieser Vorgang funktioniert ähnlich wie ein Wire-Frame, nur dass hierbei nur Li
 
 \subsubsection{Raycasting}
 \label{impl:rend:raycasting}
-Beim Raycasting wird ermittelt, welches 3D-Objekt zuerst von einem Ray getroffen wird. Ein Ray ist ein Strahl, der von der Position der Kamera ausgeht. Für jedes Pixel wird ein Ray durch den dreidimensionalen Raum geschickt. Dadurch können die Schnittpunkte der Objekte und der Rays ermittelt werden. Dabei werden alle Objekte mit einem sichtbaren Schnittpunkt angezeigt und die Fläche normal dazu bestimmt die Schattierung. Dieser Prozess wird im Kapitel \ref{impl:int:raycasting} näher erklärt und angewandt.
+Beim \emph{Raycasting} wird ermittelt, welches 3D-Objekt zuerst von einem sogenannten \emph{Ray} getroffen wird. Ein Ray ist ein Strahl, der von der Position der Kamera ausgeht. Für jedes Pixel wird ein \emph{Ray} durch den dreidimensionalen Raum geschickt. Dadurch können die Schnittpunkte der Objekte und der Rays ermittelt werden. Dabei werden alle Objekte mit einem sichtbaren Schnittpunkt angezeigt. Die Fläche normal dazu bestimmt die Schattierung. Dieser Prozess wird in \ref{impl:int:raycasting} näher erläutert.
 \cite{Rendering3DModels} 
 
-\subsubsection{Ray-Tracing}
-Der Ray-Tracing Prozess funktioniert ähnlich wie der Prozess des Raycastings. Beim Ray-Tracing werden jedoch auch verschiedene Oberflächen und Lichtquellen berücksichtigt. Dies funktioniert, indem ein Ray vom Algorithmus mitverfolgt wird. Dabei ist es möglich, zu erkennen ob ein Ray:
+\subsubsection{Raytracing}
+Der \emph{Raytracing} Prozess funktioniert ähnlich wie der Prozess des \emph{Raycastings}. Zusätzlich werden hierbei jedoch auch verschiedene Oberflächen und Lichtquellen berücksichtigt. Dies funktioniert, indem ein \emph{Ray} vom Algorithmus mitverfolgt wird. Dabei ist es möglich, zu erkennen ob ein \emph{Ray}:
 \begin{itemize}
     \item durch eine lichtdurchlässige Oberfläche durchdringt
     \item von einem reflektierenden Objekt reflektiert wird
@@ -110,7 +111,7 @@ Der Ray-Tracing Prozess funktioniert ähnlich wie der Prozess des Raycastings. B
 \begin{figure} [h]
     \centering
     \includegraphics[scale=0.3]{pics/ray-tracing.jpg}
-    \caption{Vorgang des Ray-Tracing \cite{RayTracingRasterization}}
+    \caption{Vorgang des Raytracing \cite{RayTracingRasterization}}
     \label{fig:impl:ray-tracing}
 \end{figure}
 
@@ -121,11 +122,11 @@ Für das Rendern der 3D-Gallery wird der in Three.js inkludierte Renderer von We
 \begin{lstlisting}[caption={Canvas-Element in HTML},language=HTML,label=lst:impl:canvas]
     <canvas #threeCanvas style="width: 100%;  height: 100%" (window:resize)="onResize($event)"></canvas>
 \end{lstlisting}
-Dabei wird dieses DOM-Element als Angular-View-Child initialisiert. Dadurch können Änderungen am Dom erkannt und das betroffene Element neu definiert werden. \cite{AngularViewChild}
+Dabei wird dieses DOM-Element als Angular-View-Child initialisiert. Dadurch können Änderungen am DOM erkannt und das betroffene Element neu definiert werden. \cite{AngularViewChild}
 \begin{lstlisting}[caption={Canvas als View-Child initialisieren},language=TypeScript,label=lst:impl:viewchild]
     @ViewChild('threeCanvas') threeCanvas!: ElementRef;
 \end{lstlisting}
-Anschließend wird ein neuer WebGLRenderer angelegt, dem der Canvas zugewiesen wird. Falls noch kein Canvas besteht, wird automatisch ein neuer erstellt. \cite{ThreejsWebGLRenderer}
+Anschließend wird ein neuer WebGL-Renderer angelegt, dem der Canvas zugewiesen wird. Falls noch kein Canvas besteht, wird dieser automatisch neu erstellt. \cite{ThreejsWebGLRenderer}
 \begin{lstlisting}[caption={WebGlRenderer anlegen},language=TypeScript,label=lst:impl:WebGlRenderer]
     this.renderer = new THREE.WebGLRenderer({
         canvas: this.threeCanvas.nativeElement
@@ -139,19 +140,19 @@ Um die Render-Funktion des Renderers als Echtzeit-Rendering anzuwenden, wird ein
     }  
 \end{lstlisting}
 
-\subsection{Lichtsetzung}
+\subsection{Lichtsetzung [M]}
 \label{lichtsetzung}
-Das Licht ist das 2. Wichtig, denn ohne würden die gerenderten Objekte im Dunklen stehen. Um dies zu ändern, wird eine Lichtquelle installiert, um einen bestimmten Bereich der Szene zu erhellen. Dabei können ebenfalls unterschiedliche Optionen konfiguriert werden, um die Szene so realistisch wie möglich aussehen zu lassen. Das Licht wird jedoch nicht nur von der Lichtquelle beeinflusst, sondern auch von dem Objekt, das beleuchtet wird. Material und Oberfläche eines Objektes reagieren unterschiedlich auf den Einfall des Lichtes, wodurch zum Beispiel die Lichtreflektion stärker ausfällt. Dieses Konzept wird auch Global Illumination genannt. Three.js bietet eine Vielzahl von Lichtarten und Quellen:
+Um die Szene zu aufzuhellen müssen Lichtquellen angelegt werden. Dabei können ebenfalls unterschiedliche Optionen konfiguriert werden, um die Szene so realistisch wie möglich aussehen zu lassen. Das Licht wird jedoch nicht nur von der Lichtquelle beeinflusst, sondern auch von dem Objekt, das beleuchtet wird. Material und Oberfläche eines Objektes reagieren unterschiedlich auf den Einfall des Lichtes, wodurch zum Beispiel die Lichtreflektion stärker ausfällt. Dieses Konzept wird auch Global Illumination genannt. Three.js bietet eine Vielzahl von Lichtarten und Quellen:
 
 \begin{itemize}
-    \item Das Standard-Licht, Light genannt, ist das Grundgerüst der anderen Lichttypen. Es kann die Farbe und Intensität des Lichtes individuell geändert werden. \cite{StandardLight}
-    \item Die LightProbe ist eine alternative Methode, Licht zu erzeugen. Dabei wird nicht direkt von einer Quelle das Licht ausgestrahlt, sondern es speichert die Lichtinformation ab. Dabei wird erst beim Rendern der Lichteinfall durch die Daten der LightProbe ermittelt.  \cite{LightProbe}
-    \item Das AmbientLight belichtet die gesamte Szene gleich, kann dabei jedoch keine Schatten werfen. \cite{AmbientLight}
-    \item Das DirectionalLight wirft Licht parallel in eine bestimmte Richtung. Da es unendlich weit weg erscheint, wird es oft als Tages- oder Sonnenlicht verwendet. \cite{DirectionalLight}
-    \item Das HemisphereLight wird über der Szene positioniert und besitzt eine Himmel- und Bodenfarbe mit Verlauf. Diese Lichtquelle kann keine Schatten werfen \cite{HemisphereLight}
-    \item Das PointLight wirft Licht von einem Punkt in alle Richtungen. Es soll eine Glühbirne simulieren. Hierbei kann ebenfalls die Reichweite des Lichtes und ein Dimmeffekt bestimmt werden. \cite{PointLight}
-    \item Das RectAreaLight strahlt Licht in Form eines Rechtecks aus. Damit können zum Beispiel Fenster simuliert werden \cite{ReactAreaLight}
-    \item Das SpotLight wirft Licht in Form eines Kegel \cite{SpotLight}
+    \item Das Standard-Licht, \emph{Light} genannt, ist das Grundgerüst der anderen Lichttypen. Es kann die Farbe und Intensität des Lichtes individuell geändert werden. \cite{StandardLight}
+    \item Die \emph{LightProbe} ist eine alternative Methode, Licht zu erzeugen. Dabei wird nicht direkt von einer Quelle das Licht ausgestrahlt, sondern es speichert die Lichtinformation ab. Dabei wird erst beim Rendern der Lichteinfall durch die Daten der LightProbe ermittelt.  \cite{LightProbe}
+    \item Das \emph{AmbientLight} leuchtet die gesamte Szene gleichmäßig aus, kann dabei jedoch keine Schatten werfen. \cite{AmbientLight}
+    \item Das \emph{DirectionalLight} wirft Licht parallel in eine bestimmte Richtung. Da es unendlich weit weg erscheint, wird es oft als Tages- oder Sonnenlicht verwendet. \cite{DirectionalLight}
+    \item Das \emph{HemisphereLight} wird über der Szene positioniert und besitzt eine Himmel- und Bodenfarbe mit Verlauf. Diese Lichtquelle kann keine Schatten werfen. \cite{HemisphereLight}
+    \item Das \emph{PointLight} wirft Licht von einem Punkt in alle Richtungen und simuliert den Lichtfall einer Glühbirne. Hierbei kann ebenfalls die Reichweite des Lichtes und ein Dimmeffekt bestimmt werden. \cite{PointLight}
+    \item Das \emph{RectAreaLight} strahlt Licht in Form eines Rechtecks aus. Damit können zum Beispiel Fenster simuliert werden. \cite{ReactAreaLight}
+    \item Das \emph{SpotLight} wirft Licht in Form eines Kegels. \cite{SpotLight}
 \end{itemize}
 
 Das Point Light wurde in der 3D-Ausstellung wie folgt angewandt:  
