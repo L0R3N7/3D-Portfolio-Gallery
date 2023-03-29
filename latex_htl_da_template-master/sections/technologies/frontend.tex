@@ -162,12 +162,12 @@ Im Projekt werden die beiden UI-Frameworks, \emph{Bootstrap} und \emph{AngularMa
 Angular Material bietet eine hohe Anzahl an sofort einsetzbaren Komponenten. Zu allen diesen Komponenten gibt es auf der offiziellen Webseite eine ausführliche Dokumentation mit Beispielen. \cite{JavaPointAngularMaterial, WhatAngularMaterial}
 
 \paragraph{Material Design Spezifikation [L]}
-Material Design ist ein Styleguide der von der Firma Google entwickelt wurde. Er soll dabei helfen qualitative hochwertige digitale Produkte für Android, iOS, Flutter und das Web zu gestalten.
+\emph{Material Design} ist ein Styleguide der von der Firma Google entwickelt wurde. Er soll dabei helfen qualitative hochwertige digitale Produkte für Android, iOS, Flutter und das Web zu gestalten.
 
-Material Design hat mehrere Prinzipien, die sie ihr Design beeinflussen lassen.
+\emph{Material Design} befolgt für die Design-Richtung mehrere Prinzipien. 
 
-Material Design soll die reale Weld abbilden.
-Text soll durch Typographie, Raster, Abstände, Farben und Bilder soll eine erkennbare Hierarchie entstehen. Komponenten sind interaktive Bauklötze für ein das User Interface. Komponenten haben alle eine Stati-System welches den Status der Komponente fokussiert, selektiert, aktiviert, fehlerhaft, schwebend, gedrückt und ausgeschalten anzeigt. Durch das Theming ist es möglich einzelne Komponenten zu verändern und das Design so anzupassen, dass es zur Corporate Identity der Benutzer*in passt.\cite{MaterialDesign-Introduction}
+\emph{Material Design} soll die reale Welt abbilden.
+Durch Typographie, Raster, Abstände, Farben und Bilder soll eine erkennbare Hierarchie entstehen. Die Komponenten dienen als interaktive Bauklötze. Komponenten haben alle ein Stati-System, welches den Status der Komponente fokussiert, selektiert, aktiviert, fehlerhaft, schwebend, gedrückt und oder deaktiviert anzeigt. Durch mehrere vordefinierte Themes ist es möglich einzelne Komponenten zu verändern und das Design so anzupassen, dass es zur Corporate Identity der*des Benutzer*in passt.\cite{MaterialDesign-Introduction}
 
 \paragraph{Angular Material Komponente im Projekt [L]}
 
@@ -178,15 +178,15 @@ Text soll durch Typographie, Raster, Abstände, Farben und Bilder soll eine erke
   \label{architecture:frontend:angular-material-project-components}
 \end{figure}
 
-Im Projekt wurden hauptsächlich die Angular Material Komponenten mat-icon, mat-chips, mat-stepper und mat-chard verwendet (siehe Abbildung \ref{architecture:frontend:angular-material-project-components}).
+Im Projekt wurden hauptsächlich die Angular Material Komponenten \emph{mat-icon}, \emph{mat-chips}, \emph{mat-stepper} und \emph{mat-chard} verwendet (siehe Abbildung \ref{architecture:frontend:angular-material-project-components}).
 
-mat-icon wird dafür verwendet, die Icons auf der SPA anzuzeigen. Die Icons werden durch den Inhalt, den Namen des Icons im mat-icon ausgewählt.
+{mat-icon} wird dafür verwendet, die Icons auf der Single-Page-Application anzuzeigen. Angular Material besitzt eine Icon-Library. Wenn \emph{mat-icon} verwendet wird, wird durch den Inhalt des \emph{mat-icon}-Tags das Icon aus der Library dynamisch geladen.
 
-mat-chips werden für das Design der Ausstellungskriterien benützt. Sie kommen in der Content-Creation und der Suchseite hauptsächlich vor.
+\emph{mat-chips} werden für das Design der Ausstellungskriterien benützt. Sie kommen in der Content-Creation und der Suchseite vor.
 
-mat-stepper wird bei der Content-Creation verwendet, um die Wizard-Funktion umzusetzen.
+\emph{mat-stepper} wird bei der Content-Creation verwendet, um die Wizard-Funktion umzusetzen.
 
-mat-chard wird für die Ausstellungsstückkarten auf der SPA verwendet. Diese kommen auf der Profile-, Such- und Landing-Page vor.
+\emph{mat-chard} wird für die Ausstellungsstückkarten auf der Single-Page-Application verwendet. Diese kommen auf der Profile-, Such- und Landing-Page vor.
 
 \subsubsection{Bootstrap [L]}
 \begin{wrapfigure}{r}{0.3\textwidth}
