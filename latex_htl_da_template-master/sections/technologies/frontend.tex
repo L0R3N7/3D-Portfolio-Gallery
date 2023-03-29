@@ -163,12 +163,12 @@ Im Projekt werden die beiden UI-Frameworks, \emph{Bootstrap} und \emph{AngularMa
 Angular Material bietet eine hohe Anzahl an sofort einsetzbaren Komponenten. Zu allen diesen Komponenten gibt es auf der offiziellen Webseite eine ausführliche Dokumentation mit Beispielen. \cite{JavaPointAngularMaterial, WhatAngularMaterial}
 
 \paragraph{Material Design Spezifikation [L]}
-Material Design ist ein Styleguide der von der Firma Google entwickelt wurde. Er soll dabei helfen qualitative hochwertige digitale Produkte für Android, iOS, Flutter und das Web zu gestalten.
+\emph{Material Design} ist ein Styleguide der von der Firma Google entwickelt wurde. Er soll dabei helfen qualitative hochwertige digitale Produkte für Android, iOS, Flutter und das Web zu gestalten.
 
-Material Design hat mehrere Prinzipien, die sie ihr Design beeinflussen lassen.
+\emph{Material Design} befolgt für die Design-Richtung mehrere Prinzipien. 
 
-Material Design soll die reale Weld abbilden.
-Text soll durch Typographie, Raster, Abstände, Farben und Bilder soll eine erkennbare Hierarchie entstehen. Komponenten sind interaktive Bauklötze für ein das User Interface. Komponenten haben alle eine Stati-System welches den Status der Komponente fokussiert, selektiert, aktiviert, fehlerhaft, schwebend, gedrückt und ausgeschalten anzeigt. Durch das Theming ist es möglich einzelne Komponenten zu verändern und das Design so anzupassen, dass es zur Corporate Identity der Benutzer*in passt.\cite{MaterialDesign-Introduction}
+\emph{Material Design} soll die reale Welt abbilden.
+Durch Typographie, Raster, Abstände, Farben und Bilder soll eine erkennbare Hierarchie entstehen. Die Komponenten dienen als interaktive Bauklötze. Komponenten haben alle ein Stati-System, welches den Status der Komponente fokussiert, selektiert, aktiviert, fehlerhaft, schwebend, gedrückt und oder deaktiviert anzeigt. Durch mehrere vordefinierte Themes ist es möglich einzelne Komponenten zu verändern und das Design so anzupassen, dass es zur Corporate Identity der*des Benutzer*in passt.\cite{MaterialDesign-Introduction}
 
 \paragraph{Angular Material Komponente im Projekt [L]}
 
@@ -179,15 +179,15 @@ Text soll durch Typographie, Raster, Abstände, Farben und Bilder soll eine erke
   \label{architecture:frontend:angular-material-project-components}
 \end{figure}
 
-Im Projekt wurden hauptsächlich die Angular Material Komponenten mat-icon, mat-chips, mat-stepper und mat-chard verwendet (siehe Abbildung \ref{architecture:frontend:angular-material-project-components}).
+Im Projekt wurden hauptsächlich die Angular Material Komponenten \emph{mat-icon}, \emph{mat-chips}, \emph{mat-stepper} und \emph{mat-chard} verwendet (siehe Abbildung \ref{architecture:frontend:angular-material-project-components}).
 
-mat-icon wird dafür verwendet, die Icons auf der SPA anzuzeigen. Die Icons werden durch den Inhalt, den Namen des Icons im mat-icon ausgewählt.
+{mat-icon} wird dafür verwendet, die Icons auf der Single-Page-Application anzuzeigen. Angular Material besitzt eine Icon-Library. Wenn \emph{mat-icon} verwendet wird, wird durch den Inhalt des \emph{mat-icon}-Tags das Icon aus der Library dynamisch geladen.
 
-mat-chips werden für das Design der Ausstellungskriterien benützt. Sie kommen in der Content-Creation und der Suchseite hauptsächlich vor.
+\emph{mat-chips} werden für das Design der Ausstellungskriterien benützt. Sie kommen in der Content-Creation und der Suchseite vor.
 
-mat-stepper wird bei der Content-Creation verwendet, um die Wizard-Funktion umzusetzen.
+\emph{mat-stepper} wird bei der Content-Creation verwendet, um die Wizard-Funktion umzusetzen.
 
-mat-chard wird für die Ausstellungsstückkarten auf der SPA verwendet. Diese kommen auf der Profile-, Such- und Landing-Page vor.
+\emph{mat-chard} wird für die Ausstellungsstückkarten auf der Single-Page-Application verwendet. Diese kommen auf der Profile-, Such- und Landing-Page vor.
 
 \subsubsection{Bootstrap [L]}
 \begin{wrapfigure}{r}{0.3\textwidth}
@@ -265,29 +265,29 @@ Es gab verschiedene Auswahlkriterien für die 3D-Web-API, die ausschlaggebend f�
   \item Video-Texturen support
 \end{compactitem}
 
-\subsubsection{ThreeJs [L]}
+\subsubsection{Three.js [L]}
 \setauthor{Litzlbauer Lorenz}
 \begin{wrapfigure}{r}{0.3\textwidth}
     \begin{center}
       \includegraphics[width=0.2\textwidth]{pics/threeJS.png}
-     \caption{ThreeJs Logo}
+     \caption{Three.js Logo}
     \end{center}
 \end{wrapfigure}
-ThreeJs ist eine JavaScript Library für die Darstellung von 3D-Grafiken im Web. Für die 3D-Darstellung nutzt ThreeJs WebGL (mehr dazu im nächsten Abschnitt \hyperref[ch::webgl]{WebGL}), ein Low-Level-Framework. WebGL hat eine hohe Komplexität. ThreeJs bietet eine Abstraktion von WebGL, um Anwendungen für 3D-Webanwendungen für Entwickler zugänglicher zu machen.
-ThreeJs regelt Systeme wie die 3D-Szene, Lichter, Schatten, Materialien, Texturen und 3D-Matrix-Rechnungen, deren Umsetzung mittels WebGL sehr aufwändig wäre. \cite[ThreeJs fundamentals]{ThreeJsFund}
+\emph{Three.js} ist eine JavaScript Library für die Darstellung von 3D-Grafiken im Web. Für die 3D-Darstellung nutzt Three.js WebGL (mehr dazu im nächsten Abschnitt \hyperref[ch::webgl]{WebGL}), ein Low-Level-Framework. WebGL hat eine hohe Komplexität. Three.js bietet eine Abstraktion von WebGL, um Anwendungen für 3D-Webanwendungen für Entwickler zugänglicher zu machen.
+Three.js regelt Systeme wie die 3D-Szene, Lichter, Schatten, Materialien, Texturen und 3D-Matrix-Rechnungen, deren Umsetzung mittels WebGL sehr aufwändig wäre. \cite[Three.js fundamentals]{ThreeJsFund}
 
 \begin{figure} [h t]
   \centering
   \includegraphics[scale=0.5]{pics/threejs-structure.png}
-  \caption{Die Struktur von ThreeJs \cite{ThreeJsFund}}
+  \caption{Die Struktur von Three.js \cite{ThreeJsFund}}
   \label{fig:tech:front:threejsstructure}
 \end{figure}
 
-In ThreeJs werden Geometrie, Objekte und Materialien verbunden, um ein 3D-Objekt zu erstellen. 
-Die Abbildung \ref{fig:tech:front:threejsstructure} veranschaulicht den beispielhaften Aufbau eines solchen Objektes. In diesem Objekt werden Meshes, Gruppen, Lichter und 3D-Objekte in einer Baumdatenstruktur gesammelt. Die Daten über die Geometrie, Materialen der Meshes werden außerhalb der Szene gespeichert und die Meshes referenzieren im Renderprozess darauf. \cite[ThreeJs fundamentals]{ThreeJsFund}
+In Three.js werden Geometrie, Objekte und Materialien verbunden, um ein 3D-Objekt zu erstellen. 
+Die Abbildung \ref{fig:tech:front:threejsstructure} veranschaulicht den beispielhaften Aufbau eines solchen Objektes. In diesem Objekt werden Meshes, Gruppen, Lichter und 3D-Objekte in einer Baumdatenstruktur gesammelt. Die Daten über die Geometrie, Materialen der Meshes werden außerhalb der Szene gespeichert und die Meshes referenzieren im Renderprozess darauf. \cite[Three.js fundamentals]{ThreeJsFund}
 
 \label{ch::ThreeJsDependency}
-Um 3D-Darstellungen zu rendern, benutzt ThreeJs WebGL.
+Um 3D-Darstellungen zu rendern, benutzt Three.js WebGL.
 
 \paragraph{WebGL [L]}
 \label{ch::webgl}
@@ -304,12 +304,13 @@ Es gibt viele Technologien, die 3D-Grafiken im Web ermöglichen, wie Three.js, B
 
 \paragraph{A-Frame [L]}
 A-Frame wird von der Mozilla Foundation als OpenSource-Projekt entwickelt. Die 3D-Szene wird durch eine deklarative Sprache mit XML-Syntax definiert. Über die WebVR-API bietet die Libray auch die Möglichkeit, 3D-Szenen durch eine VR-Brille zu erfahren. Bei der 3D-Darstellung setzt A-Frame auf ThreeJs. \cite[A-Frame Wikipedia]{a-frame-wiki}
+\emph{A-Frame} wird von der Mozilla Foundation als OpenSource-Projekt entwickelt. Die 3D-Szene wird durch eine deklarative Sprache mit XML-Syntax definiert. Über die WebVR-API bietet die Libray auch die Möglichkeit, 3D-Szenen durch eine VR-Brille zu erfahren. Bei der 3D-Darstellung setzt A-Frame auf Three.js. \cite[A-Frame Wikipedia]{a-frame-wiki}
 
-A-Frame hat ähnliche Funktionen und Leistung im Vergleich zu ThreeJs, da es ja schlussendlich darauf aufbaut. A-Frame sticht bei der VR support hervor (ThreeJs hätte auch eine Unterstützung dafür, diese ist aber schwieriger einzubinden), doch ist das kein unbedingt nötiges Feature. ThreeJs ist ja bereits eine Abstraktion von WebGL. Für das Projekt wird keine weiter Abstraktion gebraucht.
+A-Frame hat ähnliche Funktionen und Leistung im Vergleich zu Three.js, da es ja schlussendlich darauf aufbaut. A-Frame sticht bei der VR support hervor (Three.js hätte auch eine Unterstützung dafür, diese ist aber schwieriger einzubinden), doch ist das kein unbedingt nötiges Feature. Three.js ist ja bereits eine Abstraktion von WebGL. Für das Projekt wird keine weiter Abstraktion gebraucht.
 
 \subsubsection{Angular Three [L]}
 \label{ch:Technologien:AngularThree}
-Angular Three ist ein Open Source Projekt von Matt DesLauriers. Es zielt darauf ab die Vorteile von Angular und ThreeJs zu kombinieren. Dabei verbindet es das Prinzip der Komponenten von Angular mit der 3D Darstellung von ThreeJs. 
+Angular Three ist ein Open Source Projekt von Matt DesLauriers. Es zielt darauf ab die Vorteile von Angular und Three.js zu kombinieren. Dabei verbindet es das Prinzip der Komponenten von Angular mit der 3D Darstellung von Three.js. 
 
 \begin{lstlisting}[language=html,caption=Angular Three - Komponentenbasiertes 3D Scenen in HTML,label=lst:impl:AngularThreeExampleCode]
 <ngt-canvas>
@@ -344,11 +345,11 @@ Ein Vorteil von Angular Three ist, dass durch nur wenige Zeilen Code \ref{lst:im
 
 Ein weiterer Vorteil von Angular Three ist die ausführliche Dokumentation mit Codebeispielen. \href{https://angular-three.netlify.app/docs/getting-started/overview}{(link) Angular Three Dokumentation https://angular-three.netlify.app/docs/getting-started/overview}
 
-Wegen der vielen Vorteile hohe Benutzerfreundlichkeit, ähnliche 3D-Leistung zu ThreeJs (Angular Three basiert auf ThreeJs, welches selbst die WebGL-Renderengine benutzt) und wegen der Verbindung von Angular und ThreeJs Features bietet sich die Liberay für das Projekt an.
+Wegen der vielen Vorteile hohe Benutzerfreundlichkeit, ähnliche 3D-Leistung zu Three.js (Angular Three basiert auf Three.js, welches selbst die WebGL-Renderengine benutzt) und wegen der Verbindung von Angular und Three.js Features bietet sich die Library für das Projekt an.
 
-Mithilfe eines Prototypen ( mehr dazu im Abschnitt \hyperref[ch::ongoing-prototyping]{fortlaufendes Prototyping} ) wurde getestet, ob Angular Three alle Features, die für das Projekt benötigt werden, unterstützen kann, die für das Projekt nötig sind. Dabei wurde festgestellt, dass sich die Library Angular Three für das Projekt nicht eignet. Trotz der vielen Features konnten einige Kriterien nicht erfüllt werden. So wurden beispielsweise 3D-Objekte nicht richtig geladen. ThreeJs Module funktionierten Teilweise nicht, wie die FristPersonControls. 
+Mithilfe eines Prototypen ( mehr dazu im Abschnitt \hyperref[ch::ongoing-prototyping]{fortlaufendes Prototyping} ) wurde getestet, ob Angular Three alle Features, die für das Projekt benötigt werden, unterstützen kann, die für das Projekt nötig sind. Dabei wurde festgestellt, dass sich die Library Angular Three für das Projekt nicht eignet. Trotz der vielen Features konnten einige Kriterien nicht erfüllt werden. So wurden beispielsweise 3D-Objekte nicht richtig geladen. Three.js Module funktionierten Teilweise nicht, wie die FristPersonControls. 
 
-Weil Angular Three nicht die für das Projekt aufgestellten Anforderungen erfüllt hat, wurde sich dafür entschieden, ThreeJs zu benutzen. ThreeJs hat ähnliche Konzepte und Logik wie Angular Three deswegen fiel dem Team der Umstieg darauf leicht. Diese 3D-Library wurde schlussendlich auch im Projekt verwendet.
+Weil Angular Three nicht die für das Projekt aufgestellten Anforderungen erfüllt hat, wurde sich dafür entschieden, Three.js zu benutzen. Three.js hat ähnliche Konzepte und Logik wie Angular Three deswegen fiel dem Team der Umstieg darauf leicht. Diese 3D-Library wurde schlussendlich auch im Projekt verwendet.
 
 \subsection{Sicherheit [L]}
 \setauthor{Litzlbauer Lorenz}
