@@ -1,40 +1,40 @@
 \section{Interaktions-Seite [M]}
 \setauthor{Fabian Maar}
 
-Bei der Implementierung der Interaktions-Seite, ist es darum gegangen, eine möglichst benutzerfreundliche Besucheransicht der vorhandenen Ausstellungen zu erstellen. 
+Bei der Implementierung der Interaktions-Seite war uns wichtig, eine möglichst benutzerfreundliche Besucheransicht der vorhandenen Ausstellungen zu erstellen. 
 
 \subsection{Verbindung der Interaktions-Seite mit der Landing-Page
 }
-Vorerst muss darauf geachtet werden, dass wenn der*die Benutzer*in eine Ausstellung, die er*sie besuchen möchte, auswählt, auch auf die richtige weitergeleitet wird. Dabei hilft das Routing mit Parametern (siehe Routingparameter \ref{Routingparameter}). Jede Ausstellung besitzt eine eigene ID. Diese ID wird beim auswählen einer Ausstellung in die URL geschrieben, um zu identifizieren zu können, welche Ausstellung im Moment besucht wird. Anhand dieser Informationen werden die Ausstellungsstücke vom Server abgefragt und mit der Logik, die im Kapitel Konfiguration der Ausstellung \ref{Konfigurationstool} beschrieben wird, richtig in den Raum geladen und platziert.
+Wenn ein*e Benutzer*in auf eine gewünschte Ausstellung klickt, muss sichergestellt werden, dass er auch zum richtigen Inhalt weitergeleitet wird. Dabei hilft das Routing mit Parametern (siehe \ref{Routingparameter}). Jede Ausstellung besitzt eine eigene ID. Diese wird beim Auswählen einer Ausstellung in die URL geschrieben, um zu identifizieren zu können, welche Ausstellung im Moment besucht wird. Anhand dieser Informationen werden die Ausstellungsstücke vom Server abgefragt und mit der Logik, die im Kapitel Konfiguration der Ausstellung \ref{content-creation} beschrieben wird, richtig in den Raum geladen und platziert.
 
 \subsection{Bewegung im dreidimensionalen Raum}
 \label{controls}
-Um sich im Ausstellungsraum bewegen zu können, ist es nötig, den Besuchern*innen eine entsprechende Fortbewegungsmöglichkeit zu bieten. Three.js implementiert diese Funktion mittels Controls. Im Endeffekt ändert sich die Position und Rotation der Kamera durch Benutzereingaben. Die wesentlichsten Controls in Three.js sind
+Um sich im Ausstellungsraum bewegen zu können, ist es nötig, den Besuchern*innen eine entsprechende Fortbewegungsmöglichkeit zu bieten. Three.js implementiert diese Funktion mittels Controls. Dabei ändert sich die Position und Rotation der Kamera durch Benutzereingaben. Die wesentlichsten Controls in Three.js sind
 
 \begin{itemize}
-    \item DragControls - Der*die Nutzer*in kann sich mittels DragNDrop Interaktionen fortbewegen \cite{DragControls}
-    \item FirstPersonControls - Der*die Nutzer*in bewegt sich wie in einem Videospiel mit den Tasten W, A, S und D fort. Dabei ist es möglich, das Blickfeld über die Maus zu steuern. \cite{FirstPersonControls}
-    \item OrbitControls - Der*die Nutzer*in kann mittels linker Maustaste um ein bestimmtes Ziel kreisen. Durch die rechte Maustaste kann dieses Ziel geändert werden. \cite{OrbitControls}
-    \item TransformControls - Den Nutzer*innen ist es möglich ein Objekt, ähnlich wie bei 3D-Modellierungs-Programme, durch Anfasser zu positionieren, skalieren und rotieren. \cite{TransformControls}
-    \item PointerLockControls - Diese Art von Controls funktioniert ähnlich wie FirstPersonControls. Hierbei werden ebenfalls die Tasten W, A, S, D benutzt, um sich fortzubewegen. Dabei wird die Maus verwendet, um sich umzuschauen. Jedoch kann die Maussteuerung durch einen Pointer-Lock gesperrt werden.\cite{PointerLockControls}
+    \item \emph{DragControls} - Der*die Nutzer*in kann sich mittels \emph{DragNDrop} Interaktionen fortbewegen \cite{DragControls}
+    \item \emph{FirstPersonControls} - Der*die Nutzer*in bewegt sich wie in einem Videospiel mit den Tasten W, A, S und D fort. Dabei ist es möglich, das Blickfeld über die Maus zu steuern. \cite{FirstPersonControls}
+    \item \emph{OrbitControls} - Der*die Nutzer*in kann mittels linker Maustaste um ein bestimmtes Ziel kreisen. Durch die rechte Maustaste kann dieses Ziel geändert werden. \cite{OrbitControls}
+    \item \emph{TransformControls} - Den Nutzer*innen ist es möglich ein Objekt, ähnlich wie bei 3D-Modellierungs-Programme, durch Anfasser zu positionieren, skalieren und rotieren. \cite{TransformControls}
+    \item \emph{PointerLockControls} - Diese Art von Controls funktioniert ähnlich wie \emph{FirstPersonControls}. Hierbei werden ebenfalls die Tasten W, A, S, D benutzt, um sich fortzubewegen. Dabei wird die Maus verwendet, um sich umzuschauen. Jedoch kann die Maussteuerung durch einen \emph{Pointer-Lock} gesperrt werden.\cite{PointerLockControls}
 \end{itemize}
 
 
-Die beste Wahl für die Fortbewegung in der Ansicht der Erstellung eines Ausstellungsraumes, waren die OrbitControls. Sie eignen sich besonders, da die Benutzer*innen einen guten und schnellen Überblick über den gesamten Raum erhalten.
+Die beste Wahl für die Fortbewegung in der Ansicht der Erstellung eines Ausstellungsraumes, waren die \emph{OrbitControls}. Sie eignen sich besonders, da die Benutzer*innen einen guten und schnellen Überblick über den gesamten Raum erhalten.
 Die Controls werden initialisiert, indem die Kamera angegeben wird, die gesteuert werden soll und das HTML-Element, welches für die Event-Listener (sieh Event-Listener \ref{txt:glos:event-listener}) benutzt wird.
 
 \begin{lstlisting}[caption={OrbitControls initialisieren},language=TypeScript]
     this.controls = new OrbitControls(this.camera,this.renderer.domElement)
     \end{lstlisting}
 
-Für die Bewegung der Besucher*innen in einem Ausstellungsraum kamen die FirstPersonControls und die PointerLockControls in Frage. Auch wenn sie im Grunde sehr ähnlich sind, besitzen sie verschiedene Vor- und Nachteile. Daher wurden im Entwicklungsprozess beide Varianten getestet und sich für die Bessere entschieden:
+Für die Bewegung der Besucher*innen in einem Ausstellungsraum kamen die \emph{FirstPersonControls} und die \emph{PointerLockControls} in Frage. Auch wenn sie im Grunde sehr ähnlich sind, besitzen sie verschiedene Vor- und Nachteile. Daher wurden im Entwicklungsprozess beide Varianten getestet und und im Kontext des Projektes bewertet.
 
 \subsubsection{Vor- und Nachteile der FirstPersonControls}
 
-Die FirstPersonControls bieten eine einfache Einbindung in das Programm. Das bedeutet, die Logik des Bewegens muss nicht erst ausprogrammiert werden. Dabei ist es direkt möglich, sich entweder durch die Tasten W, A, S, D, den Pfeiltasten oder durch Linksklick und Rechtsklick fortzusetzen. Außerdem bieten diese Controls einige Konfigurationsmöglichkeiten mehr als die PointerLockControls. Jedoch funktioniert die Maussteuerung nicht gleich, wie sie bei First Person Spiele und Anwendungen üblich ist. Die Kamera dreht sich automatisch in die Richtung weiter, in welche die Maus hinzeigt. Dabei wird die Rotationsgeschwindigkeit von der Position der Maus bestimmt. Je weiter sich die Maus am Bildschirmrand befindet, desto schneller dreht sich die Kamera. Dies mag für viele Benutzer*innen vorerst ein ungewohntes Gefühl sein.
+Die \emph{FirstPersonControls} bieten eine einfache Einbindung in das Programm. Die Logik des Bewegens muss nicht erst programmiert werden, sondern ist bereits im Programm in den Controls vollständig implementiert. Dabei ist es direkt möglich, sich entweder durch die Tasten W, A, S, D, den Pfeiltasten oder durch Linksklick und Rechtsklick fortzusetzen. Außerdem bieten diese Controls mehr Konfigurationsmöglichkeiten als die PointerLockControls. Jedoch funktioniert die Maussteuerung nicht gleich, wie sie bei First Person Spiele und Anwendungen üblich ist. Die Kamera dreht sich automatisch in die Richtung weiter, in welche die Maus zeigt. Dabei wird die Rotationsgeschwindigkeit von der Position der Maus bestimmt. Je weiter sich die Maus am Bildschirmrand befindet, desto schneller dreht sich die Kamera. An dieses Gefühl müssen sich Nutzer*innen oft erst gewöhnen.
 
 \subsubsection{Implementierung der FirstPersonControls}
-Zu Beginn werden neue Controls initialisiert, indem die Kamera angegeben wird, die gesteuert werden soll und das HTML-Element, welches für die Event-Listener(sieh Event-Listener \ref{txt:glos:event-listener}) benutzt wird. 
+Zu Beginn werden neue Controls initialisiert. Dazu wird sowohl die Kamera, als auch das passende HTML Element angegeben, welches für den Event-Listener(sieh Event-Listener \ref{txt:glos:event-listener}) benutzt wird. 
 
 \begin{lstlisting}[caption={FirstPersonControls initialisieren},language=TypeScript]
     this.controls = new FirstPersonControls(this.camera, this.renderer.domElement)
@@ -43,30 +43,28 @@ Zu Beginn werden neue Controls initialisiert, indem die Kamera angegeben wird, d
 Anschließend werden die Controls wie gewünscht konfiguriert. Spezifische Konfigurationsmöglichkeiten sind: 
 
 \begin{itemize}
-    \item activeLook - bestimmt ob die Maussteuerung aktiviert sein soll oder nicht
-    \item autoForward - bestimmt, ob sich die Kamera automatisch vorwärts bewegen soll oder nicht. Diese Einstellung ist bei den Controls der 3D-Ausstellung deaktiviert.
-    \item constrainVertical, verticalMin und verticalMax - grenzen das vertikale Blickfeld ein
-    \item heightMin, heightMax und heightSpeed - werden benutzt um die Bewegungsgeschwindigkeit im Zusammenhang mit der Kamerahöhe zu ändern
-    \item lookVertical - bestimmt, ob es möglich ist sich vertikal umzuschauen. Diese Einstellung ist bei den Controls der 3D-Ausstellung deaktiviert.
-    \item lookSpeed - gibt an mit welcher Geschwindigkeit sich der*die Benutzer*in umschauen kann
-    \item movementSpeed - gibt an mit welcher Geschwindigkeit sich der*die Benutzer*in fortbewegen kann
+    \item \emph{activeLook} - bestimmt ob die Maussteuerung aktiviert sein soll oder nicht
+    \item \emph{autoForward} - bestimmt, ob sich die Kamera automatisch vorwärts bewegen soll oder nicht. Diese Einstellung ist bei den Controls der 3D-Ausstellung deaktiviert.
+    \item \emph{constrainVertical, verticalMin und verticalMax} - grenzen das vertikale Blickfeld ein
+    \item \emph{heightMin, heightMax und heightSpeed} - werden benutzt um die Bewegungsgeschwindigkeit im Zusammenhang mit der Kamerahöhe zu ändern
+    \item \emph{lookVertical} - bestimmt, ob es möglich ist sich vertikal umzuschauen. Diese Einstellung ist bei den Controls der 3D-Ausstellung deaktiviert.
+    \item \emph{lookSpeed} - gibt an mit welcher Geschwindigkeit sich der*die Benutzer*in umschauen kann
+    \item \emph{movementSpeed} - gibt an mit welcher Geschwindigkeit sich der*die Benutzer*in fortbewegen kann
 \end{itemize}
 \cite{FirstPersonControls}
 
 \subsubsection{Vor- und Nachteile der PointerLockControls}
 
-Die PointerLockControls bieten, im Gegensatz zu den FirstPersonControls, eine realistische und gewohnte Maussteuerung. Dabei stoppt die Kamera jedes mal an der aktuellen Position, wenn der*die Benutzer*in nicht mit der Maus interagiert. Zudem können die Controls schnellstens durch ein Attribut ge- und entsperrt werden. Jedoch ist es nicht möglich, im entsperrten Zustand mit der Maus zu interagieren. Das bedeutet, Benutzer*innen können sie sich entweder im Ausstellungsraum fortbewegen oder mit einem Ausstellungsstück interagieren, jedoch nicht beides gleichzeitig. Außerdem kommt man viel zu einfach in den gesperrten Zustand, zum Beispiel durch das Drücken der Escape-Taste, das Wechseln vom Browser in ein anderes Programm oder beim Wechseln des Browser-Tabs.  
+Die \emph{PointerLockControls} bieten, im Gegensatz zu den FirstPersonControls, eine realistische und gewohnte Maussteuerung. Dabei stoppt die Kamera jedes Mal an der aktuellen Position, wenn der*die Benutzer*in nicht mit der Maus interagiert. Zudem können die Controls schnell durch ein Attribut ge- und entsperrt werden. Im entsperrten Zustand ist es jedoch nicht möglich mit der Maus zu interagieren. Das bedeutet, Benutzer*innen können sie sich entweder im Ausstellungsraum fortbewegen, oder mit einem Ausstellungsstück interagieren. Beides gleichzeitig ist nicht möglich. Der gesperrte Zustand wird oft auch auf unabsichtliche Weise aktiviert - beispielsweise durch das Drücken der Escape-Taste, das Wechseln vom Browser in ein anderes Programm oder beim Wechseln des Browser-Tabs.  
 
 \subsubsection{Implementierung der PointerLockControls}
 
-Die PointerLockControls bieten, im Gegensatz zu den FirstPersonControls, eine realistische und gewohnte Maussteuerung. Dabei stoppt die Kamera jedes mal an der aktuellen Position, wenn der*die Benutzer*in nicht mit der Maus interagiert. Zudem können die Controls schnellstens durch ein Attribut ge- und entsperrt werden. Jedoch ist es nicht möglich, im entsperrten Zustand mit der Maus zu interagieren. Das bedeutet, Benutzer*innen können sie sich entweder im Ausstellungsraum fortbewegen oder mit einem Ausstellungsstück interagieren, jedoch nicht beides gleichzeitig. Außerdem kommt man viel zu einfach in den gesperrten Zustand, zum Beispiel durch das Drücken der Escape-Taste, das Wechseln vom Browser in ein anderes Programm oder beim Wechseln des Browser-Tabs. 
-
-Zu Beginn werden neue Controls gleich wie bei den FirstPersonControls initialisiert, indem die zu verwendende Kamera und ein HTML-Element zugewiesen werden.
+Zu Beginn werden neue Controls ähnlich den FirstPersonControls initialisiert, indem die zu verwendende Kamera und ein HTML-Element zugewiesen werden.
 \begin{lstlisting}[caption={PointerLockControls initialisieren},language=TypeScript]
     this.controlsVisitor = new PointerLockControls(this.camera, this.renderer.domElement)
     \end{lstlisting}
 
-Um sich fortbewegen zu können, muss anders wie bei den FirstpPersonControls, die Logik dafür implementiert werden: 
+Um sich fortbewegen zu können, muss nun jedoch die Logik dafür eigenständig implementiert werden: 
 
 \begin{lstlisting}[caption={Logik der PointerLockControls},language=TypeScript]
     this.onKeyDown = (event: KeyboardEvent) => {
@@ -88,7 +86,7 @@ Um sich fortbewegen zu können, muss anders wie bei den FirstpPersonControls, di
        document.addEventListener('keydown', this.onKeyDown, false)
     \end{lstlisting}
 
-Um die Maussteuerung zu aktivieren müssen außerdem die Controls entsperrt werden:
+Um die Maussteuerung zu aktivieren müssen die Controls entsperrt werden:
 
 \begin{lstlisting}[caption={Controls entsperren},language=TypeScript]
     this.controlsVisitor.lock()
@@ -97,9 +95,8 @@ Um die Maussteuerung zu aktivieren müssen außerdem die Controls entsperrt werd
 Auch kann zusätzlich die Geschwindigkeit geändert werden, die angibt, wie schnell sich ein Benutzer im Raum umschauen kann. Zusätzlich kann der horizontale Kamerawinkel konfiguriert werden.
 
 \subsubsection{Fazit}
-Da die FirstPersonControls mehr Konfigurations und Interaktionsmöglichkeiten mit den Ausstellungsstücken bieten, wurde für die Fortbewegung als Besucher*in einer Ausstellung diese Art von Controls verwendet.
+Da die FirstPersonControls mehr Konfigurations und Interaktionsmöglichkeiten mit den Ausstellungsstücken bieten, wurde für die Fortbewegung als Besucher*in einer Ausstellung diese Art von Controls verwendet.\cite{PointerLockControls}
 
-\cite{PointerLockControls}
 
 \subsection{ThreeJS Clock}
 \label{Clock}
@@ -115,7 +112,7 @@ animate = () => {
 
     \end{lstlisting}
 
-Dabei überprüft die Update-Funktion, welche aktuellen Benutzereingaben betätigt worden sind, um gleichzeitig und flüssig, diese am Bildschirm des*der Benutzers*in anzuzeigen. Dies funktioniert, indem die Position der Kamera zu einem gewissen Zeitpunkt abgefragt wird. Um den aktuellen Zeitpunkt zu erhalten, wird ein Clock-Objekt verwendet. Dieses Clock-Objekt besitzt die Methode getDelta(), um die Sekunden zu erhalten, die vergangen sind, seit die Clock gestartet wurde oder die Methode getDelta() aufgerufen wurde. Außerdem startet die Methode getDelta() die Uhr, falls sie dies noch nicht bereits getan hat. Dadurch können jegliche Updates, die unter anderem durch den*der Benutzer*in, an der Szene vorgenommen worden sind, identifiziert und ausgewertet werden.
+Dabei überprüft die Update-Funktion, welche aktuellen Benutzereingaben betätigt worden sind, um gleichzeitig und flüssig, diese am Bildschirm des*der Benutzers*in anzuzeigen. Dies funktioniert, indem die Position der Kamera zu einem gewissen Zeitpunkt abgefragt wird. Um den aktuellen Zeitpunkt zu erhalten, wird ein Clock-Objekt verwendet. Dieses Clock-Objekt besitzt die Methode \emph{getDelta()}, um die Sekunden zu erhalten, die vergangen sind, seit die Clock gestartet wurde oder die Methode \emph{getDelta()} aufgerufen wurde. Außerdem startet die Methode \emph{getDelta()} die Uhr, falls sie dies noch nicht bereits getan hat. Dadurch können jegliche Updates, die unter anderem durch den*der Benutzer*in, an der Szene vorgenommen worden sind, identifiziert und ausgewertet werden.
 
 \cite{ThreeJsClock}
 
@@ -132,9 +129,9 @@ Der erste Ansatz der Umsetzung war das Erstellen einer Bounding Box. Dabei kann 
     Zum einen werden Axis Aligned Bounding Box verwendet, um eine Box rund um das 3D-Objekt zu erstellen, die sich nicht an die Rotation des Objekts anpasst.
     \item Oriented Bounding Box (OBB)
     \newline
-    Die Oriented Bounding Box funktioniert im Endeffekt gleich, unterscheidet sich aber darin, dass sie sich an die Achsen des Objekts anpasst
+    Die Oriented Bounding Box weist eine ähnliche Funktionsweise auf, unterscheidet sich aber darin, dass sie sich an die Achsen des Objekts anpasst
     
-    Da sich die Bounding Boxen jedoch über den ganzen 3D-Raum erstrecken, wird eine Kollision direkt berechnet, nachdem der*die Benutzer*in den Raum betritt. Da sich die Bounding Boxen nicht an jede einzelne Wand anpassen konnten, musste ein anderer Lösungsweg gefunden werden.
+    Dies stellte uns in der Entwicklung jedoch vor ein Problem. Da sich die Bounding Boxen jedoch über den ganzen 3D-Raum erstrecken, wird eine Kollision direkt berechnet, nachdem der*die Benutzer*in den Raum betritt. Da sich die Bounding Boxen nicht an jede einzelne Wand anpassen konnten, musste ein anderer Lösungsweg gefunden werden.
 \end{itemize}
 \begin{figure}
     \centering
@@ -145,23 +142,61 @@ Der erste Ansatz der Umsetzung war das Erstellen einer Bounding Box. Dabei kann 
 
 
 \subsubsection{Zweiter Ansatz}
-Um eine Veränderung der Position des*der Benutzers*in festzustellen, muss die Veränderung der Kameraposition evaluiert werden.Bei der Initialisierung der Kamera wird eine Kopie erstellt. In der Animate-Funktion wird eine Veränderung der Kamera überprüft, indem die Positionen der Kamera mit der Kopie verglichen werden. Die Kamera nimmt dabei immer eine neue Position ein, wenn sich der*die Benutzer*in im Raum bewegt, während die Kopie dabei die alte Position der Kamera einnimmt. Jedes Mal wenn eine Veränderung geschieht, wird überprüft, ob die Kamera mit der Wand kollidiert. Dies geschieht, indem ein Raycast mit den Positionen der Kamera und der Kopie initialisiert wird. 
+Um eine Veränderung der Position des*der Benutzers*in festzustellen, muss die Veränderung der Kameraposition evaluiert werden.Bei der Initialisierung der Kamera wird eine Kopie erstellt. In der Animate-Funktion wird eine Veränderung der Kamera überprüft, indem die Positionen der Kamera mit der Kopie verglichen werden. Die Kamera nimmt dabei immer eine neue Position ein, wenn sich der*die Benutzer*in im Raum bewegt, während die Kopie dabei die alte Position der Kamera einnimmt. \ref{lst:impl:compareCameras} Jedes Mal wenn eine Veränderung geschieht, wird überprüft, ob die Kamera mit der Wand kollidiert. Dies geschieht, indem ein Raycast mit den Positionen der Kamera und der Kopie initialisiert wird \ref{detectCollision}. 
      
+
+\begin{lstlisting}[caption={Methode zum vergleichen der Position der Kameras},language=TypeScript,label=lst:impl:compareCameras]
+    
+  animate = () => {
+      //..
+      this.controls?.update(this.clock.getDelta())
+      if (this.mode != "create"){
+        var cameraChanged = this.compareCameras(this.camera!, this.camera2!)
+        if (cameraChanged){
+          this.detectCollision()
+        }
+      }
+      //..
+    
+    }
+
+  compareCameras(camera: PerspectiveCamera, camera2: PerspectiveCamera): boolean{
+    if(camera.position.x == camera2.position.x && camera.position.y == camera2.position.y){
+      return false
+    }else{
+      return true
+    }
+  }
+\end{lstlisting}
+
 \subsubsection{Far und Near}
 Die Attribute Far und Near werden dafür verwendet, um die Objekte, die im Ray liegen, einzugrenzen. Dies wird durch die Methode des Clippings realisiert (siehe Clipping \ref{clipping}). Dabei können die Werte nicht negativ sein und der Far-Wert muss größer als der Near-Wert sein. Um die Kollision erst direkt am Ursprungsort, im Falle der Kamera, des Rays zu berechnen, wird der Far-Wert auf 100 gesetzt.
    	
-Nachdem der Raycast (siehe Raycast \ref{impl:int:raycasting}) Referenz korrekt initialisiert und angewandt wurde, muss bei einer Berührung mit der Wand nur noch richtig damit umgegangen werden. Dabei wird die Bewegung des Benutzers gestoppt. Um diese auch wieder zu starten, muss sich der*die Benutzer*in weg von der Wand begeben. Überprüft wird dies nach jeder Benutzer*inneneingabe mit einem Event-Listener. Falls nach dieser keine Berührung mehr mit einer Wand besteht, wird die Bewegung fortgesetzt und der*die Besucher*in kann sich wieder frei im Raum bewegen.
+Nachdem der Raycast (siehe \ref{impl:int:raycasting}) korrekt initialisiert und angewandt wurde, muss bei Berührung mit der Wand richtig damit umgegangen werden. Dabei wird die Bewegung des Benutzers gestoppt. Um diese wieder zu starten, muss sich der*die Benutzer*in weg von der Wand begeben. Überprüft wird dies nach jeder Benutzer*inneneingabe mit einem Event-Listener. Falls nach dieser keine Berührung mehr mit einer Wand besteht, wird die Bewegung fortgesetzt und der*die Besucher*in kann sich wieder frei im Raum bewegen.
 
+\begin{lstlisting}[caption={Methode zum ermitteln einer Kollision mit der Wand},language=TypeScript,label=lst:impl:detectCollision]
+    
+  detectCollision(){
+    this.collisionRaycaster.set(this.camera!.position, this.camera2!.position.normalize())
+    this.collisionRaycaster.far = 100
+    const intersects = this.collisionRaycaster.intersectObjects(this.scene.children)
+    if(intersects.length > 0){
+       this.clock.stop()
+    }
+  }
+
+\end{lstlisting}
 
 \subsection{Interaktion}
 Als Besucher*in einer Ausstellung soll es möglich sein, benutzerfreundlich mit den Ausstellungsstücken zu interagieren. Dazu zählen die Markierung des ausgewählten Ausstellungsstückes und die dazugehörige Detailansicht. 
 
 \subsubsection{Raycasting}
 \label{impl:int:raycasting}
-Raycasting ist eine der wichtigsten Komponenten, um mit einem 3D-Modell interagieren zu können. Wie das Konzept des Raycastings funktioniert, wurde bereits im Kapitel Rendering erklärt (siehe Rendering \ref{impl:rend:raycasting}) Referenz. Three.js besitzt seinen ganz eigenen Raycaster. Er wird vor allem dafür genutzt, um herauszufinden, auf welchem 3D-Objekt sich der Mauszeiger aktuell befindet. Es gibt mehrere Möglichkeiten einen Raycaster zu erstellen. Zum einen kann er normal über einen Constructor initialisiert werden. Dabei wird angegeben, von welchen Koordinaten der Ray ausgeht und in welche Richtung er geschickt wird. Andererseits kann ein Raycaster direkt von einer schon existierenden Kamera einen Ray wegschicken. Dafür wird die Methode .setFromCamera aufgerufen, wo die Koordinaten des Mauszeigers und die zugehörige Kamera angegeben werden. Alle vom Ray getroffenen 3D-Objekte werden Intersections genannt. Diese 3D-Objekte können durch die Methode intersectsObject ausgelesen und in ein Array und gespeichert werden.
+Raycasting ist eine der wichtigsten Komponenten, um mit einem 3D-Modell interagieren zu können. Wie das Konzept des Raycastings funktioniert, wurde bereits im Kapitel Rendering erklärt (siehe Rendering \ref{impl:rend:raycasting}) Referenz. Three.js besitzt einen eigenen, individuellen Raycaster. Er wird vor allem dafür genutzt, um herauszufinden, auf welchem 3D-Objekt sich der Mauszeiger aktuell befindet. Es gibt mehrere Möglichkeiten einen Raycaster zu erstellen. Die erste Option stellt die Initalisierung über einen Konstruktor dar. Dabei wird angegeben, von welchen Koordinaten der Ray ausgeht und in welche Richtung er geschickt wird. Alternativ kann ein Raycaster direkt von einer schon existierenden Kamera einen Ray wegschicken. Dafür wird die Methode .setFromCamera aufgerufen, wo die Koordinaten des Mauszeigers und die zugehörige Kamera angegeben werden. Alle vom Ray getroffenen 3D-Objekte werden Intersections genannt. Diese 3D-Objekte können durch die Methode \emph{intersectsObject} ausgelesen und in ein Array und gespeichert werden.
+\cite{ThreeJSRaycaster}
 
 \subsubsection{Hover-Effekt}
-Um zu erkennen, welches Ausstellungsstück momentan vom Mauszeiger gehovert wird, wird ein solcher Raycaster verwendet. Zu Beginn werden die Koordinaten des Mauszeigers in einem zweidimensionalen Vektor gespeichert. Ein Event-Listener wird hierbei jedes Mal aufgerufen, wenn sich der Mauszeiger bewegt. Darin können dann die kalkulierten Positionen des Mauszeigers dem Vektor zugewiesen werden.
+Um zu erkennen, welches Ausstellungsstück momentan vom Mauszeiger berührt wird, wird ein oben angesprochener Raycaster verwendet. Zu Beginn werden die Koordinaten des Mauszeigers in einem zweidimensionalen Vektor gespeichert. Ein Event-Listener wird hierbei jedes Mal aufgerufen, wenn sich der Mauszeiger bewegt. Darin können dann die kalkulierten Positionen des Mauszeigers dem Vektor zugewiesen werden.
 
 \begin{lstlisting}[caption={Aktuelle Koordinaten des Mauszeigers einem 2D-Vektor zuweisen},language=TypeScript]
     
@@ -194,7 +229,7 @@ Daraufhin können alle 3D-Objekte die vom Ray getroffen wurden, in einem Array g
     
 \end{lstlisting}
 
-Um die Ausstellungsstücke farblich zu umranden, müssen sie zunächst ausgelesen werden. Dabei iteriert eine for-Schleife durch alle Ausstellungsstücke durch. Um zu erkennen, ob ein Intersect ein Ausstellungsstück ist, werden die jeweiligen IDs miteinander verglichen. Um dem 3D-Objekt einen Bloom-Effekt, also einen farbigen Schein als Umrandung, hinzuzufügen, wird das Konzept des Post-Processings verwendet.
+Um die Ausstellungsstücke farblich zu umranden, müssen sie zunächst ausgelesen werden. Dabei iteriert eine For-Schleife durch alle Ausstellungsstücke. Um zu erkennen, ob ein Intersect ein Ausstellungsstück ist, werden die jeweiligen IDs miteinander verglichen. Um dem 3D-Objekt einen Bloom-Effekt, also einen farbigen Schein als Umrandung, hinzuzufügen, wird das Konzept des Post-Processings verwendet.
 
 \begin{lstlisting}[caption={Intersects als Ausstellungsstück identifizieren},language=TypeScript]
     
@@ -223,7 +258,7 @@ Um die Ausstellungsstücke farblich zu umranden, müssen sie zunächst ausgelese
 
 \end{lstlisting}
 
-Um den Effekt wieder zu entfernen, da ein anderes Ausstellungsstück gehovert wurde, wird ein Array verwendet, das das alte Objekt herausgibt und das neue hinzufügt.
+Um den Effekt wieder zu entfernen, sobald ein anderes Ausstellungsstück mittels Maus berührt wird, wird ein Array verwendet, das das alte Objekt herausgibt und das Neue hinzufügt.
 
 \begin{lstlisting}[caption={Hover-effekt wieder entfernen},language=TypeScript]
     
@@ -235,11 +270,11 @@ addSelectedObjects( object: Object3D ){
 \end{lstlisting}
 
 \subsubsection{Postprocessing}
-Post-Processing ist eine Render-Methode, die zum Beispiel für Anti-Aliasing, Tiefenschärfe und andere 3D-Effekte benutzt wird. Dabei wird zuerst die Szene mit den gewünschten 3D-Objekten gerendert und im Speicher der Grafikkarte zwischengespeichert. Anschließend werden beim Post-Processing verschiedene Filter angewandt, diese gerendert und dem*der Benutzer*in angezeigt. In Three.js wird dafür ein EffectComposer verwendet. Dieser enthält ein Array von allen Effekten, die angewandt werden und dann mittels WebGL-Renderer in einer bestimmten Reihenfolge gerendert werden. Für die visuelle Anzeige sind Post-Processing-Passes zuständig. Zu Beginn wird ein RenderPass angelegt, der die zugehörige Kamera und Szene rendert. Anschließend können verschiedene Effekt-Passes, wie zum Beispiel der OutlinePass oder der GlitchPass, hinzugefügt werden. \cite{PostProcessing}
+Post-Processing ist eine Render Methode, die für zahlreiche 3D-Effekte, wie beispielsweise Anti-Aliasing, Tiefenschärfe und andere 3D-Effekte, genutzt wird. Dabei wird zuerst die Szene mit den gewünschten 3D-Objekten gerendert und im Speicher der Grafikkarte gesichert. Anschließend werden beim Post-Processing verschiedene Filter angewandt, diese gerendert und dem*der Benutzer*in angezeigt. In Three.js wird dafür ein \emph{EffectComposer} verwendet. Dieser enthält ein Array von allen Effekten, die angewandt werden und dann mittels WebGL-Renderer in einer bestimmten Reihenfolge gerendert werden. Für die visuelle Anzeige sind Post-Processing-Passes zuständig. Zu Beginn wird ein RenderPass angelegt, der die zugehörige Kamera und Szene rendert. Anschließend können verschiedene Effekt-Passes, wie zum Beispiel der OutlinePass oder der GlitchPass, hinzugefügt werden. \cite{PostProcessing}
 
 \subsubsection{Detailansicht}
 
-Um beim Klicken auf ein Ausstellungsstück zur gewünschten Detailansicht zu kommen, wird ebenfalls ein Raycaster benutzt. Die Logik funktioniert fast gleich wie beim Hover-Effekt. Jedoch werden die Koordinaten des Mauszeigers nur bei jedem Mausklick aktualisiert. Gleich wie beim Hover-Effekt, wird das Array der Ausstellungsstücke mit einer For-Schleife durchiteriert. Dadurch kann identifiziert werden welches Ausstellungsstück von dem*der Benutzer*in angeklickt wurde. Dabei werden die Informationen des Ausstellungsstückes an ein Dialogfenster geschickt, welches als Detailansicht fungiert.  
+Um beim Klicken auf ein Ausstellungsstück zur gewünschten Detailansicht zu kommen, wird ebenfalls ein Raycaster benutzt. Die Logik funktioniert ähnlich dem Hover-Effekt. Die Koordinaten des Mauszeigers werden diesmal jedoch bei jedem Mausklick aktualisiert. Auch hier wird eine For-Schleife genutzt, um das Array der Ausstellungsstücke durchzuiterieren. Dadurch kann identifiziert werden, welches Ausstellungsstück von dem*der Benutzer*in angeklickt wurde. Dabei werden die Informationen des Ausstellungsstückes an ein Dialogfenster geschickt, welches als Detailansicht fungiert.  
 
 \begin{lstlisting}[caption={identifizieren des geklickten Ausstellungsstückes},language=TypeScript]
     
@@ -257,7 +292,7 @@ Um beim Klicken auf ein Ausstellungsstück zur gewünschten Detailansicht zu kom
 
 \end{lstlisting}
 
-Geöffnet wird das Dialogfenster über eine eigene openDialog-Funktion. Dabei wird eine neue Instanz von einem Dialogfenster angelegt, welches Angular-Material verwendet. Dabei wird angegeben, welche Größe und Breite das Fenster haben soll. Auch wird festgelegt, wie schnell die Animation zum Öffnen und Schließen abläuft. Um die Daten des Ausstellungsstücks auch im Dialogfenster zur Verfügung zu stellen, werden diese beim initialisieren angegeben.
+Geöffnet wird das Dialogfenster über eine eigene \emph{openDialog-Funktion}. Dabei wird eine neue Instanz von einem Dialogfenster angelegt, welches Angular-Materials verwendet. Dabei wird angegeben, welche Größe und Breite das Fenster haben soll. Auch wird die Dauer der Animation des Öffnen und Schließen bestimmt. Um die Daten des Ausstellungsstücks auch im Dialogfenster zur Verfügung zu stellen, werden diese beim Initialisieren angegeben.
 
 \begin{lstlisting}[caption={initialisieren des Dialogfensters},language=TypeScript]
     
@@ -302,7 +337,7 @@ Das Dialogfenster ist eine eigene Angular-Komponente. Im Konstruktor der Kompone
   \end{lstlisting}
 
 \subsubsection{Navigation}
-Benutzer*innen können ebenfalls direkt in der Detailansicht zwischen den einzelnen Ausstellungsstücken wechseln. Dadurch müssen Benutzer*innen die Detailansicht nicht ständig verlassen, wodurch sich Zeit und Benutzereingaben gespart werden können. Außerdem kann dadurch eine Ausstellung, ähnlich wie bei dem Programm PowerPoint, gut für präsentierende Zwecke genutzt werden. 
+Benutzer*innen können ebenfalls direkt in der Detailansicht zwischen den einzelnen Ausstellungsstücken wechseln. Dadurch müssen Benutzer*innen die Detailansicht nicht ständig verlassen, wodurch Zeit und Benutzereingaben eingespart werden können. Außerdem kann dadurch eine Ausstellung, ähnlich wie bei dem Programm PowerPoint, gut für Präsentationszwecke genutzt werden.  
 
 
 

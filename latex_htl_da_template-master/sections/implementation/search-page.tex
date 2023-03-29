@@ -1,7 +1,12 @@
 \section{Such-Seite [M]}
 Auf der Such-Seite können Benutzer*innen nach bestimmten Ausstellungen suchen. Dabei kann nach dem Titel einer Ausstellung, nach dem Ersteller einer Ausstellung oder nach bestimmten Kategorien gefiltert werden. Bei der Suche handelt es sich um eine Vorschlagssuche, auch Typeahead-Suche genannt. Dabei werden schon während der Benutzereingabe mögliche Suchergebnisse angezeigt.
 
-//TODO Bild von Suchseite, wenn ordentliche Testdaten vorhanden
+\begin{figure} [h t]
+  \centering
+  \includegraphics[scale=0.55]{pics/search-page.png}
+  \caption{Search-Page}
+  \label{fig:impl:search-page}
+\end{figure}
 
 Falls der*die Nutzer*in noch keine Suche gestartet hat, werden ihm alle Ausstellungen angezeigt. Diese werden über die Datenbank und den HTTP-Service (siehe Angular Services \ref{httpService}) in die Benutzeroberfläche geladen. 
 
@@ -13,7 +18,7 @@ Der*Die Benutzer*in kann in einem Eingabefeld einen beliebigen Suchbegriff einge
     
 \end{lstlisting}
 
-Anschließend wird die Logik der Suche implementiert. Um mehrere Operatoren in die Suchfunktion zu integrieren, wird eine Pipe benötigt. Anschließend wird ein Filter angewendet, um ein Suchergebnis erst zu liefern, wenn der*die Benutzer*in mindestens 3 Buchstaben in das Suchfeld eingegeben hat. Um nicht durchgehend, also nach jeder Tastatureingabe, eine Anfrage an die Datenbank geschickt wird, wird der Operator debounceTime angewandt. Dabei wird eine Anfrage erst gesendet, nachdem der*die Benutzer*in eine gewisse Zeit nichts mehr in das Eingabefeld geschrieben hat. Durch die Methode distinctUntilChanged werden außerdem keine unnötigen Anfragen an den Server gesendet, falls sich der Suchbegriff nicht geändert hat. Da hierbei eine Subscription in einer Subscription vorhanden ist, wird ohne einen Flatting-Operator der Datenstrom aus Suchbegriffen und keine Ergebnisse zurückgeliefert. Daher wird der Operator swichtMap verwendet, der zusätzlich alle Anfragen an den Server abbricht, sobald sich die Sucheingabe, durch Einwirken des*der Benutzers*in, ändert. Somit können die vom Server gesendeten Suchergebnisse direkt in ein Array von Ausstellungsstücken gespeichert werden. Dabei werden, wie bei einer Vorschlagssuche, die gefilterten Ausstellungen dem Benutzer angezeigt und bei Veränderung des Suchbegriffs aktualisiert.
+Anschließend wird die Logik der Suche implementiert. Um mehrere Operatoren in die Suchfunktion zu integrieren, wird eine Pipe benötigt. Anschließend wird ein Filter angewendet, um erst dann ein Suchergebnis zu liefern, wenn der*die Benutzer*in mindestens 3 Buchstaben in das Suchfeld eingegeben hat. Damit nicht nach jeder Tastaturabgabe eine Anfrage an die Datenbank geschickt wird, wird der Operator \emph{debounceTime} angewandt. Dabei wird erst dann eine Anfrage gesendet, nachdem der*die Benutzer*in eine gewisse Zeit nichts mehr in das Eingabefeld geschrieben hat. Durch die Methode \emph{distinctUntilChanged} werden außerdem keine unnötigen Anfragen an den Server gesendet, falls sich der Suchbegriff nicht geändert hat. Da hierbei eine Subscription in einer Subscription vorhanden ist, wird ohne einen Flatting-Operator wieder der gleiche eingegebene Suchbegriff zurückgeliefert und keine Suchergebnisse. Daher wird der Operator \emph{swichtMap} verwendet, der zusätzlich alle Anfragen an den Server abbricht, sobald sich die Sucheingabe, durch Einwirken des*der Benutzers*in, ändert. Somit können die vom Server gesendeten Suchergebnisse direkt in ein Array von Ausstellungsstücken gespeichert werden. Dabei werden, wie bei einer Vorschlagssuche, die gefilterten Ausstellungen dem Benutzer angezeigt und bei Veränderung des Suchbegriffs aktualisiert.
 
 \begin{lstlisting}[caption={Die Such-Pipe mit den Filter-Operatoren},language=HTML]
 
@@ -28,7 +33,7 @@ Anschließend wird die Logik der Suche implementiert. Um mehrere Operatoren in d
 
 \subsection{Filtern mittels Kategorien}
 
-Zusätzlich zu der Suche über das Eingabefeld, kann der*die Benutzer*innen Ausstellungen zusätzlich über Ausstellungen filtern. Eine Ausstellung kann bei ihrer Konfiguration, keiner, einer oder mehrerer Kategorien zugeordnet werden. Alle Kategorien werden in einem Menü aufgelistet und können durch eine Checkbox für das Filtern ausgewählt werden. Beim Auswählen einer Kategorie wird diese einem Array aus Kategorien hinzugefügt. Falls der*die Benutzer*in eine Kategorie wieder abwählt, wird diese vom Array entfernt.   
+Zusätzlich zu der Suche über das Eingabefeld, kann der*die Benutzer*innen Ausstellungen zusätzlich filtern. Eine Ausstellung kann bei ihrer Konfiguration, keiner, einer oder mehrerer Kategorien zugeordnet werden. Alle Kategorien werden in einem Menü aufgelistet und können durch eine Checkbox für das Filtern ausgewählt werden. Beim Auswählen einer Kategorie wird diese einem Array aus Kategorien hinzugefügt. Falls der*die Benutzer*in eine Kategorie wieder abwählt, wird diese vom Array entfernt.   
 
 
 \begin{lstlisting}[caption={Auswählen und Abwählen der Kategorien},language=HTML]
