@@ -2,14 +2,14 @@
 \label{landingpage implentation}
 \setauthor{Litzlbauer Lorenz}
 
-Der erste Entwicklungsschritt für die vollständige Single-Page-Application beginnt mit der Initialisierung der Landingpage. Aus Sicht der User-Experience war es uns wichtig, dass der*die neue Nutzer*in sofort den Verwendungszweck des Applikation begreift und er*sie dazu animiert bei der Applikation mitzumachen. 
+Der erste Entwicklungsschritt für die vollständige Single-Page-Application beginnt mit der Initialisierung der Landingpage. Aus Sicht der User-Experience war es uns wichtig, dass der*die neue Nutzer*in sofort den Verwendungszweck des Applikation begreift und dazu animiert wird, bei der Applikation mitzumachen. 
 
-Die Entwicklung startete damit, dass die benötigten Technologien Angular, AngularThree, AngularMaterials und Bootstrap heruntergeladen werden mussten.
+Die Entwicklung startete damit, dass die benötigten Technologien Angular, AngularThree, AngularMaterials und Bootstrap heruntergeladen wurden.
 
-Dafür wurde der \emph{npm} Node-Package-Manager verwendet.
+Dafür wurde der \emph{NPM} Node-Package-Manager verwendet.
 
 \subsubsection{Angular installieren}\label{sec:AngularCLI}
-Angular hat ein eigenes Tool, die Angular CLI (Command Line Interface), um Projekte zu erstellen, zu bearbeiten, Komponenten, Services und vordefinierte Codemodule hinzuzufügen und das Projekt zu bauen.
+Angular hat ein eigenes Tool, die Angular CLI (Command Line Interface), um Projekte zu erstellen und zu bearbeiten, sowie um Komponenten, Services und vordefinierte Codemodule hinzuzufügen.
 
 \begin{lstlisting}[caption={{Terminalm - Angular aufsetzen, Installation der CLI, Configuration eines neuen Projektes, Starten des Projektes}},language=bash]
 npm install -g @angular/cli 
@@ -21,7 +21,7 @@ ng serve -o
 \end{lstlisting}
 
 In der ersten Codezeile wird das Angular-CLI-Tool global von NPM installiert.
-Danach wird mit dem Befehl \emph{ng new} mit dem CLI-Tool ein neues Angular Projekt erstellt. Anschließend gibt es mehrere Konfigurationsauswahlmöglichkeiten. Für dieses Projekt wurden Routing aktiviert und  als Stylesheet-Formatierung SCSS ausgewählt. Daraufhin wurde in das (Projekt-) Verzeichnis Gallery gewechselt und dort mit dem Befehl \emph{ng serve} der ein Webpack-Server gestartet, welcher den vorgenerierten Code von dem neu erstellen Angular-Projekt zeigt (siehe in Abbildung \ref{fig:impl:angular-starting-page}). 
+Danach wird mit dem Befehl \emph{ng new} mit dem CLI-Tool ein neues Angular Projekt erstellt. Anschließend gibt es mehrere Konfigurationsauswahlmöglichkeiten. Für dieses Projekt wurde das Routing (siehe \ref{sec:Routing}) aktiviert und als Stylesheet-Formatierung SCSS ausgewählt. Daraufhin wurde in das (Projekt-) Verzeichnis Gallery gewechselt und dort mit dem Befehl \emph{ng serve} ein Webpack-Server gestartet, welcher den vorgenerierten Code von dem neu erstellen Angular-Projekt zeigt (siehe in Abbildung \ref{fig:impl:angular-starting-page}). 
 
 \begin{figure}
     \centering
@@ -30,21 +30,25 @@ Danach wird mit dem Befehl \emph{ng new} mit dem CLI-Tool ein neues Angular Proj
     \label{fig:impl:angular-starting-page}
 \end{figure}
 
-\paragraph{Globale oder Lokale Module}
-Bei einer lokalen Installation werden die installierten Module in einem node-module Computerordner lokal im Projekt abgespeichert, während alle globalen Installationen in einem einzigen Computerordner, abhängig vom Computersystem gespeichert werden.
-Generell kann man bei NPM-Module zwischen lokalen und globalen Installationen unterscheiden. In der Regel ist eine lokale Installation besser, denn referenzieren mehrere Projekte auf ein globales Modul, kann es dazu kommen, dass bei einer Aktualisierung des globalen Modules verschiedene Projekte, sei es wegen veralteten Funktionen oder neuer Logik, darauf anders reagieren und es zu Problemen bei diesen Projekten kommt, da nichts im Projekt darauf referenzieren muss. 
-CLI-Module können aber auch lokal installiert werden und mit dem Befehl npx nur im Projektordner ausgeführt  werden. 
-\cite{npmlocalorglobal}
+\paragraph{Globale oder lokale Module}
+Bei einer lokalen Installation werden die installierten Module in einem Node-Modul-Computerordner lokal im Projekt abgespeichert, während alle globalen Installationen in einem einzigen Computerordner abhängig vom Computersystem gespeichert werden.
 
-\subsubsection{Installation der UI-Framework}
+Generell kann man bei NPM-Modulen zwischen lokalen und globalen Installationen unterscheiden. Grundsätzlich wird eine lokale Installation empfohlen, referenzieren mehrere Projekte auf ein globales Modul, kann es dazu kommen, dass bei einer Aktualisierung des globalen Modules verschiedene Projekte beschädigt werden.
+Das kommt daher, dass die darauf referenzierenden Projekte wegen ihrer Funktionalität anders auf die Veränderung des Modules reagieren.
+CLI-Module haben eine Berechtigung dafür, global installiert zu werden. Denn CLI-Module sind abgekapselte Softwarelösungen, auf die kein anderes Projekt referenziert. Sie können auch lokal installiert werden und mit dem Befehl \emph{npx} nur im Projektordner ausgeführt werden.\cite{npmlocalorglobal}
 
-Nach der Installation von Angular wurden die UI-Frameworks installiert. Angular Material konnte mithilfe des Befehls  \ref{lst:impl:installationAngularMaterials} mittels der Angular CLI in das Angularprojekt eingebunden werden.
+\subsubsection{Installation der UI-Frameworks}
+
+Nach der Installation von Angular wurden die UI-Frameworks \emph{Angular Material} und \emph{Bootstrap} installiert. 
+
+\emph{Angular Material} konnte mithilfe des Befehls  \ref{lst:impl:installationAngularMaterials} mittels der Angular CLI in das Angularprojekt eingebunden werden.
 
 \begin{lstlisting}[caption={{Terminal - Angular Material Installation}},language=bash,label=lst:impl:installationAngularMaterials]
     ng add @angular/material
 \end{lstlisting}
 
-Bootstrap konnte mithilfe des Befehls \ref{lst:impl:installationBootstrap} und von NPM installiert werden. Bootstrap wurde zwar dem Projekt hinzugefügt. Doch besteht noch keine Verbindung zwischen Angular und Bootstrap. Deswegen musste in der Angular-Konfigurationsdatei \emph{angular.json} die Bootstrap Scss-Liberay eingebunden werden. Das wird in diesem Code Beispiel \ref{lst:impl:BootstraptConfig} veranschaulicht.
+Bootstrap wurde mithilfe des Befehls \ref{lst:impl:installationBootstrap} von NPM installiert.
+Anschließend muss noch eine Verknüpfung zwischen Bootstrap und Angular hergestellt werden. Dafür musste in der Angular-Konfigurationsdatei \emph{angular.json} die Bootstrap Scss-Liberay eingebunden werden. Das wird in dem Code Beispiel \ref{lst:impl:BootstraptConfig} veranschaulicht.
 
 \begin{lstlisting}[caption={{Terminal - Bootstrap Installation}},language=bash,label=lst:impl:installationBootstrap]
     npm i bootstrap
