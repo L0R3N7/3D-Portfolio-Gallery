@@ -33,8 +33,7 @@ Nun gibt es aber mehrere Nachteile, die aus diesem Prozess entstehen. Der*Die Us
 \label{par:impl:usermanagment:reactiveForms}
 In Webanwendungen gibt es zahlreiche Formulare, die als eine der primären Kommunikationsschnittstellen zum Besucher*in dienen. Es gibt dafür die nativen HTML-Inputelemente, aber zu einer guter User-Experience gehört auch ein visuelles Feedback für den*die Benutzer*in bei Bearbeitung eines Formulars. Der Entwicklungsaufwand wächst allerdings mit der Anzahl der im Formular eingefügten Features.
 
-Angular bietet verschiedene Implementierungsarten, um die visuelle Komponenten umzusetzen und den Entwicklungsaufwand zu minimieren. Bei diesen Ansätzen können mehrere Eingabedaten zentral ausgewertet und weiterverarbeitet werden und der Status des Formulars bei Änderungen und Fehlern visuell dargestellt werden. \cite[Bookmonkey - 12 Formularverarbeitung und
-Validierung: Iteration IV]{AngularBuch}
+Angular bietet verschiedene Implementierungsarten, um die visuelle Komponenten umzusetzen und den Entwicklungsaufwand zu minimieren. Bei diesen Ansätzen können mehrere Eingabedaten zentral ausgewertet und weiterverarbeitet werden und der Status des Formulars bei Änderungen und Fehlern visuell dargestellt werden. \cite[12.1 S.276]{AngularBuch}
 
 Bei den Ansätzen unterscheidet man zwischen den reactiven Forms und den Template-Driven-Forms.
 
@@ -81,24 +80,24 @@ Das \emph{WebStorage API} bietet verschiedene Möglichkeiten, Daten per Schlüss
 
 
 \subparagraph{Session-Storage}
-Daten im Session-Storage werden je nach ihrem Ursprung getrennt aufbewahrt. Sie werden für die Zeit der Webseitensession gespeichert, wenn der Browser oder der Tab geschlossen wird, werden die Informationen gelöscht.
+Daten im Session-Storage werden je nach ihrem Ursprung getrennt aufbewahrt. Sie werden für die Zeit der Webseitensession gespeichert. Wenn der Browser oder der Tab geschlossen wird, werden die Informationen gelöscht.
 \cite{WebStorageAPI}
 
 \subparagraph{Local-Storage}
-Daten werden im Session-Storage persistiert und bleiben somit nach dem Schließen des Browsers oder des Tabs erhalten. Nur mittels JavaScript oder durch ein Löschen des Webbrowser-Caches können die Daten gelöscht werden.
+Daten werden im Local-Storage persistiert und bleiben somit nach dem Schließen des Browsers oder des Tabs erhalten. Nur mittels JavaScript oder durch ein Löschen des Webbrowser-Caches können die Daten gelöscht werden.
 \cite{WebStorageAPI}
 
 \subparagraph{Allgemeine Informationen}
-Beide Speichermethoden benutzen keine Server, um die Daten zu speichern, sondern den Cache des Webbrowsers. Das Speicherlimit hängt vom Webbrowser ab, doch beträgt es mndesten 5 MB und es können nur Zeichenketten gespeichert werden.
+Beide Speichermethoden benutzen keine Server, um die Daten zu speichern, sondern den Cache des Webbrowsers. Dabei beträgt das Speicherlimit meistens 5 MB, doch hängt das wegen der individuellen Implementation vom Web-Browser ab.
 \cite{WebStorageAPI}
 
 \subsubsection{HTTP-Interceptoren}
 \label{sec:httpinterceptor}
 HTTP-Interceptoren funktionieren in Angular als Zwischenschicht zwischen ausgehenden HTTP-Abfragen und eingehenden HTTP-Antworten und können diese manipulieren.
- HTTP-Interceptoren werden auf jeden Request angewendet. Es ist somit das perfekte Werkzeug, um in allen HTTP-Requests den JWT in den Header zu verpacken.
-\cite[10.3 Interceptoren: HTTP-Requests abfangen und transformieren]{AngularBuch}
+Diese werden auf jeden Request angewendet. Es ist somit das perfekte Werkzeug, um in allen HTTP-Requests den JWT in den Header zu verpacken.
+\cite[10.3]{AngularBuch}
 
-Wird ein Request an den Server gesendet, wird die Verarbeitung vom Interceptor unterbrochen. Es wird überprüft, ob der Json-Web-Token verfügbar ist. Wenn das zutrifft, wird der ursprüngliche Request geklont und in der Authentifizierungsspalte des Headers wird die Json-Web-Token-Id hinzugefügt. Danach wird der Request wieder zum Server weitergeleitet (siehe Code \ref{lst:impl:sign:JWTInterceptor}). 
+Wird ein Request an den Server gesendet, wird die Verarbeitung vom Interceptor unterbrochen. Es wird überprüft, ob der Json-Web-Token verfügbar ist. Trifft dies zu, wird der ursprüngliche Request geklont und in der Authentifizierungsspalte des Headers die Json-Web-Token-Id hinzugefügt. Danach wird der Request wieder zum Server weitergeleitet (siehe Code \ref{lst:impl:sign:JWTInterceptor}). 
 
 \begin{lstlisting}[caption=auth.interceptor.ts - add JWT to Request Header,label=lst:impl:sign:JWTInterceptor,language=TypeScript]
 import { Injectable } from '@angular/core';
@@ -134,35 +133,34 @@ export class AuthInterceptor implements HttpInterceptor {
 \end{lstlisting}
 
 \subsubsection{Routing- und Navigations-Einschränkung}
-Zum Start dieses Entwicklungsschrittes war der Interceptor und die JWT Verwaltung fertig. Doch das Projekt brauchte eine besseres visuelles Feedback System um dem*der Kunden*in den Anmeldestatus zu zeigen.
+Nach der Umsetzung des Interceptors und der JWT Verwaltung brauchte das Projekt ein besseres visuelles Feedback System, um dem*der User*in über den Anmeldestatus zu informieren.
 
-Deswegen und um zu verhindern das Benutzer*in auf Unterseiten sind auf denen sie wegen ihres Registrationsstatus (noch nicht authentifiziert) noch nichts machen können, wurde je nach Anmeldestatus andere Routen und Informationen auf der Navigationsbar gezeigt (siehe Abbildung \ref{fig:impl:navbarvergleich}). Dafür wurde die Navigationsleistenlogik und die Navigationsleistenservice angepasst. Zusätzlich wurde AuthGuard verwendet um Routen zu sperren auf, die der*die Benutzer*in wegen dem Registrationsstatus noch keinen Zugriff hat. 
+Wichtig war auch die Absicherung der jeweiligen Bereiche, welche Zugangsdaten benötigen. Je nach Anmeldestatus werden andere Routen und Informationen auf der Navigationbar gezeigt (siehe Abbildung {fig:impl:navbarvergleich}). Dafür wurde die Navigationsleistenlogik und der Navigationsleistenservice angepasst.
 
 \begin{figure}
   \centering
   \includegraphics[scale=0.5]{pics/navbarRequistrationsstatusGegenüberstellung.png}
-  \caption{Navbar: authentifiziert vs noch nicht authentifiziert}
+  \caption{Navbar: authentifiziert vs. noch nicht authentifiziert}
   \label{fig:impl:navbarvergleich}
 \end{figure}
 
 
 \subsection{Erledigte User-Stories [L]}
-Im Entwicklungsprozess des Usermanagment-System wurden folgende User-Stories vollendet: 
+Im Entwicklungsprozess des Benutzerverwaltung-System wurden folgende Ich erwarte mir: 
 \begin{compactenum}
-  \item Als Designer möchte ich einen Login, um meine Ausstellungen speichern und im Nachhinein immer öffnen zu können.
-  Akzeptanzkriterien:
+  \item Als Designer*in möchte ich einen Login, um meine Ausstellungen speichern und im Nachhinein immer öffnen zu können.
+  Ich erwarte mir:
   \begin{compactitem}
-      \item Man kann sich neu registrieren
-      \item Registrierung mittels Username und Passwort
-      \item Das Passwort muss überprüft werden beim Erstellen und mind. 8 Zeichen enthalten
+    \item eine Registrierungsmöglichkeit mittels Username und Passwort
+    \item vorgegebene Kriterien für die Passwortsicherheit
   \end{compactitem}
-  \item Als User*in will ich andere Rechte haben, je nachdem ob ich angemeldet bin oder nicht. Akzeptanzkriterien:
-  Wenn ein*e User*in angemeldet ist, kann er*sie:
+
+  \item Als User*in will ich andere Rechte haben, je nachdem ob ich angemeldet bin oder nicht. Wenn ich ich angemeldet bin, kann ich:
       \begin{compactitem}
           \item Ausstellungen ansehen
           \item Ausstellungen erstellen/löschen
       \end{compactitem}  
-  Wenn ein ein*e User*in nicht angemeldet ist, kann er*sie:
+  Wenn ich nicht angemeldet bin, dann kann ich:
       \begin{compactitem}
           \item Ausstellungen ansehen
           \item keine Ausstellungen erstellen

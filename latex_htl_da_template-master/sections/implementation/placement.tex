@@ -1,9 +1,13 @@
 \section{Content Creation [L]}
 \label{content-creation}
-Die Inhaltserstellungs-Funktion ist die Kernfunktion des Projekts. Die Content Creation definiert ein 3D-Portfolio. Ziel ist ein einfacher und intuitiver Konfigurationsprozess für ein 3D-Portfolios. 
+Die Inhaltserstellungsfunktion ist die Kernfunktion des Projekts.
+
+Die Content Creation definiert ein 3D-Portfolio. Durch sie werden alle nötigen Informationen und Konfigurationen für ein 3D-Portfolio gesammelt, der Zwischenstand wird bei einer Unterbrechung mittels der Web-Storage-API gespeichert, nach dem Veröffentlichen sind die virtuellen, dreidimensionalen Ausstellungen im Server abrufbereit und durch sie wurde ein System der Platzierung in der 3D-Ansicht entwickelt.
+
+Ziel ist es, dass der User durch einen intuitiven Konfigurationsprozess bei der Erstellung seiner 3D-Portfolios unterstützt wird.
 
 \subsection{Datenstruktur}
-Die 3D-Ausstellungen lassen sich durch Daten definieren. Die Daten werden bei der Content Creation vom*n Benutzer*in konfiguriert. 
+Die 3D-Ausstellungen lassen sich durch Daten definieren (siehe \ref{sec:wizard:categories}). Die Daten werden durch den*die Benutzer*in konfiguriert (siehe Abbildung \ref{fig:impl:creation:fourCategoires}).
 
 \begin{figure}[ht]
     \centering
@@ -14,14 +18,13 @@ Die 3D-Ausstellungen lassen sich durch Daten definieren. Die Daten werden bei de
 
 \subsubsection{Kategorie}
 \label{sec:wizard:categories}
-Die Datenstruktur des Protfolios lässt sich logisch in vier Kategorien (siehe Abbildung \ref{fig:impl:creation:fourCategoires}) teilen. 
+Die Datenstruktur des Portfolios lässt sich logisch in vier Kategorien (siehe Abbildung \ref{fig:impl:creation:fourCategoires}) aufteilen. 
 Die Kategorien sind:
 \begin{compactitem}
-\item Metadaten - Die Metadaten sind beschreibende Daten des Portfolio, dazu gehören Name, zugehörige Kategorien, eine Beschreibung und ein Thumbnail.
-\item Ausstellungsstücke - Die Ausstellungsstücke werden in dem 3D-Portfolio präsentiert. Die Ausstellungsstücke, Film-, Foto- und 3D Dateien,  werden vom*von Benutzer*in hochgeladen und mit Zusatzinformation wie Namen und Beschreibung ergänzt. 
-\item Raumdaten - Raumdaten bestehen aus virtuellen 3D-Daten des Raumes und weiteren Konfigurationsdaten wie den Positionen, an denen Ausstellungsstücke im Raum platziert werden können. Der Grundriss des Raumes kann jede beliebige Form besitzen. 
-\item Ausstellungsplatzierungsdaten - Mit diesen Daten werden die Ausstellungsstücke mit dem virtuellen Raum verbunden. Außerdem ist in den Ausstellungsplatzierungsdaten die Dimension eines Ausstellungsstückes enthalten. Jedes Position besitzt eine definierbare Sockelart. 
-\end{compactitem}
+\item Metadaten - Die Metadaten sind beschreibende Daten des Portfolios und umfassen den Namen, die zugehörigen Kategorien, einen  Beschreibungstext und ein Thumbnail.
+\item Ausstellungsstücke - Die Ausstellungsstücke werden in dem 3D-Portfolio präsentiert. Die Ausstellungsstücke, Film-, Foto- und 3D Dateien,  werden vom*von Benutzer*in hochgeladen und mit Zusatzinformation wie Namen und Beschreibung erweitert. 
+\item Raumdaten - Raumdaten bestehen aus virtuellen 3D-Daten des Raumes, dieses wird als ein GLTF-File gespeichert, und weiteren Positionierungsangaben möglicher Standorte, an denen die Ausstellungsstücke platziert werden können. Der Grundriss des Raumes kann jede beliebige Form besitzen. 
+\item Ausstellungsplatzierungsdaten - Mit diesen Daten werden die Ausstellungsstücke mit dem virtuellen Raum verbunden. Außerdem ist in den Ausstellungsplatzierungsdaten die Dimension eines Ausstellungsstückes enthalten. Weiterhin wird dort auch zwischen mehreren vordefinierten Sockel-Themes unterschieden. \end{compactitem}
 
 \paragraph{Ausprägungen}
 In der Single-Page-Application werden die vier Kategorien durch Klassen (siehe Abbildung \ref{fig:impl:creation:dataclasses}) definiert. 
@@ -49,14 +52,14 @@ Der Content-Creation-Prozess beginnt damit, dass der "Add-Button" auf der Profil
 
 
 \subsubsection{Formulare}
-Die Datensammlung wurde auf vier Formulare, die jeweils einer der vier Datenkategorien (siehe \ref{sec:wizard:categories}) sammeln, aufgeteilt. Das hat das Ziel, dass der*die Benutzer*in sich im Konfigurationsprozess nur mit jeweils einer Portfolio-Daten-Kategorie beschäftigen muss und nicht überfordert wird. Dabei wurde sich am \emph{Wizard-UI-Pattern} (siehe \ref{sec::contentcreation::wizard}) orientiert.
+Die Datensammlung wurde auf vier Formulare, die jeweils einer der vier Datenkategorien (siehe \ref{sec:wizard:categories}) zugehörig sind, aufgeteilt. Das hat das Ziel, dass der*die Benutzer*in sich im Konfigurationsprozess nur mit jeweils einer Portfolio-Daten-Kategorie beschäftigen muss und nicht überfordert wird. Dabei wurde sich am Wizard-UI-Pattern orientiert (siehe \ref{sec::contentcreation::wizard}).
 
 
 \paragraph{Metadaten-Formulare}
 Im Metadaten-Formular werden die Metadaten der Ausstellung gesammelt.
 
 
-Dabei wurden für die Sammlung der Namen, Beschreibungen und Kategorien der Ausstellung die reaktiven Formulare von Angular und für das Vorschaubild der Ausstellung die eigene Upload-Komponente benutzt. (siehe \ref{sec:wizard:upload}).
+Für diese wurden die Sammlung der Namen, Beschreibungen und Kategorien der Ausstellung die reaktiven Formulare von Angular und für das Vorschaubild der Ausstellung die eigene Upload-Komponente benutzt. (siehe \ref{sec:wizard:upload}).
 
 
 \paragraph{Exhibit-Formular}
