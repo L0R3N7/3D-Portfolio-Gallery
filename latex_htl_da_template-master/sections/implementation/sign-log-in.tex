@@ -41,7 +41,7 @@ Bei den Ansätzen unterscheidet man zwischen den reactiven Forms und den Templat
 \subsubsection{Token-Verwaltung}
 \label{sec:tokenveraltung}
 Um das Problem, dass beim neu Laden der Webseite der Anmeldestatus bzw. der Json-Web-Token verloren geht, zu lösen, wird der Json-Web-Token im Locale-Storage des Browsers gespeichert. 
-Im Codeausschnitt (siehe \ref{lst:impl:sign:jwtLocalstorage}) ist ein Teil des Authentifizierungsdienstes des Projektes zu sehen. Mit der Funktion \emph{setSaveJWT} wird der ausgestellte Json-Web-Token ausgelesen und die darin enthaltenen Informationen, der Name und die Id des Benutzers, die Id des Tokens und das Ablaufdatum des Tokens im Locale-Storage (siehe im Absatz WebStorage API \ref{par:impl:usermanagment:WebStorage}) gespeichert, damit die Daten auch nach dem neu Laden der Webseite erhalten bleiben. Die Funktion \emph{isLoggedIn} gibt nach dem Aufruf den Status mit, ob eine Person angemeldet ist oder nicht. Dafür benutzt die Funktion das im Json-Web-Token enthaltene Ablaufdatum und vergleicht es mit dem aktuellen Datum. Zuletzt gibt es noch die \emph{logout} Funktion, diese löscht die im Locale-Storage enthaltenen Json-Web-Token-spezifischen Daten.
+Im Codeausschnitt (siehe Abbildung \ref{lst:impl:sign:jwtLocalstorage}) ist ein Teil des Authentifizierungsdienstes des Projektes zu sehen. Mit der Funktion \emph{setSaveJWT} wird der ausgestellte Json-Web-Token ausgelesen und die darin enthaltenen Informationen, der Name und die ID des Benutzers, die ID des Tokens und das Ablaufdatum des Tokens im Locale-Storage (siehe im Absatz WebStorage API \ref{par:impl:usermanagment:WebStorage}) gespeichert, damit die Daten auch nach dem neu Laden der Webseite erhalten bleiben. Die Funktion \emph{isLoggedIn} gibt nach dem Aufruf den Status mit, ob eine Person angemeldet ist oder nicht. Dafür benutzt die Funktion das im Json-Web-Token enthaltene Ablaufdatum und vergleicht es mit dem aktuellen Datum. Zuletzt gibt es noch die \emph{logout} Funktion, diese löscht die im Locale-Storage enthaltenen Json-Web-Token-spezifischen Daten.
 
 \begin{lstlisting}[caption=auth.service.ts - Json-Web-Token und Localstorage,label=lst:impl:sign:jwtLocalstorage,language=TypeScript ]
 export class AuthService {
@@ -76,16 +76,16 @@ export class AuthService {
 
 \paragraph{WebStorage API}
 \label{par:impl:usermanagment:WebStorage}
-Das WebStorage API bietet verschiedene Möglichkeiten, Daten per Schlüssel-Werte-Paare im Web zu persistieren. Persistenz ist die Fähigkeit, Daten in einem nicht flüchtigen Speicher zu speichern, um so den Datenverlust beim Neustart des Systems zu verhindern. Das WebStorage API ist nicht Teil des DOM, sondern der globalen Web-Variable window. Die zwei Arten, Daten mittels der WebStorage API zu persistieren, sind der Locale-Storage und der Session-Storage.
+Das \emph{WebStorage API} bietet verschiedene Möglichkeiten, Daten per Schlüssel-Werte-Paare im Web zu persistieren. Persistenz ist die Fähigkeit, Daten in einem nicht flüchtigen Speicher zu speichern, um so den Datenverlust beim Neustart des Systems zu verhindern. Das WebStorage API ist nicht Teil des DOM, sondern der globalen Web-Variable window. Die zwei Arten, Daten mittels der WebStorage API zu persistieren, sind der Locale-Storage und der Session-Storage.
 \cite{WikiPersistenzDefinition} \cite{WebStorageAPI}
 
 
 \subparagraph{Session-Storage}
-Daten im Session-Storage werden je nach ihrem Ursprung getrennt aufbewahrt. Sie werden für die Zeit der Webseitensession gespeichert, wenn der Browser oder der Tab geschlossen wird, werden die Information gelöscht.
+Daten im Session-Storage werden je nach ihrem Ursprung getrennt aufbewahrt. Sie werden für die Zeit der Webseitensession gespeichert, wenn der Browser oder der Tab geschlossen wird, werden die Informationen gelöscht.
 \cite{WebStorageAPI}
 
 \subparagraph{Local-Storage}
-Daten werden wie im Session-Storage persistiert, die Daten bleiben nach den Schließen des Browsers oder Tabs erhalten. Die Daten können nur durch JavaScript oder das Löschen des Webbrowser-Caches gelöscht werden.
+Daten werden im Session-Storage persistiert und bleiben somit nach dem Schließen des Browsers oder des Tabs erhalten. Nur mittels JavaScript oder durch ein Löschen des Webbrowser-Caches können die Daten gelöscht werden.
 \cite{WebStorageAPI}
 
 \subparagraph{Allgemeine Informationen}

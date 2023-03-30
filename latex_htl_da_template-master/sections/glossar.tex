@@ -5,7 +5,7 @@ Ein Framework soll dem*der Programmierer*in helfen neue Applikationen zu schaffe
 
 \subsubsection{Open-Source [L]}
 \setauthor{Lorenz Litzlbauer}
-Bei einer Open Source Applikation ist der Code öffentlich zugänglich. Der Open Source Status sagt aber nichts über die Lizenzierung der Applikation aus. 
+Bei einer Open Source Applikation ist der Code öffentlich zugänglich. Der Open Source Status sagt aber nichts über die Lizenzierung der Applikation aus. \cite{WhatOpenSource}
 
 \subsubsection{Single-Page-Application (SPA) [M]}
 \setauthor{Fabian Maar}
@@ -13,11 +13,11 @@ Eine Single-Page-Webanwendung interagiert mit dem*der User*in, wodurch sich einz
 
 \subsubsection{Design-Pattern [L]}
 \setauthor{Lorenz Litzlbauer}
-Im Programmieren gibt es Probleme, die immer wieder auftreten. Diese Probleme wurden schon einmal sehr effizient gelöst und es besteht kein Nutzen sie immer wieder zu lösen.  Design Patterns sind Strategien und Implementierungsvorgaben für die Lösung dieser Probleme. Design Patterns beschleunigen den Programmierungseffekt und machen ihn sicher, weil die Implementierungsvorgaben schon vorgegeben sind und diese auf einen hohen Grad der Sicherheit getestet wurden. \cite{DesignPatterns}
+Im Programmieren gibt es Probleme, die immer wieder auftreten. Diese Probleme wurden schon einmal sehr effizient gelöst und es besteht kein Nutzen sie immer wieder zu lösen. Design Patterns sind Strategien und Implementierungsvorgaben für die Lösung dieser Probleme. Sie beschleunigen den Entwicklungsprozess und machen ihn sicher, weil die Implementierungsvorgaben schon vorgegeben sind und diese auf einen hohen Grad der Sicherheit getestet wurden. \cite{DesignPatterns}
 
 \paragraph{Observer design pattern}
 \label{txt:glos:observerDesignPattern}
-Ein konkretes Beispiel für Design Patterns ist das \emph{Observer pattern}. Es wird dafür verwendet, Eins-zu-Eins-Beziehungen zwischen zwei oder mehreren Objekten zu erstellen. Das Ziel ist es, dass Objekte (oder auch das Subject) bei allen Veränderungen diese an das andere Objekt (oder auch den Observer) weitergeben und das so schnell und leicht wie möglich. Die Idee ist, dass das Subject eine Liste von Observern führt, wenn sich etwas ändert, liest das Subject die Liste aus und informiert alle eingetragenen Observer, wenn ein Objekt ein Observer werden will, muss es sich in die Liste des zu observierenden Objekt einschreiben. Ohne diese Funktionalität müsste der Observer in einem regelmäßigen Intervall das Subject abfragen, ob es eine Veränderung gab, die die Rechenzeit und Leistung verlängert würden. \cite{ObserverPatternExplaination}
+Ein konkretes Beispiel für Design Patterns ist das \emph{Observer pattern}. Es wird dafür verwendet, Eins-zu-Eins-Beziehungen zwischen zwei oder mehreren Objekten zu erstellen. Ziel ist, dass Objekte (oder auch das Subject) bei allen Veränderungen diese schnell und leicht an das Objekt(oder auch den Observer) weitergeben.  Das Subject führt eine Liste von Observern. Sobald Änderungen auftreten, liest das Subject die Liste aus und informiert alle eingetragenen Observer. Wenn ein Objekt ein Observer werden will, muss es sich in die Liste des zu observierenden Objekt einschreiben. Ohne diese Funktionalität müsste der Observer in einem regelmäßigen Intervall das Subject abfragen, ob es eine Veränderung gab, die die Rechenzeit und Leistung verlängert würden. \cite{ObserverPatternExplaination}
 
 \subsubsection{Event-Listener [M]}
 \setauthor{Fabian Maar}
@@ -60,8 +60,4 @@ https://www.redhat.com/de/topics/api/what-are-application-programming-interfaces
 \subsubsection{Evolutionäres Prototyping [L]}
 \setauthor{Litzlbauer Lorenz}
 \label{ch::ongoing-prototyping}
-Das evolutionäre Prototyping ist eine Art des Prototyping, dabei wird der Prototyp über die Dauer des gesamten Projektes weiterentwickelt, bis daraus das fertige Softwareprojekt wird. \cite{Prototyping}
-
-In der Softwareentwicklung gibt es große Probleme, wenn Fehler und Missverständnisse aus der Spezifikationsphase eines Projektes erst zu einem späten Projektstand entdeckt werden. Denn zu diesem Zeitpunkt lassen sich nur schwer grundlegende Änderungen am Projekt machen. \cite{Prototyping}
-
-Deswegen sollte versucht werden, sobald wie möglich auf diese Probleme zu stoßen. Dabei helfen Prototypen. Prototypen sind Annäherungen oder funktionelle Modelle von Systemteilen des fertigen Produkts. Sie werden im Vergleich zu dem Produkt mit weniger Aufwand produziert und das Klientel kann sich vorab ein Bild machen und Missverständnisse kommen durch die vermehrte Absprache mit der Kundschaft weniger auf. \cite{Prototyping}
+Beim evolutionären Prototyping wird der Prototyp über die Dauer des gesamten Projektes weiterentwickelt. Dies soll vermeiden, dass Fehler und Missverständnisse aus der Spezifikationsphase eines Projektes erst zu einem späten Projektstand entdeckt werden. \cite{Prototyping}

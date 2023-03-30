@@ -45,53 +45,54 @@ Auf der Profileseite (siehe Abbildung \ref{fig:impl:sign:profile}) sieht der*die
 \end{figure}
 
 \paragraph*{Add Button}
-Der Content-Creation-Prozess beginnt damit, dass der Add-Button auf der Profileseite gedrückt wird. Danach wird der*die Benutzer*in zu dem Content-Creation-Tool auf der Single-Page-Application weitergeleitet. Dort startet er*sie den Konfigurationsprozess mit dem Metadaten-Formular.
+Der Content-Creation-Prozess beginnt damit, dass der "Add-Button" auf der Profileseite gedrückt wird. Danach wird der*die Benutzer*in zu dem Content-Creation-Tool auf der Single-Page-Application weitergeleitet. Dort startet er*sie den Konfigurationsprozess mit dem Metadaten-Formular.
 
 
 \subsubsection{Formulare}
-Die Datensammlung wurde auf vier Formularen, die jeweils einer der vier Datenkategorien (siehe im Abschnitt \ref{sec:wizard:categories}) sammeln, aufgeteilt. Das hat das Ziel, dass der*die Benutzer*in sich im Konfigurationsprozess nur mit jeweils einer Portfolio-Daten-Kategorie beschäftigen muss und nicht überfordert wird. Dabei wurde sich am \emph{Wizard-UI-Pattern} (mehr dazu im Unterkapitel \ref{sec::contentcreation::wizard} auf der Seite \pageref{sec::contentcreation::wizard}) orientiert.
+Die Datensammlung wurde auf vier Formulare, die jeweils einer der vier Datenkategorien (siehe \ref{sec:wizard:categories}) sammeln, aufgeteilt. Das hat das Ziel, dass der*die Benutzer*in sich im Konfigurationsprozess nur mit jeweils einer Portfolio-Daten-Kategorie beschäftigen muss und nicht überfordert wird. Dabei wurde sich am \emph{Wizard-UI-Pattern} (siehe \ref{sec::contentcreation::wizard}) orientiert.
 
 
 \paragraph{Metadaten-Formulare}
 Im Metadaten-Formular werden die Metadaten der Ausstellung gesammelt.
 
 
-Dabei wurden für die Sammlung der Namen, Beschreibungen und Kategorien der Ausstellung die reaktiven Formulare von Angular und für das Vorschaubild der Ausstellung die eigene Upload-Komponente benutzt. (siehe Abschnitt Upload \ref{sec:wizard:upload}).
+Dabei wurden für die Sammlung der Namen, Beschreibungen und Kategorien der Ausstellung die reaktiven Formulare von Angular und für das Vorschaubild der Ausstellung die eigene Upload-Komponente benutzt. (siehe \ref{sec:wizard:upload}).
 
 
 \paragraph{Exhibit-Formular}
-Im Exhibit-Formular lädt der*die Benutzer*in seine*ihre digitalen Ausstellungsstück hoch.
+Im Exhibit-Formular lädt der*die Benutzer*in die gewünschten, die eigenen digitalen Ausstellungsstück hoch.
 
-Beim Upload gibt es Einschränkungen. Ausstellungstücke können nur hochgeladen werden, wenn ihre Datengröße kleiner als 50 MB ist und ihr Filetyp unterstützt wird. Es werden für 3D-Dateien GLTF-Files, für Video-Dateien MP4 und für Photo-Dateien JPG und PNG unterstützt (siehe Abschnitt Upload \ref{sec:wizard:upload})
+Diese können nur hochgeladen werden, wenn ihre Datengröße kleiner als 50 MB ist und ihr Filetyp unterstützt wird. Es werden für 3D-Dateien GLTF-Files, für Video-Dateien MP4 und für Photo-Dateien JPG und PNG unterstützt (siehe \ref{sec:wizard:upload})
 
 \paragraph{Raum-Formular}
 Im Raumformular wählt der*die User*in zwischen den vordefinierten Grundrissen aus.
 
 In einer 3D-Ansicht neben den Auswahlmöglichkeiten sieht man eine Vorschau, wie der ausgewählte Raum ohne Ausstellungstücke aussieht. 
 
-Ein Grundriss definiert auch die möglich Positionen der Ausstellungsstücke und damit auch die Anzahl wie viele Ausstellungsstücke jeweils in einem Raum seinen können. Dem*Der User*in werden die Räume vorgeschlagen, nachdem wie viele Ausstellungsstücke er*sie im vorherigen Formualre Exhibit-Formular kreiert hatte. 
+Abhängig von der Anzahl der hochgeladenen Ausstellungsstücke werden dem*der User*in passende Räume vorgeschlagen.
 
 \paragraph{Ausstellungs-Platzierungs-Formular}
 Im Ausstellungs-Platzierungs-Formular werden die hochgeladenen Ausstellungstücke mit dem Grundriss der Ausstellung verbunden.  In einer 3D-Ansicht neben den Auswahlmöglichkeiten sieht man eine Vorschau, wie der Raum mit den Ausstellungstücke aussieht. 
 
-Ein Grundriss hat dabei mehrere Positionen. An diesen können Ausstellungsobjekte platziert werden. Die Ausstellungsstücke können manuell und automatisch an der Position platziert werden.
-Dabei wird nach der Ausstellungsstück-Type unterschieden: 3D-Datei oder Photo und Video-Datei. Nach dem Datei-Type des Ausstellungstücks wird an der Position entweder ein Sockel oder ein Bilderrahmen mit dem Ausstellungstück erschaffen. Der Typ des Sockels und des Bilderrahmens können geändert werden.
-Die Größe eines 3D-Ausstellungsstückes wird normalisiert, damit alle Ausstellungstücke gleich groß sind und dem*der User*in wird die Möglichkeit gegeben, diese Größe noch zu ändern.
+Jeder Grundriss bietet dabei individuelle, im Vorfeld definierte, Positionen. An diesen können Ausstellungsobjekte
+platziert werden. Dies kann manuell einzeln oder bei allem automatisiert durchgeführt werden.
+
+Je nach Datentyp des Ausstellungsstückes wird an der Position entweder ein Sockel oder ein Bilderrahmen mit dem Ausstellungstück erschaffen. Der Typ des Sockels und des Bilderrahmens können geändert werden.
+Die Größe eines 3D-Ausstellungsstückes wird normalisiert, damit alle Ausstellungstücke gleich groß sind. Dem*der User*in wird die Möglichkeit gegeben, diese Größe noch zu ändern.
 
 \paragraph{Userinterface-Struktur / Wizard Design Pattern [L]}
 \label{sec::contentcreation::wizard}
 Im Projekt wurde das Wizard-UI-Pattern benutzt, um den Konfigurationsprozess des Portfolios einfacher zu gestalten.
 
 \paragraph*{Wizard Begriffserklärung [L]}
-Der Begriff "\emph{Wizard}" in der Softwareentwicklung, kommt ursprünglich von Systemadministratoren, welche bei komplizierten Installationsprozessen halfen oder ganz übernahmen. Mit der Zeit änderte sich der Begriff zu Software-Assistenten-Programmen, welche dem*der User*in dabei unterstützten, die Software zu konfigurieren. \cite[Ursprung des Begriffs Wizard]{OrigionOfWizards}
+Der Begriff '\emph{Wizard}' in der Softwareentwicklung leitet sich von Systemadministratoren, welche bei komplizierten Installationsprozessen halfen oder ganz übernahmen, ab. Mit der Zeit änderte sich der Begriff zu Software-Assistenz-Applikationen, welche dem*der User*in dabei helfen, die Software zu konfigurieren. \cite[Ursprung des Begriffs Wizard]{OrigionOfWizards}
 
 \paragraph{Wizard-UI-Pattern [L]}
-Im Web-Bereich gibt es in der Regel zwei Arten Dateneintragungen zu verarbeiten.
-
-Formulare und Wizards. Ein Wizard ist eine eigene kleine Applikation, die den*die Benutzer*in durch eine Folge von Formularen führt und gegebenenfalls beim Ausfüllen unterstützt. Je nach den Eingaben können Wizards die Reihenfolge oder die Formulare ändern.\cite[Wizards: Definition and Design Recommendations]{WizradsDefinitionAndRecommandation}
+Im Web-Bereich gibt es zwei Arten Dateneintragungen zu verarbeiten: Formulare und Wizards. 
+Ein \emph{Wizard} ist eine eigene kleine Applikation, die den*die Benutzer*in durch eine Folge von Formularen führt und gegebenenfalls beim Ausfüllen unterstützt. Je nach Eingabe können Wizards die Formulare passend adaptieren.\cite[Wizards: Definition and Design Recommendations]{WizradsDefinitionAndRecommandation}
 
 \paragraph{Umsetzung des Wizards [L]}
-Für die Umsetzung des Wizards wurde die Angular Material Komponente Mat-Stepper benutzt. Sie bietet eine solide Basis für den Wizard. Content kann sequentiell dargestellt werden, während dem*der User*in der aktuelle Status des Wizards durch eine Navigationsleiste angezeigt wird (siehe Abbildung \ref{fig:impl:creation:mathorziontalstepper}). \cite{amStepper}
+Für die Umsetzung des Wizards wurde die Angular Material Komponente \emph{mat-stepper} benutzt. Sie bietet eine solide Basis für den Wizard. Content kann sequentiell dargestellt werden, während dem*der User*in der aktuelle Status des Wizards durch eine Navigationsleiste angezeigt wird (siehe Abbildung \ref{fig:impl:creation:mathorziontalstepper}). \cite{amStepper}
 
 \begin{figure}
     \centering
@@ -102,57 +103,25 @@ Für die Umsetzung des Wizards wurde die Angular Material Komponente Mat-Stepper
 
 \subsection{Upload}
 \label{sec:wizard:upload}
-Die Dateien-Hochlade-Komponente wurde mit dem Gedanken entwickelt, hoch modular und anpassungsfähig zu sein. Denn die Hochlade-Funktion wird öfters im Projekt gebraucht.
+Der Upload-Prozess wurde mit dem Gedanken entwickelt, hoch modular und anpassungsfähig zu sein.
 
-Bei der Komponente sind akzeptable Filetypen und Filegrößen einzustellen, werden die gesetzten Anforderungen an Filetypen und Filegrößen von den hochzuladenden Daten nicht erfüllt, so werden diese auch nicht hochgeladen und die Komponente gibt eine Fehlermeldung.
+Bei der Komponente sind akzeptable Filetypen und Filegrößen einstellbar. Werden die die gesetzten Anforderungen an Filetypen und Filegrößen von den hochzuladenden Daten nicht erfüllt, so wird der Upload abgebrochen und die Komponente gibt eine Fehlermeldung.
 Bei einem erfolgreichen Hochladeprozess bekommt die Komponente eine URL vom Server. Unter der URL ist die hochgeladene Datei erreichbar.
 
-\subsection{Erledigte Userstories [L]}
-In dem Entwicklungsprozess der Content-Creation-Tool wurden folgende Userstories vollendet:
+\subsection{Erledigte User-Stories [L]}
+In dem Entwicklungsprozess des Content-Creation-Tools wurden folgende User-Stories vollendet:
 \begin{compactenum}
-    \item  Als User*in will ich eine Profil-Unterseite haben, auf der ich userrelevante Informationen angezeigt bekomme. Akzeptanzkriterien:
-    \begin{compactitem}
-        \item userrelevante Informationen, die angezeigt werden, sind:
-        \begin{compactitem}
-            \item Name
-            \item Profilfoto
-            \item Erstellte Ausstellungen        
-        \end{compactitem}
-        \item Der*Die User*in kann dort seine Ausstellungen löschen.        
-    \end{compactitem}
-    \item Als User*in will ich bei der Erstellung einer Ausstellung zwischen verschiedenen Templates wählen können, um diese auf einfache Weise zu individualisieren. Akzeptanzkriterien:
-    \begin{compactitem}
-        \item Der*Die User*in kann keine Templates erstellen.
-        \item Der*Die User*in kann manuell die Podeste für jede Datei zwischen mehrere vorgefertigten auswählen und für den Boden + Wand ein Pattern hochladen
-    \end{compactitem}
-    \item Als User*in will ich meine Daten auf den Server laden, um diese jederzeit innerhalb einer Ausstellung platzieren und integrieren zu können. Akzeptanzkriterien:
-    \begin{compactitem}
-        \item Unterstützte Dateien (Bilder-, Audio-, Video-, 3D-Dateien)
-        \item Uploadmöglichkeiten:
-        \begin{compactitem}
-            \item Im Ordner auswählen.
-        \end{compactitem}
-        \item Dateigrößenlimit: 50MB
-        \item Dateityp Limit: nur Standardformate (Bilder: JPG, PNG, etc.; etc.; …)
-        \item Fehlermeldung bei falschem Upload
-    \end{compactitem}
-    \item  Als User*in will ich, dass meine Daten automatisch als Ausstellungsstücke in der Ausstellung angeordnet werden, damit die Nutzung für persönliche Bereiche unkompliziert möglich ist. Akzeptanzkriterien:
-    \begin{compactitem}
-        \item Falls dies nicht möglich ist, soll eine Fehlermeldung angezeigt werden
-    \end{compactitem}
-    \item Als User*in möchte ich die Reihenfolge und Platzierung meiner Werke innerhalb der Ausstellung adaptieren können. Akzeptanzkriterien:
-    \begin{compactitem}
-        \item Die Werke sollen zwischen vordefinierten Plätzen tauschbar sein.
-    \end{compactitem}
-    \item Als User*in möchte ich meine Ausstellung abspeichern und löschen können. Akzeptanzkriterien:
+    \item  Als User*in will ich eine Profil-Unterseite haben, auf der ich userrelevante Informationen angezeigt bekomme. Dazu gehören der Name, das Profilfoto, und meine erstellten Ausstellungen. Diese möchte ich auch löschen können
+    \item Als User*in will ich bei der Erstellung einer Ausstellung zwischen verschiedenen Templates wählen können, um diese auf einfache Weise zu individualisieren - beispielsweise durch die Änderung des Podestes.
+    \item Als User*in will ich meine Daten auf den Server laden, um diese jederzeit innerhalb einer Ausstellung platzieren und integrieren zu können. Dazu möchte ich Bilder-, Video-, 3D-Dateien mit einer Größe von maximal 50 MB hochladen können. Bei falschem Upload benötige ich eine Fehlermeldung zur Information.
+    \item  Als User*in will ich, dass meine Daten automatisch als Ausstellungsstücke in der Ausstellung angeordnet werden, damit die Nutzung für persönliche Bereiche unkompliziert möglich ist. Falls dies nicht möglich ist, soll eine Fehlermeldung angezeigt werden
+    \item Als User*in möchte ich die Reihenfolge und Platzierung meiner Werke innerhalb der Ausstellung adaptieren können. Dazu soll die Wahl zwischen vordefinierten Plätzen möglich sein.
+    \item Als User*in möchte ich meine Ausstellung abspeichern und löschen können. 
     \begin{compactitem}
         \item Die Daten im Bezug auf die Ausstellungen werden auf dem Server gespeichert.
         \item Bevor die Ausstellung gelöscht wird, soll ein Warnhinweis angezeigt werden, welcher noch bestätigt werden muss.
     \end{compactitem}
-    \item Als Benutzer*in möchte ich meinen Ausstellungen Tags zuordnen können, damit diese leichter gefunden werden können. Akzeptanzkriterien:
-    \begin{compactitem}
-        \item Tags werden beim erstellen der Ausstellung aus einen vordefinierten Tag-Pool ausgewählt.
-    \end{compactitem}
+    \item Als Benutzer*in möchte ich meinen Ausstellungen Tags zuordnen können, damit diese leichter gefunden werden können. Dazu soll ein vordefinierter Tag-Pool zur Verfügung stehen, aus welchem ich auswählen kann.
 \end{compactenum}
 
 %%\section{3D-Portfolio-Gallery Konfigurationstool [L]} \label{Konfigurationstool}
