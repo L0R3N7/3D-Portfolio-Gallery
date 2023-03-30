@@ -18,7 +18,7 @@ Folgende Aspekte sprechen für die Nutzung von Angular in diesem Projekt:
    \caption{Angular Logo}
   \end{center}
 \end{wrapfigure}
-Angular ist ein Framework für Webapplikationen, das auf der Programmiersprache Typescript basiert. Es ist eines der renommiertesten Frameworks zur Front-End-Entwicklung, wird als Open-Source-Software zur Verfügung gestellt und besitzt somit eine große Community. So zählte es 2022 zu den zweitbeliebtesten Front-End Framework \cite{AngularEvidence} und wird von Milliardenkonzernen wie zum Beispiel Google oder PayPal verwendet. 
+Angular ist ein Framework (siehe \ref{txt:glos:Framework}) für Webapplikationen, das auf der Programmiersprache Typescript basiert. Es ist eines der renommiertesten Frameworks zur Front-End-Entwicklung, wird als Open-Source-Software zur Verfügung gestellt und besitzt somit eine große Community. So zählte es 2022 zu den zweitbeliebtesten Front-End Framework \cite{AngularEvidence} und wird von Milliardenkonzernen wie zum Beispiel Google oder PayPal verwendet. 
 \cite{AngularEvidence2}
 
 Die große Stärke von Angular ist die Erstellung von Single-Page-Applikationen, da es eine komponentenbasierte Struktur besitzt. Das bedeutet, der Code ist wiederverwendbar und verkapselt. Komplexe Logiken werden auf ihre Grundelemente reduziert und beeinflussen sich nicht gegenseitig. \cite{AngularGeneral}
@@ -74,10 +74,10 @@ Angular nutzt hierbei eine Mischung aus beiden Architecture-Patterns. Diese Arch
 
 \paragraph{NgModules [M]}\label{sec:NgModules}
 \setauthor{Fabian Maar}
-\emph{NgModules} erleichtern die Einbindung von Libraries. Da keine externen Dateien mühsam heruntergeladen und eingebunden werden müssen und jeder Import-Prozess durch wenige Zeilen Code erfolgt, wird Zeit beim Entwickeln gespart. Alle Importe werden in chronologischer Reihenfolge gelistet, wodurch ein guter Gesamtüberblick geliefert wird und schnell überflüssige Imports entfernt werden können. Die kontinuierliche Erweiterung und die Unterstützung von Third-Party-Libraries, die unter anderem für die 3D-Darstellung verwendet werden, wird ebenfalls von diesen ngModulen ermöglicht. Die Angular-Applikation wird hierbei organisiert und gestartet, in dem die Metadaten wie folgt abgespeichert werden:
+\emph{NgModules} erleichtern die Einbindung von Libraries. Da keine externen Dateien mühsam heruntergeladen und eingebunden werden müssen und jeder Import-Prozess durch wenige Zeilen Code erfolgt, wird Zeit beim Entwickeln gespart. Alle Importe werden in chronologischer Reihenfolge gelistet, wodurch ein guter Gesamtüberblick geliefert wird und schnell überflüssige Imports entfernt werden können. Die kontinuierliche Erweiterung und die Unterstützung von Third-Party-Libraries (siehe \ref{txt:glos:ThirdParty}), die unter anderem für die 3D-Darstellung verwendet werden, wird ebenfalls von diesen ngModulen ermöglicht. Die Angular-Applikation wird hierbei organisiert und gestartet, in dem die Metadaten wie folgt abgespeichert werden:
 
 \begin{itemize}
-  \item Declarations - In dieser Sektion werden alle zugehörigen Komponenten, Direktiven und Pipes deklariert. 
+  \item Declarations - In dieser Sektion werden alle zugehörigen Komponenten, Direktiven (siehe \ref{txt:glos:Direktiven}) und Pipes (siehe \ref{txt:glos:Pipes}) deklariert. 
   \item Providers - Sie initialisieren wie die Werte bei der Dependency Inection (siehe \ref{DPI}) abgerufen werden. \cite{AngularProviders}
   \item Imports - Hier werden alle Libraries und exportierte Modules importiert.
   \item Exports - Sie beinhalten alle zu exportierenden Module
