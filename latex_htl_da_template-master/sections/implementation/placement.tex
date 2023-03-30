@@ -1,8 +1,8 @@
 \section{Content Creation [L]}
 \label{content-creation}
-Die Inhaltserstellungs-Funktion ist die Kernfunktion des Projekts.
+Die Inhaltserstellungs-Funktion ist die Kernfunktion des Projekts. Die Content Creation definiert ein 3D-Portfolio. 
 
-Die Content Creation definiert ein 3D-Portfolio. Durch sie werden alle nötigen Informationen und Konfigurationen für ein 3D-Portfolio gesammelt, der Zwischenstand wird bei einer Unterbrechung mittels der Web-Storage-API gespeichert, nach dem Veröffentlichen sind die virtuellen dreidimensionalen Ausstellungen im Server abrufbereit und durch sie wurde ein System der Platzierung in der 3D-Ansicht entwickelt.
+Durch sie werden alle nötigen Informationen und Konfigurationen für ein 3D-Portfolio gesammelt, der Zwischenstand wird bei einer Unterbrechung mittels der Web-Storage-API (siehe \ref{par:impl:usermanagment:WebStorage}) gespeichert, nach dem Veröffentlichen sind die virtuellen dreidimensionalen Ausstellungen im Server abrufbereit und durch sie wurde ein System der Platzierung in der 3D-Ansicht entwickelt.
 
 Ziel ist es, dass der User durch einen intuitiven Konfigurationsprozess bei der Erstellung seiner 3D-Portfolios unterstützt wird.
 
@@ -48,7 +48,7 @@ Auf der Profileseite (siehe Abbildung \ref{fig:impl:sign:profile}) sieht der*die
 \end{figure}
 
 \paragraph*{Add Button}
-Der Content-Creation-Prozess beginnt damit, dass der "Add-Button" auf der Profileseite gedrückt wird. Danach wird der*die Benutzer*in zu dem Content-Creation-Tool auf der Single-Page-Application weitergeleitet. Dort startet er*sie den Konfigurationsprozess mit dem Metadaten-Formular.
+Der Content-Creation-Prozess beginnt damit, dass der 'Add-Button' auf der Profileseite gedrückt wird. Danach wird der*die Benutzer*in zu dem Content-Creation-Tool auf der Single-Page-Application weitergeleitet. Dort startet er*sie den Konfigurationsprozess mit dem Metadaten-Formular.
 
 
 \subsubsection{Formulare}
@@ -112,7 +112,7 @@ Der Begriff '\emph{Wizard}' in der Softwareentwicklung leitet sich von Systemadm
 
 \paragraph{Wizard-UI-Pattern [L]}
 Im Web-Bereich gibt es zwei Arten Dateneintragungen zu verarbeiten: Formulare und Wizards. 
-Ein \emph{Wizard} ist eine eigene kleine Applikation, die den*die Benutzer*in durch eine Folge von Formularen führt und gegebenenfalls beim Ausfüllen unterstützt. Je nach Eingabe können Wizards die Formulare passend adaptieren.\cite[Wizards: Definition and Design Recommendations]{WizradsDefinitionAndRecommandation}
+Ein \emph{Wizard} ist eine eigene kleine Applikation, die den*die Benutzer*in durch eine Folge von Formularen führt und gegebenenfalls beim Ausfüllen unterstützt. Je nach Eingabe können Wizards die Formulare passend adaptieren.\cite{WizradsDefinitionAndRecommandation}
 
 \paragraph{Umsetzung des Wizards [L]}
 Für die Umsetzung des Wizards wurde die Angular Material Komponente \emph{mat-stepper} benutzt. Sie bietet eine solide Basis für den Wizard. Content kann sequentiell dargestellt werden, während dem*der User*in der aktuelle Status des Wizards durch eine Navigationsleiste angezeigt wird (siehe Abbildung \ref{fig:impl:creation:mathorziontalstepper}). \cite{amStepper}

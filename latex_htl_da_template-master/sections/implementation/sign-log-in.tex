@@ -6,7 +6,7 @@ Im folgendem Abschnitt 'Sign-, Log-In Funktionalitäten' wird die Implementation
 
 \subsection{Implementation im Frontend [L]}
 \setauthor{Litzlbauer Lorenz}
-Nachdem der Json-Web-Token im Backend implementiert wurde, galt es diesen auch auf dem Frontend einzubauen. Der Json-Web-Token dient zur Authentifizierung des*der User*in und zum rollenbasierenden Schutz der API. 
+Nachdem der \emph{Json-Web-Token} im Backend implementiert wurde, galt es diesen auch auf dem Frontend einzubauen. Der Json-Web-Token dient zur Authentifizierung des*der User*in und zum rollenbasierenden Schutz der API. 
 
 \subsubsection{Sign-In und Login}
 Da der Json-Web-Token als Beweis dafür dient, dass der*die User*in authentifiziert ist, muss sich der*die Benutzer vor dem Erhalten des Token dafür erst auf der Weboberfläche registrieren oder anmelden. 
@@ -75,7 +75,7 @@ export class AuthService {
 
 \paragraph{WebStorage API}
 \label{par:impl:usermanagment:WebStorage}
-Das \emph{WebStorage API} bietet verschiedene Möglichkeiten, Daten per Schlüssel-Werte-Paare im Web zu persistieren. Persistenz ist die Fähigkeit, Daten in einem nicht flüchtigen Speicher zu speichern, um so den Datenverlust beim Neustart des Systems zu verhindern. Das WebStorage API ist nicht Teil des DOM, sondern der globalen Web-Variable window. Die zwei Arten, Daten mittels der WebStorage API zu persistieren, sind der Locale-Storage und der Session-Storage.
+Das \emph{WebStorage API} bietet verschiedene Möglichkeiten, Daten per Schlüssel-Werte-Paare im Web zu persistieren. Persistenz ist die Fähigkeit, Daten in einem nicht flüchtigen Speicher zu speichern, um so den Datenverlust beim Neustart des Systems zu verhindern. Das WebStorage API ist nicht Teil des DOM, sondern der globalen Web-Variable-Window. Die zwei Arten, Daten mittels der WebStorage API zu persistieren, sind der Locale-Storage und der Session-Storage.
 \cite{WikiPersistenzDefinition} \cite{WebStorageAPI}
 
 
