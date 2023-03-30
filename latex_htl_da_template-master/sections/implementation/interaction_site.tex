@@ -5,11 +5,11 @@ Bei der Implementierung der Interaktions-Seite war uns wichtig, eine möglichst 
 
 \subsection{Verbindung der Interaktions-Seite mit der Landing-Page
 }
-Wenn ein*e Benutzer*in auf eine gewünschte Ausstellung klickt, muss sichergestellt werden, dass er auch zum richtigen Inhalt weitergeleitet wird. Dabei hilft das Routing mit Parametern (siehe \ref{Routingparameter}). Jede Ausstellung besitzt eine eigene ID. Diese wird beim Auswählen einer Ausstellung in die URL geschrieben, um zu identifizieren zu können, welche Ausstellung im Moment besucht wird. Anhand dieser Informationen werden die Ausstellungsstücke vom Server abgefragt und mit der Logik, die im Kapitel Konfiguration der Ausstellung \ref{content-creation} beschrieben wird, richtig in den Raum geladen und platziert.
+Wenn ein*e Benutzer*in auf eine gewünschte Ausstellung klickt, muss sichergestellt werden, dass er auch zum richtigen Inhalt weitergeleitet wird. Dabei hilft das \emph{Routing} mit Parametern (siehe \ref{Routingparameter}). Jede Ausstellung besitzt eine eigene ID. Diese wird beim Auswählen einer Ausstellung in die URL geschrieben, um zu identifizieren zu können, welche Ausstellung im Moment besucht wird. Anhand dieser Informationen werden die Ausstellungsstücke vom Server abgefragt und mit der Logik, die im Kapitel Konfiguration der Ausstellung \ref{content-creation} beschrieben wird, richtig in den Raum geladen und platziert.
 
 \subsection{Bewegung im dreidimensionalen Raum}
 \label{controls}
-Um sich im Ausstellungsraum bewegen zu können, ist es nötig, den Besuchern*innen eine entsprechende Fortbewegungsmöglichkeit zu bieten. Three.js implementiert diese Funktion mittels Controls. Dabei ändert sich die Position und Rotation der Kamera durch Benutzereingaben. Die wesentlichsten Controls in Three.js sind
+Um sich im Ausstellungsraum bewegen zu können, ist es nötig, den Besuchern*innen eine entsprechende Fortbewegungsmöglichkeit zu bieten. Three.js implementiert diese Funktion mittels \emph{Controls}. Dabei ändert sich die Position und Rotation der Kamera durch Benutzereingaben. Die wesentlichsten Controls in Three.js sind
 
 \begin{itemize}
     \item \emph{DragControls} - Der*die Nutzer*in kann sich mittels \emph{DragNDrop} Interaktionen fortbewegen \cite{DragControls}
@@ -21,20 +21,20 @@ Um sich im Ausstellungsraum bewegen zu können, ist es nötig, den Besuchern*inn
 
 
 Die beste Wahl für die Fortbewegung in der Ansicht der Erstellung eines Ausstellungsraumes, waren die \emph{OrbitControls}. Sie eignen sich besonders, da die Benutzer*innen einen guten und schnellen Überblick über den gesamten Raum erhalten.
-Die Controls werden initialisiert, indem die Kamera angegeben wird, die gesteuert werden soll und das HTML-Element, welches für die Event-Listener (sieh Event-Listener \ref{txt:glos:event-listener}) benutzt wird.
+Die Controls werden initialisiert, indem die Kamera angegeben wird, die gesteuert werden soll und das HTML-Element, welches für die \emph{Event-Listener} (sieh Event-Listener \ref{txt:glos:event-listener}) benutzt wird.
 
 \begin{lstlisting}[caption={OrbitControls initialisieren},language=TypeScript]
     this.controls = new OrbitControls(this.camera,this.renderer.domElement)
     \end{lstlisting}
 
-Für die Bewegung der Besucher*innen in einem Ausstellungsraum kamen die \emph{FirstPersonControls} und die \emph{PointerLockControls} in Frage. Auch wenn sie im Grunde sehr ähnlich sind, besitzen sie verschiedene Vor- und Nachteile. Daher wurden im Entwicklungsprozess beide Varianten getestet und und im Kontext des Projektes bewertet.
+Für die Bewegung der Besucher*innen in einem Ausstellungsraum kamen die \emph{FirstPersonControls} und die \emph{PointerLockControls} in Frage. Auch wenn sie im Grunde sehr ähnlich sind, besitzen sie verschiedene Vor- und Nachteile. Daher wurden im Entwicklungsprozess beide Varianten getestet und im Kontext des Projektes bewertet.
 
 \subsubsection{Vor- und Nachteile der FirstPersonControls}
 
 Die \emph{FirstPersonControls} bieten eine einfache Einbindung in das Programm. Die Logik des Bewegens muss nicht erst programmiert werden, sondern ist bereits im Programm in den Controls vollständig implementiert. Dabei ist es direkt möglich, sich entweder durch die Tasten W, A, S, D, den Pfeiltasten oder durch Linksklick und Rechtsklick fortzusetzen. Außerdem bieten diese Controls mehr Konfigurationsmöglichkeiten als die PointerLockControls. Jedoch funktioniert die Maussteuerung nicht gleich, wie sie bei First Person Spiele und Anwendungen üblich ist. Die Kamera dreht sich automatisch in die Richtung weiter, in welche die Maus zeigt. Dabei wird die Rotationsgeschwindigkeit von der Position der Maus bestimmt. Je weiter sich die Maus am Bildschirmrand befindet, desto schneller dreht sich die Kamera. An dieses Gefühl müssen sich Nutzer*innen oft erst gewöhnen.
 
 \subsubsection{Implementierung der FirstPersonControls}
-Zu Beginn werden neue Controls initialisiert. Dazu wird sowohl die Kamera, als auch das passende HTML Element angegeben, welches für den Event-Listener(sieh Event-Listener \ref{txt:glos:event-listener}) benutzt wird. 
+Zu Beginn werden neue Controls initialisiert. Dazu wird sowohl die Kamera, als auch das passende HTML Element angegeben, welches für den Event-Listener (siehe Event-Listener \ref{txt:glos:event-listener}) benutzt wird. 
 
 \begin{lstlisting}[caption={FirstPersonControls initialisieren},language=TypeScript]
     this.controls = new FirstPersonControls(this.camera, this.renderer.domElement)
@@ -98,10 +98,10 @@ Auch kann zusätzlich die Geschwindigkeit geändert werden, die angibt, wie schn
 Da die FirstPersonControls mehr Konfigurations und Interaktionsmöglichkeiten mit den Ausstellungsstücken bieten, wurde für die Fortbewegung als Besucher*in einer Ausstellung diese Art von Controls verwendet.\cite{PointerLockControls}
 
 
-\subsection{ThreeJS Clock}
+\subsection{Three.js Clock}
 \label{Clock}
 
-Um die im vorherigen Kapitel erwähnten Controls zu updaten, werden sie in der Animations-Schleife (siehe Rendering in ThreeJs \ref{lst:impl:animationloop}) wie folgt aufgerufen: 
+Um die im vorherigen Kapitel erwähnten Controls zu updaten, werden sie in der Animations-Schleife (siehe Rendering in Three.js \ref{lst:impl:animationloop}) wie folgt aufgerufen: 
 
 \begin{lstlisting}[caption={Controls updaten},language=TypeScript]
     
@@ -112,28 +112,27 @@ animate = () => {
 
     \end{lstlisting}
 
-Dabei überprüft die Update-Funktion, welche aktuellen Benutzereingaben betätigt worden sind, um gleichzeitig und flüssig, diese am Bildschirm des*der Benutzers*in anzuzeigen. Dies funktioniert, indem die Position der Kamera zu einem gewissen Zeitpunkt abgefragt wird. Um den aktuellen Zeitpunkt zu erhalten, wird ein Clock-Objekt verwendet. Dieses Clock-Objekt besitzt die Methode \emph{getDelta()}, um die Sekunden zu erhalten, die vergangen sind, seit die Clock gestartet wurde oder die Methode \emph{getDelta()} aufgerufen wurde. Außerdem startet die Methode \emph{getDelta()} die Uhr, falls sie dies noch nicht bereits getan hat. Dadurch können jegliche Updates, die unter anderem durch den*der Benutzer*in, an der Szene vorgenommen worden sind, identifiziert und ausgewertet werden.
-
-\cite{ThreeJsClock}
+Dabei überprüft die Update-Funktion, welche aktuellen Benutzereingaben betätigt worden sind, um gleichzeitig und flüssig, diese am Bildschirm des*der Benutzers*in anzuzeigen. Dies funktioniert, indem die Position der Kamera zu einem gewissen Zeitpunkt abgefragt wird. Um den aktuellen Zeitpunkt zu erhalten, wird ein Clock-Objekt verwendet. Dieses Clock-Objekt besitzt die Methode \emph{getDelta()}, um die Sekunden zu erhalten, die vergangen sind, seit die Clock gestartet wurde oder die Methode \emph{getDelta()} aufgerufen wurde. Außerdem startet die Methode \emph{getDelta()} die Uhr, falls sie dies noch nicht bereits getan hat. Dadurch können jegliche Updates, die unter anderem durch den*der Benutzer*in, an der Szene vorgenommen worden sind, identifiziert und ausgewertet werden. \cite{ThreeJsClock}
 
 \subsection{Border-Collision}
 Um den Benutzern*innen ein möglichst realistisches Gefühl für die Ausstellung zu geben, ist es wichtig, den Ausstellungsraum authentisch zu gestalten. Daher ist der Raum durch Wände abgegrenzt, wodurch es nicht mehr möglich ist, sich über den Raum hinaus zu bewegen. Um eine Kollision mit der Wand zu berechnen, gibt es durch die Three.js Bibliothek einige Möglichkeiten.
 
 
 \subsection{Bounding Box}
-Der erste Ansatz der Umsetzung war das Erstellen einer Bounding Box. Dabei kann zwischen zwei verschiedenen Arten unterschieden werden. 
+Der erste Ansatz der Umsetzung war das Erstellen einer \emph{Bounding Box}. Dabei kann zwischen zwei verschiedenen Arten unterschieden werden. 
 
 \begin{itemize}
-    \item Axis Aligned Bounding Box (AABB)
+    \item \emph{Axis Aligned Bounding Box} (AABB)
     \newline
     Zum einen werden Axis Aligned Bounding Box verwendet, um eine Box rund um das 3D-Objekt zu erstellen, die sich nicht an die Rotation des Objekts anpasst.
-    \item Oriented Bounding Box (OBB)
+    \item \emph{Oriented Bounding Box} (OBB)
     \newline
     Die Oriented Bounding Box weist eine ähnliche Funktionsweise auf, unterscheidet sich aber darin, dass sie sich an die Achsen des Objekts anpasst
     
     Dies stellte uns in der Entwicklung jedoch vor ein Problem. Da sich die Bounding Boxen jedoch über den ganzen 3D-Raum erstrecken, wird eine Kollision direkt berechnet, nachdem der*die Benutzer*in den Raum betritt. Da sich die Bounding Boxen nicht an jede einzelne Wand anpassen konnten, musste ein anderer Lösungsweg gefunden werden.
 \end{itemize}
-\begin{figure}
+
+\begin{figure} [h t]
     \centering
     \includegraphics[scale=0.65]{pics/aabb_obb.png}
     \caption{Der Unterschied zwischen AABB und OBB \cite{AABBandOBBPicture}}
@@ -142,7 +141,7 @@ Der erste Ansatz der Umsetzung war das Erstellen einer Bounding Box. Dabei kann 
 
 
 \subsubsection{Zweiter Ansatz}
-Um eine Veränderung der Position des*der Benutzers*in festzustellen, muss die Veränderung der Kameraposition evaluiert werden.Bei der Initialisierung der Kamera wird eine Kopie erstellt. In der Animate-Funktion wird eine Veränderung der Kamera überprüft, indem die Positionen der Kamera mit der Kopie verglichen werden. Die Kamera nimmt dabei immer eine neue Position ein, wenn sich der*die Benutzer*in im Raum bewegt, während die Kopie dabei die alte Position der Kamera einnimmt. \ref{lst:impl:compareCameras} Jedes Mal wenn eine Veränderung geschieht, wird überprüft, ob die Kamera mit der Wand kollidiert. Dies geschieht, indem ein Raycast mit den Positionen der Kamera und der Kopie initialisiert wird \ref{lst:impl:detectCollision}. 
+Um eine Veränderung der Position des*der Benutzers*in festzustellen, muss die Veränderung der Kameraposition evaluiert werden. Bei der Initialisierung der Kamera wird eine Kopie erstellt. In der Animate-Funktion wird eine Veränderung der Kamera überprüft, indem die Positionen der Kamera mit der Kopie verglichen werden. Die Kamera nimmt dabei immer eine neue Position ein, wenn sich der*die Benutzer*in im Raum bewegt, während die Kopie dabei die alte Position der Kamera einnimmt. \ref{lst:impl:compareCameras} Jedes Mal wenn eine Veränderung geschieht, wird überprüft, ob die Kamera mit der Wand kollidiert. Dies geschieht, indem ein Raycast mit den Positionen der Kamera und der Kopie initialisiert wird \ref{lst:impl:detectCollision}. 
      
 
 \begin{lstlisting}[caption={Methode zum vergleichen der Position der Kameras},language=TypeScript,label=lst:impl:compareCameras]
@@ -170,7 +169,7 @@ Um eine Veränderung der Position des*der Benutzers*in festzustellen, muss die V
 \end{lstlisting}
 
 \subsubsection{Far und Near}
-Die Attribute Far und Near werden dafür verwendet, um die Objekte, die im Ray liegen, einzugrenzen. Dies wird durch die Methode des Clippings realisiert (siehe Clipping \ref{clipping}). Dabei können die Werte nicht negativ sein und der Far-Wert muss größer als der Near-Wert sein. Um die Kollision erst direkt am Ursprungsort, im Falle der Kamera, des Rays zu berechnen, wird der Far-Wert auf 100 gesetzt.
+Die Attribute \emph{Far} und \emph{Near} werden dafür verwendet, um die Objekte, die im Ray liegen, einzugrenzen. Dies wird durch die Methode des Clippings realisiert (siehe \ref{clipping}). Dabei können die Werte nicht negativ sein und der Far-Wert muss größer als der Near-Wert sein. Um die Kollision erst direkt am Ursprungsort, im Falle der Kamera, des Rays zu berechnen, wird der Far-Wert auf 100 gesetzt.
    	
 Nachdem der Raycast (siehe \ref{impl:int:raycasting}) korrekt initialisiert und angewandt wurde, muss bei Berührung mit der Wand richtig damit umgegangen werden. Dabei wird die Bewegung des Benutzers gestoppt. Um diese wieder zu starten, muss sich der*die Benutzer*in weg von der Wand begeben. Überprüft wird dies nach jeder Benutzer*inneneingabe mit einem Event-Listener. Falls nach dieser keine Berührung mehr mit einer Wand besteht, wird die Bewegung fortgesetzt und der*die Besucher*in kann sich wieder frei im Raum bewegen.
 
@@ -192,7 +191,7 @@ Als Besucher*in einer Ausstellung soll es möglich sein, benutzerfreundlich mit 
 
 \subsubsection{Raycasting}
 \label{impl:int:raycasting}
-Raycasting ist eine der wichtigsten Komponenten, um mit einem 3D-Modell interagieren zu können. Wie das Konzept des Raycastings funktioniert, wurde bereits im Kapitel Rendering erklärt (siehe Rendering \ref{impl:rend:raycasting}) Referenz. Three.js besitzt einen eigenen, individuellen Raycaster. Er wird vor allem dafür genutzt, um herauszufinden, auf welchem 3D-Objekt sich der Mauszeiger aktuell befindet. Es gibt mehrere Möglichkeiten einen Raycaster zu erstellen. Die erste Option stellt die Initalisierung über einen Konstruktor dar. Dabei wird angegeben, von welchen Koordinaten der Ray ausgeht und in welche Richtung er geschickt wird. Alternativ kann ein Raycaster direkt von einer schon existierenden Kamera einen Ray wegschicken. Dafür wird die Methode .setFromCamera aufgerufen, wo die Koordinaten des Mauszeigers und die zugehörige Kamera angegeben werden. Alle vom Ray getroffenen 3D-Objekte werden Intersections genannt. Diese 3D-Objekte können durch die Methode \emph{intersectsObject} ausgelesen und in ein Array und gespeichert werden.
+Raycasting ist eine der wichtigsten Komponenten, um mit einem 3D-Modell interagieren zu können. Wie das Konzept des Raycastings funktioniert, wurde bereits im Kapitel Rendering erklärt (siehe \ref{impl:rend:raycasting}). Three.js besitzt einen eigenen, individuellen \emph{Raycaster}. Er wird vor allem dafür genutzt, um herauszufinden, auf welchem 3D-Objekt sich der Mauszeiger aktuell befindet. Es gibt mehrere Möglichkeiten einen Raycaster zu erstellen. Die erste Option stellt die Initalisierung über einen Konstruktor dar. Dabei wird angegeben, von welchen Koordinaten der Ray ausgeht und in welche Richtung er geschickt wird. Alternativ kann ein Raycaster direkt von einer schon existierenden Kamera einen Ray wegschicken. Dafür wird die Methode \emph{.setFromCamera} aufgerufen, wo die Koordinaten des Mauszeigers und die zugehörige Kamera angegeben werden. Alle vom Ray getroffenen 3D-Objekte werden \emph{Intersections} genannt. Diese 3D-Objekte können durch die Methode \emph{intersectsObject} ausgelesen und in ein Array gespeichert werden.
 \cite{ThreeJSRaycaster}
 
 \subsubsection{Hover-Effekt}
@@ -229,7 +228,7 @@ Daraufhin können alle 3D-Objekte die vom Ray getroffen wurden, in einem Array g
     
 \end{lstlisting}
 
-Um die Ausstellungsstücke farblich zu umranden, müssen sie zunächst ausgelesen werden. Dabei iteriert eine For-Schleife durch alle Ausstellungsstücke. Um zu erkennen, ob ein Intersect ein Ausstellungsstück ist, werden die jeweiligen IDs miteinander verglichen. Um dem 3D-Objekt einen Bloom-Effekt, also einen farbigen Schein als Umrandung, hinzuzufügen, wird das Konzept des Post-Processings verwendet.
+Um die Ausstellungsstücke farblich zu umranden, müssen sie zunächst ausgelesen werden. Dabei iteriert eine For-Schleife durch alle Ausstellungsstücke. Um zu erkennen, ob ein Intersect ein Ausstellungsstück ist, werden die jeweiligen IDs miteinander verglichen. Um dem 3D-Objekt einen \emph{Bloom-Effekt}, also einen farbigen Schein als Umrandung, hinzuzufügen, wird das Konzept des Post-Processings (siehe \ref{Post-Processing}) verwendet.
 
 \begin{lstlisting}[caption={Intersects als Ausstellungsstück identifizieren},language=TypeScript]
     
@@ -258,7 +257,7 @@ Um die Ausstellungsstücke farblich zu umranden, müssen sie zunächst ausgelese
 
 \end{lstlisting}
 
-Um den Effekt wieder zu entfernen, sobald ein anderes Ausstellungsstück mittels Maus berührt wird, wird ein Array verwendet, das das alte Objekt herausgibt und das Neue hinzufügt.
+Um den Effekt wieder zu entfernen, sobald ein anderes Ausstellungsstück mittels Maus berührt wird, wird ein Array verwendet, dass das alte Objekt herausgibt und das Neue hinzufügt.
 
 \begin{lstlisting}[caption={Hover-effekt wieder entfernen},language=TypeScript]
     
@@ -270,7 +269,8 @@ addSelectedObjects( object: Object3D ){
 \end{lstlisting}
 
 \subsubsection{Postprocessing}
-Post-Processing ist eine Render Methode, die für zahlreiche 3D-Effekte, wie beispielsweise Anti-Aliasing, Tiefenschärfe und andere 3D-Effekte, genutzt wird. Dabei wird zuerst die Szene mit den gewünschten 3D-Objekten gerendert und im Speicher der Grafikkarte gesichert. Anschließend werden beim Post-Processing verschiedene Filter angewandt, diese gerendert und dem*der Benutzer*in angezeigt. In Three.js wird dafür ein \emph{EffectComposer} verwendet. Dieser enthält ein Array von allen Effekten, die angewandt werden und dann mittels WebGL-Renderer in einer bestimmten Reihenfolge gerendert werden. Für die visuelle Anzeige sind Post-Processing-Passes zuständig. Zu Beginn wird ein RenderPass angelegt, der die zugehörige Kamera und Szene rendert. Anschließend können verschiedene Effekt-Passes, wie zum Beispiel der OutlinePass oder der GlitchPass, hinzugefügt werden. \cite{PostProcessing}
+\label{Post-Processing}
+\emph{Post-Processing} ist eine Render Methode, die für zahlreiche 3D-Effekte, wie beispielsweise Anti-Aliasing, Tiefenschärfe und andere 3D-Effekte, genutzt wird. Dabei wird zuerst die Szene mit den gewünschten 3D-Objekten gerendert und im Speicher der Grafikkarte gesichert. Anschließend werden beim Post-Processing verschiedene Filter angewandt, diese gerendert und dem*der Benutzer*in angezeigt. In Three.js wird dafür ein \emph{EffectComposer} verwendet. Dieser enthält ein Array von allen Effekten, die angewandt werden und dann mittels WebGL-Renderer in einer bestimmten Reihenfolge gerendert werden. Für die visuelle Anzeige sind Post-Processing-Passes zuständig. Zu Beginn wird ein RenderPass angelegt, der die zugehörige Kamera und Szene rendert. Anschließend können verschiedene Effekt-Passes, wie zum Beispiel der \emph{OutlinePass} oder der \emph{GlitchPass}, hinzugefügt werden. \cite{PostProcessing}
 
 \subsubsection{Detailansicht}
 
@@ -337,7 +337,7 @@ Das Dialogfenster ist eine eigene Angular-Komponente. Im Konstruktor der Kompone
   \end{lstlisting}
 
 \subsubsection{Navigation}
-Benutzer*innen können ebenfalls direkt in der Detailansicht zwischen den einzelnen Ausstellungsstücken wechseln. Dadurch müssen Benutzer*innen die Detailansicht nicht ständig verlassen, wodurch Zeit und Benutzereingaben eingespart werden können. Außerdem kann dadurch eine Ausstellung, ähnlich wie bei dem Programm PowerPoint, gut für Präsentationszwecke genutzt werden.  
+Benutzer*innen können ebenfalls direkt in der Detailansicht zwischen den einzelnen Ausstellungsstücken wechseln. Dadurch müssen Benutzer*innen die Detailansicht nicht ständig verlassen, wodurch Zeit und Benutzereingaben eingespart werden können. Außerdem kann dadurch eine Ausstellung, ähnlich wie bei dem Programm \emph{PowerPoint}, gut für Präsentationszwecke genutzt werden.  
 
 Dabei wird durch das Array aller Ausstellungsstücke mit einer For-Schleife durchiteriert. So kann ermittelt werden, welches Ausstellungsstück im Moment angezeigt wird. Anschließend wird je nach Benutzereingabe das vorherige oder das darauffolgende Ausstellungsobjekt angezeigt. Nachdem der*die Benutzer*in jedes Ausstellungsstück begutachtet hat, beginnt die Präsentation der Ausstellungsstücke wieder von vorne. Weiters wird überprüft, welchen Datentyp das Ausstellungsstück besitzt, wodurch es korrekt entweder als Video, Bild oder 3D-Objekt angezeigt werden kann.
 

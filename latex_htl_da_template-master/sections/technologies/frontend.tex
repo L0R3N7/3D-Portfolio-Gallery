@@ -4,10 +4,10 @@ Folgende Aspekte sprechen für die Nutzung von Angular in diesem Projekt:
 
 \begin{itemize}
   \item Die Möglichtkeit der komponentenbasiertes Programmierung um komplexe Benutzeroberflächen übersichtlich zu unterteilen (siehe \ref{components}) 
-  \item Die einfache und übersichtliche Einbindung von Libraries durch ngModules (siehe \ref{sec:NgModules} )
-  \item Isolierung der Logik mit der Benutzeroberfläche durch die Model-View-Controller Architektur und die Model-View-ViewModel Architektur (siehe \ref{fig:tech:front:mvc-architecture} )
+  \item Die einfache und übersichtliche Einbindung von Libraries durch \emph{ngModules} (siehe \ref{sec:NgModules} )
+  \item Isolierung der Logik mit der Benutzeroberfläche durch die \emph{Model-View-Controller} Architektur und die \emph{Model-View-ViewModel} Architektur (siehe \ref{fig:tech:front:mvc-architecture} )
   \item 
-  Dependency Injection für die Verbindung von Front-End zum Back-End (siehe \ref{DPI})
+  \emph{Dependency Injection} für die Verbindung von Front-End zum Back-End (siehe \ref{DPI})
 \end{itemize}
 
 \subsubsection{Angular [M]}
@@ -37,7 +37,7 @@ Architecture Patterns sind Muster, die verwendet werden, um
 \end{itemize} 
 
 \paragraph{Model-View-Controler (MVC)}
-Die \emph{Seperation of Concerns} wird bei diesem Pattern durch die Aufteilung der Applikation in Model, View und Controller realisiert. Dadurch ist es möglich, sich auf einen Aspekt der Implementierung zu fokussieren. 
+Die \emph{Seperation of Concerns} wird bei diesem Pattern durch die Aufteilung der Applikation in \emph{Model, View und Controller}  realisiert. Dadurch ist es möglich, sich auf einen Aspekt der Implementierung zu fokussieren. 
 
 \begin{figure} [h t]
   \centering
@@ -65,7 +65,7 @@ Das MVVM basiert auf dem Konzept des MVC-Patterns und realisiert die \emph{Seper
 
 \emph{View} funktioniert hierbei ähnlich wie beim MVC-Pattern, jedoch ist es möglich, dass eine \emph{View} auch Logik enthält, die Änderungen am Aussehen durchführt. Daher ist das HTML-Template einer Angular-Komponente noch stärker vergleichbar zu dem Konzept einer View aus dem MVVM-Pattern als zu einer View aus dem MVC-Pattern. 
 
-Im ViewModel wird die Funktionalität der Benutzeroberfläche bestimmt. Dabei informiert das ViewModel die View über Änderungen im Model und beliefert es mit Daten. Dieser Vorgang beschreibt das Konzept des Data-Bindings (siehe \ref{data-binding}) in Angular.  
+Im ViewModel wird die Funktionalität der Benutzeroberfläche bestimmt. Dabei informiert das ViewModel die View über Änderungen im Model und beliefert es mit Daten. Dieser Vorgang beschreibt das Konzept des \emph{Data-Bindings} (siehe \ref{data-binding}) in Angular.  
 
 Das Model funktioniert im Grunde gleich wie beim MVC-Pattern, nur wird hierbei nicht die View, sondern das ViewModel über Änderungen informiert. Somit ist das ViewModel das Mittelstück zwischen View und Model.
 
@@ -77,11 +77,11 @@ Angular nutzt hierbei eine Mischung aus beiden Architecture-Patterns. Diese Arch
 \emph{NgModules} erleichtern die Einbindung von Libraries. Da keine externen Dateien mühsam heruntergeladen und eingebunden werden müssen und jeder Import-Prozess durch wenige Zeilen Code erfolgt, wird Zeit beim Entwickeln gespart. Alle Importe werden in chronologischer Reihenfolge gelistet, wodurch ein guter Gesamtüberblick geliefert wird und schnell überflüssige Imports entfernt werden können. Die kontinuierliche Erweiterung und die Unterstützung von Third-Party-Libraries (siehe \ref{txt:glos:ThirdParty}), die unter anderem für die 3D-Darstellung verwendet werden, wird ebenfalls von diesen ngModulen ermöglicht. Die Angular-Applikation wird hierbei organisiert und gestartet, in dem die Metadaten wie folgt abgespeichert werden:
 
 \begin{itemize}
-  \item Declarations - In dieser Sektion werden alle zugehörigen Komponenten, Direktiven (siehe \ref{txt:glos:Direktiven}) und Pipes (siehe \ref{txt:glos:Pipes}) deklariert. 
-  \item Providers - Sie initialisieren wie die Werte bei der Dependency Inection (siehe \ref{DPI}) abgerufen werden. \cite{AngularProviders}
-  \item Imports - Hier werden alle Libraries und exportierte Modules importiert.
-  \item Exports - Sie beinhalten alle zu exportierenden Module
-  \item Bootstrap - Hierbei wird angegeben welche Komponente beim Anwendungsstart zuerst geladen wird
+  \item \emph{Declarations} - In dieser Sektion werden alle zugehörigen \emph{Komponenten, Direktiven}(siehe \ref{txt:glos:Direktiven}) und \emph{Pipes} (siehe \ref{txt:glos:Pipes}) deklariert. 
+  \item \emph{Providers} - Sie initialisieren wie die Werte bei der Dependency Inection (siehe \ref{DPI}) abgerufen werden. \cite{AngularProviders}
+  \item \emph{Imports} - Hier werden alle Libraries und exportierte Modules importiert.
+  \item \emph{Exports} - Sie beinhalten alle zu exportierenden Module
+  \item \emph{Bootstrap} - Hierbei wird angegeben welche Komponente beim Anwendungsstart zuerst geladen wird
 \end{itemize}
 
 Die Verwendung von ngModules in der 3D-Gallerie-Applikation wird im Abschnitt Routing (siehe Routing \ref{lst:impl:routing}) nochmals erklärt.
