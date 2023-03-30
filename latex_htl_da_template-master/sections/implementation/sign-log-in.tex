@@ -80,7 +80,7 @@ Das \emph{WebStorage API} bietet verschiedene Möglichkeiten, Daten per Schlüss
 
 
 \subparagraph{Session-Storage}
-Daten im Session-Storage werden je nach ihrem Ursprung getrennt aufbewahrt. Sie werden für die Zeit der Webseitensession gespeichert. Wenn der Browser oder der Tab geschlossen wird, werden die Informationen gelöscht.
+Daten im Session-Storage werden je nach ihrem Ursprung getrennt aufbewahrt. Sie werden für die Zeit der Webseitensession gespeichert. Wenn der Browser oder der Tab sich schließt, werden die Informationen gelöscht.
 \cite{WebStorageAPI}
 
 \subparagraph{Local-Storage}
@@ -88,7 +88,7 @@ Daten werden im Local-Storage persistiert und bleiben somit nach dem Schließen 
 \cite{WebStorageAPI}
 
 \subparagraph{Allgemeine Informationen}
-Beide Speichermethoden benutzen keine Server, um die Daten zu speichern, sondern den Cache des Webbrowsers. Dabei beträgt das Speicherlimit meistens 5 MB, doch hängt das wegen der individuellen Implementation vom Web-Browser ab.
+Beide Speichermethoden benutzen keine Server, um die Daten zu speichern, sondern den Cache des Webbrowsers. Dabei beträgt das Speicherlimit meistens 5 MB, doch hängt das, von der individuellen Implementation des Web-Browsers ab.
 \cite{WebStorageAPI}
 
 \subsubsection{HTTP-Interceptoren}
@@ -135,7 +135,7 @@ export class AuthInterceptor implements HttpInterceptor {
 \subsubsection{Routing- und Navigations-Einschränkung}
 Nach der Umsetzung des Interceptors und der JWT Verwaltung brauchte das Projekt ein besseres visuelles Feedback System, um dem*der User*in über den Anmeldestatus zu informieren.
 
-Wichtig war auch die Absicherung der jeweiligen Bereiche, welche Zugangsdaten benötigen. Je nach Anmeldestatus werden andere Routen und Informationen auf der Navigationbar gezeigt (siehe Abbildung {fig:impl:navbarvergleich}). Dafür wurde die Navigationsleistenlogik und der Navigationsleistenservice angepasst.
+Wichtig war auch die Absicherung der jeweiligen Bereiche, welche Zugangsdaten benötigen. Je nach Anmeldestatus werden andere Routen und Informationen auf der Navigationsbar gezeigt (siehe Abbildung \ref{fig:impl:navbarvergleich}). Dafür wurde die Navigationsleistenlogik und der Navigationsleistenservice angepasst.
 
 \begin{figure}
   \centering

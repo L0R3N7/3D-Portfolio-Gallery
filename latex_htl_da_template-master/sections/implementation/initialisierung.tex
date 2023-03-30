@@ -31,11 +31,11 @@ Danach wird mit dem Befehl \emph{ng new} mit dem CLI-Tool ein neues Angular Proj
 \end{figure}
 
 \paragraph{Globale oder lokale Module}
-Bei einer lokalen Installation werden die installierten Module in einem Node-Modul-Computerordner lokal im Projekt abgespeichert, während alle globalen Installationen in einem einzigen Computerordner abhängig vom Computersystem gespeichert werden.
+Bei einer lokalen Installation werden die installierten Module in einem NPM-Computerordner lokal im Projekt abgespeichert, während alle globalen Installationen in einem einzigen Computerordner abhängig vom Computersystem gespeichert werden.
 
 Generell kann man bei NPM-Modulen zwischen lokalen und globalen Installationen unterscheiden. Grundsätzlich wird eine lokale Installation empfohlen, referenzieren mehrere Projekte auf ein globales Modul, kann es dazu kommen, dass bei einer Aktualisierung des globalen Modules verschiedene Projekte beschädigt werden.
 Das kommt daher, dass die darauf referenzierenden Projekte wegen ihrer Funktionalität anders auf die Veränderung des Modules reagieren.
-CLI-Module haben eine Berechtigung dafür, global installiert zu werden. Denn CLI-Module sind abgekapselte Softwarelösungen, auf die kein anderes Projekt referenziert. Sie können auch lokal installiert werden und mit dem Befehl \emph{npx} nur im Projektordner ausgeführt werden.\cite{npmlocalorglobal}
+Es ist Empfehlenswert CLI-Module global zu installiert. Denn CLI-Module sind abgekapselte Softwarelösungen, auf die kein anderes Projekt referenziert. Sie können auch lokal installiert werden und mit dem Befehl \emph{npx} nur im Projektordner ausgeführt werden.\cite{npmlocalorglobal}
 
 \subsubsection{Installation der UI-Frameworks}
 

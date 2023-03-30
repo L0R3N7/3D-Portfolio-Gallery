@@ -6,7 +6,7 @@ In diesem Kapitel wird das Projekt noch einmal revue passiert, die Probleme und 
 \setauthor{Litzlbauer Lorenz}
 Die erste Herausforderung war, dass Design von Angular-Material-Komponente anzupassen.
 
-Das Angular Webframework kapselt eigene Komponenten ab, damit sie sich nicht gegenseitig mit ihren Stylingbefehlen beeinflussen. Angular verwendet für die Einkapselung eine virtuellen Dom oder auch eine, nativen vom Browser unterstützen, ShadowDOM-API.
+Das Angular Webframework kapselt eigene Komponenten ab, damit sie sich nicht gegenseitig mit ihren Stylingbefehlen beeinflussen. Angular verwendet für die Einkapselung eine virtuellen Dom oder auch eine, nativen vom Browser unterstützen, ShadowDOM-API (siehe \ref{glos:shadow-dom}).
 \cite{AngularViewencapsulation}
 
 Es gibt Situationen, in denen übergeordnete Komponenten das Styling untergeordneter ändern müssen. Besonders bei Angular Materials, einem UI- und Komponenten-Framework von Angular, kommt es oft dazu, dass die Angular-Material-Komponente meistens aus vielen kleinen Komponenten aufgebaut wird. Wenn nun der Style angepasst werden muss, damit die Material Komponente mehr zu der Corporate Identity des Produktes passt, ist das schwierig umsetzen.
