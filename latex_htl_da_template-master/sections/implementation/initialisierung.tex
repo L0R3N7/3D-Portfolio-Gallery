@@ -98,7 +98,7 @@ Der nächste Schritt der Entwicklung ist das Erstellen der Komponenten und das F
 \end{lstlisting}
 
 \subsubsection{Allgemein}
-Angular Komponenten lassen sich mit einem eigenen HTML-Selektor (z.B. <my-component>) ansprechen und in die Benutzeroberfläche einbinden. Components besitzen viele Features, die den Entwicklungsprozess, Wartung des Codes und Fehlersuche erleichtern können:
+Angular Komponenten lassen sich mit einem eigenen HTML-Selektor (z.B. <my-component>) ansprechen und in die Benutzeroberfläche einbinden. Komponenten besitzen viele Features, die den Entwicklungsprozess, Wartung des Codes und Fehlersuche erleichtern können:
 
 \begin{itemize}
     \item Trennung von Logik und Design
@@ -121,13 +121,13 @@ Um die Logik strikt von der Benutzeroberfläche zu trennen, werden die Dateien u
 \cite{AngularComponentOverview}
 
 \subsubsection{Skalierung}
-Die Skalierung beschreibt, wie gut eine Applikation mit Erweiterungen und ihrem Wachstum umgeht. Dabei wird geschaut, wie leicht sich zusätzliche Änderungen und Features implementieren lassen oder wie sich die Performanz der Anwendung bei zunehmender Größe verhält. Angular unterstütz dies durch einige Features:
+Die Skalierung beschreibt, wie gut eine Applikation mit Erweiterungen und ihrem Wachstum umgeht. Dabei wird geschaut, wie leicht sich zusätzliche Änderungen und Features implementieren lassen oder wie sich die Performanz der Anwendung bei zunehmender Größe verhält. Angular unterstützt dies durch einige Features:
 
 TypeScript hilft durch seine Code-Syntax, auch bei großen Applikationen schnell Fehler zu erkennen. 
 
-Durch die Angular CLI kann schnell und einfach ein Grundgerüst für die Entwicklung erstellt werden. Weiteres können Components, Services und andere Angular Funktionen in jedem Entwicklungsstadium problemlos hinzugefügt werden, ohne dass der bestehende Code beeinflusst wird (siehe \ref{sec:AngularCLI}).
+Durch die Angular CLI kann schnell und einfach ein Grundgerüst für die Entwicklung erstellt werden. Weiteres können Komponenten, Services und andere Angular Funktionen in jedem Entwicklungsstadium problemlos hinzugefügt werden, ohne dass der bestehende Code beeinflusst wird (siehe \ref{sec:AngularCLI}).
 
-Angular stellt zudem Libraries wie Angular Materials oder das Component Development Kit (CDK) zur Verfügung. Dadurch können problemlos vorgefertigte Angular Komponenten und Designs zu einer Applikation hinzugefügt werden.
+Angular stellt zudem Libraries wie Angular Materials oder das \emph{Component Development Kit (CDK)} zur Verfügung. Dadurch können problemlos vorgefertigte Angular Komponenten und Designs zu einer Applikation hinzugefügt werden.
 
 \cite{AngularScaling}
 
@@ -140,18 +140,16 @@ Die Hierarchie von Angular Komponenten lässt sich wie folgt in einer Baumstrukt
     \caption{Component-Hierarchy \cite{AngularBuch}}
     \label{fig:tech:front:component-hierarchy}
   \end{figure}
-Die Hauptkomponente ist der Root-Component. Von ihr aus lassen sich weitere Child-Components ineinander verschachteln. Diese Verschachtelung ist der Grund, warum die Anwendung in viele einzelne Teile ausgelagert werden kann. Außerdem können Komponenten durch das Data-Binding untereinander Daten austauschen.
-
-\cite{AngularComponentsHierarche} \cite{AngularBuch}
+Die Hauptkomponente ist der \emph{Root-Component}. Von ihr aus lassen sich weitere \emph{Child-Components} ineinander verschachteln. Diese Verschachtelung ist der Grund, warum die Anwendung in viele einzelne Teile ausgelagert werden kann. Außerdem können Komponenten durch das \emph{Data-Binding} untereinander Daten austauschen. \cite{AngularComponentsHierarche} \cite{AngularBuch}
 
 \subsubsection{Data-Binding }
 \label{data-binding}
 
-Data-Binding ist eine Methode, Daten zwischen der Logik und der Benutzeroberfläche auszutauschen. Dabei bleibt die Website ohne Refresh immer aktuell. Das Binden von Daten kann direkt am DOM (siehe \ref{glos:dom}) erfolgen, wofür es eine eigene Code-Syntax gibt. Beim Data-Binding wird zwischen  verschiedenen Kategorien unterschieden \cite{AngularBuch} \cite{BindingSyntax}:  
+\emph{Data-Binding} ist eine Methode, Daten zwischen der Logik und der Benutzeroberfläche auszutauschen. Dabei bleibt die Website ohne Refresh immer aktuell. Das Binden von Daten kann direkt am DOM (siehe \ref{glos:dom}) erfolgen, wofür es eine eigene Code-Syntax gibt. Beim Data-Binding wird zwischen  verschiedenen Kategorien unterschieden \cite{AngularBuch} \cite{BindingSyntax}:  
     
 
 \paragraph{Interpolation}
-Bei der Interpolation werden Daten innerhalb einer Komponente von der Datenquelle in das HTML-Template eingefügt. Die Anzeige wird auch automatisch aktualisiert, wenn sich Daten im Hintergrund ändern. \cite{BindingSyntax}
+Bei der \emph{Interpolation} werden Daten innerhalb einer Komponente von der Datenquelle in das HTML-Template eingefügt. Die Anzeige wird auch automatisch aktualisiert, wenn sich Daten im Hintergrund ändern. \cite{BindingSyntax}
 
 \begin{lstlisting}[caption={{Beispiel für Interpolation in der 3D-Gallery}},language=HTML,label=lst:impl:interpolation]
     <div>
@@ -160,7 +158,7 @@ Bei der Interpolation werden Daten innerhalb einer Komponente von der Datenquell
 \end{lstlisting}
 
 \paragraph{Property-Bindings}
-Beim Property-Binding werden Daten direkt an ein DOM-Element übermittelt und ausgewertet. Somit werden die Attribute, das Aussehen und die Funktionen der jeweiligen DOM-Elemente dynamisch beeinflusst und automatisch bei Datenänderung aktualisiert. \cite{AngularPropertyBinding}
+Beim \emph{Property-Binding} werden Daten direkt an ein DOM-Element übermittelt und ausgewertet. Somit werden die Attribute, das Aussehen und die Funktionen der jeweiligen DOM-Elemente dynamisch beeinflusst und automatisch bei Datenänderung aktualisiert. \cite{AngularPropertyBinding}
 \begin{lstlisting}[caption={{Beispiel für Property-Bindings in der 3D-Gallery}},language=HTML,label=lst:impl:property-binding]
     <img [src]="user?.icon_url ?? 'assets/image/profile-photo.jpg'">
 \end{lstlisting}
@@ -174,14 +172,14 @@ Um auf Eingaben und Interaktionen von Benutzer*innen zu reagieren, werden Event-
 \end{lstlisting}
 
 \paragraph{Two-Way-Bindings}
-Das To-Way-Binding benutzt beide Varianten, Property- und Event-Binding, um Daten auszutauschen. Hierbei ist es möglich, die Daten sowohl von der TypeScript-Klasse zum DOM-Element zu übertragen und umgekehrt. \cite{AngularTwoWayBinding}
+Das \emph{To-Way-Binding} benutzt beide Varianten, Property- und Event-Binding, um Daten auszutauschen. Hierbei ist es möglich, die Daten sowohl von der TypeScript-Klasse zum DOM-Element zu übertragen und umgekehrt. \cite{AngularTwoWayBinding}
 \begin{lstlisting}[caption={{Beispiel für Two-Way-Bindings \cite{AngularTwoWayBinding}}},language=HTML,label=lst:impl:two-way-bindings]
     <app-sizer [(size)]="fontSizePx"></app-sizer>
 \end{lstlisting}
 In den folgenden Kapitel werden die Komponenten und ihre Funktionalitäten näher beschrieben. 
 
 \subsection{Routing [M]}\label{sec:Routing}
-Routing ist das Konzept einer Single-Page-Applikation, wodurch die Seite niemals neu geladen werden muss und alle Daten beim Navigieren beibehalten werden können. Beim Routing werden dabei bestimmte Komponenten angezeigt, abhängig von der aktuellen URL. Dabei kann durch die Applikation navigiert werden, was durch den sogenannten Router realisiert wird.  Um das Routing überhaupt verwenden zu können, müssen die Pfade zu den zugehörigen Components initialisiert werden. Dies geschieht in einem \emph{ngModule}, wo alle initialisierten Routen über das RouterModule importiert werden. Um die Funktionalitäten und Routen für alle Components verwenden zu können, muss dieses RouterModule ebenfalls exportiert werden. Der Code zeigt dies anhand der 3D-Gallerie-Anwendung: \cite{AngularBuch}
+\emph{Routing} ist das Konzept einer Single-Page-Applikation, wodurch die Seite niemals neu geladen werden muss und alle Daten beim Navigieren beibehalten werden können. Beim Routing werden dabei bestimmte Komponenten angezeigt, abhängig von der aktuellen URL. Dabei kann durch die Applikation navigiert werden, was durch den sogenannten \emph{Router} realisiert wird.  Um das Routing überhaupt verwenden zu können, müssen die Pfade zu den zugehörigen Komponenten initialisiert werden. Dies geschieht in einem \emph{ngModule}, wo alle initialisierten Routen über das \emph{RouterModule} importiert werden. Um die Funktionalitäten und Routen für alle Komponenten verwenden zu können, muss dieses \emph{RouterModule}ebenfalls exportiert werden. Der Code zeigt dies anhand der 3D-Gallerie-Anwendung: \cite{AngularBuch}
 \begin{lstlisting}[caption={Routing in der 3D-Gallery},language=TypeScript,label=lst:impl:routing]
 const routes: Routes = [
   {path: '', component:HomePageComponent},
@@ -230,11 +228,11 @@ Um Routen dynamisch zu deklarieren, werden sogenannte Routenparameter benötigt.
 Um den aktuellen Zustand der URL auszulesen, muss der Router im Konstruktor injiziert werden. Anschließend kann der Parameter wie folgt ausgelesen und als Wert einer Variable zugewiesen werden:
 
 \begin{itemize}
-    \item Dies geschieht entweder über die Snapshot-Methode, die den momentanen Zustand der URL ausliest 
+    \item Dies geschieht entweder über die \emph{Snapshot-Methode}, die den momentanen Zustand der URL ausliest 
     \begin{lstlisting}[caption={Snapshot der URL abfragen},language=TypeScript,label=lst:impl:routingsnapshot]
         this.id = this.route.snapshot.paramMap.get('id');
     \end{lstlisting}
-    \item oder, wie auch im Projekt der 3D-Gallery umgesetzt, über das Observable-Pattern auf den Router subscriben, um auf ständige Änderungen im Pfad zu reagieren:
+    \item oder, wie auch im Projekt der 3D-Gallery umgesetzt, über das \emph{Observable-Pattern} (siehe \ref{txt:glos:observerDesignPattern}) auf den Router \ref{subscriben}, um auf ständige Änderungen im Pfad zu reagieren:
     \begin{lstlisting}[caption={Die URL subscriben},language=TypeScript,label=lst:impl:urlsubscription]
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id'];

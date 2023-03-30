@@ -1,4 +1,5 @@
 \subsection{Angular Services [M]}
+\label{txt:sec:Services}
 
 Um eine Schnittstelle zwischen dem Backend und dem Frontend herzustellen, werden \emph{Angular Services} verwendet.
 
@@ -7,7 +8,7 @@ In Angular entspricht ein Service einer TypeScript-Klasse, die verwendet wird, u
 
 \subsubsection{Dependency Injection}
 \label{DPI}
-In Angular ist es möglich, einen Service in eine beliebige Komponente zu injizieren. Das bedeutet, ein Service wird anhand von @Injectable() definiert und kann dadurch von anderen Komponenten verwendet werden \cite{AngularBuch}:
+In Angular ist es möglich, einen Service in eine beliebige Komponente zu injizieren. Das bedeutet, ein Service wird anhand von \emph{@Injectable()} definiert und kann dadurch von anderen Komponenten verwendet werden \cite{AngularBuch}:
 
 \begin{lstlisting}[caption={Eine Klasse Injectable machen},  language=TypeScript,label=lst:impl:injectable]   
     
@@ -20,9 +21,9 @@ In Angular ist es möglich, einen Service in eine beliebige Komponente zu injizi
    
 \end{lstlisting}
 
-Die Codezeile "providedIn: 'root'" sorgt dafür, dass sich Services entweder nur in spezifische Komponenten injizieren lassen oder sich wie hier auf root-level, also überall, injizieren lassen. \cite{AngularBuch}
+Die Codezeile “providedIn: 'root'” sorgt dafür, dass sich Services entweder nur in spezifische Komponenten injizieren lassen oder sich wie hier auf \emph{root-level}, also überall, injizieren lassen. \cite{AngularBuch}
 
-Ein Service wird zur Verwendung im Konstruktor einer Komponente initialisiert (Constructor Injection): 
+Ein Service wird zur Verwendung im Konstruktor einer Komponente initialisiert \emph{(Constructor Injection)}: 
 
 \begin{lstlisting}[caption={Constructor Injection},  language=TypeScript,label=lst:impl:concstructorinjection]   
     constructor(private gs: GalleryService) { }
@@ -47,7 +48,7 @@ Wie anhand des oberen Code-Beispiels erkennbar ist, wird hier das von uns erstel
 
 \subsubsection{Interface [M]}
 \label{interface}
-Interfaces werden verwendet, um ein Objekt typsicher zu strukturieren. Dabei wird, um Daten des Servers korrekt erhalten zu können, eine bestimmte Entität der Datenbank verglichen und durch die richtige Benennung und der korrekte Datentyp im Frontend abgebildet. Üblicherweise wird ein solches Datenobjekt exportiert, um es in der ganzen Anwendung zu verwenden. Folgendes Beispiel demonstriert dieses Konzept anhand des Exhibit-Interfaces \cite{AngularBuch}: 
+\emph{Interfaces} werden verwendet, um ein Objekt typsicher zu strukturieren. Dabei wird, um Daten des Servers korrekt erhalten zu können, eine bestimmte Entität der Datenbank verglichen und durch die richtige Benennung und der korrekte Datentyp im Frontend abgebildet. Üblicherweise wird ein solches Datenobjekt exportiert, um es in der ganzen Anwendung zu verwenden. Folgendes Beispiel demonstriert dieses Konzept anhand des Exhibit-Interfaces \cite{AngularBuch}: 
 
 \begin{lstlisting}[caption={Das Datenmodell eines Ausstelungsstückes},  language=TypeScript,label=lst:impl:httpclientrequests]   
   
