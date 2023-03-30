@@ -339,7 +339,41 @@ Das Dialogfenster ist eine eigene Angular-Komponente. Im Konstruktor der Kompone
 \subsubsection{Navigation}
 Benutzer*innen können ebenfalls direkt in der Detailansicht zwischen den einzelnen Ausstellungsstücken wechseln. Dadurch müssen Benutzer*innen die Detailansicht nicht ständig verlassen, wodurch Zeit und Benutzereingaben eingespart werden können. Außerdem kann dadurch eine Ausstellung, ähnlich wie bei dem Programm PowerPoint, gut für Präsentationszwecke genutzt werden.  
 
+Dabei wird durch das Array aller Ausstellungsstücke mit einer For-Schleife durchiteriert. So kann ermittelt werden, welches Ausstellungsstück im Moment angezeigt wird. Anschließend wird je nach Benutzereingabe das vorherige oder das darauffolgende Ausstellungsobjekt angezeigt. Nachdem der*die Benutzer*in jedes Ausstellungsstück begutachtet hat, beginnt die Präsentation der Ausstellungsstücke wieder von vorne. Weiters wird überprüft, welchen Datentyp das Ausstellungsstück besitzt, wodurch es korrekt entweder als Video, Bild oder 3D-Objekt angezeigt werden kann.
 
+\begin{lstlisting}[caption={Funktionen für das Navigieren durch die Ausstellung},language=TypeScript]
+
+  prevEx(){
+    if(this.data.allExhbits.length > 1) {
+      for (let i = 0; i < this.data.allExhbits.length; i++) {
+        if(this.title == this.data.allExhbits[i].title ){
+          if (i != 0) {
+            this.title = this.data.allExhbits[i-1].title
+            this.desc = this.data.allExhbits[i-1].description
+            this.checkDataType(this.data.allExhbits[i-1].exhibit_type, this.data.allExhbits[i-1].exhibit_url)
+          } else {
+            this.title = this.data.allExhbits[this.data.allExhbits.length-1].title
+            this.desc = this.data.allExhbits[this.data.allExhbits.length-1].description
+            this.checkDataType(this.data.allExhbits[this.data.allExhbits.length-1].exhibit_type, this.data.allExhbits[this.data.allExhbits.length-1].exhibit_url)
+          }
+          break;
+        }
+      }
+    }
+  }
+  
+    //nextEx(){
+    //  Selbe Funktionalitaet wie prevEx, nur fuer das vorwaerts 
+    //  Navigieren.
+    //}
+ 
+\end{lstlisting}
+
+Nur dann, wenn ein 3D-Objekt angezeigt werden soll, wird ein Canvas eingeblendet.
+
+\begin{lstlisting}[caption={Canvas anzeigen und ausblenden},language=HTML]
+<canvas [style.display]="fileType == '3d' ? 'block' : 'none'" #threeDetailCanvas class="detail"></canvas>
+\end{lstlisting}
 
 \subsection{Erledigte User-Stories [L]}
 In dem Entwicklungsprozess der Interatkionsmethoden wurden folgende User-Stories vollendet:
