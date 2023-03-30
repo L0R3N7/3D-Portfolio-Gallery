@@ -5,19 +5,19 @@ Ein Framework soll dem*der Programmierer*in helfen neue Applikationen zu schaffe
 
 \subsubsection{Open-Source [L]}
 \setauthor{Lorenz Litzlbauer}
-Bei einer Open Source Applikation ist der Code öffentlich zugänglich. Der Open Source Status sagt aber nichts über die Lizenzierung der Applikation aus. \cite{WhatOpenSource}
+Bei einer \emph{Open Source} Applikation ist der Code öffentlich zugänglich. Der Open Source Status sagt aber nichts über die Lizenzierung der Applikation aus. \cite{WhatOpenSource}
 
-\subsubsection{Single-Page-Application (SPA) [M]}
-\setauthor{Fabian Maar}
-Eine Single-Page-Webanwendung interagiert mit dem*der User*in, wodurch sich einzelne Komponenten der Website dynamisch verändern. //TODO
+\subsubsection{SPA [L]}
+Eine \emph{Single-Page-Application} ist eine Webapplikation, die nur ein einzelnes Dokument lädt. Der weitere Inhalt wird während der Laufzeit der Webseite dynamisch durch JavaScript APIs geladen. \cite{WhatSPA}
+
 
 \subsubsection{Design-Pattern [L]}
 \setauthor{Lorenz Litzlbauer}
 Im Programmieren gibt es Probleme, die immer wieder auftreten. Diese Probleme wurden schon einmal sehr effizient gelöst und es besteht kein Nutzen sie immer wieder zu lösen. Design Patterns sind Strategien und Implementierungsvorgaben für die Lösung dieser Probleme. Sie beschleunigen den Entwicklungsprozess und machen ihn sicher, weil die Implementierungsvorgaben schon vorgegeben sind und diese auf einen hohen Grad der Sicherheit getestet wurden. \cite{DesignPatterns}
 
-\paragraph{Observer design pattern}
+\paragraph{Observer design pattern [L]}
 \label{txt:glos:observerDesignPattern}
-Ein konkretes Beispiel für Design Patterns ist das \emph{Observer pattern}. Es wird dafür verwendet, Eins-zu-Eins-Beziehungen zwischen zwei oder mehreren Objekten zu erstellen. Ziel ist, dass Objekte (oder auch das Subject) bei allen Veränderungen diese schnell und leicht an das Objekt(oder auch den Observer) weitergeben.  Das Subject führt eine Liste von Observern. Sobald Änderungen auftreten, liest das Subject die Liste aus und informiert alle eingetragenen Observer. Wenn ein Objekt ein Observer werden will, muss es sich in die Liste des zu observierenden Objekt einschreiben. Ohne diese Funktionalität müsste der Observer in einem regelmäßigen Intervall das Subject abfragen, ob es eine Veränderung gab, die die Rechenzeit und Leistung verlängert würden. \cite{ObserverPatternExplaination}
+Ein konkretes Beispiel für Design Patterns ist das \emph{Observer pattern}. Es wird dafür verwendet, Eins-zu-Eins-Beziehungen zwischen zwei oder mehreren Objekten zu erstellen. Ziel ist, dass Objekte (oder auch das Subject) bei allen Veränderungen diese schnell und leicht an das Objekt(oder auch den Observer) weitergeben.  Das Subject führt eine Liste von Observern. Sobald Änderungen auftreten, liest das Subject die Liste aus und informiert alle eingetragenen Observer. Wenn ein Objekt ein Observer werden will, muss es sich in die Liste des zu observierenden Objekt einschreiben. Ohne diese Funktionalität müsste der Observer in einem regelmäßigen Intervall das Subject abfragen, ob es eine Veränderung gab. Das würde die Rechenzeit und Leistung verlängert. \cite{ObserverPatternExplaination}
 
 \subsubsection{Event-Listener [M]}
 \setauthor{Fabian Maar}
@@ -32,11 +32,12 @@ Sind Funktionen, Services, Libaries etc., die von Drittanbietern bereitgestellt 
 \label{txt:glos:API}
 Eine Applikations-Programmierung-Schnittstelle bietet einen Kommunikationsweg zu einem Service oder einer Applikation ohne von der Implementation, dem Aufbau und dem Hintergrund von dieser Applikation wissen zu müssen. \cite{WhatApi}
 
-\subsubsection{DOM [M]}
-\label{txt:glos:DOM}
-\setauthor{Fabian Maar}
-//TODO 
-\subsubsection{Shadow-DOM}
+\subsubsection{DOM [L]}
+\setauthor{Lorenz Litzlbauer}
+Das \emph{Dokumenten-Objekte-Model} ist die Programmierschnittstelle für Webdokumente. Elemente der Webseite werden in Knoten in einer Baumstruktur abgebildet. Durch das DOM können programmatisch Veränderungen an dem Inhalt, der Struktur und dem Stil der Webseite gemacht werden. \cite{WhatDOM}
+
+\paragraph{Shadow-DOM [L]}
+Die \emph{Shadow-DOM} ermöglicht eine Abkapselung von Teilen der Webseite. Sie wird häufig bei Web-Komponenten benutzt, damit das Styling und das Programm diese sich gegenseitig nicht beeinflussen. \cite{WhatShadowDOM}
 
 
 \subsubsection{Direktiven [M]}
@@ -47,12 +48,8 @@ Eine Applikations-Programmierung-Schnittstelle bietet einen Kommunikationsweg zu
 \setauthor{Fabian Maar}
 //TODO
 
-\subsubsection{Optionals [M]}
-\setauthor{Fabian Maar}
-//TODO
-
-\subsubsection{Mockup}
-//TODO
+\subsubsection{Mockup [L]}
+Ein Mockup ist eine Fassade des Produktes durch die das Design und die Funktionalität simuliert werden können, um Feedback beim Kunden zu erhalten. \cite{Mokup}
 
 
 \subsubsection{Evolutionäres Prototyping [L]}
