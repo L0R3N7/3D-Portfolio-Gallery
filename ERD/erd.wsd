@@ -1,68 +1,65 @@
-@startuml DA-Klassendiagramm
+@startuml DA-Diagramm
 entity User {
-    id: number <<generated>>
-    --
-    email: string
-    username: string
-    password: hashed
-    icon_url: string
+    +id: number <<generated>>
+    +email: string
+    +username: string
+    +password: hashed
+    +icon_url: string
 }
 
 entity Exhibition {
-    id: number <<generated>>
-    --
-    thumbnail_url: string
-    title: string
-    room_id: number
-    description: string
+    +id: number <<generated>>
+    +thumbnail_url: string
+    +title: string
+    +room_id: number
+    +description: string
 }
 entity Themes {
-    id: number <<generated>>
-    --
-    thumbnail_url: string
-    mat_wall_or_object: string
-    mat_floor: string <<nullable>>
-    light_intensity: number
-    model_path: string <<nullable>>
-    is_exhibit: boolean
+    +id: number <<generated>>
+    +thumbnail_url: string
+    +mat_wall_or_object: string
+    +mat_floor: string NULL
+    +light_intensity: number
+    +model_path: string NULL
+    +is_exhibit: boolean
 }
 
 entity Room {
-    id : number <<generated>>
-    --
-    name: string◊
-    positions_amount : number
-    room_url: string
+    +id : number <<generated>>
+    +name: string
+    +positions_amount : number
+    +room_url: string
 }
 
 entity Position{
-    id : number <<generated>>
-    room_id : number
-    ---
-    x : number
-    y : number
-    is_Wall : boolean
+    +id : number <<generated>>
+    +room_id : number
+    +x : number
+    +y : number
+    +is_Wall : boolean
 }
 
 entity Exhibition_Category {
-    exhibition_id : number
-    category_id : number
+    +exhibition_id : number
+    +category_id : number
 }
 
 entity Category{
-   id : number <<generated>>
-   --
-   title: string
-   color: varchar2(6)
+   +id : number <<generated>>
+   +title: string
+   +color: string
 }
 
 entity Exhibit {
-    id: number <<generated>> 
-    --
-    url: string
-    datatype: string
-    title: string
-    desc: string
+    +id: number <<generated>> 
+    +url: string
+    +datatype: string
+    +title: string
+    +desc: string
+    +scale: number
+    +alignment: string
+    +Exhibit()
+    +Exhibit(url, datatype, title, desc, scale, alignment)
 }
 
 User ||--o{ Exhibition
